@@ -3,7 +3,7 @@
 ## 🎉 Your Sanity Studio is Ready!
 
 Your Sanity Studio has been created with:
-- **Project ID**: bj6asnq3
+- **Project ID**: 15c5x8s5
 - **Dataset**: production
 - **Schemas**: Articles and Airdrops configured
 
