@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TrendingUp, TrendingDown, Clock, ArrowRight } from 'lucide-react';
+import { TrendingUp, TrendingDown, Clock, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import FearGreedGauge from '@/components/FearGreedGauge';
 import LiveTicker from '@/components/LiveTicker';
 import PremiumBanner from '@/components/PremiumBanner';
+import MarketIndicators from '@/components/MarketIndicators';
+import LoadingSkeleton from '@/components/LoadingSkeleton';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
