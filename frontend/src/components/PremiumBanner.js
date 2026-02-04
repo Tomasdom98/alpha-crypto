@@ -18,7 +18,7 @@ export default function PremiumBanner() {
               Unlock Premium Alpha
             </h2>
             <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
-              Get exclusive airdrops, deep-dive analysis, early market signals, and advanced investment research for just $9/month
+              Get exclusive airdrops, deep-dive analysis, early market signals, and advanced investment research for just $20/month
             </p>
             <button
               data-testid="unlock-premium-btn"
