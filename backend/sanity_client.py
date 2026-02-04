@@ -159,6 +159,7 @@ async def get_airdrop_by_id(airdrop_id: str) -> Optional[Dict]:
     query = f'''*[_type == "airdrop" && _id == "{airdrop_id}"][0] {{
         _id,
         projectName,
+        logoUrl,
         description,
         steps,
         deadline,
@@ -170,4 +171,24 @@ async def get_airdrop_by_id(airdrop_id: str) -> Optional[Dict]:
     }}'''
     
     result = await sanity.fetch(query)
-    return result if isinstance(result, dict) else None
+    
+    if not result or (isinstance(result, list) and len(result) == 0):
+        return None
+    
+    # Handle if result is a list with one item
+    airdrop = result[0] if isinstance(result, list) else result
+    
+    # Transform to match API format
+    return {
+        "id": airdrop.get("_id", ""),
+        "project_name": airdrop.get("projectName", ""),
+        "logo_url": airdrop.get("logoUrl", "") or "https://images.unsplash.com/photo-1642413598014-7742a18e85aa?w=400",
+        "description": airdrop.get("description", ""),
+        "steps": airdrop.get("steps", []),
+        "deadline": airdrop.get("deadline") or datetime.now(timezone.utc).isoformat(),
+        "estimated_reward": airdrop.get("estimatedReward", "$0"),
+        "difficulty": airdrop.get("difficulty", "Medium"),
+        "status": airdrop.get("status", "active"),
+        "link": airdrop.get("link", ""),
+        "premium": airdrop.get("premium", False)
+    }
