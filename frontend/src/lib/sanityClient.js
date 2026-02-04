@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client';
 
-const projectId = 'bj6asnq3';
+const projectId = '15c5x8s5';
 const dataset = 'production';
 const apiVersion = '2024-01-01';
 
