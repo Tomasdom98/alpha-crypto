@@ -171,53 +171,119 @@ def get_mock_articles():
     return [
         {
             "id": "1",
-            "title": "Bitcoin Halving: What Investors Need to Know",
-            "excerpt": "The upcoming Bitcoin halving could reshape the crypto market. Here's our complete analysis.",
-            "content": "Detailed analysis of Bitcoin halving...",
-            "category": "Analysis",
+            "title": "Stablecoins: La Revolución Silenciosa del Sistema Financiero",
+            "excerpt": "Stripe, Visa y Mastercard se unen a la revolución. Los bancos adoptan stablecoins y las remesas nunca fueron más baratas.",
+            "content": """Las stablecoins están transformando silenciosamente el sistema financiero global. En los últimos meses, gigantes como Stripe, Visa y Mastercard han anunciado integraciones con USDC y otras stablecoins, marcando un punto de inflexión histórico.
+
+**Los números no mienten:**
+- Volumen de transacciones en stablecoins: $7.4 trillones en 2024
+- Crecimiento interanual: +156%
+- Costo promedio de remesa con stablecoins: 0.5% (vs 6.2% tradicional)
+
+**Adopción institucional acelerada:**
+Stripe lanzó pagos en USDC para merchants globales. Visa procesa más de $1 billón mensual en settlements con stablecoins. Los bancos tradicionales como JPMorgan y HSBC están experimentando con stablecoins propias.
+
+**El impacto en remesas:**
+Para Latinoamérica, esto es revolucionario. Enviar dinero de EE.UU. a México o Colombia ahora cuesta centavos en lugar de decenas de dólares. El tiempo de transferencia pasó de días a segundos.
+
+**El futuro:**
+Los reguladores están siguiendo de cerca estos desarrollos. La aprobación de MiCA en Europa y las nuevas regulaciones en EE.UU. sugieren que las stablecoins serán el puente entre las finanzas tradicionales y cripto.""",
+            "category": "Stablecoins",
             "premium": False,
-            "published_at": "2024-01-15T10:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1651054558996-03455fe2702f?crop=entropy&cs=srgb&fm=jpg&q=85"
+            "published_at": "2024-02-01T10:00:00Z",
+            "image_url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "2",
-            "title": "DeFi Summer 2.0: Top Protocols to Watch",
-            "excerpt": "A comprehensive guide to the hottest DeFi protocols delivering real yield.",
-            "content": "Deep dive into DeFi protocols...",
-            "category": "DeFi",
+            "title": "AI Agents y la Economía del Futuro",
+            "excerpt": "El protocolo x402, Ethereum como backbone, y cómo los agentes de IA están creando una nueva economía autónoma.",
+            "content": """Los AI Agents están dejando de ser ciencia ficción para convertirse en actores económicos reales. El surgimiento del protocolo x402 en Ethereum marca el inicio de una nueva era.
+
+**¿Qué son los AI Agents en crypto?**
+Son programas de inteligencia artificial que pueden poseer wallets, ejecutar transacciones, y operar de forma autónoma en blockchains. No necesitan intermediarios humanos para actuar.
+
+**El protocolo x402:**
+Desarrollado sobre Ethereum, x402 permite que los agentes de IA realicen micropagos automáticos por servicios computacionales. Imagina AIs pagándose entre sí por procesamiento, datos, o API calls.
+
+**Casos de uso emergentes:**
+- Trading bots que reinvierten sus propias ganancias
+- Agentes de soporte 24/7 que pagan por servicios cuando los necesitan
+- Sistemas de gobernanza delegados a IA para DAOs
+- Creación automatizada de contenido con monetización instantánea
+
+**Cómo aprovechar esta tendencia:**
+1. Invertir en tokens de infraestructura (Ethereum, Chainlink)
+2. Participar en protocolos de AI agents como Fetch.ai, Ocean Protocol
+3. Desarrollar o utilizar herramientas que integren IA con smart contracts
+
+**Proyectos a seguir:**
+- Autonolas: Framework para agentes autónomos
+- Morpheus: Red de AI agents descentralizada
+- ChainGPT: IA especializada en blockchain
+
+La economía agentic apenas comienza. Los primeros en entender y posicionarse tendrán ventaja significativa.""",
+            "category": "AI",
             "premium": True,
-            "published_at": "2024-01-14T15:30:00Z",
-            "image_url": "https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?crop=entropy&cs=srgb&fm=jpg&q=85"
+            "published_at": "2024-01-30T15:30:00Z",
+            "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "3",
-            "title": "AI Crypto Projects Gaining Traction",
-            "excerpt": "How artificial intelligence is revolutionizing blockchain infrastructure.",
-            "content": "AI and crypto convergence...",
-            "category": "AI",
+            "title": "¿Qué está pasando en Crypto en 2026?",
+            "excerpt": "Un panorama completo del mercado: conflictos regulatorios, avances tecnológicos, minería y adopción institucional.",
+            "content": """El mercado cripto en 2026 presenta un panorama de contrastes. Por un lado, avances tecnológicos sin precedentes; por otro, batallas regulatorias que definen el futuro de la industria.
+
+**Estado del mercado:**
+- Bitcoin dominance: 52%
+- Total market cap: $2.4 trillones
+- Volumen diario: $85 billones
+
+**Conflictos regulatorios actuales:**
+La SEC continúa su batalla legal con exchanges. Sin embargo, la aprobación de ETFs de Bitcoin spot marcó un antes y después. Europa avanza con MiCA mientras Asia lidera en adopción.
+
+**Avances en minería:**
+- El hashrate de Bitcoin alcanzó nuevos máximos
+- Tendencia hacia energías renovables (48% del mining usa energía limpia)
+- ASIC de nueva generación reducen costos operativos en 30%
+
+**Adopción institucional:**
+BlackRock, Fidelity, y otros gigantes tradicionales ahora ofrecen productos crypto. Los fondos de pensión europeos comienzan a diversificar con Bitcoin (máximo 2% del portfolio).
+
+**Desarrollos técnicos clave:**
+- Ethereum completó sus upgrades de escalabilidad
+- Layer 2s procesan más transacciones que Ethereum mainnet
+- Solana recuperó credibilidad tras mejoras de uptime
+- Cross-chain bridges más seguros gracias a nuevos estándares
+
+**Perspectivas:**
+El mercado está en fase de maduración. Los proyectos sin fundamentos sólidos desaparecen mientras la infraestructura seria atrae capital institucional. La narrativa ha cambiado: de especulación a utilidad real.
+
+**Para inversores:**
+Focus en fundamentales, no en hype. Las oportunidades están en infraestructura, stablecoins, y proyectos con revenue real.""",
+            "category": "Analysis",
             "premium": False,
-            "published_at": "2024-01-13T09:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1666624833516-6d0e320c610d?crop=entropy&cs=srgb&fm=jpg&q=85"
+            "published_at": "2024-01-28T09:00:00Z",
+            "image_url": "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "4",
-            "title": "Stablecoin Regulations: The New Landscape",
-            "excerpt": "Understanding the regulatory framework shaping the future of stablecoins.",
-            "content": "Stablecoin regulation analysis...",
-            "category": "Stablecoins",
-            "premium": False,
-            "published_at": "2024-01-12T14:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1644925295849-f057b6ee1c66?crop=entropy&cs=srgb&fm=jpg&q=85"
+            "title": "DeFi Summer 2.0: Top Protocols to Watch",
+            "excerpt": "A comprehensive guide to the hottest DeFi protocols delivering real yield.",
+            "content": "Deep dive into DeFi protocols with real yield generation. Focus on sustainable tokenomics and actual revenue.",
+            "category": "DeFi",
+            "premium": True,
+            "published_at": "2024-01-25T14:00:00Z",
+            "image_url": "https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "5",
-            "title": "Breaking: Major Exchange Announces New Listing",
-            "excerpt": "Exclusive coverage of the latest crypto exchange developments.",
-            "content": "Exchange news...",
-            "category": "News",
-            "premium": True,
-            "published_at": "2024-01-11T11:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1642413598014-7742a18e85aa?crop=entropy&cs=srgb&fm=jpg&q=85"
+            "title": "Layer 2 Wars: Arbitrum vs Optimism vs Base",
+            "excerpt": "Análisis comparativo de los principales L2s y cuál ofrece mejores oportunidades.",
+            "content": "Detailed comparison of leading Ethereum Layer 2 solutions including transaction costs, security, and ecosystem growth.",
+            "category": "Technology",
+            "premium": False,
+            "published_at": "2024-01-20T11:00:00Z",
+            "image_url": "https://images.unsplash.com/photo-1666624833516-6d0e320c610d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         }
     ]
 
