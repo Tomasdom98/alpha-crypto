@@ -156,8 +156,8 @@ You can manage content from anywhere:
 ## 📊 Monitoring Content
 
 View your published content:
-- **Articles**: https://bj6asnq3.sanity.studio/desk/article
-- **Airdrops**: https://bj6asnq3.sanity.studio/desk/airdrop
+- **Articles**: https://15c5x8s5.sanity.studio/desk/article
+- **Airdrops**: https://15c5x8s5.sanity.studio/desk/airdrop
 
 ## 🚀 Next Steps
 
