@@ -5,7 +5,7 @@
 ✅ YOUR STUDIO IS READY!
 
 📍 ONLINE STUDIO (Recommended):
-   URL: https://bj6asnq3.sanity.studio
+   URL: https://15c5x8s5.sanity.studio
    
    Login with your Sanity account and start creating content!
 
@@ -17,7 +17,7 @@
 ║  QUICK GUIDE: Create Your First Article                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
-1. Go to: https://bj6asnq3.sanity.studio
+1. Go to: https://15c5x8s5.sanity.studio
 2. Click "Article" in sidebar
 3. Click "+" Create button
 4. Fill in:
@@ -105,7 +105,7 @@ Studio not showing content?
 → Refresh browser (Ctrl+R or Cmd+R)
 
 Can't access studio?
-→ Login at sanity.io with account for project bj6asnq3
+→ Login at sanity.io with account for project 15c5x8s5
 → Check you have access to the project
 
 Need more help?
@@ -116,5 +116,5 @@ Need more help?
 ║  🎉 START CREATING CONTENT NOW!                              ║
 ╚══════════════════════════════════════════════════════════════╝
 
-Go to: https://bj6asnq3.sanity.studio
+Go to: https://15c5x8s5.sanity.studio
 
