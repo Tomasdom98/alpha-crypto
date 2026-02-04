@@ -714,13 +714,14 @@ async def get_market_stats():
 
 @api_router.get("/articles", response_model=List[Article])
 async def get_articles_route(category: Optional[str] = None, search: Optional[str] = None):
-    """Get articles from Sanity CMS with optional filtering"""
+    """Get articles - uses mock data with new articles"""
     try:
-        articles = await get_articles(category)
+        # Use the comprehensive mock articles
+        articles = get_mock_articles()
         
-        # If no Sanity data, fall back to mock data
-        if not articles:
-            articles = get_mock_articles()
+        # Apply category filter
+        if category and category != "all":
+            articles = [a for a in articles if a.get('category', '').lower() == category.lower()]
         
         # Apply search filter if provided
         if search:
@@ -730,14 +731,14 @@ async def get_articles_route(category: Optional[str] = None, search: Optional[st
         return articles
     except Exception as e:
         logger.error(f"Error fetching articles: {e}")
-        # Fallback to mock data on error
         return get_mock_articles()
 
 @api_router.get("/articles/{article_id}", response_model=Article)
 async def get_article(article_id: str):
-    """Get single article by ID or slug from Sanity"""
+    """Get single article by ID"""
     try:
-        article = await get_article_by_slug(article_id)
+        articles = get_mock_articles()
+        article = next((a for a in articles if a['id'] == article_id), None)
         if not article:
             raise HTTPException(status_code=404, detail="Article not found")
         return article
@@ -745,9 +746,7 @@ async def get_article(article_id: str):
         raise
     except Exception as e:
         logger.error(f"Error fetching article: {e}")
-        # Fallback to mock data
-        articles = get_mock_articles()
-        article = next((a for a in articles if a['id'] == article_id), None)
+        raise HTTPException(status_code=500, detail="Failed to fetch article")
         if not article:
             raise HTTPException(status_code=404, detail="Article not found")
         return article
