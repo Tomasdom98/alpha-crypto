@@ -84,6 +84,20 @@ class MarketIndex(BaseModel):
     value: float
     change_24h: float
 
+class FeedbackSubmission(BaseModel):
+    name: str
+    email: str
+    message: str
+
+class Feedback(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    name: str
+    email: str
+    message: str
+    created_at: str
+    read: bool = False
+
 class PaymentSubmission(BaseModel):
     email: str
     wallet_address: str
