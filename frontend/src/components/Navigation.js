@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import PremiumModal from './PremiumModal';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const location = useLocation();
 
   const navItems = [
