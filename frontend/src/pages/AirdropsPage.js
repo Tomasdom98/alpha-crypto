@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Clock } from 'lucide-react';
+import { Clock, ArrowRight, ChevronRight } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -59,12 +59,12 @@ export default function AirdropsPage() {
             Active Airdrops
           </h1>
           <p className="text-gray-400 text-lg">Track and complete airdrop tasks to maximize rewards</p>
-          <p className="text-emerald-500 mt-2">✅ Connected to Sanity CMS (Project: 15c5x8s5)</p>
+          <p className="text-gray-500 text-sm mt-2">Click on any airdrop to see full details and step-by-step guide</p>
         </div>
 
         {/* Results Count */}
         <div className="mb-6 text-gray-400" data-testid="airdrops-count">
-          Showing {airdrops.length} airdrop{airdrops.length !== 1 ? 's' : ''} from Sanity
+          Showing {airdrops.length} active airdrop{airdrops.length !== 1 ? 's' : ''}
         </div>
 
         {/* Airdrops List */}

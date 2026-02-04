@@ -67,6 +67,10 @@ class Airdrop(BaseModel):
     project_name: str
     logo_url: str
     description: str
+    full_description: Optional[str] = None
+    backing: Optional[str] = None
+    chain: Optional[str] = None
+    timeline: Optional[str] = None
     tasks: List[AirdropTask]
     estimated_reward: str
     difficulty: str
