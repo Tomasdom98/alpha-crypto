@@ -1,77 +1,104 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { ArrowLeft, ExternalLink, Check, Clock, TrendingUp, Shield, Users } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { 
+  ArrowLeft, 
+  Clock, 
+  ExternalLink, 
+  CheckCircle2, 
+  Circle,
+  Zap,
+  Users,
+  Calendar,
+  Link2,
+  Shield
+} from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function AirdropDetailPage() {
-  const { id } = useParams();
+  const { airdropId } = useParams();
   const [airdrop, setAirdrop] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [taskStates, setTaskStates] = useState({});
+  const [error, setError] = useState(null);
+  const [completedTasks, setCompletedTasks] = useState({});
 
   useEffect(() => {
     const fetchAirdrop = async () => {
       try {
-        const { data } = await axios.get(`${API}/airdrops/${id}`);
+        const { data } = await axios.get(`${API}/airdrops/${airdropId}`);
         setAirdrop(data);
-        
-        // Initialize task states
-        const states = {};
-        data.tasks?.forEach((task) => {
-          states[task.id] = task.completed;
+        // Initialize completed tasks state
+        const initialCompleted = {};
+        data.tasks?.forEach(task => {
+          initialCompleted[task.id] = task.completed || false;
         });
-        setTaskStates(states);
-      } catch (error) {
-        console.error('Error fetching airdrop:', error);
+        setCompletedTasks(initialCompleted);
+      } catch (err) {
+        console.error('Error fetching airdrop:', err);
+        setError('Airdrop not found');
       } finally {
         setLoading(false);
       }
     };
 
     fetchAirdrop();
-  }, [id]);
+  }, [airdropId]);
 
-  const toggleTask = (taskId) => {
-    setTaskStates((prev) => ({
+  const toggleTask = async (taskId) => {
+    setCompletedTasks(prev => ({
       ...prev,
-      [taskId]: !prev[taskId],
+      [taskId]: !prev[taskId]
     }));
+    // Optionally sync with backend
+    try {
+      await axios.post(`${API}/airdrops/${airdropId}/tasks/${taskId}/toggle`);
+    } catch (err) {
+      console.error('Error toggling task:', err);
+    }
   };
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty?.toLowerCase()) {
       case 'easy':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+        return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
       case 'medium':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+        return 'bg-amber-500/20 text-amber-400 border-amber-500/30';
       case 'hard':
-        return 'bg-red-500/10 text-red-400 border-red-500/20';
+        return 'bg-red-500/20 text-red-400 border-red-500/30';
       default:
-        return 'bg-gray-500/10 text-gray-400 border-gray-500/20';
+        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     }
   };
+
+  const completedCount = Object.values(completedTasks).filter(Boolean).length;
+  const totalTasks = airdrop?.tasks?.length || 0;
+  const progressPercent = totalTasks > 0 ? (completedCount / totalTasks) * 100 : 0;
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent mb-4" />
-          <div className="text-emerald-500 text-xl font-semibold">Loading airdrop details...</div>
+          <div className="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="text-emerald-500 text-xl font-mono">Loading airdrop details...</div>
         </div>
       </div>
     );
   }
 
-  if (!airdrop) {
+  if (error || !airdrop) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl text-white mb-4">Airdrop not found</h2>
-          <Link to="/airdrops" className="text-emerald-500 hover:text-emerald-400">
+          <div className="text-6xl mb-4">🔍</div>
+          <h2 className="text-2xl font-bold text-white mb-2">Airdrop Not Found</h2>
+          <p className="text-gray-400 mb-6">The airdrop you're looking for doesn't exist or has been removed.</p>
+          <Link
+            to="/airdrops"
+            className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition-all"
+          >
+            <ArrowLeft size={20} />
             Back to Airdrops
           </Link>
         </div>
@@ -79,247 +106,229 @@ export default function AirdropDetailPage() {
     );
   }
 
-  const completedTasks = Object.values(taskStates).filter(Boolean).length;
-  const totalTasks = airdrop.tasks?.length || 0;
-  const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12" data-testid="airdrop-detail-page">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <Link
           to="/airdrops"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-500 transition-colors mb-8 group"
+          data-testid="back-to-airdrops"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           Back to Airdrops
         </Link>
 
         {/* Header Card */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 p-8 mb-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent" />
-          <div className="relative z-10">
-            <div className="flex items-start gap-6 mb-6">
+        <div className={`glass-card rounded-2xl p-8 mb-8 ${airdrop.premium ? 'premium-glow' : ''}`}>
+          <div className="flex flex-col md:flex-row items-start gap-6">
+            {/* Logo */}
+            {airdrop.logo_url && (
               <img 
                 src={airdrop.logo_url} 
                 alt={airdrop.project_name} 
-                className="w-24 h-24 rounded-2xl border-2 border-emerald-500/30" 
+                className="w-24 h-24 rounded-xl object-cover shadow-lg"
+                data-testid="airdrop-logo"
               />
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <h1 
-                    className="text-4xl font-bold text-white" 
-                    style={{ fontFamily: 'Space Grotesk, sans-serif' }}
-                  >
-                    {airdrop.project_name}
-                  </h1>
-                  {airdrop.premium && (
-                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg">
-                      Premium
-                    </span>
-                  )}
-                </div>
-                <p className="text-xl text-gray-300 mb-4">{airdrop.description}</p>
-                <div className="flex items-center gap-4 flex-wrap">
-                  <span className="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg border border-gray-700 font-medium">
+            )}
+            
+            {/* Title & Info */}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <h1 
+                  className="text-3xl md:text-4xl font-black text-white"
+                  style={{ fontFamily: 'Chivo, sans-serif' }}
+                  data-testid="airdrop-title"
+                >
+                  {airdrop.project_name}
+                </h1>
+                {airdrop.premium && (
+                  <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg tracking-wide uppercase">
+                    Premium Alpha
+                  </span>
+                )}
+              </div>
+              
+              <p className="text-gray-300 text-lg mb-4" data-testid="airdrop-description">
+                {airdrop.description}
+              </p>
+
+              {/* Meta Tags */}
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className={`px-4 py-2 rounded-lg border ${getDifficultyColor(airdrop.difficulty)} text-sm font-bold capitalize`}>
+                  {airdrop.difficulty} Difficulty
+                </span>
+                {airdrop.chain && (
+                  <span className="px-4 py-2 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/30 text-sm font-medium">
                     {airdrop.chain}
                   </span>
-                  <span className={`px-4 py-2 rounded-lg border font-bold ${getDifficultyColor(airdrop.difficulty)}`}>
-                    {airdrop.difficulty}
-                  </span>
-                  <span className="flex items-center gap-2 text-gray-400">
-                    <Clock size={16} />
-                    {new Date(airdrop.deadline).toLocaleDateString()}
-                  </span>
-                </div>
+                )}
+                <span className="text-gray-500 flex items-center gap-2 text-sm">
+                  <Clock size={16} />
+                  Deadline: {new Date(airdrop.deadline).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </span>
               </div>
-              <div className="text-right">
-                <div className="text-sm text-gray-400 mb-1">Estimated Reward</div>
-                <div 
-                  className="text-3xl font-bold text-emerald-500 mb-2" 
-                  style={{ fontFamily: 'Space Grotesk, monospace' }}
-                >
-                  {airdrop.estimated_reward}
-                </div>
-                <a
-                  href={airdrop.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition-all hover:scale-105"
-                >
-                  Start Now <ExternalLink size={18} />
-                </a>
+            </div>
+
+            {/* Reward Card */}
+            <div className="glass-card rounded-xl p-6 text-center min-w-[200px]">
+              <div className="text-sm text-gray-400 mb-2">Estimated Reward</div>
+              <div 
+                className="text-3xl font-black text-emerald-500"
+                style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                data-testid="airdrop-reward"
+              >
+                {airdrop.estimated_reward}
               </div>
+              {airdrop.timeline && (
+                <div className="text-xs text-gray-500 mt-2">{airdrop.timeline}</div>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Tasks & Description */}
+          <div className="lg:col-span-2 space-y-8">
             {/* Full Description */}
-            <div className="glass-card rounded-2xl p-6">
-              <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                About {airdrop.project_name}
-              </h2>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                {airdrop.full_description || airdrop.description}
-              </p>
-              
-              {airdrop.backing && (
-                <div className="mt-4 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-                  <div className="flex items-center gap-2 text-emerald-400 mb-2">
-                    <Shield size={18} />
-                    <span className="font-bold">Backing & Investors</span>
-                  </div>
-                  <p className="text-gray-300 text-sm">{airdrop.backing}</p>
-                </div>
-              )}
-
-              {airdrop.timeline && (
-                <div className="mt-4 p-4 bg-gray-800/50 border border-gray-700 rounded-xl">
-                  <div className="flex items-center gap-2 text-gray-400 mb-2">
-                    <Clock size={18} />
-                    <span className="font-bold">Expected Timeline</span>
-                  </div>
-                  <p className="text-gray-300 text-sm">{airdrop.timeline}</p>
-                </div>
-              )}
-            </div>
+            {airdrop.full_description && (
+              <div className="glass-card rounded-xl p-6">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Zap className="text-emerald-500" size={24} />
+                  About This Airdrop
+                </h2>
+                <p className="text-gray-300 leading-relaxed" data-testid="airdrop-full-description">
+                  {airdrop.full_description}
+                </p>
+              </div>
+            )}
 
             {/* Tasks Checklist */}
             {airdrop.tasks && airdrop.tasks.length > 0 && (
-              <div className="glass-card rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              <div className="glass-card rounded-xl p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <CheckCircle2 className="text-emerald-500" size={24} />
                     Tasks to Complete
                   </h2>
-                  <span className="text-emerald-500 font-bold">
-                    {completedTasks}/{totalTasks}
+                  <span className="text-sm text-gray-400">
+                    {completedCount}/{totalTasks} completed
                   </span>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="mb-6">
-                  <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <p className="text-sm text-gray-500 mt-2">{Math.round(progress)}% complete</p>
+                <div className="w-full bg-gray-800 rounded-full h-2 mb-6">
+                  <div 
+                    className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${progressPercent}%` }}
+                  ></div>
                 </div>
 
-                <div className="space-y-3">
+                {/* Task List */}
+                <div className="space-y-3" data-testid="airdrop-tasks-list">
                   {airdrop.tasks.map((task, index) => (
-                    <div
+                    <button
                       key={task.id}
-                      className="flex items-start gap-3 p-4 bg-gray-800/30 rounded-xl hover:bg-gray-800/50 transition-colors"
+                      onClick={() => toggleTask(task.id)}
+                      className={`w-full flex items-start gap-4 p-4 rounded-lg transition-all text-left group ${
+                        completedTasks[task.id] 
+                          ? 'bg-emerald-500/10 border border-emerald-500/30' 
+                          : 'bg-gray-800/50 border border-gray-700 hover:border-gray-600'
+                      }`}
+                      data-testid={`task-${task.id}`}
                     >
-                      <Checkbox
-                        checked={taskStates[task.id] || false}
-                        onCheckedChange={() => toggleTask(task.id)}
-                        className="mt-1"
-                      />
+                      <div className="flex-shrink-0 mt-0.5">
+                        {completedTasks[task.id] ? (
+                          <CheckCircle2 className="text-emerald-500" size={24} />
+                        ) : (
+                          <Circle className="text-gray-500 group-hover:text-gray-400" size={24} />
+                        )}
+                      </div>
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-bold text-emerald-500">Step {index + 1}</span>
-                        </div>
-                        <span className={`${taskStates[task.id] ? 'line-through text-gray-500' : 'text-gray-300'}`}>
+                        <span className="text-xs text-gray-500 font-mono mb-1 block">Step {index + 1}</span>
+                        <span className={`${completedTasks[task.id] ? 'text-gray-400 line-through' : 'text-gray-200'}`}>
                           {task.description}
                         </span>
                       </div>
-                    </div>
+                    </button>
                   ))}
-                </div>
-
-                <div className="mt-6 p-4 bg-gray-800/30 border border-gray-700 rounded-xl">
-                  <p className="text-sm text-gray-400">
-                    <strong className="text-white">Pro Tip:</strong> Complete all tasks consistently and maintain activity to maximize your airdrop allocation. Higher trading volume and longer participation usually result in better rewards.
-                  </p>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* Right Column - Info Cards */}
           <div className="space-y-6">
-            {/* Quick Stats */}
-            <div className="glass-card rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">Quick Stats</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-sm text-gray-400 mb-1">Chain</div>
-                  <div className="text-white font-medium">{airdrop.chain}</div>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400 mb-1">Difficulty</div>
-                  <span className={`inline-block px-3 py-1 rounded-lg border text-sm font-bold ${getDifficultyColor(airdrop.difficulty)}`}>
-                    {airdrop.difficulty}
-                  </span>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400 mb-1">Status</div>
-                  <span className="inline-block px-3 py-1 rounded-lg border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-sm font-bold capitalize">
-                    {airdrop.status}
-                  </span>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400 mb-1">Deadline</div>
-                  <div className="text-white font-medium">
-                    {new Date(airdrop.deadline).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </div>
-                </div>
+            {/* Backing Info */}
+            {airdrop.backing && (
+              <div className="glass-card rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                  <Users className="text-emerald-500" size={20} />
+                  Investors & Backing
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed" data-testid="airdrop-backing">
+                  {airdrop.backing}
+                </p>
+              </div>
+            )}
+
+            {/* Timeline */}
+            {airdrop.timeline && (
+              <div className="glass-card rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                  <Calendar className="text-emerald-500" size={20} />
+                  Timeline
+                </h3>
+                <p className="text-gray-300 text-sm" data-testid="airdrop-timeline">
+                  {airdrop.timeline}
+                </p>
+              </div>
+            )}
+
+            {/* Status */}
+            <div className="glass-card rounded-xl p-6">
+              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                <Shield className="text-emerald-500" size={20} />
+                Status
+              </h3>
+              <div className="flex items-center gap-2">
+                <span className={`w-3 h-3 rounded-full ${airdrop.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-gray-500'}`}></span>
+                <span className="text-gray-300 capitalize">{airdrop.status}</span>
               </div>
             </div>
 
-            {/* Referral Link */}
-            <div className="glass-card rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">Get Started</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Use our referral link to maximize your rewards:
-              </p>
-              <a
-                href={airdrop.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-4 rounded-lg transition-all hover:scale-105"
-              >
-                Visit {airdrop.project_name}
-                <ExternalLink size={18} />
-              </a>
-            </div>
+            {/* CTA Button */}
+            <a
+              href={airdrop.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 px-6 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-500/25"
+              data-testid="airdrop-cta-button"
+            >
+              <Link2 size={20} />
+              Start This Airdrop
+              <ExternalLink size={16} />
+            </a>
 
-            {/* Important Notes */}
-            <div className="glass-card rounded-2xl p-6 bg-amber-500/5 border-amber-500/20">
-              <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
-                <TrendingUp size={20} />
-                Important Notes
-              </h3>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-500 mt-1">•</span>
-                  <span>No official airdrop confirmation unless stated</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-500 mt-1">•</span>
-                  <span>DYOR (Do Your Own Research) before participating</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-500 mt-1">•</span>
-                  <span>Never share your seed phrase or private keys</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-500 mt-1">•</span>
-                  <span>Be aware of gas fees and trading costs</span>
-                </li>
-              </ul>
-            </div>
+            {/* Referral Note */}
+            {airdrop.link && airdrop.link.includes('ref') && (
+              <p className="text-xs text-gray-500 text-center">
+                * Using our referral link helps support Alpha Crypto
+              </p>
+            )}
           </div>
+        </div>
+
+        {/* Back to Airdrops */}
+        <div className="mt-12 text-center">
+          <Link
+            to="/airdrops"
+            className="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+          >
+            <ArrowLeft size={20} />
+            View All Airdrops
+          </Link>
         </div>
       </div>
     </div>
