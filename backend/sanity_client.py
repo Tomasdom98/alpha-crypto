@@ -81,11 +81,30 @@ async def get_article_by_slug(slug: str) -> Optional[Dict]:
         content,
         category,
         premium,
-        publishedAt
+        publishedAt,
+        imageUrl
     }}'''
     
     result = await sanity.fetch(query)
-    return result if isinstance(result, dict) else None
+    
+    if not result or (isinstance(result, list) and len(result) == 0):
+        return None
+    
+    # Handle if result is a list with one item
+    article = result[0] if isinstance(result, list) else result
+    
+    # Transform to match API format
+    return {
+        "id": article.get("_id", ""),
+        "title": article.get("title", ""),
+        "slug": article.get("slug", ""),
+        "excerpt": article.get("excerpt", ""),
+        "content": article.get("content", "") or "Content coming soon...",
+        "category": article.get("category", ""),
+        "premium": article.get("premium", False),
+        "published_at": article.get("publishedAt") or datetime.now(timezone.utc).isoformat(),
+        "image_url": article.get("imageUrl", "") or "https://images.unsplash.com/photo-1651054558996-03455fe2702f?w=800"
+    }
 
 async def get_airdrops(status: Optional[str] = None, difficulty: Optional[str] = None) -> List[Dict]:
     """Fetch airdrops from Sanity"""
