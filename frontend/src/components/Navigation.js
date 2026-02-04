@@ -12,8 +12,10 @@ export default function Navigation() {
     { path: '/', label: 'Home' },
     { path: '/articles', label: 'Articles' },
     { path: '/airdrops', label: 'Airdrops' },
-    { path: '/indices', label: 'Market Indices' },
+    { path: '/indices', label: 'Indices' },
     { path: '/analysis', label: 'Analysis' },
+    { path: '/portfolio', label: 'Portfolio' },
+    { path: '/signals', label: 'Signals' },
   ];
 
   const isActive = (path) => location.pathname === path;

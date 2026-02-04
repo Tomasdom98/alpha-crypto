@@ -4,6 +4,9 @@ import ArticlesPage from "@/pages/ArticlesPage";
 import AirdropsPage from "@/pages/AirdropsPage";
 import AirdropDetailPage from "@/pages/AirdropDetailPage";
 import MarketIndicesPage from "@/pages/MarketIndicesPage";
+import InvestmentAnalysisPage from "@/pages/InvestmentAnalysisPage";
+import PortfolioPage from "@/pages/PortfolioPage";
+import EarlySignalsPage from "@/pages/EarlySignalsPage";
 import AdminPage from "@/pages/AdminPage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,6 +24,9 @@ function App() {
           <Route path="/airdrops" element={<AirdropsPage />} />
           <Route path="/airdrops/:airdropId" element={<AirdropDetailPage />} />
           <Route path="/indices" element={<MarketIndicesPage />} />
+          <Route path="/analysis" element={<InvestmentAnalysisPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/signals" element={<EarlySignalsPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
         <Footer />
