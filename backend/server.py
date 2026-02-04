@@ -272,11 +272,12 @@ def get_mock_airdrops():
         {
             "id": "3",
             "project_name": "GRVT",
-            "logo_url": "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=400",
+            "logo_url": "https://cryptologos.cc/logos/zksync-zks-logo.png?v=040",
             "chain": "zkSync",
             "description": "Institutional-grade hybrid DEX on zkSync with CEX-like performance",
             "full_description": "GRVT combines the best of CEX and DEX: self-custody with institutional-grade speed and liquidity. Built on zkSync Era with backing from major crypto VCs. Confirmed token launch.",
             "backing": "Backed by Paradigm, Variant, Robot Ventures - $7M raised",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Create account with referral: tomd411", "completed": False},
                 {"id": "t2", "description": "Complete identity verification", "completed": False},
@@ -294,11 +295,12 @@ def get_mock_airdrops():
         {
             "id": "4",
             "project_name": "Based.one",
-            "logo_url": "https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?w=400",
+            "logo_url": "https://cryptologos.cc/logos/coinbase-coin-logo.png?v=040",
             "chain": "Base",
             "description": "Native perpetuals DEX on Base with low fees and high leverage",
             "full_description": "Based.one is the leading perps platform on Base L2, offering up to 100x leverage with minimal fees. Strong community and high trading volumes indicate likely airdrop.",
             "backing": "Community-driven, partnerships with Base ecosystem projects",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Connect wallet using ref: TOMDEFI", "completed": False},
                 {"id": "t2", "description": "Trade at least $1000 volume", "completed": False},
@@ -316,11 +318,12 @@ def get_mock_airdrops():
         {
             "id": "5",
             "project_name": "Backpack",
-            "logo_url": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=400",
+            "logo_url": "https://cryptologos.cc/logos/solana-sol-logo.png?v=040",
             "chain": "Solana",
             "description": "Solana's premier exchange from the Mad Lads team with confirmed token",
             "full_description": "Backpack is built by the team behind Mad Lads NFT (Coral/xNFT). Recently raised $17M and confirmed token launch. One of the most anticipated Solana airdrops.",
             "backing": "Backed by Jump, Placeholder, $17M Series A",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Sign up with referral code", "completed": False},
                 {"id": "t2", "description": "Complete KYC verification", "completed": False},
@@ -338,11 +341,12 @@ def get_mock_airdrops():
         {
             "id": "6",
             "project_name": "Avantis",
-            "logo_url": "https://images.unsplash.com/photo-1642543492411-d3a059c72441?w=400",
+            "logo_url": "https://cryptologos.cc/logos/coinbase-coin-logo.png?v=040",
             "chain": "Base",
             "description": "Proven airdrop model perps DEX on Base with competitive trading",
             "full_description": "Avantis has a proven track record of rewarding early users. Offers perpetual trading with unique vault strategies. Strong hints of token launch with generous airdrop allocation.",
             "backing": "Incubated by leading Base ecosystem VCs",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Register with code: tomdefi", "completed": False},
                 {"id": "t2", "description": "Make first trade (any pair)", "completed": False},
@@ -360,11 +364,12 @@ def get_mock_airdrops():
         {
             "id": "7",
             "project_name": "StandX",
-            "logo_url": "https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=400",
+            "logo_url": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040",
             "chain": "Multi-chain",
             "description": "Cross-chain perpetuals platform with innovative trading features",
             "full_description": "StandX offers perpetual trading across multiple chains with unified liquidity. Known for low slippage and high capital efficiency. Team has hinted at token rewards for early adopters.",
             "backing": "Backed by prominent DeFi angels and DAOs",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Sign up with referral: tomdefi", "completed": False},
                 {"id": "t2", "description": "Trade on at least 2 different chains", "completed": False},
