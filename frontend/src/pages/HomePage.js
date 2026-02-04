@@ -1,0 +1,227 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { TrendingUp, TrendingDown, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import FearGreedGauge from '@/components/FearGreedGauge';
+import LiveTicker from '@/components/LiveTicker';
+import PremiumBanner from '@/components/PremiumBanner';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+export default function HomePage() {
+  const [marketStats, setMarketStats] = useState(null);
+  const [fearGreed, setFearGreed] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [airdrops, setAirdrops] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [statsRes, fgRes, articlesRes, airdropsRes] = await Promise.all([
+          axios.get(`${API}/crypto/market-stats`),
+          axios.get(`${API}/crypto/fear-greed`),
+          axios.get(`${API}/articles`),
+          axios.get(`${API}/airdrops`),
+        ]);
+
+        setMarketStats(statsRes.data);
+        setFearGreed(fgRes.data);
+        setArticles(articlesRes.data.slice(0, 3));
+        setAirdrops(airdropsRes.data.slice(0, 3));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-emerald-500 text-xl font-mono">Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen">
+      {/* Live Ticker */}
+      <LiveTicker />
+
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 grid-background" />
+        <div className="absolute inset-0 hero-glow" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1
+            className="text-5xl md:text-6xl font-black tracking-tight text-white mb-6 fade-in"
+            style={{ fontFamily: 'Chivo, sans-serif' }}
+            data-testid="hero-heading"
+          >
+            Tu fuente de <span className="text-emerald-500">alpha</span> en crypto
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8 fade-in" data-testid="hero-description">
+            Análisis profundo, airdrops verificados, e insights de mercado para inversores inteligentes
+          </p>
+        </div>
+      </section>
+
+      {/* Dashboard Stats */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Fear & Greed Gauge */}
+          <div className="md:col-span-5">
+            <FearGreedGauge value={fearGreed?.value} classification={fearGreed?.classification} />
+          </div>
+
+          {/* Market Stats Cards */}
+          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="glass-card p-6 rounded-xl" data-testid="btc-dominance-card">
+              <div className="text-sm text-gray-400 mb-2">Bitcoin Dominance</div>
+              <div className="text-3xl font-bold text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                {marketStats?.btc_dominance}%
+              </div>
+              <div className="text-xs text-emerald-500 mt-2 flex items-center">
+                <TrendingUp size={14} className="mr-1" />
+                Market leader
+              </div>
+            </div>
+
+            <div className="glass-card p-6 rounded-xl" data-testid="market-cap-card">
+              <div className="text-sm text-gray-400 mb-2">Total Market Cap</div>
+              <div className="text-3xl font-bold text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                ${(marketStats?.total_market_cap / 1e12).toFixed(2)}T
+              </div>
+              <div className="text-xs text-gray-500 mt-2">24h Volume: ${(marketStats?.total_volume_24h / 1e9).toFixed(1)}B</div>
+            </div>
+
+            <div className="glass-card p-6 rounded-xl sm:col-span-2" data-testid="active-cryptos-card">
+              <div className="text-sm text-gray-400 mb-2">Market Status</div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-2xl font-bold text-white">{marketStats?.active_cryptos} Assets Tracked</div>
+                  <div className="text-xs text-gray-500 mt-1">Real-time updates</div>
+                </div>
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center">
+                  <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Articles Preview */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold text-white" style={{ fontFamily: 'Chivo, sans-serif' }} data-testid="articles-section-heading">
+            Latest Articles
+          </h2>
+          <Link
+            to="/articles"
+            data-testid="view-all-articles-link"
+            className="text-emerald-500 hover:text-emerald-400 font-medium flex items-center gap-2 transition-colors"
+          >
+            View All <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {articles.map((article) => (
+            <Link
+              key={article.id}
+              to={`/articles/${article.id}`}
+              data-testid={`article-preview-${article.id}`}
+              className="glass-card rounded-xl overflow-hidden card-hover"
+            >
+              <div className="h-48 overflow-hidden">
+                <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded text-xs font-medium">
+                    {article.category}
+                  </span>
+                  {article.premium && (
+                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
+                      Premium
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2 line-clamp-2">{article.title}</h3>
+                <p className="text-sm text-gray-400 line-clamp-2">{article.excerpt}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Active Airdrops Preview */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold text-white" style={{ fontFamily: 'Chivo, sans-serif' }} data-testid="airdrops-section-heading">
+            Active Airdrops
+          </h2>
+          <Link
+            to="/airdrops"
+            data-testid="view-all-airdrops-link"
+            className="text-emerald-500 hover:text-emerald-400 font-medium flex items-center gap-2 transition-colors"
+          >
+            View All <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="space-y-4">
+          {airdrops.map((airdrop) => (
+            <div key={airdrop.id} data-testid={`airdrop-preview-${airdrop.id}`} className="glass-card rounded-xl p-6 card-hover">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4">
+                  <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-16 h-16 rounded-lg" />
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="text-xl font-bold text-white">{airdrop.project_name}</h3>
+                      {airdrop.premium && (
+                        <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
+                          Premium
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-400 mb-3">{airdrop.description}</p>
+                    <div className="flex items-center gap-4 text-xs">
+                      <span
+                        className={`px-2 py-1 rounded ${
+                          airdrop.difficulty === 'Easy'
+                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            : airdrop.difficulty === 'Medium'
+                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                            : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                        }`}
+                      >
+                        {airdrop.difficulty}
+                      </span>
+                      <span className="text-gray-500 flex items-center gap-1">
+                        <Clock size={12} /> {new Date(airdrop.deadline).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-400 mb-1">Estimated Reward</div>
+                  <div className="text-xl font-bold text-emerald-500" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                    {airdrop.estimated_reward}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Premium Banner */}
+      <PremiumBanner />
+    </div>
+  );
+}
