@@ -80,6 +80,32 @@ class MarketIndex(BaseModel):
     value: float
     change_24h: float
 
+class PaymentSubmission(BaseModel):
+    email: str
+    wallet_address: str
+    chain: str
+    tx_hash: Optional[str] = None
+    amount: float
+
+class User(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    email: str
+    wallet_address: str
+    is_premium: bool = False
+    premium_until: Optional[str] = None
+    payment_chain: str
+    created_at: str
+
+class Payment(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    user_email: str
+    amount: float
+    chain: str
+    tx_hash: Optional[str] = None
+    status: str  # pending, verified, rejected
+    created_at: str
+
 
 # Mock data generators
 def get_mock_crypto_prices():
