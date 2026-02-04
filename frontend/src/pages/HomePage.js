@@ -83,47 +83,65 @@ export default function HomePage() {
       <MarketIndicators fearGreed={fearGreed} />
 
       {/* Latest Articles Preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-white" style={{ fontFamily: 'Chivo, sans-serif' }} data-testid="articles-section-heading">
-            Latest Articles
-          </h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="articles-section-heading">
+              Latest Articles
+            </h2>
+            <p className="text-gray-500">Crypto insights and analysis</p>
+          </div>
           <Link
             to="/articles"
             data-testid="view-all-articles-link"
-            className="text-emerald-500 hover:text-emerald-400 font-medium flex items-center gap-2 transition-colors"
+            className="group flex items-center gap-2 px-5 py-2.5 bg-gray-800/50 hover:bg-emerald-500/10 border border-gray-700 hover:border-emerald-500/50 rounded-xl text-emerald-400 font-semibold transition-all duration-300 hover:scale-105"
           >
-            View All <ArrowRight size={16} />
+            View All 
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {articles.map((article) => (
-            <Link
-              key={article.id}
-              to={`/articles/${article.id}`}
-              data-testid={`article-preview-${article.id}`}
-              className="glass-card rounded-xl overflow-hidden card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded text-xs font-medium">
-                    {article.category}
-                  </span>
-                  {article.premium && (
-                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
-                      Premium
-                    </span>
-                  )}
+        
+        {articles.length === 0 ? (
+          <LoadingSkeleton count={3} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {articles.map((article, index) => (
+              <Link
+                key={article.id}
+                to={`/articles/${article.id}`}
+                data-testid={`article-preview-${article.id}`}
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/20 hover:border-emerald-500/50"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards',
+                }}
+              >
+                <div className="h-48 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                  <img src={article.image_url} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 line-clamp-2">{article.title}</h3>
-                <p className="text-sm text-gray-400 line-clamp-2">{article.excerpt}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                      {article.category}
+                    </span>
+                    {article.premium && (
+                      <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
+                        Premium
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{article.title}</h3>
+                  <p className="text-sm text-gray-400 line-clamp-2">{article.excerpt}</p>
+                </div>
+                
+                {/* Shine effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Active Airdrops Preview */}
