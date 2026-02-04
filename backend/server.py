@@ -747,9 +747,6 @@ async def get_article(article_id: str):
     except Exception as e:
         logger.error(f"Error fetching article: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch article")
-        if not article:
-            raise HTTPException(status_code=404, detail="Article not found")
-        return article
 
 @api_router.get("/airdrops", response_model=List[Airdrop])
 async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None):
