@@ -39,7 +39,7 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Signal explanations on each card
 - ✅ Fear & Greed gauge
 
-### 6. **Investment Analysis Page (`/analysis`)** - NEW FASE 2
+### 6. Investment Analysis Page (`/analysis`)
 - ✅ Market Report styled like Atlantis report
 - ✅ Market Overview (BTC, ETH, MCap, Fear & Greed)
 - ✅ Alpha Crypto Assessment with recommendations
@@ -47,7 +47,7 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Sector Analysis table (L1s, L2s, DeFi, AI, Memecoins)
 - ✅ Recommended Allocations (Conservative/Balanced/Aggressive)
 
-### 7. **Portfolio Page (`/portfolio`)** - NEW FASE 2
+### 7. Portfolio Page (`/portfolio`)
 - ✅ Milk Road style portfolio display
 - ✅ Total Value: $50,000, Monthly Return: +12%
 - ✅ 6-Month Performance bar chart
@@ -56,29 +56,39 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Recent Trades section
 - ✅ Strategy Notes (Current Strategy, Next Moves)
 
-### 8. **Early Signals Page (`/signals`)** - NEW FASE 2
+### 8. Early Signals Page (`/signals`)
 - ✅ Live Updates indicator
 - ✅ Urgent Signals section (red border, PREMIUM badges)
 - ✅ All Signals with priority badges (HIGH, MEDIUM, LOW)
 - ✅ Signal types: opportunity, alert, news, community
 - ✅ Action recommendations
 - ✅ External links and timestamps
+- ✅ **Email Alert Subscription** (FASE 3) - Enable Notifications button, email input, subscribe flow
 
-### 9. Admin Page (`/admin`)
-- ✅ Payment verification dashboard
-- ✅ Premium users list
+### 9. Consulting Page (`/consulting`) - NEW FASE 3 ✅
+- ✅ Service type selection (Personal/Business Consulting)
+- ✅ Contact form (name, email, company optional, message)
+- ✅ Success state with "Message Sent!" confirmation
+- ✅ Privacy commitment section
+- ✅ Submissions saved to MongoDB
+
+### 10. Admin Page (`/admin`)
+- ✅ Payment verification dashboard (Pending/Verified tabs)
+- ✅ Premium users list (Users tab)
 - ✅ Feedback tab with submissions
+- ✅ **Consulting tab** (FASE 3) - View/manage consulting requests with status workflow (new→contacted→completed)
+- ✅ **Subscribers tab** (FASE 3) - View email alert subscribers
 
-### 10. Premium Subscription
+### 11. Premium Subscription
 - ✅ $20/month, Multi-chain payments
 - ✅ Manual verification
 
-### 11. Feedback System
+### 12. Feedback System
 - ✅ Footer form, MongoDB storage
 - ✅ Admin panel review
 
 ## Navigation
-- Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals
+Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals | Consulting
 
 ## Completed Tasks
 
@@ -94,36 +104,63 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [x] Portfolio page (Milk Road style)
 - [x] Early Signals page
 
-## Upcoming Tasks - FASE 3 (P1)
-- [ ] Consulting section with contact form
-- [ ] Email alerts for new premium airdrops
-- [ ] Sync data with Sanity CMS
+### FASE 3 (February 2026) ✅ COMPLETE
+- [x] Consulting page with Personal/Business service types
+- [x] Consulting form with contact info and message
+- [x] Email alert subscription in Signals page
+- [x] Admin Consulting tab with status management
+- [x] Admin Subscribers tab showing email list
 
-## Future Tasks (P2)
+## Upcoming Tasks - P1
+- [ ] Sync content with Sanity CMS (articles and airdrops)
+- [ ] Use real project logos for airdrops
+
+## Future Tasks - P2
+- [ ] Integrate real email service (Resend/SendGrid) for notifications
 - [ ] Migrate to Next.js for Vercel deployment
 - [ ] Export project to GitHub
 - [ ] User authentication system
 
-## Backlog (P3)
+## Backlog - P3
 - [ ] Automatic on-chain payment verification
 - [ ] Real portfolio data connection
 - [ ] Saved airdrops/favorites
+- [ ] Search/filter functionality
 
-## Key Endpoints
+## Key API Endpoints
 
-### New Endpoints (FASE 2)
-- `GET /api/early-signals` - Get signals and opportunities
+### FASE 3 Endpoints
+- `POST /api/consulting` - Submit consulting request
+- `GET /api/admin/consulting` - Get consulting requests (admin)
+- `POST /api/admin/consulting/{id}/status` - Update consulting status
+- `POST /api/alerts/subscribe` - Subscribe to email alerts
+- `GET /api/admin/alert-subscribers` - Get alert subscribers (admin)
+- `POST /api/alerts/unsubscribe` - Unsubscribe from alerts
 
 ### Existing Endpoints
 - `GET /api/articles` - List articles
 - `GET /api/airdrops` - List airdrops
+- `GET /api/airdrops/{id}` - Airdrop details
 - `GET /api/crypto/prices` - Live CoinGecko prices
+- `GET /api/crypto/fear-greed` - Fear & Greed Index
+- `GET /api/early-signals` - Get signals and opportunities
 - `POST /api/feedback` - Submit feedback
 - `GET /api/admin/feedback` - Admin feedback view
+- `GET /api/admin/payments` - Admin payments
+- `GET /api/admin/users` - Premium users
+
+## Database Collections (MongoDB)
+- `payments` - Payment records
+- `users` - User accounts
+- `feedback` - Feedback submissions
+- `consulting` - Consulting requests
+- `alert_subscriptions` - Email alert subscribers
 
 ## Test Reports
 - `/app/test_reports/iteration_1.json` - 15 DEX Airdrops feature
+- `/app/test_reports/iteration_2.json` - FASE 3 Consulting & Alerts (100% pass rate)
 - `/app/test_reports/pytest/fase1_results.xml` - FASE 1 tests (21 passed)
+- `/app/test_reports/pytest/fase3_results.xml` - FASE 3 tests (16 passed)
 
 ## User's Preferred Language
 Spanish (Español)
