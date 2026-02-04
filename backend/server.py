@@ -918,6 +918,94 @@ async def verify_payment(payment_id: str):
         logger.error(f"Error verifying payment: {e}")
         raise HTTPException(status_code=500, detail="Failed to verify payment")
 
+# Early Signals endpoint
+@api_router.get("/early-signals")
+async def get_early_signals():
+    """Get early signals and quick opportunities"""
+    return [
+        {
+            "id": "1",
+            "type": "opportunity",
+            "priority": "high",
+            "title": "Arbitrum Airdrop Season 2 Hints",
+            "description": "El equipo de Arbitrum ha insinuado una segunda ronda de airdrops. Usuarios activos en el ecosistema podrían calificar.",
+            "action": "Bridge y usar protocolos en Arbitrum",
+            "link": "https://arbitrum.io",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": False
+        },
+        {
+            "id": "2",
+            "type": "alert",
+            "priority": "urgent",
+            "title": "Bitcoin: Soporte Clave en $68K",
+            "description": "BTC testeando soporte crítico. Ruptura podría llevar a $62K. Mantener stables listos para compra.",
+            "action": "Set buy orders at $65K",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": True
+        },
+        {
+            "id": "3",
+            "type": "news",
+            "priority": "medium",
+            "title": "BlackRock ETF: Record Inflows",
+            "description": "IBIT de BlackRock registró $500M en entradas en un solo día. Señal alcista institucional.",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": False
+        },
+        {
+            "id": "4",
+            "type": "opportunity",
+            "priority": "high",
+            "title": "Solana DEX Rewards Program",
+            "description": "Jupiter Exchange lanzó programa de puntos. Traders activos acumulan para posible airdrop.",
+            "action": "Trade en Jupiter, acumular puntos",
+            "link": "https://jup.ag",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": False
+        },
+        {
+            "id": "5",
+            "type": "community",
+            "priority": "low",
+            "title": "Alpha Crypto Discord: Q&A Esta Semana",
+            "description": "Sesión de preguntas y respuestas con el equipo de análisis. Jueves 8PM UTC.",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": False
+        },
+        {
+            "id": "6",
+            "type": "alert",
+            "priority": "high",
+            "title": "ETH: Patrón Técnico Formándose",
+            "description": "Ethereum formando cuña descendente. Breakout alcista esperado si supera $2,200.",
+            "action": "Watch for breakout confirmation",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": True
+        },
+        {
+            "id": "7",
+            "type": "news",
+            "priority": "medium",
+            "title": "Stripe Expande Pagos Crypto",
+            "description": "Stripe habilita pagos con USDC para más merchants. Adopción institucional acelerando.",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": False
+        },
+        {
+            "id": "8",
+            "type": "opportunity",
+            "priority": "urgent",
+            "title": "Base: Nueva Temporada de Incentivos",
+            "description": "Coinbase Base L2 lanzando programa de incentivos. $10M en rewards para usuarios activos.",
+            "action": "Bridge a Base y usar DeFi",
+            "link": "https://base.org",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": True
+        }
+    ]
+
+
 @api_router.get("/admin/users")
 async def get_premium_users():
     """Get list of premium users"""
