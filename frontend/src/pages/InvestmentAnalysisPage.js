@@ -1,180 +1,252 @@
 import { useState } from 'react';
-import { Lock, TrendingUp, AlertTriangle, Target } from 'lucide-react';
-import PremiumModal from '@/components/PremiumModal';
+import { Link } from 'react-router-dom';
+import { ChevronRight, TrendingUp, TrendingDown, AlertTriangle, Shield, Target, BarChart3, Globe, Zap, Calendar } from 'lucide-react';
 
 export default function InvestmentAnalysisPage() {
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [isPremiumUser, setIsPremiumUser] = useState(false); // Mock
+  const [activeSection, setActiveSection] = useState('overview');
 
-  const analyses = [
-    {
-      id: 1,
-      project: 'Ethereum Layer 2 Ecosystem',
-      rating: 8.5,
-      riskScore: 4,
-      premium: false,
-      excerpt: 'Deep dive into Arbitrum, Optimism, and Base performance metrics',
-      image: 'https://images.unsplash.com/photo-1644925295849-f057b6ee1c66?crop=entropy&cs=srgb&fm=jpg&q=85',
-    },
-    {
-      id: 2,
-      project: 'Real World Assets (RWA) Protocols',
-      rating: 9.2,
-      riskScore: 3,
-      premium: true,
-      excerpt: 'Comprehensive analysis of Ondo, Centrifuge, and MapleFinance tokenomics',
-      image: 'https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?crop=entropy&cs=srgb&fm=jpg&q=85',
-    },
-    {
-      id: 3,
-      project: 'AI x Crypto Infrastructure',
-      rating: 7.8,
-      riskScore: 6,
-      premium: true,
-      excerpt: 'Evaluating Render, Akash, and Bittensor for long-term potential',
-      image: 'https://images.unsplash.com/photo-1666624833516-6d0e320c610d?crop=entropy&cs=srgb&fm=jpg&q=85',
-    },
-  ];
+  const reportDate = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
-  const getRatingColor = (rating) => {
-    if (rating >= 8) return 'text-emerald-500';
-    if (rating >= 6) return 'text-amber-500';
-    return 'text-red-500';
+  const marketMetrics = {
+    btcPrice: '$72,975',
+    btcChange: '-3.86%',
+    ethPrice: '$2,140',
+    ethChange: '-5.27%',
+    totalMcap: '$2.15T',
+    btcDominance: '52.3%',
+    fearGreed: 14,
+    fearGreedLabel: 'Extreme Fear'
   };
 
-  const getRiskColor = (risk) => {
-    if (risk <= 3) return 'text-emerald-500';
-    if (risk <= 6) return 'text-amber-500';
-    return 'text-red-500';
+  const keyInsights = [
+    { type: 'bullish', title: 'Institutional Accumulation', description: 'ETFs de Bitcoin registran entradas netas de $500M esta semana. BlackRock lidera con $250M.' },
+    { type: 'bearish', title: 'Presión Macroeconómica', description: 'Fed mantiene tasas altas. Datos de inflación superiores a expectativas generan incertidumbre.' },
+    { type: 'neutral', title: 'Halving Effect', description: 'A 60 días del halving, históricamente período de consolidación antes de rally.' },
+    { type: 'bullish', title: 'Stablecoin Inflows', description: 'USDT y USDC muestran entradas récord a exchanges. Dry powder listo para desplegar.' }
+  ];
+
+  const sectorAnalysis = [
+    { sector: 'Layer 1s', trend: 'neutral', outlook: 'Consolidación. ETH y SOL compiten por developers.', picks: ['ETH', 'SOL'] },
+    { sector: 'Layer 2s', trend: 'bullish', outlook: 'Arbitrum y Base lideran en TVL. Crecimiento sostenido.', picks: ['ARB', 'OP'] },
+    { sector: 'DeFi', trend: 'bullish', outlook: 'Real yield protocols ganando tracción. TVL en recuperación.', picks: ['AAVE', 'GMX'] },
+    { sector: 'AI Tokens', trend: 'neutral', outlook: 'Sector volátil. Especulación alta, fundamentales mixtos.', picks: ['FET', 'RNDR'] },
+    { sector: 'Memecoins', trend: 'bearish', outlook: 'Ciclo de rotación agotándose. Cautela recomendada.', picks: [] }
+  ];
+
+  const portfolioRecommendation = {
+    conservative: { btc: 60, eth: 25, stables: 15, risk: 'Low' },
+    balanced: { btc: 40, eth: 30, alts: 20, stables: 10, risk: 'Medium' },
+    aggressive: { btc: 30, eth: 25, alts: 40, stables: 5, risk: 'High' }
+  };
+
+  const getTrendColor = (trend) => {
+    if (trend === 'bullish') return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
+    if (trend === 'bearish') return 'text-red-400 bg-red-500/10 border-red-500/30';
+    return 'text-amber-400 bg-amber-500/10 border-amber-500/30';
+  };
+
+  const getTrendIcon = (trend) => {
+    if (trend === 'bullish') return <TrendingUp size={18} />;
+    if (trend === 'bearish') return <TrendingDown size={18} />;
+    return <BarChart3 size={18} />;
   };
 
   return (
-    <>
-      <div className="min-h-screen py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1
-              className="text-4xl md:text-5xl font-black text-white mb-4"
-              style={{ fontFamily: 'Chivo, sans-serif' }}
-              data-testid="analysis-page-heading"
-            >
-              Investment Analysis
-            </h1>
-            <p className="text-gray-400 text-lg">Expert research and ratings for crypto projects</p>
+    <div className="min-h-screen py-12" data-testid="analysis-page">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
+            <ChevronRight size={16} className="rotate-180" /> Back to Home
+          </Link>
+          
+          <div className="flex items-start justify-between flex-wrap gap-4">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="analysis-heading">
+                Investment Analysis
+              </h1>
+              <p className="text-gray-400">Alpha Crypto Market Report</p>
+            </div>
+            <div className="glass-card rounded-xl px-4 py-2 text-right">
+              <div className="text-xs text-gray-500">Report Date</div>
+              <div className="text-emerald-400 font-bold flex items-center gap-2">
+                <Calendar size={14} />
+                {reportDate}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Market Overview Card */}
+        <div className="glass-card rounded-2xl p-6 mb-8" data-testid="market-overview">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <Globe className="text-emerald-500" /> Market Overview
+          </h2>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-gray-800/50 rounded-xl p-4">
+              <div className="text-xs text-gray-500 mb-1">Bitcoin</div>
+              <div className="text-xl font-bold text-white">{marketMetrics.btcPrice}</div>
+              <div className={`text-sm ${marketMetrics.btcChange.startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>
+                {marketMetrics.btcChange}
+              </div>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4">
+              <div className="text-xs text-gray-500 mb-1">Ethereum</div>
+              <div className="text-xl font-bold text-white">{marketMetrics.ethPrice}</div>
+              <div className={`text-sm ${marketMetrics.ethChange.startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>
+                {marketMetrics.ethChange}
+              </div>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4">
+              <div className="text-xs text-gray-500 mb-1">Total Market Cap</div>
+              <div className="text-xl font-bold text-white">{marketMetrics.totalMcap}</div>
+              <div className="text-sm text-gray-400">BTC Dom: {marketMetrics.btcDominance}</div>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4">
+              <div className="text-xs text-gray-500 mb-1">Fear & Greed</div>
+              <div className="text-xl font-bold text-red-400">{marketMetrics.fearGreed}</div>
+              <div className="text-sm text-red-400">{marketMetrics.fearGreedLabel}</div>
+            </div>
           </div>
 
-          {/* Analysis Cards */}
-          <div className="space-y-6">
-            {analyses.map((analysis) => {
-              const isLocked = analysis.premium && !isPremiumUser;
+          <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="text-amber-400 flex-shrink-0 mt-0.5" size={20} />
+              <div>
+                <h3 className="font-bold text-amber-400 mb-1">Alpha Crypto Assessment</h3>
+                <p className="text-gray-300 text-sm">
+                  El mercado muestra señales mixtas. Fear & Greed en "Extreme Fear" históricamente indica oportunidad de acumulación, 
+                  pero factores macro sugieren cautela. Recomendamos DCA (Dollar Cost Averaging) en lugar de entradas agresivas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              return (
-                <div
-                  key={analysis.id}
-                  data-testid={`analysis-card-${analysis.id}`}
-                  className={`glass-card rounded-xl overflow-hidden card-hover ${analysis.premium ? 'premium-glow' : ''}`}
-                >
-                  <div className="grid md:grid-cols-3 gap-6 p-6">
-                    {/* Image */}
-                    <div className="relative">
-                      <img src={analysis.image} alt={analysis.project} className="w-full h-48 md:h-full object-cover rounded-lg" />
-                      {analysis.premium && (
-                        <span className="absolute top-3 right-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
-                          Premium
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="md:col-span-2">
-                      <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: 'Chivo, sans-serif' }}>
-                        {analysis.project}
-                      </h3>
-                      <p className="text-gray-400 mb-4">{analysis.excerpt}</p>
-
-                      {/* Metrics */}
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="p-4 bg-gray-800/30 rounded-lg">
-                          <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
-                            <TrendingUp size={16} />
-                            Rating
-                          </div>
-                          <div className={`text-3xl font-black ${getRatingColor(analysis.rating)}`} style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                            {analysis.rating}/10
-                          </div>
-                        </div>
-                        <div className="p-4 bg-gray-800/30 rounded-lg">
-                          <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
-                            <AlertTriangle size={16} />
-                            Risk Score
-                          </div>
-                          <div className={`text-3xl font-black ${getRiskColor(analysis.riskScore)}`} style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                            {analysis.riskScore}/10
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* CTA */}
-                      {isLocked ? (
-                        <button
-                          data-testid={`unlock-analysis-${analysis.id}-btn`}
-                          onClick={() => setShowPremiumModal(true)}
-                          className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-102 active:scale-98 flex items-center justify-center gap-2"
-                        >
-                          <Lock size={18} />
-                          Unlock Full Analysis
-                        </button>
-                      ) : (
-                        <button
-                          data-testid={`read-analysis-${analysis.id}-btn`}
-                          className="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg border border-gray-700 transition-all duration-300 hover:border-emerald-500/30 flex items-center justify-center gap-2"
-                        >
-                          <Target size={18} />
-                          Read Full Analysis
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Additional Content (blurred if locked) */}
-                  {isLocked && (
-                    <div className="relative p-6 border-t border-gray-800">
-                      <div className="absolute inset-0 backdrop-blur-md bg-gray-900/80 z-10 flex items-center justify-center">
-                        <div className="text-center">
-                          <Lock className="text-emerald-500 mx-auto mb-2" size={32} />
-                          <p className="text-gray-400 text-sm">Premium content</p>
-                        </div>
-                      </div>
-                      <div className="blur-sm">
-                        <h4 className="text-lg font-bold text-white mb-2">Tokenomics Breakdown</h4>
-                        <p className="text-gray-400 text-sm">Detailed analysis of token distribution, vesting schedules, and utility...</p>
-                      </div>
-                    </div>
-                  )}
+        {/* Key Insights */}
+        <div className="glass-card rounded-2xl p-6 mb-8" data-testid="key-insights">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <Zap className="text-emerald-500" /> Key Insights
+          </h2>
+          
+          <div className="space-y-4">
+            {keyInsights.map((insight, index) => (
+              <div 
+                key={index}
+                className={`flex items-start gap-4 p-4 rounded-xl border ${getTrendColor(insight.type)}`}
+              >
+                <div className="flex-shrink-0 mt-0.5">
+                  {getTrendIcon(insight.type)}
                 </div>
-              );
-            })}
+                <div>
+                  <h3 className="font-bold text-white mb-1">{insight.title}</h3>
+                  <p className="text-gray-400 text-sm">{insight.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
+        </div>
 
-          {/* Info Banner */}
-          <div className="mt-12 glass-card rounded-xl p-8 text-center">
-            <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: 'Chivo, sans-serif' }}>
-              Want More Analysis?
-            </h3>
-            <p className="text-gray-400 mb-6">Get access to all premium investment research and deep-dive reports</p>
-            <button
-              data-testid="subscribe-for-analysis-btn"
-              onClick={() => setShowPremiumModal(true)}
-              className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-8 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
-            >
-              Subscribe for $9/month
-            </button>
+        {/* Sector Analysis */}
+        <div className="glass-card rounded-2xl p-6 mb-8" data-testid="sector-analysis">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <BarChart3 className="text-emerald-500" /> Sector Analysis
+          </h2>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Sector</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Trend</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Outlook</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Top Picks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sectorAnalysis.map((sector, index) => (
+                  <tr key={index} className="border-b border-gray-800/50">
+                    <td className="py-4 px-4 font-medium text-white">{sector.sector}</td>
+                    <td className="py-4 px-4">
+                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold border ${getTrendColor(sector.trend)}`}>
+                        {getTrendIcon(sector.trend)}
+                        {sector.trend}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 text-gray-400 text-sm max-w-xs">{sector.outlook}</td>
+                    <td className="py-4 px-4">
+                      <div className="flex gap-2">
+                        {sector.picks.map(pick => (
+                          <span key={pick} className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold">
+                            {pick}
+                          </span>
+                        ))}
+                        {sector.picks.length === 0 && <span className="text-gray-500 text-sm">-</span>}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Portfolio Allocation */}
+        <div className="glass-card rounded-2xl p-6 mb-8" data-testid="portfolio-recommendation">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <Target className="text-emerald-500" /> Recommended Allocations
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Object.entries(portfolioRecommendation).map(([type, allocation]) => (
+              <div key={type} className="bg-gray-800/50 rounded-xl p-5">
+                <h3 className="font-bold text-white capitalize mb-3">{type}</h3>
+                <div className="space-y-2 mb-4">
+                  {Object.entries(allocation).filter(([k]) => k !== 'risk').map(([asset, pct]) => (
+                    <div key={asset} className="flex items-center justify-between">
+                      <span className="text-gray-400 text-sm uppercase">{asset}</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-20 h-2 bg-gray-700 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-emerald-500 rounded-full"
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                        <span className="text-white text-sm font-bold w-10 text-right">{pct}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-3 border-t border-gray-700">
+                  <span className="text-xs text-gray-500">Risk Level: </span>
+                  <span className={`text-xs font-bold ${
+                    allocation.risk === 'Low' ? 'text-emerald-400' : 
+                    allocation.risk === 'High' ? 'text-red-400' : 'text-amber-400'
+                  }`}>
+                    {allocation.risk}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-xl">
+          <div className="flex items-start gap-3">
+            <Shield className="text-gray-500 flex-shrink-0" size={20} />
+            <div>
+              <h3 className="font-bold text-gray-400 mb-1">Disclaimer</h3>
+              <p className="text-sm text-gray-500">
+                Este reporte es únicamente para fines informativos y no constituye asesoramiento financiero. 
+                Las inversiones en criptomonedas conllevan riesgos significativos. Siempre haga su propia investigación (DYOR) 
+                antes de tomar decisiones de inversión. Alpha Crypto no se hace responsable de pérdidas derivadas del uso de esta información.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      <PremiumModal isOpen={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
-    </>
+    </div>
   );
 }
