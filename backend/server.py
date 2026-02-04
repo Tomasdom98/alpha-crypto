@@ -1038,6 +1038,103 @@ async def get_premium_users():
         raise HTTPException(status_code=500, detail="Failed to fetch users")
 
 
+# Consulting endpoints
+@api_router.post("/consulting")
+async def submit_consulting_request(request: ConsultingSubmission):
+    """Submit consulting request"""
+    try:
+        consulting_doc = {
+            "id": str(uuid.uuid4()),
+            "name": request.name,
+            "email": request.email,
+            "company": request.company,
+            "message": request.message,
+            "service_type": request.service_type,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "status": "new"
+        }
+        await db.consulting.insert_one(consulting_doc)
+        return {"success": True, "message": "Consulting request submitted successfully"}
+    except Exception as e:
+        logger.error(f"Error submitting consulting request: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit consulting request")
+
+@api_router.get("/admin/consulting")
+async def get_consulting_requests(status: Optional[str] = None):
+    """Get consulting requests for admin"""
+    try:
+        query = {}
+        if status and status != "all":
+            query["status"] = status
+        requests = await db.consulting.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return requests
+    except Exception as e:
+        logger.error(f"Error fetching consulting requests: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch consulting requests")
+
+@api_router.post("/admin/consulting/{request_id}/status")
+async def update_consulting_status(request_id: str, status: str):
+    """Update consulting request status"""
+    try:
+        result = await db.consulting.update_one(
+            {"id": request_id},
+            {"$set": {"status": status}}
+        )
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Request not found")
+        return {"success": True, "message": f"Status updated to {status}"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating consulting status: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update status")
+
+
+# Email Alert Subscription endpoints
+@api_router.post("/alerts/subscribe")
+async def subscribe_to_alerts(subscription: EmailAlertSubscription):
+    """Subscribe to email alerts for premium airdrops"""
+    try:
+        existing = await db.alert_subscriptions.find_one({"email": subscription.email})
+        if existing:
+            return {"success": True, "message": "Already subscribed"}
+        
+        sub_doc = {
+            "id": str(uuid.uuid4()),
+            "email": subscription.email,
+            "subscribed_at": datetime.now(timezone.utc).isoformat(),
+            "active": True
+        }
+        await db.alert_subscriptions.insert_one(sub_doc)
+        return {"success": True, "message": "Successfully subscribed to alerts"}
+    except Exception as e:
+        logger.error(f"Error subscribing to alerts: {e}")
+        raise HTTPException(status_code=500, detail="Failed to subscribe")
+
+@api_router.get("/admin/alert-subscribers")
+async def get_alert_subscribers():
+    """Get list of email alert subscribers"""
+    try:
+        subscribers = await db.alert_subscriptions.find({"active": True}, {"_id": 0}).sort("subscribed_at", -1).to_list(500)
+        return subscribers
+    except Exception as e:
+        logger.error(f"Error fetching subscribers: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch subscribers")
+
+@api_router.post("/alerts/unsubscribe")
+async def unsubscribe_from_alerts(subscription: EmailAlertSubscription):
+    """Unsubscribe from email alerts"""
+    try:
+        result = await db.alert_subscriptions.update_one(
+            {"email": subscription.email},
+            {"$set": {"active": False}}
+        )
+        return {"success": True, "message": "Unsubscribed from alerts"}
+    except Exception as e:
+        logger.error(f"Error unsubscribing: {e}")
+        raise HTTPException(status_code=500, detail="Failed to unsubscribe")
+
+
 # Feedback endpoints
 @api_router.post("/feedback")
 async def submit_feedback(feedback: FeedbackSubmission):
