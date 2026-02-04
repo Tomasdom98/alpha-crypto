@@ -16,6 +16,7 @@ export default function Navigation() {
     { path: '/analysis', label: 'Analysis' },
     { path: '/portfolio', label: 'Portfolio' },
     { path: '/signals', label: 'Signals' },
+    { path: '/consulting', label: 'Consulting' },
   ];
 
   const isActive = (path) => location.pathname === path;
