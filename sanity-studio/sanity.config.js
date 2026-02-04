@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Alpha Crypto Studio',
 
-  projectId: 'bj6asnq3',
+  projectId: '15c5x8s5',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
