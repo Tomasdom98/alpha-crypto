@@ -48,10 +48,28 @@ async def get_articles(category: Optional[str] = None) -> List[Dict]:
         content,
         category,
         premium,
-        publishedAt
+        publishedAt,
+        imageUrl
     }'''
     
-    return await sanity.fetch(query)
+    articles = await sanity.fetch(query)
+    
+    # Transform Sanity data to match our API format
+    transformed = []
+    for article in articles:
+        transformed.append({
+            "id": article.get("_id", ""),
+            "title": article.get("title", ""),
+            "slug": article.get("slug", ""),
+            "excerpt": article.get("excerpt", ""),
+            "content": article.get("content", "") or "Content coming soon...",
+            "category": article.get("category", ""),
+            "premium": article.get("premium", False),
+            "published_at": article.get("publishedAt") or datetime.now(timezone.utc).isoformat(),
+            "image_url": article.get("imageUrl", "") or "https://images.unsplash.com/photo-1651054558996-03455fe2702f?w=800"
+        })
+    
+    return transformed
 
 async def get_article_by_slug(slug: str) -> Optional[Dict]:
     """Fetch single article by slug from Sanity"""
