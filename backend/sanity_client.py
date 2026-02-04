@@ -31,7 +31,7 @@ class SanityClient:
                 raise
 
 # Initialize Sanity client
-sanity = SanityClient(project_id="bj6asnq3")
+sanity = SanityClient(project_id="15c5x8s5")
 
 async def get_articles(category: Optional[str] = None) -> List[Dict]:
     """Fetch articles from Sanity"""
