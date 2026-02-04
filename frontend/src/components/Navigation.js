@@ -53,6 +53,7 @@ export default function Navigation() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <button
+              onClick={() => setShowPremiumModal(true)}
               data-testid="premium-nav-btn"
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
             >
