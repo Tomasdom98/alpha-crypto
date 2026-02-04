@@ -387,11 +387,12 @@ def get_mock_airdrops():
         {
             "id": "8",
             "project_name": "Variational",
-            "logo_url": "https://images.unsplash.com/photo-1644925295849-f057b6ee1c66?w=400",
+            "logo_url": "https://cryptologos.cc/logos/polygon-matic-logo.png?v=040",
             "chain": "Omni-chain",
             "description": "Omni-chain perpetuals DEX with advanced order types",
             "full_description": "Variational enables perpetual trading across multiple chains with a unified interface. Features advanced order types and risk management tools typically found on CEXs.",
             "backing": "Seed funding from crypto-native VCs",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Connect wallet and start trading", "completed": False},
                 {"id": "t2", "description": "Trade SOL perpetuals", "completed": False},
@@ -409,11 +410,12 @@ def get_mock_airdrops():
         {
             "id": "9",
             "project_name": "Pacifica",
-            "logo_url": "https://images.unsplash.com/photo-1642790551116-c0fc82ccbdae?w=400",
+            "logo_url": "https://cryptologos.cc/logos/solana-sol-logo.png?v=040",
             "chain": "Solana",
             "description": "Solana's next-gen perps platform with vault strategies and social trading",
             "full_description": "Pacifica combines perpetual trading with innovative vault strategies on Solana. Known for lightning-fast execution and low fees. Strong community growth indicates imminent token launch.",
             "backing": "Backed by Solana Foundation and ecosystem funds",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Register with referral: tomdefi", "completed": False},
                 {"id": "t2", "description": "Make your first SOL-PERP trade", "completed": False},
@@ -431,11 +433,12 @@ def get_mock_airdrops():
         {
             "id": "10",
             "project_name": "Hibachi",
-            "logo_url": "https://images.unsplash.com/photo-1639152201720-5e536d254d81?w=400",
+            "logo_url": "https://cryptologos.cc/logos/blast-blast-logo.png?v=040",
             "chain": "Blast",
             "description": "Native DEX on Blast L2 with points system and yield opportunities",
             "full_description": "Hibachi is building the premier trading platform on Blast L2. Benefits from Blast's native yield and points system. Early adoption phase with generous rewards expected.",
             "backing": "Blast ecosystem grants and angel investors",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Connect with referral: alphacrypto", "completed": False},
                 {"id": "t2", "description": "Bridge assets to Blast", "completed": False},
@@ -453,11 +456,12 @@ def get_mock_airdrops():
         {
             "id": "11",
             "project_name": "Reya",
-            "logo_url": "https://images.unsplash.com/photo-1666624833516-6d0e320c610d?w=400",
+            "logo_url": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=040",
             "chain": "Reya Network (L2)",
             "description": "Modular trading-optimized L2 with institutional backing",
             "full_description": "Reya Network is a modular L2 built specifically for trading and DeFi. Raised significant funding and confirmed token. One of the most anticipated airdrops with potentially large allocations for early users.",
             "backing": "Backed by Framework, Coinbase Ventures - $10M+ raised",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Sign up with referral: roxzmgsj", "completed": False},
                 {"id": "t2", "description": "Bridge to Reya Network", "completed": False},
@@ -475,11 +479,12 @@ def get_mock_airdrops():
         {
             "id": "12",
             "project_name": "Ostium",
-            "logo_url": "https://images.unsplash.com/photo-1642543348745-03e8e5c849e3?w=400",
+            "logo_url": "https://cryptologos.cc/logos/arbitrum-arb-logo.png?v=040",
             "chain": "Arbitrum",
             "description": "RWA and crypto perpetuals platform with unique asset offerings",
             "full_description": "Ostium enables trading of both traditional (RWA) and crypto perpetuals on Arbitrum. Unique offering includes stocks, forex, and commodities alongside crypto. Strong institutional interest.",
             "backing": "Backed by RWA-focused VCs and traditional finance partners",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Register with ref: 01XAZ", "completed": False},
                 {"id": "t2", "description": "Trade SPX (S&P 500) perpetuals", "completed": False},
@@ -497,11 +502,12 @@ def get_mock_airdrops():
         {
             "id": "13",
             "project_name": "Ethereal",
-            "logo_url": "https://images.unsplash.com/photo-1666624833516-6d0e320c610d?w=400",
+            "logo_url": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040",
             "chain": "Ethereum",
             "description": "Decentralized trading platform on Ethereum mainnet",
             "full_description": "Ethereal is a decentralized exchange on Ethereum offering perpetual trading with innovative features.",
             "backing": "Community-backed project with growing user base",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [],
             "estimated_reward": "$3000",
             "difficulty": "Medium",
@@ -514,11 +520,12 @@ def get_mock_airdrops():
         {
             "id": "14",
             "project_name": "Paradex",
-            "logo_url": "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400",
+            "logo_url": "https://cryptologos.cc/logos/starknet-token-strk-logo.png?v=040",
             "chain": "Starknet",
             "description": "Paradigm-backed perpetuals DEX on Starknet with institutional focus",
             "full_description": "Paradex is built on Starknet with backing from Paradigm (one of crypto's top VCs). Offers institutional-grade perpetual trading with self-custody. Token launch confirmed for 2024.",
             "backing": "Backed by Paradigm - Major VC backing ensures strong token value",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Create Paradex account", "completed": False},
                 {"id": "t2", "description": "Complete identity verification", "completed": False},
@@ -536,11 +543,12 @@ def get_mock_airdrops():
         {
             "id": "15",
             "project_name": "Lighter",
-            "logo_url": "https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?w=400",
+            "logo_url": "https://cryptologos.cc/logos/arbitrum-arb-logo.png?v=040",
             "chain": "Arbitrum",
             "description": "Proven airdrop history - successful past distribution to early users",
             "full_description": "Lighter has already completed one successful airdrop and is preparing for a second round. Known for generous rewards to active traders. Strong orderbook liquidity and growing ecosystem.",
             "backing": "Self-sustaining through trading fees, proven business model",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Connect wallet to Lighter", "completed": False},
                 {"id": "t2", "description": "Make your first trade", "completed": False},
