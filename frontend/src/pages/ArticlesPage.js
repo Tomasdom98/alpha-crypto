@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Search, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -8,19 +7,13 @@ const API = `${BACKEND_URL}/api`;
 
 export default function ArticlesPage() {
   const [articles, setArticles] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-
-  const categories = ['all', 'Stablecoins', 'DeFi', 'AI', 'Analysis', 'News'];
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         const { data } = await axios.get(`${API}/articles`);
         setArticles(data);
-        setFilteredArticles(data);
       } catch (error) {
         console.error('Error fetching articles:', error);
       } finally {
@@ -30,23 +23,6 @@ export default function ArticlesPage() {
 
     fetchArticles();
   }, []);
-
-  useEffect(() => {
-    let filtered = articles;
-
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter((a) => a.category === selectedCategory);
-    }
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (a) => a.title.toLowerCase().includes(query) || a.excerpt.toLowerCase().includes(query)
-      );
-    }
-
-    setFilteredArticles(filtered);
-  }, [selectedCategory, searchQuery, articles]);
 
   if (loading) {
     return (
@@ -69,64 +45,32 @@ export default function ArticlesPage() {
             Articles & Analysis
           </h1>
           <p className="text-gray-400 text-lg">Deep insights and alpha for crypto investors</p>
-        </div>
-
-        {/* Filters */}
-        <div className="mb-8 space-y-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
-            <input
-              type="text"
-              data-testid="articles-search-input"
-              placeholder="Search articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-gray-950/50 border border-gray-800 rounded-lg pl-12 pr-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all placeholder:text-gray-600"
-            />
-          </div>
-
-          {/* Category Filters */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <Filter className="text-gray-500" size={20} />
-            {categories.map((category) => (
-              <button
-                key={category}
-                data-testid={`category-filter-${category.toLowerCase()}`}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  selectedCategory === category
-                    ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)]'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <p className="text-emerald-500 mt-2">✅ Connected to Sanity CMS (Project: 15c5x8s5)</p>
         </div>
 
         {/* Results Count */}
         <div className="mb-6 text-gray-400" data-testid="articles-count">
-          Showing {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''}
+          Showing {articles.length} article{articles.length !== 1 ? 's' : ''} from Sanity
         </div>
 
         {/* Articles Grid */}
-        {filteredArticles.length === 0 ? (
+        {articles.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-lg">No articles found</p>
+            <p className="text-gray-500 text-lg mb-4">No articles found in Sanity</p>
+            <p className="text-gray-600 text-sm">Create articles at: https://15c5x8s5.sanity.studio</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => (
-              <Link
+            {articles.map((article) => (
+              <div
                 key={article.id}
-                to={`/articles/${article.id}`}
                 data-testid={`article-card-${article.id}`}
                 className="glass-card rounded-xl overflow-hidden card-hover"
               >
-                <div className="h-48 overflow-hidden">
-                  <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
+                <div className="h-48 overflow-hidden bg-gray-800">
+                  {article.image_url && (
+                    <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
@@ -148,11 +92,24 @@ export default function ArticlesPage() {
                       day: 'numeric',
                     })}
                   </div>
+                  <div className="mt-3 text-xs text-gray-600">
+                    ID: {article.id.substring(0, 8)}...
+                  </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         )}
+
+        {/* Back Button */}
+        <div className="mt-12 text-center">
+          <Link
+            to="/"
+            className="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
       </div>
     </div>
   );
