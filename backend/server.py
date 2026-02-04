@@ -225,11 +225,12 @@ def get_mock_airdrops():
         {
             "id": "1",
             "project_name": "Hyena Trade",
-            "logo_url": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400",
+            "logo_url": "https://cdn.jsdelivr.net/gh/nickcisco/coinlogos@master/coins/128x128/HT.png",
             "chain": "Arbitrum",
             "description": "Perpetuals DEX on Arbitrum with competitive fees and leverage trading",
             "full_description": "Hyena Trade is a decentralized perpetual exchange on Arbitrum offering up to 50x leverage. Known for low fees and fast execution. No confirmed airdrop but strong hints from the team.",
             "backing": "Backed by leading DeFi VCs, experienced team from TradFi",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Connect wallet and complete KYC (if required)", "completed": False},
                 {"id": "t2", "description": "Make your first trade (min $100 volume)", "completed": False},
@@ -247,11 +248,12 @@ def get_mock_airdrops():
         {
             "id": "2",
             "project_name": "Extended Exchange",
-            "logo_url": "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400",
+            "logo_url": "https://cdn.jsdelivr.net/gh/nickcisco/coinlogos@master/coins/128x128/BTC.png",
             "chain": "Arbitrum",
             "description": "Advanced perpetuals platform with unique trading features and competitive APRs",
             "full_description": "Extended Exchange is building the next generation of perpetual trading with innovative features like vault strategies and social trading. Strong airdrop hints from the community.",
             "backing": "Seed round from top-tier crypto VCs, team from Binance and FTX",
+            "reward_note": "Reward varies based on trading volume, points earned, and participation level",
             "tasks": [
                 {"id": "t1", "description": "Sign up using referral code: TOMDEFI", "completed": False},
                 {"id": "t2", "description": "Complete at least $500 in trading volume", "completed": False},
