@@ -3,6 +3,7 @@ import HomePage from "@/pages/HomePage";
 import ArticlesPage from "@/pages/ArticlesPage";
 import AirdropsPage from "@/pages/AirdropsPage";
 import MarketIndicesPage from "@/pages/MarketIndicesPage";
+import AdminPage from "@/pages/AdminPage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/airdrops" element={<AirdropsPage />} />
           <Route path="/indices" element={<MarketIndicesPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
         <Footer />
         <Toaster position="top-right" />
