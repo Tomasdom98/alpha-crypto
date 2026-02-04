@@ -4,7 +4,7 @@
 Alpha Crypto is now integrated with Sanity CMS for content management of articles and airdrops. The system automatically falls back to mock data if Sanity content is not available.
 
 ## Sanity Project Details
-- **Project ID**: bj6asnq3
+- **Project ID**: 15c5x8s5
 - **Dataset**: production
 - **API Version**: 2024-01-01
 
