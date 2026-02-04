@@ -141,10 +141,10 @@ You can manage content from anywhere:
 - Make sure you clicked "Publish" (not just "Save")
 - Refresh your browser (Ctrl+R / Cmd+R)
 - Check if content meets required field validation
-- Verify project ID is bj6asnq3
+- Verify project ID is 15c5x8s5
 
 **Can't login to Studio?**
-- Make sure you're using the account that has access to project bj6asnq3
+- Make sure you're using the account that has access to project 15c5x8s5
 - Go to sanity.io, login, and check your projects list
 - Contact Sanity support if you need access
 
