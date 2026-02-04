@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import ArticlesPage from "@/pages/ArticlesPage";
 import AirdropsPage from "@/pages/AirdropsPage";
+import AirdropDetailPage from "@/pages/AirdropDetailPage";
 import MarketIndicesPage from "@/pages/MarketIndicesPage";
 import AdminPage from "@/pages/AdminPage";
 import Navigation from "@/components/Navigation";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/airdrops" element={<AirdropsPage />} />
+          <Route path="/airdrops/:airdropId" element={<AirdropDetailPage />} />
           <Route path="/indices" element={<MarketIndicesPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
