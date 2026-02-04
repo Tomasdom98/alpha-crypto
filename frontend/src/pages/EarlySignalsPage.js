@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Zap, Bell, TrendingUp, TrendingDown, Clock, ExternalLink, AlertCircle, Flame, Star, MessageCircle } from 'lucide-react';
+import { ChevronRight, Zap, Bell, TrendingUp, TrendingDown, Clock, ExternalLink, AlertCircle, Flame, Star, MessageCircle, CheckCircle, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
@@ -9,6 +10,10 @@ const API = BACKEND_URL + '/api';
 function EarlySignalsPage() {
   const [signals, setSignals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const [showEmailInput, setShowEmailInput] = useState(false);
 
   useEffect(function() {
     async function fetchSignals() {
@@ -194,9 +199,50 @@ function EarlySignalsPage() {
         <div className="mt-10 glass-card rounded-2xl p-6 text-center border border-emerald-500/30">
           <h3 className="text-xl font-bold text-white mb-2">Never Miss an Opportunity</h3>
           <p className="text-gray-400 mb-4">Get instant notifications for urgent signals and premium alpha</p>
-          <button className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-8 rounded-lg transition-all inline-flex items-center gap-2">
-            <Bell size={18} /> Enable Notifications
-          </button>
+          
+          {subscribed ? (
+            <div className="flex items-center justify-center gap-2 text-emerald-400">
+              <CheckCircle size={20} />
+              <span className="font-bold">Subscribed to alerts!</span>
+            </div>
+          ) : showEmailInput ? (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={function(e) { setEmail(e.target.value); }}
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500"
+                data-testid="alert-email-input"
+              />
+              <button
+                onClick={function() {
+                  if (!email) { toast.error('Please enter your email'); return; }
+                  setSubscribing(true);
+                  axios.post(API + '/alerts/subscribe', { email: email })
+                    .then(function() {
+                      setSubscribed(true);
+                      toast.success('Successfully subscribed to alerts!');
+                    })
+                    .catch(function() { toast.error('Failed to subscribe'); })
+                    .finally(function() { setSubscribing(false); });
+                }}
+                disabled={subscribing}
+                className="bg-emerald-500 hover:bg-emerald-400 disabled:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all flex items-center gap-2"
+                data-testid="alert-subscribe-btn"
+              >
+                {subscribing ? <Loader2 size={18} className="animate-spin" /> : <Bell size={18} />}
+                Subscribe
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={function() { setShowEmailInput(true); }}
+              className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-8 rounded-lg transition-all inline-flex items-center gap-2"
+            >
+              <Bell size={18} /> Enable Notifications
+            </button>
+          )}
         </div>
       </div>
     </div>
