@@ -1,10 +1,10 @@
 # Alpha Crypto - Product Requirements Document
 
 ## Overview
-Alpha Crypto is a full-stack crypto alpha platform providing market insights, airdrop tracking, premium content, and investment analysis for crypto investors.
+Alpha Crypto is a full-stack crypto alpha platform providing market insights, airdrop tracking, premium content, portfolio transparency, and investment analysis for crypto investors.
 
 ## Tech Stack
-- **Frontend:** React, React Router, Tailwind CSS
+- **Frontend:** React, React Router, Tailwind CSS, Recharts
 - **Backend:** FastAPI (Python)
 - **Database:** MongoDB
 - **CMS:** Sanity.io (Project ID: 15c5x8s5) - For future content management
@@ -21,125 +21,109 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Feedback form in footer
 
 ### 2. Articles Page (`/articles`)
-- ✅ 5 articles including 3 new Spanish articles:
-  - "Stablecoins: La Revolución Silenciosa del Sistema Financiero"
-  - "AI Agents y la Economía del Futuro" (Premium)
-  - "¿Qué está pasando en Crypto en 2026?"
+- ✅ 5 articles including 3 new Spanish articles
 - ✅ Relevant images for each article
-- ✅ Category filtering
-- ✅ Premium badges
+- ✅ Category filtering, Premium badges
 
 ### 3. Airdrops Page (`/airdrops`)
-- ✅ 15 DEX airdrops with detailed info
-- ✅ DiceBear generated logos (unique per project)
-- ✅ "Estimated Reward*" with clarification note
-- ✅ "*Based on volume & points" displayed on all cards
-- ✅ Chain badges (Arbitrum, Solana, Base, etc.)
-- ✅ Premium badges for exclusive airdrops
+- ✅ 15 DEX airdrops with DiceBear logos
+- ✅ Reward clarification notes
+- ✅ Premium badges, Chain badges
 
 ### 4. Airdrop Detail Page (`/airdrops/:id`)
-- ✅ Full airdrop information
-- ✅ reward_note explaining reward variability
-- ✅ Interactive task checklist with progress bar
-- ✅ Investors & backing information
-- ✅ Timeline info
-- ✅ "Start This Airdrop" button with referral link
+- ✅ Full info, interactive task checklist
+- ✅ Investors & backing, Timeline
 
 ### 5. Market Indices Page (`/indices`)
-- ✅ **NEW: Recommendation card** (BUY/HOLD/SELL ZONE)
-- ✅ **NEW: Signal summary** (counts of Buy/Hold/Sell signals)
-- ✅ **NEW: 1-line explanation** on each metric card
-- ✅ **NEW: Smaller Fear & Greed gauge** in recommendation card
-- ✅ On-Chain Metrics (MVRV, NUPL, Realized Price)
-- ✅ Sentiment Indicators (Fear & Greed, Bitcoin Rainbow)
-- ✅ Liquidity Metrics (SSR, Exchange Reserves)
-- ✅ Market Structure (BTC Dominance, Altcoin Season, Total MCap)
+- ✅ Buy/Hold/Sell recommendations
+- ✅ Signal explanations on each card
+- ✅ Fear & Greed gauge
 
-### 6. Admin Page (`/admin`)
+### 6. **Investment Analysis Page (`/analysis`)** - NEW FASE 2
+- ✅ Market Report styled like Atlantis report
+- ✅ Market Overview (BTC, ETH, MCap, Fear & Greed)
+- ✅ Alpha Crypto Assessment with recommendations
+- ✅ Key Insights (bullish/bearish/neutral signals)
+- ✅ Sector Analysis table (L1s, L2s, DeFi, AI, Memecoins)
+- ✅ Recommended Allocations (Conservative/Balanced/Aggressive)
+
+### 7. **Portfolio Page (`/portfolio`)** - NEW FASE 2
+- ✅ Milk Road style portfolio display
+- ✅ Total Value: $50,000, Monthly Return: +12%
+- ✅ 6-Month Performance bar chart
+- ✅ Allocation breakdown (BTC 35%, ETH 25%, SOL 20%, USDC 15%, ALTS 5%)
+- ✅ Holdings table with live values
+- ✅ Recent Trades section
+- ✅ Strategy Notes (Current Strategy, Next Moves)
+
+### 8. **Early Signals Page (`/signals`)** - NEW FASE 2
+- ✅ Live Updates indicator
+- ✅ Urgent Signals section (red border, PREMIUM badges)
+- ✅ All Signals with priority badges (HIGH, MEDIUM, LOW)
+- ✅ Signal types: opportunity, alert, news, community
+- ✅ Action recommendations
+- ✅ External links and timestamps
+
+### 9. Admin Page (`/admin`)
 - ✅ Payment verification dashboard
 - ✅ Premium users list
-- ✅ **NEW: Feedback tab** with submitted user feedback
-- ✅ Mark feedback as read functionality
+- ✅ Feedback tab with submissions
 
-### 7. Premium Subscription
-- ✅ $20/month pricing
-- ✅ Multi-chain payments: Solana, Base, Arbitrum (USDC)
-- ✅ QR code payment flow
-- ✅ Manual verification process
+### 10. Premium Subscription
+- ✅ $20/month, Multi-chain payments
+- ✅ Manual verification
 
-### 8. Feedback System
-- ✅ **NEW: Feedback form in footer**
-- ✅ Fields: Name, Email, Message
-- ✅ "What would you like to see on Alpha Crypto?"
-- ✅ Saves to MongoDB
-- ✅ Viewable in Admin panel
+### 11. Feedback System
+- ✅ Footer form, MongoDB storage
+- ✅ Admin panel review
 
-## Data Sources
+## Navigation
+- Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals
 
-### Live APIs
-- ✅ **CoinGecko API** - Real-time prices for BTC, ETH, SOL, USDC
-- ✅ **Alternative.me API** - Live Fear & Greed Index
+## Completed Tasks
 
-### MOCKED Data (Intentional)
-- 15 DEX Airdrops with full details (in `backend/server.py`)
-- 5 Articles including 3 new Spanish articles
-- Market indicators (Bitcoin dominance, DeFi TVL, etc.)
-
-## Completed Tasks - FASE 1 (February 2026)
-- [x] Market Indices Page with Buy/Hold/Sell recommendations
-- [x] Signal explanations on each metric card
-- [x] Smaller Fear & Greed gauge in recommendation card
+### FASE 1 (February 2026)
+- [x] Market Indices with Buy/Hold/Sell recommendations
 - [x] Live crypto prices from CoinGecko API
-- [x] 3 new Spanish articles (Stablecoins, AI Agents, Crypto 2026)
-- [x] Airdrops with reward clarification notes
-- [x] DiceBear logos for all airdrops
-- [x] Feedback form in footer
-- [x] Feedback management in Admin panel
+- [x] 3 new Spanish articles
+- [x] Airdrops with reward clarification
+- [x] Feedback form + Admin panel
 
-## Upcoming Tasks - FASE 2 (P1)
-- [ ] Investment Analysis tab with market report (Atlantis style)
-- [ ] Portfolio section (Milk Road style) with holdings display
-- [ ] Early Signals tab for quick investment opportunities
+### FASE 2 (February 2026)
+- [x] Investment Analysis page (Atlantis style)
+- [x] Portfolio page (Milk Road style)
+- [x] Early Signals page
 
-## Future Tasks - FASE 3 (P2)
+## Upcoming Tasks - FASE 3 (P1)
 - [ ] Consulting section with contact form
-- [ ] Sync airdrop/article data with Sanity CMS
+- [ ] Email alerts for new premium airdrops
+- [ ] Sync data with Sanity CMS
+
+## Future Tasks (P2)
 - [ ] Migrate to Next.js for Vercel deployment
 - [ ] Export project to GitHub
+- [ ] User authentication system
 
 ## Backlog (P3)
 - [ ] Automatic on-chain payment verification
-- [ ] User authentication system
-- [ ] Saved airdrops/favorites feature
+- [ ] Real portfolio data connection
+- [ ] Saved airdrops/favorites
 
 ## Key Endpoints
 
-### Articles API
-- `GET /api/articles` - List articles (mock data)
-- `GET /api/articles/:id` - Get single article
+### New Endpoints (FASE 2)
+- `GET /api/early-signals` - Get signals and opportunities
 
-### Airdrops API
-- `GET /api/airdrops` - List all 15 airdrops
-- `GET /api/airdrops/:id` - Get single airdrop with reward_note
-
-### Market Data API
-- `GET /api/crypto/prices` - Live prices from CoinGecko
-- `GET /api/crypto/fear-greed` - Live Fear & Greed Index
-- `GET /api/market-indices` - Market indicators
-
-### Feedback API
+### Existing Endpoints
+- `GET /api/articles` - List articles
+- `GET /api/airdrops` - List airdrops
+- `GET /api/crypto/prices` - Live CoinGecko prices
 - `POST /api/feedback` - Submit feedback
-- `GET /api/admin/feedback` - Get all feedback (admin)
-- `POST /api/admin/feedback/:id/read` - Mark as read
-
-### Payments API
-- `POST /api/payments/submit` - Submit payment
-- `GET /api/admin/payments` - Get payments (admin)
-- `POST /api/admin/payments/:id/verify` - Verify payment
+- `GET /api/admin/feedback` - Admin feedback view
 
 ## Test Reports
-- `/app/test_reports/iteration_1.json` - 15 DEX Airdrops feature (100% pass)
-- `/app/test_reports/pytest/fase1_results.xml` - FASE 1 features (21 tests, 100% pass)
+- `/app/test_reports/iteration_1.json` - 15 DEX Airdrops feature
+- `/app/test_reports/pytest/fase1_results.xml` - FASE 1 tests (21 passed)
 
 ## User's Preferred Language
 Spanish (Español)
