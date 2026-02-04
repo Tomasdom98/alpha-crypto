@@ -12,8 +12,8 @@ Your Sanity Studio has been created with:
 ### Option 1: Access Online Studio (Recommended)
 The easiest way to manage your content is through Sanity's hosted studio:
 
-1. **Go to**: https://bj6asnq3.sanity.studio
-2. **Login** with your Sanity account (the one associated with project bj6asnq3)
+1. **Go to**: https://15c5x8s5.sanity.studio
+2. **Login** with your Sanity account (the one associated with project 15c5x8s5)
 3. **Start creating content!**
 
 ### Option 2: Run Studio Locally
