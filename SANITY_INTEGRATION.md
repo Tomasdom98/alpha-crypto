@@ -62,7 +62,7 @@ mkdir sanity-studio
 cd sanity-studio
 
 # Initialize with existing project
-npm create sanity@latest -- --project bj6asnq3 --dataset production
+npm create sanity@latest -- --project 15c5x8s5 --dataset production
 ```
 
 ### 3. Configure Schemas
