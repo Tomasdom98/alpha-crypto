@@ -441,6 +441,101 @@ async def get_gainers_losers():
     }
 
 
+# Payment endpoints
+@api_router.post("/payments/submit")
+async def submit_payment(payment: PaymentSubmission):
+    """Submit a new payment for verification"""
+    try:
+        # Create payment record
+        payment_doc = {
+            "id": str(uuid.uuid4()),
+            "user_email": payment.email,
+            "amount": payment.amount,
+            "chain": payment.chain,
+            "tx_hash": payment.tx_hash,
+            "status": "pending",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "wallet_address": payment.wallet_address
+        }
+        
+        await db.payments.insert_one(payment_doc)
+        
+        # Check if user exists
+        user = await db.users.find_one({"email": payment.email}, {"_id": 0})
+        
+        if not user:
+            # Create new user
+            user_doc = {
+                "email": payment.email,
+                "wallet_address": payment.wallet_address,
+                "is_premium": False,
+                "premium_until": None,
+                "payment_chain": payment.chain,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.users.insert_one(user_doc)
+        
+        return {"success": True, "message": "Payment submitted successfully", "payment_id": payment_doc["id"]}
+    except Exception as e:
+        logger.error(f"Error submitting payment: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit payment")
+
+@api_router.get("/admin/payments")
+async def get_pending_payments(status: Optional[str] = "pending"):
+    """Get payments for admin review"""
+    try:
+        query = {} if status == "all" else {"status": status}
+        payments = await db.payments.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return payments
+    except Exception as e:
+        logger.error(f"Error fetching payments: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch payments")
+
+@api_router.post("/admin/payments/{payment_id}/verify")
+async def verify_payment(payment_id: str):
+    """Verify a payment and activate premium"""
+    try:
+        # Get payment
+        payment = await db.payments.find_one({"id": payment_id})
+        if not payment:
+            raise HTTPException(status_code=404, detail="Payment not found")
+        
+        # Update payment status
+        await db.payments.update_one(
+            {"id": payment_id},
+            {"$set": {"status": "verified"}}
+        )
+        
+        # Activate premium for user (30 days)
+        from datetime import timedelta
+        premium_until = datetime.now(timezone.utc) + timedelta(days=30)
+        
+        await db.users.update_one(
+            {"email": payment["user_email"]},
+            {"$set": {
+                "is_premium": True,
+                "premium_until": premium_until.isoformat()
+            }}
+        )
+        
+        return {"success": True, "message": "Payment verified and premium activated"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error verifying payment: {e}")
+        raise HTTPException(status_code=500, detail="Failed to verify payment")
+
+@api_router.get("/admin/users")
+async def get_premium_users():
+    """Get list of premium users"""
+    try:
+        users = await db.users.find({"is_premium": True}, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return users
+    except Exception as e:
+        logger.error(f"Error fetching users: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch users")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
