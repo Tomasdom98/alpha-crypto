@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, TrendingUp, TrendingDown, Wallet, PieChart, BarChart3, RefreshCw, ExternalLink } from 'lucide-react';
-import { PieChart as RechartsPie, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink } from 'lucide-react';
 
 export default function PortfolioPage() {
-  // Placeholder data as requested
   const portfolioData = {
     totalValue: 50000,
     monthlyReturn: 12,
@@ -20,12 +18,12 @@ export default function PortfolioPage() {
   ];
 
   const performanceHistory = [
-    { month: 'Sep', return: 8.2 },
-    { month: 'Oct', return: -4.5 },
-    { month: 'Nov', return: 15.3 },
-    { month: 'Dec', return: 22.1 },
-    { month: 'Jan', return: 5.8 },
-    { month: 'Feb', return: 12.0 }
+    { month: 'Sep', value: 8.2 },
+    { month: 'Oct', value: -4.5 },
+    { month: 'Nov', value: 15.3 },
+    { month: 'Dec', value: 22.1 },
+    { month: 'Jan', value: 5.8 },
+    { month: 'Feb', value: 12.0 }
   ];
 
   const recentTrades = [
@@ -35,12 +33,9 @@ export default function PortfolioPage() {
     { type: 'buy', asset: 'SOL', amount: '$750', date: 'Jan 20', reason: 'Rebalance' }
   ];
 
-  const pieData = holdings.map(h => ({ name: h.symbol, value: h.allocation, color: h.color }));
-
   return (
     <div className="min-h-screen py-12" data-testid="portfolio-page">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
             <ChevronRight size={16} className="rotate-180" /> Back to Home
@@ -51,7 +46,7 @@ export default function PortfolioPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="portfolio-heading">
                 Alpha Crypto Portfolio
               </h1>
-              <p className="text-gray-400">Transparent portfolio tracking • Copy-trade friendly</p>
+              <p className="text-gray-400">Transparent portfolio tracking - Copy-trade friendly</p>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <RefreshCw size={14} />
@@ -60,7 +55,6 @@ export default function PortfolioPage() {
           </div>
         </div>
 
-        {/* Main Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
             <div className="flex items-start justify-between mb-6">
@@ -72,84 +66,63 @@ export default function PortfolioPage() {
               </div>
               <div className="text-right">
                 <div className="text-gray-400 text-sm mb-1">Monthly Return</div>
-                <div className={`text-2xl font-bold flex items-center gap-1 ${portfolioData.monthlyReturn >= 0 ? 'text-emerald-400' : 'text-red-400'}`} data-testid="monthly-return">
-                  {portfolioData.monthlyReturn >= 0 ? <TrendingUp size={24} /> : <TrendingDown size={24} />}
+                <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
+                  <TrendingUp size={24} />
                   +{portfolioData.monthlyReturn}%
                 </div>
                 <div className="text-gray-500 text-sm">+${portfolioData.monthlyReturnValue.toLocaleString()}</div>
               </div>
             </div>
 
-            {/* Performance Chart */}
             <div className="mb-4">
               <h3 className="text-sm font-bold text-gray-400 mb-3">6-Month Performance</h3>
               <div className="flex items-end gap-2 h-24">
-                {performanceHistory.map((month, index) => (
-                  <div key={month.month} className="flex-1 flex flex-col items-center">
-                    <div 
-                      className={`w-full rounded-t transition-all ${month.return >= 0 ? 'bg-emerald-500' : 'bg-red-500'}`}
-                      style={{ height: `${Math.abs(month.return) * 3}px`, minHeight: '4px' }}
-                    />
-                    <div className="text-xs text-gray-500 mt-2">{month.month}</div>
-                    <div className={`text-xs font-bold ${month.return >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                      {month.return > 0 ? '+' : ''}{month.return}%
+                {performanceHistory.map(function(month) {
+                  return (
+                    <div key={month.month} className="flex-1 flex flex-col items-center">
+                      <div 
+                        className={'w-full rounded-t transition-all ' + (month.value >= 0 ? 'bg-emerald-500' : 'bg-red-500')}
+                        style={{ height: Math.abs(month.value) * 3 + 'px', minHeight: '4px' }}
+                      />
+                      <div className="text-xs text-gray-500 mt-2">{month.month}</div>
+                      <div className={'text-xs font-bold ' + (month.value >= 0 ? 'text-emerald-400' : 'text-red-400')}>
+                        {month.value > 0 ? '+' : ''}{month.value}%
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {/* Pie Chart */}
           <div className="glass-card rounded-2xl p-6">
-            <h3 className="text-sm font-bold text-gray-400 mb-4 flex items-center gap-2">
-              <PieChart size={16} className="text-emerald-500" />
-              Allocation
-            </h3>
-            <div className="h-48">
-              <ResponsiveContainer width="100%" height="100%">
-                <RechartsPie>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={70}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    content={({ payload }) => {
-                      if (payload && payload[0]) {
-                        return (
-                          <div className="bg-gray-900 px-3 py-2 rounded-lg border border-gray-700">
-                            <div className="text-white font-bold">{payload[0].name}</div>
-                            <div className="text-emerald-400">{payload[0].value}%</div>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                </RechartsPie>
-              </ResponsiveContainer>
+            <h3 className="text-sm font-bold text-gray-400 mb-4">Allocation</h3>
+            <div className="space-y-3">
+              {holdings.map(function(h) {
+                return (
+                  <div key={h.symbol} className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: h.color }} />
+                    <span className="text-gray-300 flex-1">{h.symbol}</span>
+                    <span className="text-white font-bold">{h.allocation}%</span>
+                  </div>
+                );
+              })}
             </div>
-            <div className="flex flex-wrap gap-2 justify-center mt-2">
-              {holdings.map(h => (
-                <div key={h.symbol} className="flex items-center gap-1 text-xs">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: h.color }} />
-                  <span className="text-gray-400">{h.symbol}</span>
-                </div>
-              ))}
+            <div className="mt-4 pt-4 border-t border-gray-800">
+              <div className="flex h-4 rounded-full overflow-hidden">
+                {holdings.map(function(h) {
+                  return (
+                    <div 
+                      key={h.symbol}
+                      style={{ width: h.allocation + '%', backgroundColor: h.color }}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Holdings Table */}
         <div className="glass-card rounded-2xl p-6 mb-8" data-testid="holdings-table">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
             <Wallet className="text-emerald-500" /> Holdings
@@ -166,51 +139,52 @@ export default function PortfolioPage() {
                 </tr>
               </thead>
               <tbody>
-                {holdings.map((holding, index) => (
-                  <tr key={holding.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        <div 
-                          className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
-                          style={{ backgroundColor: holding.color + '30' }}
-                        >
-                          {holding.symbol.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="font-medium text-white">{holding.name}</div>
-                          <div className="text-gray-500 text-sm">{holding.symbol}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                {holdings.map(function(holding) {
+                  return (
+                    <tr key={holding.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-3">
                           <div 
-                            className="h-full rounded-full"
-                            style={{ width: `${holding.allocation}%`, backgroundColor: holding.color }}
-                          />
+                            className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                            style={{ backgroundColor: holding.color + '30' }}
+                          >
+                            {holding.symbol.charAt(0)}
+                          </div>
+                          <div>
+                            <div className="font-medium text-white">{holding.name}</div>
+                            <div className="text-gray-500 text-sm">{holding.symbol}</div>
+                          </div>
                         </div>
-                        <span className="text-white font-bold w-10">{holding.allocation}%</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <span className="text-white font-bold" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                        ${holding.value.toLocaleString()}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <span className={`font-bold ${holding.change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                        {holding.change24h >= 0 ? '+' : ''}{holding.change24h}%
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full rounded-full"
+                              style={{ width: holding.allocation + '%', backgroundColor: holding.color }}
+                            />
+                          </div>
+                          <span className="text-white font-bold w-10">{holding.allocation}%</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <span className="text-white font-bold" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                          ${holding.value.toLocaleString()}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <span className={'font-bold ' + (holding.change24h >= 0 ? 'text-emerald-400' : 'text-red-400')}>
+                          {holding.change24h >= 0 ? '+' : ''}{holding.change24h}%
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Recent Activity */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="glass-card rounded-2xl p-6">
             <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -218,25 +192,25 @@ export default function PortfolioPage() {
             </h2>
             
             <div className="space-y-3">
-              {recentTrades.map((trade, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      trade.type === 'buy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
-                    }`}>
-                      {trade.type === 'buy' ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+              {recentTrades.map(function(trade, index) {
+                return (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className={'w-8 h-8 rounded-full flex items-center justify-center ' + (trade.type === 'buy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400')}>
+                        {trade.type === 'buy' ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">{trade.type.toUpperCase()} {trade.asset}</div>
+                        <div className="text-gray-500 text-xs">{trade.reason}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-white font-medium">{trade.type.toUpperCase()} {trade.asset}</div>
-                      <div className="text-gray-500 text-xs">{trade.reason}</div>
+                    <div className="text-right">
+                      <div className="text-white font-bold">{trade.amount}</div>
+                      <div className="text-gray-500 text-xs">{trade.date}</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-white font-bold">{trade.amount}</div>
-                    <div className="text-gray-500 text-xs">{trade.date}</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -247,8 +221,8 @@ export default function PortfolioPage() {
               <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
                 <h3 className="font-bold text-emerald-400 mb-1">Current Strategy</h3>
                 <p className="text-gray-300 text-sm">
-                  DCA semanal en BTC y ETH. Manteniendo posición defensiva con 15% en stables. 
-                  Buscando oportunidades en L2s para próxima rotación.
+                  DCA semanal en BTC y ETH. Manteniendo posicion defensiva con 15% en stables. 
+                  Buscando oportunidades en L2s para proxima rotacion.
                 </p>
               </div>
               
@@ -273,7 +247,6 @@ export default function PortfolioPage() {
           </div>
         </div>
 
-        {/* Disclaimer */}
         <div className="mt-8 p-4 bg-gray-900/50 border border-gray-800 rounded-xl text-center">
           <p className="text-xs text-gray-500">
             This portfolio is for educational purposes only. Past performance does not guarantee future results. 
