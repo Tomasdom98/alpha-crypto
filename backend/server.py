@@ -71,6 +71,7 @@ class Airdrop(BaseModel):
     backing: Optional[str] = None
     chain: Optional[str] = None
     timeline: Optional[str] = None
+    reward_note: Optional[str] = None
     tasks: List[AirdropTask]
     estimated_reward: str
     difficulty: str
