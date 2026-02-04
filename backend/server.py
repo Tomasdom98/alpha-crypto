@@ -99,6 +99,27 @@ class Feedback(BaseModel):
     created_at: str
     read: bool = False
 
+class ConsultingSubmission(BaseModel):
+    name: str
+    email: str
+    company: Optional[str] = None
+    message: str
+    service_type: str  # personal or business
+
+class ConsultingRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    name: str
+    email: str
+    company: Optional[str] = None
+    message: str
+    service_type: str
+    created_at: str
+    status: str = "new"  # new, contacted, completed
+
+class EmailAlertSubscription(BaseModel):
+    email: str
+
 class PaymentSubmission(BaseModel):
     email: str
     wallet_address: str
