@@ -249,7 +249,7 @@ def get_mock_airdrops():
         {
             "id": "2",
             "project_name": "Extended Exchange",
-            "logo_url": "https://cdn.jsdelivr.net/gh/nickcisco/coinlogos@master/coins/128x128/BTC.png",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=ExtendedExchange&backgroundColor=6366f1",
             "chain": "Arbitrum",
             "description": "Advanced perpetuals platform with unique trading features and competitive APRs",
             "full_description": "Extended Exchange is building the next generation of perpetual trading with innovative features like vault strategies and social trading. Strong airdrop hints from the community.",
@@ -272,7 +272,7 @@ def get_mock_airdrops():
         {
             "id": "3",
             "project_name": "GRVT",
-            "logo_url": "https://cryptologos.cc/logos/zksync-zks-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=GRVT&backgroundColor=8b5cf6",
             "chain": "zkSync",
             "description": "Institutional-grade hybrid DEX on zkSync with CEX-like performance",
             "full_description": "GRVT combines the best of CEX and DEX: self-custody with institutional-grade speed and liquidity. Built on zkSync Era with backing from major crypto VCs. Confirmed token launch.",
@@ -295,7 +295,7 @@ def get_mock_airdrops():
         {
             "id": "4",
             "project_name": "Based.one",
-            "logo_url": "https://cryptologos.cc/logos/coinbase-coin-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=BasedOne&backgroundColor=3b82f6",
             "chain": "Base",
             "description": "Native perpetuals DEX on Base with low fees and high leverage",
             "full_description": "Based.one is the leading perps platform on Base L2, offering up to 100x leverage with minimal fees. Strong community and high trading volumes indicate likely airdrop.",
@@ -318,7 +318,7 @@ def get_mock_airdrops():
         {
             "id": "5",
             "project_name": "Backpack",
-            "logo_url": "https://cryptologos.cc/logos/solana-sol-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Backpack&backgroundColor=14b8a6",
             "chain": "Solana",
             "description": "Solana's premier exchange from the Mad Lads team with confirmed token",
             "full_description": "Backpack is built by the team behind Mad Lads NFT (Coral/xNFT). Recently raised $17M and confirmed token launch. One of the most anticipated Solana airdrops.",
@@ -341,7 +341,7 @@ def get_mock_airdrops():
         {
             "id": "6",
             "project_name": "Avantis",
-            "logo_url": "https://cryptologos.cc/logos/coinbase-coin-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Avantis&backgroundColor=f59e0b",
             "chain": "Base",
             "description": "Proven airdrop model perps DEX on Base with competitive trading",
             "full_description": "Avantis has a proven track record of rewarding early users. Offers perpetual trading with unique vault strategies. Strong hints of token launch with generous airdrop allocation.",
@@ -364,7 +364,7 @@ def get_mock_airdrops():
         {
             "id": "7",
             "project_name": "StandX",
-            "logo_url": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=StandX&backgroundColor=ec4899",
             "chain": "Multi-chain",
             "description": "Cross-chain perpetuals platform with innovative trading features",
             "full_description": "StandX offers perpetual trading across multiple chains with unified liquidity. Known for low slippage and high capital efficiency. Team has hinted at token rewards for early adopters.",
@@ -387,7 +387,7 @@ def get_mock_airdrops():
         {
             "id": "8",
             "project_name": "Variational",
-            "logo_url": "https://cryptologos.cc/logos/polygon-matic-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Variational&backgroundColor=a855f7",
             "chain": "Omni-chain",
             "description": "Omni-chain perpetuals DEX with advanced order types",
             "full_description": "Variational enables perpetual trading across multiple chains with a unified interface. Features advanced order types and risk management tools typically found on CEXs.",
@@ -410,7 +410,7 @@ def get_mock_airdrops():
         {
             "id": "9",
             "project_name": "Pacifica",
-            "logo_url": "https://cryptologos.cc/logos/solana-sol-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Pacifica&backgroundColor=06b6d4",
             "chain": "Solana",
             "description": "Solana's next-gen perps platform with vault strategies and social trading",
             "full_description": "Pacifica combines perpetual trading with innovative vault strategies on Solana. Known for lightning-fast execution and low fees. Strong community growth indicates imminent token launch.",
@@ -433,7 +433,7 @@ def get_mock_airdrops():
         {
             "id": "10",
             "project_name": "Hibachi",
-            "logo_url": "https://cryptologos.cc/logos/blast-blast-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Hibachi&backgroundColor=eab308",
             "chain": "Blast",
             "description": "Native DEX on Blast L2 with points system and yield opportunities",
             "full_description": "Hibachi is building the premier trading platform on Blast L2. Benefits from Blast's native yield and points system. Early adoption phase with generous rewards expected.",
@@ -456,7 +456,7 @@ def get_mock_airdrops():
         {
             "id": "11",
             "project_name": "Reya",
-            "logo_url": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Reya&backgroundColor=ef4444",
             "chain": "Reya Network (L2)",
             "description": "Modular trading-optimized L2 with institutional backing",
             "full_description": "Reya Network is a modular L2 built specifically for trading and DeFi. Raised significant funding and confirmed token. One of the most anticipated airdrops with potentially large allocations for early users.",
@@ -479,7 +479,7 @@ def get_mock_airdrops():
         {
             "id": "12",
             "project_name": "Ostium",
-            "logo_url": "https://cryptologos.cc/logos/arbitrum-arb-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Ostium&backgroundColor=84cc16",
             "chain": "Arbitrum",
             "description": "RWA and crypto perpetuals platform with unique asset offerings",
             "full_description": "Ostium enables trading of both traditional (RWA) and crypto perpetuals on Arbitrum. Unique offering includes stocks, forex, and commodities alongside crypto. Strong institutional interest.",
@@ -502,7 +502,7 @@ def get_mock_airdrops():
         {
             "id": "13",
             "project_name": "Ethereal",
-            "logo_url": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Ethereal&backgroundColor=6366f1",
             "chain": "Ethereum",
             "description": "Decentralized trading platform on Ethereum mainnet",
             "full_description": "Ethereal is a decentralized exchange on Ethereum offering perpetual trading with innovative features.",
@@ -520,7 +520,7 @@ def get_mock_airdrops():
         {
             "id": "14",
             "project_name": "Paradex",
-            "logo_url": "https://cryptologos.cc/logos/starknet-token-strk-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Paradex&backgroundColor=f97316",
             "chain": "Starknet",
             "description": "Paradigm-backed perpetuals DEX on Starknet with institutional focus",
             "full_description": "Paradex is built on Starknet with backing from Paradigm (one of crypto's top VCs). Offers institutional-grade perpetual trading with self-custody. Token launch confirmed for 2024.",
@@ -543,7 +543,7 @@ def get_mock_airdrops():
         {
             "id": "15",
             "project_name": "Lighter",
-            "logo_url": "https://cryptologos.cc/logos/arbitrum-arb-logo.png?v=040",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=Lighter&backgroundColor=22c55e",
             "chain": "Arbitrum",
             "description": "Proven airdrop history - successful past distribution to early users",
             "full_description": "Lighter has already completed one successful airdrop and is preparing for a second round. Known for generous rewards to active traders. Strong orderbook liquidity and growing ecosystem.",
