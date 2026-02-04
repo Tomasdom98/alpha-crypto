@@ -58,18 +58,22 @@ export default function HomePage() {
       <LiveTicker />
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0 grid-background" />
-        <div className="absolute inset-0 hero-glow" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm">
+            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <span className="text-sm text-emerald-400 font-medium">Professional Crypto Intelligence</span>
+          </div>
           <h1
-            className="text-5xl md:text-6xl font-black tracking-tight text-white mb-6 fade-in"
-            style={{ fontFamily: 'Chivo, sans-serif' }}
+            className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 fade-in leading-tight"
+            style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}
             data-testid="hero-heading"
           >
-            Tu fuente de <span className="text-emerald-500">alpha</span> en crypto
+            Tu fuente de <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">alpha</span> en crypto
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8 fade-in" data-testid="hero-description">
+          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 fade-in" data-testid="hero-description" style={{ fontFamily: 'Inter, sans-serif' }}>
             Análisis profundo, airdrops verificados, e insights de mercado para inversores inteligentes
           </p>
         </div>
