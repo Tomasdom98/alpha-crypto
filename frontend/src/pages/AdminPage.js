@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Check, X, Clock, Users, DollarSign, ChevronRight } from 'lucide-react';
+import { Check, X, Clock, Users, DollarSign, ChevronRight, MessageSquare, Mail, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -10,6 +10,7 @@ const API = `${BACKEND_URL}/api`;
 export default function AdminPage() {
   const [payments, setPayments] = useState([]);
   const [users, setUsers] = useState([]);
+  const [feedback, setFeedback] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('pending');
 
@@ -23,6 +24,9 @@ export default function AdminPage() {
       if (activeTab === 'users') {
         const { data } = await axios.get(`${API}/admin/users`);
         setUsers(data);
+      } else if (activeTab === 'feedback') {
+        const { data } = await axios.get(`${API}/admin/feedback`);
+        setFeedback(data);
       } else {
         const { data } = await axios.get(`${API}/admin/payments?status=${activeTab}`);
         setPayments(data);
@@ -43,6 +47,17 @@ export default function AdminPage() {
     } catch (error) {
       console.error('Error verifying payment:', error);
       toast.error('Failed to verify payment');
+    }
+  };
+
+  const markFeedbackRead = async (feedbackId) => {
+    try {
+      await axios.post(`${API}/admin/feedback/${feedbackId}/read`);
+      toast.success('Feedback marked as read');
+      fetchData();
+    } catch (error) {
+      console.error('Error marking feedback:', error);
+      toast.error('Failed to update feedback');
     }
   };
 
@@ -75,13 +90,13 @@ export default function AdminPage() {
           >
             Admin Dashboard
           </h1>
-          <p className="text-gray-400 text-lg">Manage payments and premium memberships</p>
+          <p className="text-gray-400 text-lg">Manage payments, users, and feedback</p>
         </div>
 
-        <div className="flex gap-2 mb-8 border-b border-gray-800">
+        <div className="flex gap-2 mb-8 border-b border-gray-800 overflow-x-auto">
           <button
             onClick={() => setActiveTab('pending')}
-            className={`px-6 py-3 font-semibold transition-all ${
+            className={`px-6 py-3 font-semibold transition-all whitespace-nowrap ${
               activeTab === 'pending'
                 ? 'text-emerald-400 border-b-2 border-emerald-500'
                 : 'text-gray-400 hover:text-white'
@@ -92,7 +107,7 @@ export default function AdminPage() {
           </button>
           <button
             onClick={() => setActiveTab('verified')}
-            className={`px-6 py-3 font-semibold transition-all ${
+            className={`px-6 py-3 font-semibold transition-all whitespace-nowrap ${
               activeTab === 'verified'
                 ? 'text-emerald-400 border-b-2 border-emerald-500'
                 : 'text-gray-400 hover:text-white'
@@ -103,7 +118,7 @@ export default function AdminPage() {
           </button>
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-6 py-3 font-semibold transition-all ${
+            className={`px-6 py-3 font-semibold transition-all whitespace-nowrap ${
               activeTab === 'users'
                 ? 'text-emerald-400 border-b-2 border-emerald-500'
                 : 'text-gray-400 hover:text-white'
@@ -111,6 +126,18 @@ export default function AdminPage() {
           >
             <Users className="inline-block mr-2" size={18} />
             Premium Users
+          </button>
+          <button
+            onClick={() => setActiveTab('feedback')}
+            className={`px-6 py-3 font-semibold transition-all whitespace-nowrap ${
+              activeTab === 'feedback'
+                ? 'text-emerald-400 border-b-2 border-emerald-500'
+                : 'text-gray-400 hover:text-white'
+            }`}
+            data-testid="feedback-tab"
+          >
+            <MessageSquare className="inline-block mr-2" size={18} />
+            Feedback
           </button>
         </div>
 
@@ -121,6 +148,7 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* Payments Tab */}
         {!loading && (activeTab === 'pending' || activeTab === 'verified') && (
           <div className="space-y-4">
             {payments.length === 0 ? (
@@ -192,6 +220,7 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* Users Tab */}
         {!loading && activeTab === 'users' && (
           <div className="space-y-4">
             {users.length === 0 ? (
@@ -235,6 +264,77 @@ export default function AdminPage() {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Feedback Tab */}
+        {!loading && activeTab === 'feedback' && (
+          <div className="space-y-4" data-testid="feedback-list">
+            {feedback.length === 0 ? (
+              <div className="text-center py-20">
+                <MessageSquare className="mx-auto text-gray-600 mb-4" size={48} />
+                <p className="text-gray-500 text-lg">No feedback received yet</p>
+                <p className="text-gray-600 text-sm mt-2">Feedback submitted by users will appear here</p>
+              </div>
+            ) : (
+              feedback.map((item) => (
+                <div
+                  key={item.id}
+                  data-testid={`feedback-${item.id}`}
+                  className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border p-6 transition-all duration-300 ${
+                    item.read ? 'border-gray-700/50 opacity-70' : 'border-emerald-500/30'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`p-2 rounded-lg ${item.read ? 'bg-gray-700/50' : 'bg-emerald-500/20'}`}>
+                          <MessageSquare className={item.read ? 'text-gray-400' : 'text-emerald-500'} size={20} />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-white">{item.name}</h3>
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <Mail size={14} />
+                            {item.email}
+                          </div>
+                        </div>
+                        {!item.read && (
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            New
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="bg-gray-800/50 rounded-lg p-4 mb-3">
+                        <p className="text-gray-300 leading-relaxed">{item.message}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs text-gray-500">
+                          Received: {new Date(item.created_at).toLocaleString()}
+                        </div>
+                        {item.read && (
+                          <span className="text-xs text-gray-500 flex items-center gap-1">
+                            <CheckCircle size={14} /> Read
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {!item.read && (
+                      <div className="ml-4">
+                        <button
+                          onClick={() => markFeedbackRead(item.id)}
+                          className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm"
+                        >
+                          Mark Read
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))
