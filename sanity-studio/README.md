@@ -28,7 +28,7 @@ Then open: http://localhost:3333
 
 ## 📝 How to Add Your First Article
 
-1. **Login to Sanity Studio** (https://bj6asnq3.sanity.studio)
+1. **Login to Sanity Studio** (https://15c5x8s5.sanity.studio)
 
 2. **Click "Article"** in the left sidebar
 
