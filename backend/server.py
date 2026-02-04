@@ -226,7 +226,7 @@ def get_mock_airdrops():
         {
             "id": "1",
             "project_name": "Hyena Trade",
-            "logo_url": "https://cdn.jsdelivr.net/gh/nickcisco/coinlogos@master/coins/128x128/HT.png",
+            "logo_url": "https://api.dicebear.com/7.x/shapes/svg?seed=HyenaTrade&backgroundColor=10b981",
             "chain": "Arbitrum",
             "description": "Perpetuals DEX on Arbitrum with competitive fees and leverage trading",
             "full_description": "Hyena Trade is a decentralized perpetual exchange on Arbitrum offering up to 50x leverage. Known for low fees and fast execution. No confirmed airdrop but strong hints from the team.",
