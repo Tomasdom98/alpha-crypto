@@ -543,7 +543,39 @@ async def root():
 
 @api_router.get("/crypto/prices", response_model=List[CryptoPrice])
 async def get_crypto_prices():
-    """Get current crypto prices"""
+    """Get current crypto prices from CoinGecko API"""
+    try:
+        async with aiohttp.ClientSession() as session:
+            url = "https://api.coingecko.com/api/v3/coins/markets"
+            params = {
+                "vs_currency": "usd",
+                "ids": "bitcoin,ethereum,solana,usd-coin",
+                "order": "market_cap_desc",
+                "per_page": 10,
+                "page": 1,
+                "sparkline": "false",
+                "price_change_percentage": "24h"
+            }
+            async with session.get(url, params=params, timeout=10) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    prices = []
+                    for coin in data:
+                        prices.append({
+                            "id": coin.get("id", ""),
+                            "symbol": coin.get("symbol", "").upper(),
+                            "name": coin.get("name", ""),
+                            "current_price": coin.get("current_price", 0),
+                            "price_change_24h": coin.get("price_change_percentage_24h", 0) or 0,
+                            "market_cap": coin.get("market_cap", 0) or 0,
+                            "volume_24h": coin.get("total_volume", 0) or 0
+                        })
+                    if prices:
+                        return prices
+    except Exception as e:
+        logger.error(f"Error fetching CoinGecko prices: {e}")
+    
+    # Fallback to mock data if API fails
     return get_mock_crypto_prices()
 
 @api_router.get("/crypto/fear-greed")
