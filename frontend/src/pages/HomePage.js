@@ -43,8 +43,11 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-emerald-500 text-xl font-mono">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent mb-4" />
+          <div className="text-emerald-500 text-xl font-semibold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Loading Alpha Crypto...</div>
+        </div>
       </div>
     );
   }
