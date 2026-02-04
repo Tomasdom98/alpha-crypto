@@ -851,6 +851,58 @@ async def get_premium_users():
         raise HTTPException(status_code=500, detail="Failed to fetch users")
 
 
+# Feedback endpoints
+@api_router.post("/feedback")
+async def submit_feedback(feedback: FeedbackSubmission):
+    """Submit feedback from users"""
+    try:
+        feedback_doc = {
+            "id": str(uuid.uuid4()),
+            "name": feedback.name,
+            "email": feedback.email,
+            "message": feedback.message,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "read": False
+        }
+        await db.feedback.insert_one(feedback_doc)
+        return {"success": True, "message": "Feedback submitted successfully"}
+    except Exception as e:
+        logger.error(f"Error submitting feedback: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit feedback")
+
+@api_router.get("/admin/feedback")
+async def get_feedback(read: Optional[str] = None):
+    """Get all feedback for admin review"""
+    try:
+        query = {}
+        if read == "true":
+            query["read"] = True
+        elif read == "false":
+            query["read"] = False
+        feedback_list = await db.feedback.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return feedback_list
+    except Exception as e:
+        logger.error(f"Error fetching feedback: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch feedback")
+
+@api_router.post("/admin/feedback/{feedback_id}/read")
+async def mark_feedback_read(feedback_id: str):
+    """Mark feedback as read"""
+    try:
+        result = await db.feedback.update_one(
+            {"id": feedback_id},
+            {"$set": {"read": True}}
+        )
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Feedback not found")
+        return {"success": True, "message": "Feedback marked as read"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error marking feedback: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update feedback")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
