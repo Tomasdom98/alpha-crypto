@@ -139,12 +139,23 @@ async def get_airdrops(status: Optional[str] = None, difficulty: Optional[str] =
     # Transform to match API format
     transformed = []
     for airdrop in airdrops:
+        # Transform steps to tasks format
+        steps = airdrop.get("steps", []) or []
+        tasks = []
+        for i, step in enumerate(steps):
+            if isinstance(step, dict):
+                tasks.append({
+                    "id": step.get("id", f"t{i+1}"),
+                    "description": step.get("description", ""),
+                    "completed": step.get("completed", False)
+                })
+        
         transformed.append({
             "id": airdrop.get("_id", ""),
             "project_name": airdrop.get("projectName", ""),
             "logo_url": airdrop.get("logoUrl", "") or "https://images.unsplash.com/photo-1642413598014-7742a18e85aa?w=400",
             "description": airdrop.get("description", ""),
-            "steps": airdrop.get("steps", []),
+            "tasks": tasks,
             "deadline": airdrop.get("deadline") or datetime.now(timezone.utc).isoformat(),
             "estimated_reward": airdrop.get("estimatedReward", "$0"),
             "difficulty": airdrop.get("difficulty", "Medium"),
