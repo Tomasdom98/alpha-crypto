@@ -76,16 +76,17 @@ export default function AirdropsPage() {
         ) : (
           <div className="space-y-6">
             {airdrops.map((airdrop) => (
-              <div
+              <Link
+                to={`/airdrops/${airdrop.id}`}
                 key={airdrop.id}
                 data-testid={`airdrop-card-${airdrop.id}`}
-                className={`glass-card rounded-xl p-6 card-hover ${airdrop.premium ? 'premium-glow' : ''}`}
+                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 ${airdrop.premium ? 'premium-glow' : ''}`}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-start gap-4 flex-1">
                     {airdrop.logo_url && (
-                      <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-16 h-16 rounded-lg" />
+                      <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-16 h-16 rounded-lg object-cover" />
                     )}
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
@@ -98,11 +99,16 @@ export default function AirdropsPage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-400 mb-3">{airdrop.description}</p>
+                      <p className="text-gray-400 mb-3 line-clamp-2">{airdrop.description}</p>
                       <div className="flex items-center gap-4 flex-wrap">
                         <span className={`px-3 py-1 rounded border ${getDifficultyColor(airdrop.difficulty)} text-sm font-medium capitalize`}>
                           {airdrop.difficulty}
                         </span>
+                        {airdrop.chain && (
+                          <span className="px-3 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 text-sm">
+                            {airdrop.chain}
+                          </span>
+                        )}
                         <span className="text-gray-500 flex items-center gap-1 text-sm">
                           <Clock size={14} /> {new Date(airdrop.deadline).toLocaleDateString()}
                         </span>
@@ -120,6 +126,9 @@ export default function AirdropsPage() {
                     >
                       {airdrop.estimated_reward}
                     </div>
+                    {airdrop.timeline && (
+                      <div className="text-xs text-gray-500 mt-1">{airdrop.timeline}</div>
+                    )}
                   </div>
                 </div>
 
@@ -128,13 +137,13 @@ export default function AirdropsPage() {
                   <div className="mb-4">
                     <h4 className="text-sm font-bold text-gray-400 mb-2">Tasks to Complete:</h4>
                     <div className="space-y-2">
-                      {airdrop.tasks.slice(0, 3).map((task) => (
+                      {airdrop.tasks.slice(0, 2).map((task) => (
                         <div key={task.id} className="text-sm text-gray-300 pl-4 border-l-2 border-gray-700">
                           {task.description}
                         </div>
                       ))}
-                      {airdrop.tasks.length > 3 && (
-                        <div className="text-xs text-gray-500 pl-4">+ {airdrop.tasks.length - 3} more tasks</div>
+                      {airdrop.tasks.length > 2 && (
+                        <div className="text-xs text-gray-500 pl-4">+ {airdrop.tasks.length - 2} more tasks</div>
                       )}
                     </div>
                   </div>
@@ -145,20 +154,12 @@ export default function AirdropsPage() {
                   <div className="text-sm text-gray-500">
                     Status: <span className="text-emerald-500 capitalize">{airdrop.status}</span>
                   </div>
-                  <a
-                    href={airdrop.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded-lg transition-all hover:scale-105 active:scale-95 text-sm"
-                  >
-                    Visit Project →
-                  </a>
+                  <span className="flex items-center gap-2 text-emerald-500 font-bold text-sm group-hover:gap-3 transition-all">
+                    View Details
+                    <ChevronRight size={18} />
+                  </span>
                 </div>
-
-                <div className="mt-3 text-xs text-gray-600">
-                  ID: {airdrop.id.substring(0, 8)}...
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
