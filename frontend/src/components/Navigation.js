@@ -91,6 +91,7 @@ export default function Navigation() {
               </Link>
             ))}
             <button
+              onClick={() => setShowPremiumModal(true)}
               className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
             >
               Premium $20/mo
@@ -98,6 +99,8 @@ export default function Navigation() {
           </div>
         </div>
       )}
+      
+      <PremiumModal isOpen={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
     </nav>
   );
 }
