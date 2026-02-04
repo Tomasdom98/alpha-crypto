@@ -145,30 +145,46 @@ export default function HomePage() {
       </section>
 
       {/* Active Airdrops Preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-white" style={{ fontFamily: 'Chivo, sans-serif' }} data-testid="airdrops-section-heading">
-            Active Airdrops
-          </h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="airdrops-section-heading">
+              Active Airdrops
+            </h2>
+            <p className="text-gray-500">Verified opportunities to earn crypto</p>
+          </div>
           <Link
             to="/airdrops"
             data-testid="view-all-airdrops-link"
-            className="text-emerald-500 hover:text-emerald-400 font-medium flex items-center gap-2 transition-colors"
+            className="group flex items-center gap-2 px-5 py-2.5 bg-gray-800/50 hover:bg-emerald-500/10 border border-gray-700 hover:border-emerald-500/50 rounded-xl text-emerald-400 font-semibold transition-all duration-300 hover:scale-105"
           >
-            View All <ArrowRight size={16} />
+            View All 
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
         <div className="space-y-4">
-          {airdrops.map((airdrop) => (
-            <div key={airdrop.id} data-testid={`airdrop-preview-${airdrop.id}`} className="glass-card rounded-xl p-6 card-hover">
+          {airdrops.map((airdrop, index) => (
+            <div 
+              key={airdrop.id} 
+              data-testid={`airdrop-preview-${airdrop.id}`} 
+              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-emerald-500/20 hover:border-emerald-500/50"
+              style={{
+                animationDelay: `${index * 100}ms`,
+                animation: 'fadeInUp 0.6s ease-out forwards',
+              }}
+            >
               <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-16 h-16 rounded-lg" />
-                  <div>
+                <div className="flex items-start gap-4 flex-1">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex-shrink-0 ring-2 ring-gray-700/50 group-hover:ring-emerald-500/50 transition-all">
+                    <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-xl font-bold text-white">{airdrop.project_name}</h3>
+                      <h3 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                        {airdrop.project_name}
+                      </h3>
                       {airdrop.premium && (
-                        <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
+                        <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
                           Premium
                         </span>
                       )}
@@ -176,28 +192,33 @@ export default function HomePage() {
                     <p className="text-sm text-gray-400 mb-3">{airdrop.description}</p>
                     <div className="flex items-center gap-4 text-xs">
                       <span
-                        className={`px-2 py-1 rounded ${
+                        className={`px-3 py-1.5 rounded-full font-bold border ${
                           airdrop.difficulty === 'Easy'
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                             : airdrop.difficulty === 'Medium'
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                            : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                            ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                            : 'bg-red-500/10 text-red-400 border-red-500/30'
                         }`}
                       >
                         {airdrop.difficulty}
                       </span>
-                      <span className="text-gray-500 flex items-center gap-1">
-                        <Clock size={12} /> {new Date(airdrop.deadline).toLocaleDateString()}
+                      <span className="text-gray-500 flex items-center gap-1.5">
+                        <Clock size={14} /> {new Date(airdrop.deadline).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-400 mb-1">Estimated Reward</div>
-                  <div className="text-xl font-bold text-emerald-500" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                <div className="text-right ml-4">
+                  <div className="text-xs text-gray-400 mb-1 uppercase tracking-wide">Reward</div>
+                  <div className="text-2xl md:text-3xl font-bold text-emerald-500" style={{ fontFamily: 'Space Grotesk, monospace' }}>
                     {airdrop.estimated_reward}
                   </div>
                 </div>
+              </div>
+              
+              {/* Shine effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </div>
             </div>
           ))}
