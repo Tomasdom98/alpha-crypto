@@ -322,26 +322,46 @@ async def get_article(article_id: str):
         return article
 
 @api_router.get("/airdrops", response_model=List[Airdrop])
-async def get_airdrops(status: Optional[str] = None, difficulty: Optional[str] = None):
-    """Get airdrops with optional filtering"""
-    airdrops = get_mock_airdrops()
-    
-    if status:
-        airdrops = [a for a in airdrops if a['status'] == status]
-    
-    if difficulty:
-        airdrops = [a for a in airdrops if a['difficulty'].lower() == difficulty.lower()]
-    
-    return airdrops
+async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None):
+    """Get airdrops from Sanity with optional filtering"""
+    try:
+        airdrops = await get_airdrops(status, difficulty)
+        
+        # If no Sanity data, fall back to mock data
+        if not airdrops:
+            airdrops = get_mock_airdrops()
+            
+            # Apply filters to mock data
+            if status and status != "all":
+                airdrops = [a for a in airdrops if a['status'] == status]
+            
+            if difficulty and difficulty != "all":
+                airdrops = [a for a in airdrops if a['difficulty'].lower() == difficulty.lower()]
+        
+        return airdrops
+    except Exception as e:
+        logger.error(f"Error fetching airdrops: {e}")
+        # Fallback to mock data
+        return get_mock_airdrops()
 
 @api_router.get("/airdrops/{airdrop_id}", response_model=Airdrop)
 async def get_airdrop(airdrop_id: str):
-    """Get single airdrop by ID"""
-    airdrops = get_mock_airdrops()
-    airdrop = next((a for a in airdrops if a['id'] == airdrop_id), None)
-    if not airdrop:
-        raise HTTPException(status_code=404, detail="Airdrop not found")
-    return airdrop
+    """Get single airdrop by ID from Sanity"""
+    try:
+        airdrop = await get_airdrop_by_id(airdrop_id)
+        if not airdrop:
+            raise HTTPException(status_code=404, detail="Airdrop not found")
+        return airdrop
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching airdrop: {e}")
+        # Fallback to mock data
+        airdrops = get_mock_airdrops()
+        airdrop = next((a for a in airdrops if a['id'] == airdrop_id), None)
+        if not airdrop:
+            raise HTTPException(status_code=404, detail="Airdrop not found")
+        return airdrop
 
 @api_router.post("/airdrops/{airdrop_id}/tasks/{task_id}/toggle")
 async def toggle_task(airdrop_id: str, task_id: str):
