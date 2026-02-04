@@ -107,9 +107,10 @@ function AirdropDetailPage() {
             </div>
 
             <div className="glass-card rounded-xl p-6 text-center min-w-[200px]">
-              <div className="text-sm text-gray-400 mb-2">Estimated Reward</div>
+              <div className="text-sm text-gray-400 mb-2">Estimated Reward*</div>
               <div className="text-3xl font-black text-emerald-500" data-testid="airdrop-reward">{airdrop.estimated_reward}</div>
               {airdrop.timeline && <div className="text-xs text-gray-500 mt-2">{airdrop.timeline}</div>}
+              {airdrop.reward_note && <div className="text-xs text-amber-400/80 mt-2 leading-tight">{airdrop.reward_note}</div>}
             </div>
           </div>
         </div>
