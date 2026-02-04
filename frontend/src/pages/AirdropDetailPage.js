@@ -10,7 +10,7 @@ import {
   Zap,
   Users,
   Calendar,
-  Link2,
+  LinkIcon,
   Shield
 } from 'lucide-react';
 
@@ -306,7 +306,7 @@ export default function AirdropDetailPage() {
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 px-6 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-500/25"
               data-testid="airdrop-cta-button"
             >
-              <Link2 size={20} />
+              <LinkIcon size={20} />
               Start This Airdrop
               <ExternalLink size={16} />
             </a>
