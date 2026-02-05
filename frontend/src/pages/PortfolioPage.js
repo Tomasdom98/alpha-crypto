@@ -317,7 +317,7 @@ export default function PortfolioPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="glass-card rounded-2xl p-6">
                 <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <BarChart3 className="text-emerald-500" /> Recent Trades
+                  <BarChart3 className="text-emerald-500" /> {tx.recentTrades}
                 </h2>
                 <div className="space-y-3">
                   {recentTrades.map((trade, index) => (
