@@ -253,6 +253,12 @@ export default function MacroCalendarPage() {
 
   const { daysInMonth, startingDay } = getDaysInMonth(currentMonth);
 
+  const getImportanceLabel = (imp) => {
+    if (imp === 'high') return tx.high;
+    if (imp === 'medium') return tx.medium;
+    return tx.low;
+  };
+
   return (
     <div className="min-h-screen py-12 relative">
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
@@ -261,7 +267,7 @@ export default function MacroCalendarPage() {
         {/* Header */}
         <div className="mb-8">
           <Link to="/indices" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronLeft size={16} /> Volver a Índices
+            <ChevronLeft size={16} /> {tx.backToIndices}
           </Link>
           
           <div className="flex items-center gap-4 mb-4">
@@ -270,9 +276,9 @@ export default function MacroCalendarPage() {
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                Calendario Macro
+                {tx.title}
               </h1>
-              <p className="text-gray-400 mt-1">Eventos económicos que impactan los mercados crypto</p>
+              <p className="text-gray-400 mt-1">{tx.subtitle}</p>
             </div>
           </div>
         </div>
@@ -285,7 +291,7 @@ export default function MacroCalendarPage() {
               selectedCategory === 'all' ? 'bg-emerald-500 text-white' : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 border border-gray-700/50'
             }`}
           >
-            Todos
+            {tx.all}
           </button>
           {Object.entries(CATEGORY_CONFIG).map(([key, config]) => (
             <button
@@ -319,7 +325,7 @@ export default function MacroCalendarPage() {
 
             {/* Day Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
-              {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map(day => (
+              {tx.days.map(day => (
                 <div key={day} className="text-center text-sm text-gray-500 font-medium py-2">
                   {day}
                 </div>
@@ -364,7 +370,7 @@ export default function MacroCalendarPage() {
                       );
                     })}
                     {events.length > 2 && (
-                      <div className="text-xs text-gray-500">+{events.length - 2} más</div>
+                      <div className="text-xs text-gray-500">+{events.length - 2} {tx.more}</div>
                     )}
                   </div>
                 );
@@ -375,13 +381,13 @@ export default function MacroCalendarPage() {
           {/* Events List */}
           <div className="glass-card rounded-2xl p-6">
             <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              Próximos Eventos
+              {tx.upcomingEvents}
             </h3>
             
             {filteredEvents.length === 0 ? (
               <div className="text-center py-8">
                 <Calendar className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-500">No hay eventos este mes</p>
+                <p className="text-gray-500">{tx.noEvents}</p>
               </div>
             ) : (
               <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
@@ -408,14 +414,14 @@ export default function MacroCalendarPage() {
                       <div className="flex items-center gap-3 text-xs text-gray-500">
                         <span className="flex items-center gap-1">
                           <Calendar size={12} />
-                          {new Date(event.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+                          {new Date(event.date).toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { day: 'numeric', month: 'short' })}
                         </span>
                         <span className="flex items-center gap-1">
                           <Clock size={12} />
                           {event.time}
                         </span>
                         <span className={`px-2 py-0.5 rounded ${event.importance === 'high' ? 'bg-red-500/20 text-red-400' : event.importance === 'medium' ? 'bg-amber-500/20 text-amber-400' : 'bg-gray-500/20 text-gray-400'}`}>
-                          {event.importance === 'high' ? 'Alta' : event.importance === 'medium' ? 'Media' : 'Baja'}
+                          {getImportanceLabel(event.importance)}
                         </span>
                       </div>
                     </div>
@@ -428,19 +434,19 @@ export default function MacroCalendarPage() {
 
         {/* Legend */}
         <div className="mt-8 glass-card rounded-xl p-4">
-          <h4 className="text-sm font-bold text-gray-400 mb-3">Leyenda de Impacto</h4>
+          <h4 className="text-sm font-bold text-gray-400 mb-3">{tx.impactLegend}</h4>
           <div className="flex flex-wrap gap-6">
             <div className="flex items-center gap-2">
               <span className="text-lg">🟢</span>
-              <span className="text-sm text-gray-300">Bullish - Potencialmente positivo para crypto</span>
+              <span className="text-sm text-gray-300">{tx.bullish}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg">🔴</span>
-              <span className="text-sm text-gray-300">Bearish - Potencialmente negativo para crypto</span>
+              <span className="text-sm text-gray-300">{tx.bearish}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg">🟡</span>
-              <span className="text-sm text-gray-300">Neutral - Depende del resultado del evento</span>
+              <span className="text-sm text-gray-300">{tx.neutral}</span>
             </div>
           </div>
         </div>
@@ -448,7 +454,7 @@ export default function MacroCalendarPage() {
         {/* Back Button */}
         <div className="mt-8 text-center">
           <Link to="/indices" className="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-            Volver a Índices
+            {tx.back}
           </Link>
         </div>
       </div>
