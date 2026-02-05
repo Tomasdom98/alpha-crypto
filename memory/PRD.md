@@ -148,14 +148,20 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - Todas las secciones traducidas al español
 
 ## Brand Identity
-- **Logo:** Texto puro `αC Alpha Crypto`
+- **Logo:** Texto `αC Alpha Crypto`
   - α (alpha) en verde emerald-400
   - C en blanco
   - "Alpha Crypto" en blanco con hover verde
   - Ubicación: Header y Footer
   
+- **Búho Sello (Owl Seal):** Componente `/app/frontend/src/components/OwlSeal.js`
+  - URL: https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png
+  - Posición: Fixed bottom-right en todas las páginas
+  - Opacidad: 35%
+  - Incluye texto "αC" debajo
+  - Páginas con sello: HomePage, ArticlesPage, AirdropsPage, MarketIndicesPage, EarlySignalsPage, PortfolioPage, ConsultingPage, ArticleDetailPage
+  
 - **Favicon:** Logo AC (configurado en index.html)
-- **Sin imágenes de mascota** - diseño limpio y profesional
 
 ## Color Scheme
 - Fondo principal: #0f172a
