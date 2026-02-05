@@ -256,117 +256,164 @@ export default function PortfolioPage() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                <span className="text-2xl">💰</span> Stablecoin Yields
+                💰 Stablecoin Yields
               </h2>
-              <p className="text-gray-400 text-sm mt-1">Las mejores opciones para generar rendimiento con tus stablecoins</p>
+              <p className="text-gray-400 text-sm mt-1">Las mejores oportunidades para rentabilizar tus stablecoins</p>
             </div>
             <span className="bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
-              DeFi Opportunities
+              DeFi Vaults
             </span>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Placeholder Card 1 */}
+            {/* Based.one HLP */}
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
-                  ?
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">B</div>
                 <div>
-                  <h3 className="font-bold text-white">Próximamente</h3>
-                  <span className="text-gray-500 text-sm">Protocolo DeFi</span>
+                  <h3 className="font-bold text-white">Based.one HLP</h3>
+                  <span className="text-cyan-400 text-xs">Hyperliquid L1</span>
                 </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">139%</span>
               </div>
-              
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">APY Estimado</span>
-                  <span className="font-mono font-bold text-emerald-400">--%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Stablecoin</span>
-                  <span className="text-gray-300">USDC / USDT</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Riesgo</span>
-                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
-                </div>
-              </div>
-              
-              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
-                Próximamente
-              </button>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Market making en perpetuos + liquidaciones + fees de trading</p>
+              <a href="https://app.based.one/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
             </div>
             
-            {/* Placeholder Card 2 */}
+            {/* Felix Protocol */}
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
-                  ?
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-sm">F</div>
                 <div>
-                  <h3 className="font-bold text-white">Próximamente</h3>
-                  <span className="text-gray-500 text-sm">Lending Protocol</span>
+                  <h3 className="font-bold text-white">Felix Protocol</h3>
+                  <span className="text-cyan-400 text-xs">Hyperliquid L1</span>
                 </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">85%</span>
               </div>
-              
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">APY Estimado</span>
-                  <span className="font-mono font-bold text-emerald-400">--%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Stablecoin</span>
-                  <span className="text-gray-300">DAI / USDC</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Riesgo</span>
-                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
-                </div>
-              </div>
-              
-              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
-                Próximamente
-              </button>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Stability pool: intereses de borrowers + colateral liquidado</p>
+              <a href="https://www.usefelix.xyz/earn" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
             </div>
             
-            {/* Placeholder Card 3 */}
+            {/* Lighter.xyz */}
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
-                  ?
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">L</div>
                 <div>
-                  <h3 className="font-bold text-white">Próximamente</h3>
-                  <span className="text-gray-500 text-sm">Yield Aggregator</span>
+                  <h3 className="font-bold text-white">Lighter.xyz</h3>
+                  <span className="text-blue-400 text-xs">Arbitrum / Base</span>
                 </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">47%</span>
               </div>
-              
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">APY Estimado</span>
-                  <span className="font-mono font-bold text-emerald-400">--%</span>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">LP para DEX de perpetuos + fees de exchange</p>
+              <a href="https://app.lighter.xyz/public-pools" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Extended Exchange */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm">E</div>
+                <div>
+                  <h3 className="font-bold text-white">Extended</h3>
+                  <span className="text-blue-400 text-xs">Base / Arbitrum</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Stablecoin</span>
-                  <span className="text-gray-300">Multi-stable</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Riesgo</span>
-                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
-                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">37%</span>
               </div>
-              
-              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
-                Próximamente
-              </button>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Market making en perpetuos crypto + TradFi (oro, S&P500)</p>
+              <a href="https://app.extended.exchange/vault" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Orderly */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">O</div>
+                <div>
+                  <h3 className="font-bold text-white">Orderly</h3>
+                  <span className="text-blue-400 text-xs">Arbitrum</span>
+                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">34%</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">LP para orderbook de perpetuos + trading fees</p>
+              <a href="https://app.orderly.network/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Avantis Finance */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+                <div>
+                  <h3 className="font-bold text-white">Avantis Finance</h3>
+                  <span className="text-blue-400 text-xs">Base</span>
+                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">31%</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Vault perpetuos crypto + RWAs, 100% fees a holders</p>
+              <a href="https://www.avantisfi.com/earn/avantis-vault" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Resolv */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-500 to-gray-600 flex items-center justify-center text-white font-bold text-sm">R</div>
+                <div>
+                  <h3 className="font-bold text-white">Resolv</h3>
+                  <span className="text-gray-400 text-xs">Multi-chain</span>
+                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">23%</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Delta-neutral vault con stablecoins</p>
+              <a href="https://app.resolv.xyz/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Kamino */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm">K</div>
+                <div>
+                  <h3 className="font-bold text-white">Kamino</h3>
+                  <span className="text-purple-400 text-xs">Solana</span>
+                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">19%</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Lending: intereses de préstamos + rewards</p>
+              <a href="https://kamino.com" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
+            </div>
+            
+            {/* Drift */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">D</div>
+                <div>
+                  <h3 className="font-bold text-white">Drift</h3>
+                  <span className="text-purple-400 text-xs">Solana</span>
+                </div>
+                <span className="ml-auto text-2xl font-black text-emerald-400">9%</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Insurance fund: fees del protocolo + liquidaciones</p>
+              <a href="https://app.drift.trade/vaults/insurance-fund-vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                Ir al Vault →
+              </a>
             </div>
           </div>
           
-          <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-            <p className="text-blue-400 text-sm">
-              <strong>Nota:</strong> Los protocolos serán agregados próximamente con links directos. 
-              Solo incluiremos opciones verificadas y auditadas.
+          <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+            <p className="text-amber-400 text-sm">
+              💡 <strong>Recomendación:</strong> Diversifica en varios protocolos para mitigar riesgos. No pongas todo en uno solo.
             </p>
           </div>
         </div>
