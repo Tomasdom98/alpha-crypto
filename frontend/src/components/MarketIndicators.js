@@ -29,16 +29,16 @@ export default function MarketIndicators({ fearGreed }) {
       label: 'Optimism',
       interpretation: 'bullish',
       icon: TrendingUp,
-      description: 'Net Unrealized Profit/Loss'
+      description: 'Ganancia/Pérdida No Realizada'
     },
     {
       id: 'ssr',
-      name: 'Stablecoin Supply Ratio',
+      name: 'Ratio de Stablecoins',
       value: '8.2%',
-      label: 'Bullish',
+      label: 'Alcista',
       interpretation: 'bullish',
       icon: TrendingUp,
-      description: 'Buying power indicator'
+      description: 'Indicador de poder de compra'
     }
   ];
 
