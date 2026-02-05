@@ -248,52 +248,53 @@ export default function MarketIndicesPage() {
   const getTimeAgo = (date) => {
     if (!date) return '';
     const mins = Math.floor((new Date() - date) / 60000);
-    if (mins < 1) return 'Actualizado ahora';
-    if (mins < 60) return `Actualizado hace ${mins} min`;
-    return `Actualizado hace ${Math.floor(mins / 60)}h`;
+    if (mins < 1) return language === 'es' ? 'Actualizado ahora' : 'Updated now';
+    if (mins < 60) return language === 'es' ? `Actualizado hace ${mins} min` : `Updated ${mins} min ago`;
+    return language === 'es' ? `Actualizado hace ${Math.floor(mins / 60)}h` : `Updated ${Math.floor(mins / 60)}h ago`;
   };
 
   const onChainMetrics = [
     {
       id: 'mvrv',
-      name: 'MVRV Z-Score',
+      name: tx.mvrvName,
       value: '2.3',
       status: 'neutral',
-      signal: 'Hold',
-      explanation: 'Mercado valorado de forma justa. Ni sobrecomprado ni sobrevendido.',
+      signal: tx.hold,
+      explanation: tx.mvrvNeutral,
       icon: Activity,
       sparklineData: generateSparklineData('neutral', 0.15),
       sparklineColor: '#eab308'
     },
     {
       id: 'nupl',
-      name: 'NUPL',
+      name: tx.nuplName,
       value: '62%',
       status: 'bullish',
-      signal: 'Hold',
-      explanation: 'Zona de toma de ganancias. Considera profits parciales en grandes ganancias.',
+      signal: tx.hold,
+      label: tx.nuplOptimism,
+      explanation: tx.nuplDesc,
       icon: TrendingUp,
       sparklineData: generateSparklineData('up', 0.1),
       sparklineColor: '#10b981'
     },
     {
       id: 'realized-price',
-      name: 'Realized Price',
+      name: tx.realizedPrice,
       value: '$28,450',
       status: 'bullish',
-      signal: 'Buy',
-      explanation: 'Precio actual sobre realizado = mercado en profit, tendencia saludable.',
+      signal: tx.buy,
+      explanation: tx.realizedPriceDesc,
       icon: BarChart3,
       sparklineData: generateSparklineData('up', 0.08),
       sparklineColor: '#10b981'
     },
     {
       id: 'puell',
-      name: 'Puell Multiple',
+      name: tx.puellMultiple,
       value: '1.2',
       status: 'neutral',
-      signal: 'Watchlist',
-      explanation: 'Ingresos de mineros estables. En observación para señales extremas.',
+      signal: tx.watchlist,
+      explanation: tx.puellDesc,
       icon: Zap,
       sparklineData: generateSparklineData('neutral', 0.12),
       sparklineColor: '#06b6d4'
@@ -303,27 +304,27 @@ export default function MarketIndicesPage() {
   const sentimentMetrics = [
     {
       id: 'fear-greed',
-      name: 'Fear & Greed Index',
+      name: tx.fearGreedIndex,
       value: fearGreed?.value || 14,
       label: fearGreed?.classification || 'Extreme Fear',
       status: (fearGreed?.value || 14) < 25 ? 'bullish' : (fearGreed?.value || 14) > 75 ? 'bearish' : 'neutral',
-      signal: (fearGreed?.value || 14) < 25 ? 'Buy' : (fearGreed?.value || 14) > 75 ? 'Sell' : 'Hold',
+      signal: (fearGreed?.value || 14) < 25 ? tx.buy : (fearGreed?.value || 14) > 75 ? tx.sell : tx.hold,
       explanation: (fearGreed?.value || 14) < 25 
-        ? 'Miedo extremo = históricamente mejor momento para acumular.' 
+        ? tx.fearGreedLow 
         : (fearGreed?.value || 14) > 75 
-        ? 'Codicia extrema = precaución, considera tomar ganancias.' 
-        : 'Sentimiento de mercado equilibrado.',
+        ? tx.fearGreedHigh 
+        : tx.fearGreedNeutral,
       icon: Activity,
       sparklineData: generateSparklineData('down', 0.2),
       sparklineColor: '#ef4444'
     },
     {
       id: 'rainbow',
-      name: 'Bitcoin Rainbow Chart',
-      value: 'Acumular',
+      name: tx.rainbowChart,
+      value: tx.accumulate,
       status: 'bullish',
-      signal: 'Buy',
-      explanation: 'Zona azul/verde sugiere buena oportunidad de acumulación.',
+      signal: tx.buy,
+      explanation: tx.rainbowDesc,
       icon: TrendingUp,
       sparklineData: generateSparklineData('up', 0.1),
       sparklineColor: '#10b981'
@@ -333,35 +334,35 @@ export default function MarketIndicesPage() {
   const liquidityMetrics = [
     {
       id: 'ssr',
-      name: 'Stablecoin Supply Ratio',
+      name: tx.ssrName,
       value: '8.2%',
       status: 'bullish',
-      signal: 'Buy',
-      explanation: 'Bajo SSR = mucho poder de compra al margen listo para desplegar.',
+      signal: tx.buy,
+      explanation: tx.ssrDesc,
       icon: DollarSign,
       sparklineData: generateSparklineData('down', 0.1),
       sparklineColor: '#10b981'
     },
     {
       id: 'reserves',
-      name: 'Exchange Reserves',
+      name: tx.exchangeReserves,
       value: '2.1M BTC',
       status: 'bullish',
-      label: 'Decreciendo',
-      signal: 'Hold',
-      explanation: 'Monedas saliendo de exchanges = acumulación, menos presión vendedora.',
+      label: tx.decreasing,
+      signal: tx.hold,
+      explanation: tx.exchangeReservesDesc,
       icon: BarChart3,
       sparklineData: generateSparklineData('down', 0.08),
       sparklineColor: '#10b981'
     },
     {
       id: 'defi-tvl',
-      name: 'DeFi TVL',
+      name: tx.defiTvl,
       value: '$85.2B',
       status: 'bullish',
       label: '+5.2%',
-      signal: 'Hold',
-      explanation: 'TVL creciente indica confianza y actividad en el ecosistema DeFi.',
+      signal: tx.hold,
+      explanation: tx.defiTvlDesc,
       icon: TrendingUp,
       sparklineData: generateSparklineData('up', 0.12),
       sparklineColor: '#10b981'
@@ -371,35 +372,35 @@ export default function MarketIndicesPage() {
   const marketStructure = [
     {
       id: 'btc-dom',
-      name: 'Bitcoin Dominance',
+      name: tx.btcDominance,
       value: '52.3%',
       status: 'neutral',
-      signal: 'Hold',
-      explanation: 'Dominancia estable. Espera tendencia clara antes de rotar a alts.',
+      signal: tx.hold,
+      explanation: tx.btcDomDesc,
       icon: Activity,
       sparklineData: generateSparklineData('neutral', 0.05),
       sparklineColor: '#eab308'
     },
     {
       id: 'alt-season',
-      name: 'Altcoin Season Index',
+      name: tx.altSeasonIndex,
       value: '45',
       status: 'neutral',
-      label: 'Bitcoin Season',
-      signal: 'Watchlist',
-      explanation: 'Aún no es altseason. En observación hasta índice > 75 para rotar a alts.',
+      label: tx.bitcoinSeason,
+      signal: tx.watchlist,
+      explanation: tx.altSeasonDesc,
       icon: TrendingDown,
       sparklineData: generateSparklineData('neutral', 0.15),
       sparklineColor: '#06b6d4'
     },
     {
       id: 'total-mcap',
-      name: 'Total Market Cap',
+      name: tx.totalMarketCap,
       value: '$2.15T',
       status: 'bullish',
       label: '+2.3%',
-      signal: 'Hold',
-      explanation: 'Mercado creciendo de forma constante. Tendencia alcista saludable.',
+      signal: tx.hold,
+      explanation: tx.totalMcapDesc,
       icon: BarChart3,
       sparklineData: generateSparklineData('up', 0.1),
       sparklineColor: '#10b981'
@@ -408,17 +409,17 @@ export default function MarketIndicesPage() {
 
   const calculateRecommendation = () => {
     const allMetrics = [...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure];
-    const buyCount = allMetrics.filter(m => m.signal === 'Buy').length;
-    const sellCount = allMetrics.filter(m => m.signal === 'Sell').length;
-    const holdCount = allMetrics.filter(m => m.signal === 'Hold').length;
+    const buyCount = allMetrics.filter(m => m.signal === tx.buy).length;
+    const sellCount = allMetrics.filter(m => m.signal === tx.sell).length;
+    const holdCount = allMetrics.filter(m => m.signal === tx.hold).length;
     
     if (buyCount > sellCount && buyCount >= holdCount) {
-      return { zone: 'ZONA DE COMPRA', color: 'emerald', icon: Target, description: 'Múltiples indicadores sugieren oportunidad de acumulación. Considera DCA en tus posiciones.' };
+      return { zone: tx.buyZone, color: 'emerald', icon: Target, description: tx.buyDesc };
     }
     if (sellCount > buyCount && sellCount >= holdCount) {
-      return { zone: 'ZONA DE VENTA', color: 'red', icon: AlertTriangle, description: 'Se aconseja precaución. Considera tomar ganancias parciales y reducir exposición.' };
+      return { zone: tx.sellZone, color: 'red', icon: AlertTriangle, description: tx.sellDesc };
     }
-    return { zone: 'ZONA DE HOLD', color: 'amber', icon: ShieldCheck, description: 'Señales mixtas. Mantén posiciones actuales y espera dirección más clara.' };
+    return { zone: tx.holdZone, color: 'amber', icon: ShieldCheck, description: tx.holdDesc };
   };
 
   const recommendation = calculateRecommendation();
