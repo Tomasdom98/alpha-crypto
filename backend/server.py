@@ -389,7 +389,7 @@ def get_mock_airdrops():
         {
             "id": "4",
             "project_name": "Aevo",
-            "logo_url": "https://assets.coingecko.com/coins/images/35039/standard/aevo.png",
+            "logo_url": "https://ui-avatars.com/api/?name=AE&background=f59e0b&color=fff&size=128&bold=true&format=svg",
             "chain": "Ethereum L2",
             "description": "Options and perpetuals DEX with institutional-grade infrastructure",
             "full_description": "Aevo is built by the Ribbon Finance team, offering options and perpetual trading on their custom L2. Already launched AEVO token with ongoing rewards programs.",
@@ -412,7 +412,7 @@ def get_mock_airdrops():
         {
             "id": "5",
             "project_name": "Backpack",
-            "logo_url": "https://pbs.twimg.com/profile_images/1588624082003628033/TH2O4h5m_400x400.jpg",
+            "logo_url": "https://ui-avatars.com/api/?name=BP&background=14b8a6&color=fff&size=128&bold=true&format=svg",
             "chain": "Solana",
             "description": "Solana's premier exchange from the Mad Lads team with confirmed token",
             "full_description": "Backpack is built by the team behind Mad Lads NFT (Coral/xNFT). Recently raised $17M and confirmed token launch. One of the most anticipated Solana airdrops.",
