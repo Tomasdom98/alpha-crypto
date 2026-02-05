@@ -1339,6 +1339,115 @@ async def get_market_stats():
         "active_cryptos": len(prices)
     }
 
+@api_router.get("/crypto/chart/{coin_id}")
+async def get_crypto_chart(coin_id: str, days: int = 30):
+    """Get historical price data for charts from CoinGecko"""
+    cache_key = f"chart_{coin_id}_{days}"
+    
+    # Check cache first
+    cached = api_cache.get(cache_key)
+    if cached:
+        logger.info(f"Returning cached chart data for {coin_id}")
+        return cached
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart"
+            params = {"vs_currency": "usd", "days": days}
+            headers = {"User-Agent": "AlphaCrypto/1.0"}
+            
+            async with session.get(url, params=params, headers=headers) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    prices = data.get("prices", [])
+                    
+                    # Format data for charts
+                    chart_data = []
+                    for timestamp, price in prices:
+                        chart_data.append({
+                            "timestamp": timestamp,
+                            "price": round(price, 2),
+                            "date": datetime.fromtimestamp(timestamp/1000, tz=timezone.utc).strftime("%Y-%m-%d")
+                        })
+                    
+                    result = {"coin_id": coin_id, "days": days, "data": chart_data}
+                    api_cache.set(cache_key, result, ttl=300)  # Cache for 5 min
+                    return result
+                else:
+                    logger.warning(f"CoinGecko chart API returned {response.status}")
+                    raise HTTPException(status_code=response.status, detail="Failed to fetch chart data")
+    except Exception as e:
+        logger.error(f"Error fetching chart data: {e}")
+        # Return mock data as fallback
+        return generate_mock_chart_data(coin_id, days)
+
+@api_router.get("/crypto/global")
+async def get_global_market_data():
+    """Get global market data from CoinGecko"""
+    cache_key = "global_market"
+    
+    cached = api_cache.get(cache_key)
+    if cached:
+        return cached
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            url = "https://api.coingecko.com/api/v3/global"
+            headers = {"User-Agent": "AlphaCrypto/1.0"}
+            
+            async with session.get(url, headers=headers) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    global_data = data.get("data", {})
+                    
+                    result = {
+                        "total_market_cap_usd": global_data.get("total_market_cap", {}).get("usd", 0),
+                        "total_volume_24h_usd": global_data.get("total_volume", {}).get("usd", 0),
+                        "btc_dominance": round(global_data.get("market_cap_percentage", {}).get("btc", 0), 2),
+                        "eth_dominance": round(global_data.get("market_cap_percentage", {}).get("eth", 0), 2),
+                        "active_cryptocurrencies": global_data.get("active_cryptocurrencies", 0),
+                        "market_cap_change_24h": round(global_data.get("market_cap_change_percentage_24h_usd", 0), 2)
+                    }
+                    
+                    api_cache.set(cache_key, result, ttl=120)
+                    return result
+                else:
+                    logger.warning(f"CoinGecko global API returned {response.status}")
+    except Exception as e:
+        logger.error(f"Error fetching global data: {e}")
+    
+    # Fallback
+    return {
+        "total_market_cap_usd": 2500000000000,
+        "total_volume_24h_usd": 95000000000,
+        "btc_dominance": 52.5,
+        "eth_dominance": 17.2,
+        "active_cryptocurrencies": 14000,
+        "market_cap_change_24h": 1.5
+    }
+
+def generate_mock_chart_data(coin_id: str, days: int):
+    """Generate mock chart data as fallback"""
+    import random
+    base_prices = {"bitcoin": 95000, "ethereum": 3200, "solana": 180}
+    base = base_prices.get(coin_id, 100)
+    
+    data = []
+    price = base
+    now = datetime.now(timezone.utc)
+    
+    for i in range(days):
+        change = (random.random() - 0.48) * base * 0.03
+        price = max(base * 0.7, min(base * 1.3, price + change))
+        timestamp = int((now - timedelta(days=days-i)).timestamp() * 1000)
+        data.append({
+            "timestamp": timestamp,
+            "price": round(price, 2),
+            "date": (now - timedelta(days=days-i)).strftime("%Y-%m-%d")
+        })
+    
+    return {"coin_id": coin_id, "days": days, "data": data}
+
 @api_router.get("/articles", response_model=List[Article])
 async def get_articles_route(category: Optional[str] = None, search: Optional[str] = None):
     """Get articles - tries Sanity CMS first, falls back to mock data if not enough content"""
