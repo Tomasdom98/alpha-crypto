@@ -210,48 +210,92 @@ def get_mock_articles():
 - Crecimiento interanual: +156%
 - Costo promedio de remesa con stablecoins: 0.5% (vs 6.2% tradicional)
 
+**¿Por qué las stablecoins son importantes?**
+
+Las stablecoins resuelven el problema de volatilidad de las criptomonedas tradicionales. Al estar vinculadas 1:1 con el dólar u otras monedas fiat, permiten a usuarios y empresas aprovechar la velocidad y eficiencia de blockchain sin exposición a fluctuaciones de precio.
+
 **Adopción institucional acelerada:**
+
 Stripe lanzó pagos en USDC para merchants globales. Visa procesa más de $1 billón mensual en settlements con stablecoins. Los bancos tradicionales como JPMorgan y HSBC están experimentando con stablecoins propias.
 
+PayPal lanzó PYUSD, su propia stablecoin en Ethereum y Solana. Circle (emisor de USDC) alcanzó una valoración de $9 billones. Tether (USDT) reportó ganancias récord de $4.5 billones en 2024.
+
 **El impacto en remesas:**
+
 Para Latinoamérica, esto es revolucionario. Enviar dinero de EE.UU. a México o Colombia ahora cuesta centavos en lugar de decenas de dólares. El tiempo de transferencia pasó de días a segundos.
 
-**El futuro:**
-Los reguladores están siguiendo de cerca estos desarrollos. La aprobación de MiCA en Europa y las nuevas regulaciones en EE.UU. sugieren que las stablecoins serán el puente entre las finanzas tradicionales y cripto.""",
+Las remesas globales representan $700 billones anuales. Con stablecoins, los trabajadores migrantes pueden ahorrar hasta el 90% en fees de transferencia.
+
+**Regulación:**
+
+Los reguladores están siguiendo de cerca estos desarrollos. La aprobación de MiCA en Europa y las nuevas regulaciones en EE.UU. sugieren que las stablecoins serán el puente entre las finanzas tradicionales y cripto.
+
+**Oportunidades de inversión:**
+
+- Circle (USDC): La stablecoin más transparente, con auditorías mensuales
+- Tokens de infraestructura que facilitan stablecoins (Ethereum, Solana)
+- Protocolos DeFi que ofrecen yield en stablecoins (Aave, Compound)
+
+**Conclusión:**
+
+Las stablecoins no son solo una herramienta de trading. Son la infraestructura financiera del futuro. Los inversores inteligentes están posicionándose en el ecosistema alrededor de estos activos.""",
             "category": "Stablecoins",
             "premium": False,
             "published_at": "2024-02-01T10:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+            "image_url": "https://images.unsplash.com/photo-1670367248899-a7d385c732b5?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "2",
             "title": "AI Agents y la Economía del Futuro",
             "excerpt": "El protocolo x402, Ethereum como backbone, y cómo los agentes de IA están creando una nueva economía autónoma.",
-            "content": """Los AI Agents están dejando de ser ciencia ficción para convertirse en actores económicos reales. El surgimiento del protocolo x402 en Ethereum marca el inicio de una nueva era.
+            "content": """Los AI Agents están dejando de ser ciencia ficción para convertirse en actores económicos reales. El surgimiento del protocolo x402 en Ethereum marca el inicio de una nueva era donde las máquinas no solo ejecutan tareas, sino que participan activamente en la economía.
 
 **¿Qué son los AI Agents en crypto?**
-Son programas de inteligencia artificial que pueden poseer wallets, ejecutar transacciones, y operar de forma autónoma en blockchains. No necesitan intermediarios humanos para actuar.
+
+Son programas de inteligencia artificial que pueden poseer wallets, ejecutar transacciones, y operar de forma autónoma en blockchains. No necesitan intermediarios humanos para actuar. Pueden ganar, gastar e invertir recursos digitales de manera independiente.
 
 **El protocolo x402:**
-Desarrollado sobre Ethereum, x402 permite que los agentes de IA realicen micropagos automáticos por servicios computacionales. Imagina AIs pagándose entre sí por procesamiento, datos, o API calls.
+
+Desarrollado sobre Ethereum, x402 permite que los agentes de IA realicen micropagos automáticos por servicios computacionales. Imagina AIs pagándose entre sí por procesamiento, datos, o API calls. Es HTTP pero con pagos nativos.
+
+Este protocolo abre la puerta a una economía machine-to-machine (M2M) donde billones de transacciones ocurren sin intervención humana.
 
 **Casos de uso emergentes:**
+
 - Trading bots que reinvierten sus propias ganancias
 - Agentes de soporte 24/7 que pagan por servicios cuando los necesitan
 - Sistemas de gobernanza delegados a IA para DAOs
 - Creación automatizada de contenido con monetización instantánea
+- Agentes que negocian precios y ejecutan contratos automáticamente
+
+**El tamaño de la oportunidad:**
+
+Se estima que para 2030, los AI agents gestionarán más de $100 billones en activos digitales. Las redes que soporten esta infraestructura (Ethereum, Solana, etc.) capturarán valor significativo.
 
 **Cómo aprovechar esta tendencia:**
-1. Invertir en tokens de infraestructura (Ethereum, Chainlink)
+
+1. Invertir en tokens de infraestructura (Ethereum, Chainlink para oracles)
 2. Participar en protocolos de AI agents como Fetch.ai, Ocean Protocol
 3. Desarrollar o utilizar herramientas que integren IA con smart contracts
+4. Prestar atención a proyectos que construyen la "economía agentic"
 
 **Proyectos a seguir:**
+
 - Autonolas: Framework para agentes autónomos
 - Morpheus: Red de AI agents descentralizada
 - ChainGPT: IA especializada en blockchain
+- Fetch.ai: Infraestructura para economía multi-agente
+- SingularityNET: Marketplace de servicios de IA
 
-La economía agentic apenas comienza. Los primeros en entender y posicionarse tendrán ventaja significativa.""",
+**Riesgos a considerar:**
+
+- Regulación incierta sobre IA autónoma con capacidad financiera
+- Vulnerabilidades de seguridad en smart contracts
+- Concentración de poder si pocos actores controlan los agentes más poderosos
+
+**Conclusión:**
+
+La economía agentic apenas comienza. Los primeros en entender y posicionarse tendrán ventaja significativa. No se trata solo de especular con tokens, sino de entender cómo la IA transformará la economía digital.""",
             "category": "AI",
             "premium": True,
             "published_at": "2024-01-30T15:30:00Z",
@@ -261,35 +305,60 @@ La economía agentic apenas comienza. Los primeros en entender y posicionarse te
             "id": "3",
             "title": "¿Qué está pasando en Crypto en 2026?",
             "excerpt": "Un panorama completo del mercado: conflictos regulatorios, avances tecnológicos, minería y adopción institucional.",
-            "content": """El mercado cripto en 2026 presenta un panorama de contrastes. Por un lado, avances tecnológicos sin precedentes; por otro, batallas regulatorias que definen el futuro de la industria.
+            "content": """El mercado cripto en 2026 presenta un panorama de contrastes fascinantes. Por un lado, avances tecnológicos sin precedentes; por otro, batallas regulatorias que definen el futuro de la industria.
 
 **Estado del mercado:**
+
 - Bitcoin dominance: 52%
 - Total market cap: $2.4 trillones
 - Volumen diario: $85 billones
+- Usuarios activos de DeFi: 15 millones+
+
+**El ciclo de halving:**
+
+El halving de Bitcoin de 2024 redujo la recompensa de bloque de 6.25 a 3.125 BTC. Históricamente, esto precede rally alcistas de 12-18 meses. El modelo stock-to-flow sugiere targets de $100K-150K para BTC.
 
 **Conflictos regulatorios actuales:**
-La SEC continúa su batalla legal con exchanges. Sin embargo, la aprobación de ETFs de Bitcoin spot marcó un antes y después. Europa avanza con MiCA mientras Asia lidera en adopción.
+
+La SEC continúa su batalla legal con exchanges, pero perdió casos importantes contra Grayscale y Ripple. La aprobación de ETFs de Bitcoin spot marcó un antes y después. Europa avanza con MiCA mientras Asia lidera en adopción.
+
+Hong Kong y Dubai se posicionan como hubs crypto-friendly. EE.UU. debate si perderá su liderazgo financiero por regulación excesiva.
 
 **Avances en minería:**
-- El hashrate de Bitcoin alcanzó nuevos máximos
+
+- El hashrate de Bitcoin alcanzó nuevos máximos (600+ EH/s)
 - Tendencia hacia energías renovables (48% del mining usa energía limpia)
 - ASIC de nueva generación reducen costos operativos en 30%
+- Mining pools descentralizados ganan tracción
 
 **Adopción institucional:**
+
 BlackRock, Fidelity, y otros gigantes tradicionales ahora ofrecen productos crypto. Los fondos de pensión europeos comienzan a diversificar con Bitcoin (máximo 2% del portfolio).
 
+Los ETFs de Bitcoin acumulan más de $50 billones en AUM en su primer año. MicroStrategy tiene 200,000+ BTC en su balance.
+
 **Desarrollos técnicos clave:**
-- Ethereum completó sus upgrades de escalabilidad
+
+- Ethereum completó sus upgrades de escalabilidad (Proto-danksharding)
 - Layer 2s procesan más transacciones que Ethereum mainnet
 - Solana recuperó credibilidad tras mejoras de uptime
 - Cross-chain bridges más seguros gracias a nuevos estándares
+- Bitcoin Ordinals y inscripciones revivieron el interés en BTC
+
+**Sectores con momentum:**
+
+1. Real World Assets (RWA): Tokenización de deuda, inmuebles, commodities
+2. DePIN: Infraestructura física descentralizada
+3. AI x Crypto: Proyectos que combinan ambas tendencias
+4. Gaming: Grandes estudios entrando a Web3
 
 **Perspectivas:**
+
 El mercado está en fase de maduración. Los proyectos sin fundamentos sólidos desaparecen mientras la infraestructura seria atrae capital institucional. La narrativa ha cambiado: de especulación a utilidad real.
 
 **Para inversores:**
-Focus en fundamentales, no en hype. Las oportunidades están en infraestructura, stablecoins, y proyectos con revenue real.""",
+
+Focus en fundamentales, no en hype. Las oportunidades están en infraestructura, stablecoins, y proyectos con revenue real. Diversificar entre BTC (reserva de valor), ETH (plataforma dominante), y altcoins selectas (5-10% máximo del portfolio).""",
             "category": "Analysis",
             "premium": False,
             "published_at": "2024-01-28T09:00:00Z",
@@ -297,19 +366,139 @@ Focus en fundamentales, no en hype. Las oportunidades están en infraestructura,
         },
         {
             "id": "4",
-            "title": "DeFi Summer 2.0: Top Protocols to Watch",
-            "excerpt": "A comprehensive guide to the hottest DeFi protocols delivering real yield.",
-            "content": "Deep dive into DeFi protocols with real yield generation. Focus on sustainable tokenomics and actual revenue.",
+            "title": "DeFi 2.0: Protocolos con Yield Real",
+            "excerpt": "Guía completa de los protocolos DeFi que generan rendimiento sostenible y real.",
+            "content": """El DeFi ha madurado significativamente desde el "DeFi Summer" de 2020. Los yields inflados por emisiones de tokens dieron paso a protocolos con revenue real y tokenomics sostenibles.
+
+**La evolución de DeFi:**
+
+DeFi 1.0 ofrecía yields de 1000%+ APY pagados en tokens que se devaluaban rápidamente. DeFi 2.0 prioriza ingresos reales: fees de trading, intereses de préstamos, y servicios con demanda orgánica.
+
+**Protocolos con Revenue Real:**
+
+1. **GMX/GLP (Arbitrum/Avalanche):**
+   - Revenue: Fees de trading de perpetuos
+   - Yield: 15-25% APR en stablecoins
+   - Holders de GMX reciben 30% de fees del protocolo
+
+2. **Aave/Compound:**
+   - Revenue: Intereses de préstamos
+   - Yield: 3-8% APR variable
+   - Los más seguros y probados
+
+3. **Lido (Ethereum):**
+   - Revenue: Recompensas de staking de ETH
+   - Yield: 4-5% APR
+   - Mayor protocolo de liquid staking
+
+4. **Pendle (Multi-chain):**
+   - Revenue: Trading de yield tokens
+   - Permite especular/hedge en yields futuros
+   - Innovación en yield tokenization
+
+**Estrategias de bajo riesgo:**
+
+- Stablecoins en Aave: 3-5% APR
+- ETH staking vía Lido: ~4% APR
+- GLP (GMX) para yield en stables: 15-20% APR
+
+**Estrategias de riesgo moderado:**
+
+- Liquidity providing en pools de alta demanda
+- Yield farming en protocolos establecidos
+- Leverage farming con gestión activa de riesgo
+
+**Métricas clave a evaluar:**
+
+- Revenue real (no emisiones inflacionarias)
+- TVL estable o creciente
+- Auditorías de seguridad múltiples
+- Historial sin exploits mayores
+- Tokenomics con value accrual
+
+**Riesgos de DeFi:**
+
+- Smart contract bugs/exploits
+- Impermanent loss en LPs
+- Oracle manipulation
+- Regulatory uncertainty
+
+**Conclusión:**
+
+DeFi ofrece oportunidades genuinas de yield, pero requiere due diligence. Prioriza protocolos con track record, auditorías, y revenue real sobre yields inflados por emisiones.""",
             "category": "DeFi",
             "premium": True,
             "published_at": "2024-01-25T14:00:00Z",
-            "image_url": "https://images.unsplash.com/photo-1643000296927-f4f1c8722b7d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+            "image_url": "https://images.unsplash.com/photo-1543358021-87eba7df3eb5?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
         },
         {
             "id": "5",
             "title": "Layer 2 Wars: Arbitrum vs Optimism vs Base",
-            "excerpt": "Análisis comparativo de los principales L2s y cuál ofrece mejores oportunidades.",
-            "content": "Detailed comparison of leading Ethereum Layer 2 solutions including transaction costs, security, and ecosystem growth.",
+            "excerpt": "Análisis comparativo de los principales L2s y cuál ofrece mejores oportunidades de inversión.",
+            "content": """Los Layer 2s de Ethereum dominan el landscape de escalabilidad. Arbitrum, Optimism y Base compiten por usuarios, desarrolladores y TVL. ¿Cuál ofrece mejores oportunidades?
+
+**¿Por qué Layer 2s?**
+
+Ethereum mainnet es seguro pero caro y lento (~15 TPS). Los L2s procesan transacciones off-chain y publican pruebas en Ethereum, heredando su seguridad con 10-100x menos costo.
+
+**Arbitrum:**
+
+- TVL: $12+ billones (líder indiscutible)
+- Token: ARB
+- Tecnología: Optimistic Rollup
+- Ecosistema: GMX, Camelot, Radiant, +400 protocolos
+- Fortaleza: Ecosistema DeFi más maduro
+
+**Optimism:**
+
+- TVL: $6+ billones
+- Token: OP
+- Tecnología: Optimistic Rollup
+- Ecosistema: Velodrome, Synthetix, +200 protocolos
+- Fortaleza: Superchain vision (Base, Zora usan su stack)
+
+**Base:**
+
+- TVL: $4+ billones
+- Token: No tiene (respaldado por Coinbase)
+- Tecnología: OP Stack
+- Ecosistema: Aerodrome, Degen, memecoins
+- Fortaleza: Onboarding desde Coinbase
+
+**Comparación de costos (tx promedio):**
+
+- Ethereum mainnet: $5-50
+- Arbitrum: $0.05-0.20
+- Optimism: $0.05-0.15
+- Base: $0.01-0.10
+
+**¿Cuál elegir para inversión?**
+
+**Arbitrum (ARB):**
+- Mayor ecosistema y volumen
+- Token ya lanzado, menor upside de airdrop
+- Mejor para DeFi serio
+
+**Optimism (OP):**
+- Superchain narrative (múltiples L2s usando su tech)
+- Revenue sharing con chains que adoptan OP Stack
+- Retroactive Public Goods Funding atrae desarrolladores
+
+**Base:**
+- Sin token propio (backed by Coinbase)
+- Mejor para usuarios nuevos
+- Potencial de airdrop si lanzan token
+
+**Estrategia recomendada:**
+
+1. Usa los tres para diversificar exposición
+2. Mantén posiciones en ARB y OP
+3. Farmea actividad en Base por posible airdrop
+4. Presta atención a nuevos L2s (zkSync, Scroll, Linea)
+
+**El futuro:**
+
+Los L2s continuarán absorbiendo actividad de Ethereum mainnet. La competencia beneficia a usuarios con menores costos. El ganador a largo plazo será quien atraiga más desarrolladores y mantenga mejor seguridad.""",
             "category": "Technology",
             "premium": False,
             "published_at": "2024-01-20T11:00:00Z",
