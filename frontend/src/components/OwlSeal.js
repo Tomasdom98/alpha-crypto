@@ -4,40 +4,40 @@
 const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png";
 
 export default function OwlSeal({ 
-  position = 'bottom-right', // 'bottom-right', 'bottom-left', 'top-right', 'center'
-  size = 'md', // 'sm', 'md', 'lg'
-  opacity = 0.25,
+  position = 'bottom-right',
+  size = 'md',
+  opacity = 0.5,
   showText = true,
   className = ''
 }) {
   const sizeClasses = {
-    sm: 'w-12 h-12',
-    md: 'w-16 h-16',
-    lg: 'w-20 h-20',
-    xl: 'w-28 h-28'
+    sm: 'w-16 h-16',
+    md: 'w-24 h-24',
+    lg: 'w-32 h-32',
+    xl: 'w-40 h-40'
   };
 
-  // Fixed position for the watermark
+  // Fixed position for the watermark - always visible
   if (className.includes('fixed')) {
     return (
       <div 
-        className={`pointer-events-none select-none z-50 ${className}`}
+        className="pointer-events-none select-none z-50"
         style={{ 
           opacity,
           position: 'fixed',
-          bottom: '24px',
-          right: '24px'
+          bottom: '80px',
+          right: '30px'
         }}
       >
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-gray-900/30 backdrop-blur-sm border border-emerald-500/20">
           <img 
             src={OWL_URL}
             alt="Alpha Crypto"
-            className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
-            style={{ filter: 'brightness(1.2) contrast(1.1)' }}
+            className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]`}
+            style={{ filter: 'brightness(1.3) contrast(1.1)' }}
           />
           {showText && (
-            <span className="text-[10px] text-emerald-500/70 font-bold tracking-widest">
+            <span className="text-xs text-emerald-400 font-bold tracking-widest">
               αC
             </span>
           )}
