@@ -1,4 +1,4 @@
-// Alpha Crypto Owl Seal - Brand identity component
+// Alpha Crypto Owl Seal - Brand identity component with animations
 // Used as a watermark/seal across all pages
 
 const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ophjijkw_Screenshot%202026-02-05%20at%2013.02.09.png";
@@ -16,7 +16,7 @@ export default function OwlSeal({
     xl: 'w-40 h-40'
   };
 
-  // Fixed position for the watermark - with rounded border and depth
+  // Fixed position for the watermark - with rounded border, depth and animations
   if (className.includes('fixed')) {
     return (
       <div 
@@ -29,20 +29,32 @@ export default function OwlSeal({
         }}
       >
         <div 
-          className="relative p-3 rounded-3xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border border-emerald-500/30 shadow-2xl"
+          className="relative p-3 rounded-3xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border border-emerald-500/30 shadow-2xl animate-owl-float"
           style={{
             boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(16,185,129,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
           }}
         >
-          {/* Inner glow ring */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
+          {/* Pulsing glow effect */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-transparent animate-owl-pulse" />
+          
+          {/* Breathing glow ring */}
+          <div 
+            className="absolute -inset-1 rounded-3xl animate-owl-glow"
+            style={{
+              background: 'radial-gradient(circle at center, rgba(16,185,129,0.15) 0%, transparent 70%)',
+            }}
+          />
           
           <img 
             src={OWL_URL}
             alt="Alpha Crypto"
-            className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+            className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)] animate-owl-breathe"
             style={{ filter: 'brightness(1.3) contrast(1.1)' }}
           />
+          
+          {/* Sparkle effects */}
+          <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-owl-sparkle" />
+          <div className="absolute bottom-4 left-2 w-1 h-1 bg-emerald-300 rounded-full animate-owl-sparkle-delay" />
         </div>
       </div>
     );
@@ -65,7 +77,7 @@ export default function OwlSeal({
       <img 
         src={OWL_URL}
         alt="Alpha Crypto"
-        className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
+        className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)] animate-owl-breathe`}
         style={{ filter: 'brightness(1.2) contrast(1.1)' }}
       />
     </div>
