@@ -10,7 +10,7 @@ export default function Navigation() {
 
   // Free content
   const freeItems = [
-    { path: '/', label: 'Home' },
+    { path: '/', label: 'Inicio' },
     { path: '/articles', label: 'Artículos' },
     { path: '/indices', label: 'Índices' },
     { path: '/airdrops', label: 'Airdrops' },
