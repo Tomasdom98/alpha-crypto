@@ -156,33 +156,35 @@ class Payment(BaseModel):
 
 # Mock data generators
 def get_mock_crypto_prices():
+    # Updated mock prices - these are displayed when CoinGecko API is rate-limited
+    # Note: CoinGecko free tier has strict rate limits
     return [
         {
             "id": "bitcoin",
             "symbol": "BTC",
             "name": "Bitcoin",
-            "current_price": 64250.00,
-            "price_change_24h": 2.3,
-            "market_cap": 1250000000000,
-            "volume_24h": 28500000000
+            "current_price": 97250.00,
+            "price_change_24h": 1.85,
+            "market_cap": 1920000000000,
+            "volume_24h": 42500000000
         },
         {
             "id": "ethereum",
             "symbol": "ETH",
             "name": "Ethereum",
-            "current_price": 3420.50,
-            "price_change_24h": 1.8,
-            "market_cap": 410000000000,
-            "volume_24h": 15200000000
+            "current_price": 3680.50,
+            "price_change_24h": 2.15,
+            "market_cap": 443000000000,
+            "volume_24h": 18200000000
         },
         {
             "id": "solana",
             "symbol": "SOL",
             "name": "Solana",
-            "current_price": 152.30,
-            "price_change_24h": -0.5,
-            "market_cap": 69000000000,
-            "volume_24h": 2800000000
+            "current_price": 198.45,
+            "price_change_24h": 3.25,
+            "market_cap": 96000000000,
+            "volume_24h": 4800000000
         },
         {
             "id": "usd-coin",
@@ -190,8 +192,8 @@ def get_mock_crypto_prices():
             "name": "USD Coin",
             "current_price": 1.00,
             "price_change_24h": 0.01,
-            "market_cap": 32000000000,
-            "volume_24h": 5100000000
+            "market_cap": 42000000000,
+            "volume_24h": 8100000000
         }
     ]
 
