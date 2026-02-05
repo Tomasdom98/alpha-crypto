@@ -36,7 +36,7 @@ function ConsultingPage() {
   return (
     <div className="min-h-screen py-12 relative" data-testid="consulting-page">
       {/* Owl Seal */}
-      <OwlSeal position="bottom-right" size="md" opacity={0.1} className="fixed z-10 hidden lg:block" />
+      <OwlSeal position="bottom-right" size="md" opacity={0.35} className="fixed z-10 hidden lg:block" />
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
