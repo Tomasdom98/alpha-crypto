@@ -75,10 +75,25 @@ export default function AlphaiChat({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
-      <div className="w-full max-w-2xl h-[600px] max-h-[90vh] bg-[#0f172a] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden">
+    <div 
+      className="fixed inset-0 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        bottom: 0, 
+        zIndex: 9999,
+        margin: 0
+      }}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div 
+        className="w-full max-w-2xl bg-[#0f172a] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden"
+        style={{ height: '70vh', maxHeight: '600px' }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-gradient-to-r from-gray-900 to-[#0f172a]">
+        <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-gray-800 bg-gradient-to-r from-gray-900 to-[#0f172a]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center overflow-hidden">
               <img src={OWL_URL} alt="ALPHA-I" className="w-8 h-8 object-contain" />
