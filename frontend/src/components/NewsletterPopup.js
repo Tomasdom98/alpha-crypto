@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { X, Mail, CheckCircle, Loader2, Sparkles } from 'lucide-react';
+import { X, Mail, CheckCircle, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-export default function NewsletterPopup({ delay = 5000 }) {
+export default function NewsletterPopup({ delay = 3000 }) {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -86,16 +86,16 @@ export default function NewsletterPopup({ delay = 5000 }) {
               {/* Header */}
               <div className="text-center mb-6">
                 <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                  <Sparkles size={16} />
-                  <span>100% Gratis</span>
+                  <span>🔮</span>
+                  <span>Newsletter Gratuito</span>
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
-                  No te pierdas el alpha 🚀
+                  Newsletter Gratuito 🔮
                 </h2>
                 
                 <p className="text-gray-400">
-                  Recibe los mejores artículos, airdrops verificados y análisis de mercado directo en tu inbox.
+                  Recibe nuestros artículos y análisis de mercado directo en tu inbox cada semana 🦉
                 </p>
               </div>
 
@@ -103,11 +103,11 @@ export default function NewsletterPopup({ delay = 5000 }) {
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Análisis semanales</span>
+                  <span>Artículos semanales</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Airdrops exclusivos</span>
+                  <span>Análisis de mercado</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
@@ -153,7 +153,7 @@ export default function NewsletterPopup({ delay = 5000 }) {
               </form>
 
               <p className="text-gray-600 text-xs text-center mt-4">
-                +1,000 inversores ya están suscritos
+                Únete a nuestra comunidad
               </p>
             </>
           )}
