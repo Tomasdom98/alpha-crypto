@@ -126,13 +126,13 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 
 ## In Progress / Upcoming Tasks
 
-### Priority Media (Next)
+### Priority Media - COMPLETADO ✅
 - [x] Airdrops Educational Intro - "¿Qué es un Airdrop?" section ✅
 - [x] Indices Charts - Mini sparkline charts for each indicator ✅
 - [x] CoinGecko API Cache System - Server-side caching implemented ✅
-- [x] Brand Assets Integration - Logo AC + Búho Cyber mascot ✅
+- [x] Brand Assets Integration - Logo α + Búho Cyber mascot ✅
 - [x] Visual Identity Improvements - Navigation, Hero, Footer updated ✅
-- [ ] Full-size charts for Total Market Cap, Stablecoin Market Cap, DeFi TVL
+- [x] Full-size charts - Total Market Cap, Stablecoin Market Cap, DeFi TVL ✅
 
 ### Future Tasks
 - [ ] Integrate real email service (Resend/SendGrid)
@@ -142,8 +142,16 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [ ] Export to GitHub
 
 ## Brand Assets
-- **Logo AC:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ge03m8vd_Gemini_Generated_Image_p2d40gp2d40gp2d4.png
-- **Búho Cyber:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/mt7vcsqk_Gemini_Generated_Image_k7va0ik7va0ik7va.png
+- **Logo:** Símbolo α (alpha) con gradiente verde esmeralda
+- **Mascota Búho:** Imagen recortada mostrando solo el búho cyber
+- **Asset URL:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png
+
+## Custom CSS Animations
+- `animate-float` - Animación flotante para el búho
+- `animate-pulse-glow` - Efecto glow pulsante para badges
+- `animate-gradient` - Gradiente animado para texto "alpha"
+- `glass-card` - Efecto glassmorphism para cards
+- `premium-glow` - Efecto glow para elementos premium
 
 ## Test Reports
 - `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
