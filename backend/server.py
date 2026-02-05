@@ -435,7 +435,7 @@ def get_mock_airdrops():
         {
             "id": "6",
             "project_name": "Vertex Protocol",
-            "logo_url": "https://assets.coingecko.com/coins/images/28782/standard/vertex.png",
+            "logo_url": "https://ui-avatars.com/api/?name=VX&background=6366f1&color=fff&size=128&bold=true&format=svg",
             "chain": "Arbitrum",
             "description": "Unified trading platform combining spot, perps, and money markets",
             "full_description": "Vertex offers a complete trading experience with spot, perpetuals, and lending all in one place. VRTX token already live with ongoing incentive programs for traders.",
@@ -458,7 +458,7 @@ def get_mock_airdrops():
         {
             "id": "7",
             "project_name": "dYdX",
-            "logo_url": "https://assets.coingecko.com/coins/images/17500/standard/dydx.png",
+            "logo_url": "https://ui-avatars.com/api/?name=dX&background=6d28d9&color=fff&size=128&bold=true&format=svg",
             "chain": "dYdX Chain",
             "description": "The original DeFi perpetuals DEX, now on its own appchain",
             "full_description": "dYdX pioneered decentralized perpetual trading. Now operating on its own Cosmos-based chain with fully on-chain orderbook. Ongoing staking and trading rewards.",
@@ -481,7 +481,7 @@ def get_mock_airdrops():
         {
             "id": "8",
             "project_name": "Jupiter",
-            "logo_url": "https://assets.coingecko.com/coins/images/34188/standard/jup.png",
+            "logo_url": "https://ui-avatars.com/api/?name=JU&background=22c55e&color=fff&size=128&bold=true&format=svg",
             "chain": "Solana",
             "description": "Solana's leading aggregator now with perpetuals trading",
             "full_description": "Jupiter is Solana's dominant DEX aggregator, now expanding into perpetuals with Jupiter Perps. JUP token already live with ongoing rewards for platform users and LPs.",
@@ -504,7 +504,7 @@ def get_mock_airdrops():
         {
             "id": "9",
             "project_name": "GMX",
-            "logo_url": "https://assets.coingecko.com/coins/images/18323/standard/gmx.png",
+            "logo_url": "https://ui-avatars.com/api/?name=GM&background=3b82f6&color=fff&size=128&bold=true&format=svg",
             "chain": "Arbitrum/Avalanche",
             "description": "OG perpetuals DEX with proven tokenomics and yield",
             "full_description": "GMX is one of the most successful perpetual DEXs with millions in daily volume. GMX token offers real yield from platform fees. Ongoing incentives for liquidity providers.",
@@ -527,7 +527,7 @@ def get_mock_airdrops():
         {
             "id": "10",
             "project_name": "Synthetix",
-            "logo_url": "https://assets.coingecko.com/coins/images/3406/standard/synthetix.png",
+            "logo_url": "https://ui-avatars.com/api/?name=SN&background=06b6d4&color=fff&size=128&bold=true&format=svg",
             "chain": "Optimism/Base",
             "description": "Pioneer of synthetic assets now powering major perps DEXs",
             "full_description": "Synthetix pioneered synthetic assets in DeFi and now powers protocols like Kwenta. SNX staking provides real yield and governance rights. V3 brings new opportunities.",
