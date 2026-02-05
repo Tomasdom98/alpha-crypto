@@ -99,7 +99,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
     } catch (err) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Lo siento, hubo un error. Por favor intenta de nuevo. 🦉' 
+        content: tx.error 
       }]);
     } finally {
       setLoading(false);
