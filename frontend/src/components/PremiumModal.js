@@ -10,10 +10,23 @@ const API = `${BACKEND_URL}/api`;
 const SOLANA_WALLET = '2X7DSWNgegbCCk1A9cdiSQm5Fk3zpkesDRpQrSqETKiv';
 const EVM_WALLET = '0x8b1624c8b184Edb4e7430194865490Ba5e860f0C';
 
+// Pricing structure
+const PRICING = {
+  alpha: {
+    monthly: { price: 30, label: '$30/mes' },
+    yearly: { price: 300, monthlyEquiv: 25, label: '$300/año', discount: 20 }
+  },
+  pro: {
+    monthly: { price: 100, label: '$100/mes' },
+    yearly: { price: 840, monthlyEquiv: 70, label: '$840/año', discount: 30 }
+  }
+};
+
 export default function PremiumModal({ isOpen, onClose }) {
   const [step, setStep] = useState('tier');
   const [selectedTier, setSelectedTier] = useState(null);
   const [selectedChain, setSelectedChain] = useState(null);
+  const [billingCycle, setBillingCycle] = useState('monthly');
   const [qrCode, setQrCode] = useState('');
   const [email, setEmail] = useState('');
   const [txHash, setTxHash] = useState('');
@@ -25,6 +38,7 @@ export default function PremiumModal({ isOpen, onClose }) {
       setStep('tier');
       setSelectedTier(null);
       setSelectedChain(null);
+      setBillingCycle('monthly');
       setEmail('');
       setTxHash('');
     } else {
@@ -47,7 +61,8 @@ export default function PremiumModal({ isOpen, onClose }) {
   };
 
   const getTierPrice = () => {
-    return selectedTier === 'pro' ? 100 : 30;
+    if (!selectedTier) return 0;
+    return PRICING[selectedTier][billingCycle].price;
   };
 
   const generateQR = async () => {
@@ -87,7 +102,8 @@ export default function PremiumModal({ isOpen, onClose }) {
         chain: selectedChain,
         tx_hash: txHash || null,
         amount: getTierPrice(),
-        tier: selectedTier
+        tier: selectedTier,
+        billing_cycle: billingCycle
       });
 
       setStep('success');
@@ -127,9 +143,26 @@ export default function PremiumModal({ isOpen, onClose }) {
         <div className="p-6">
           {step === 'tier' && (
             <div className="space-y-6">
-              <p className="text-gray-400 text-center mb-8">Elige el plan que mejor se adapte a tus necesidades</p>
+              <p className="text-gray-400 text-center mb-4">Elige el plan que mejor se adapte a tus necesidades</p>
+              
+              {/* Billing Toggle */}
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-500'}`}>Mensual</span>
+                <button
+                  onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
+                  data-testid="billing-toggle"
+                  className={`relative w-14 h-7 rounded-full transition-all ${billingCycle === 'yearly' ? 'bg-emerald-500' : 'bg-gray-700'}`}
+                >
+                  <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-all ${billingCycle === 'yearly' ? 'left-8' : 'left-1'}`} />
+                </button>
+                <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-white' : 'text-gray-500'}`}>Anual</span>
+                {billingCycle === 'yearly' && (
+                  <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-1 rounded-full">Ahorra hasta 30%</span>
+                )}
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Alpha Access */}
                 <div
                   className="rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 hover:border-emerald-500 cursor-pointer transition-all hover:scale-[1.02]"
                   onClick={() => { setSelectedTier('alpha'); setStep('select'); }}
@@ -142,10 +175,26 @@ export default function PremiumModal({ isOpen, onClose }) {
                       </div>
                       <h3 className="text-xl font-bold text-white">Alpha Access</h3>
                     </div>
-                    <div className="mb-6">
-                      <span className="text-4xl font-black text-white">$30</span>
-                      <span className="text-gray-400">/mes USDC</span>
+                    <div className="mb-2">
+                      {billingCycle === 'monthly' ? (
+                        <>
+                          <span className="text-4xl font-black text-white">$30</span>
+                          <span className="text-gray-400">/mes USDC</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-4xl font-black text-white">$300</span>
+                          <span className="text-gray-400">/año USDC</span>
+                        </>
+                      )}
                     </div>
+                    {billingCycle === 'yearly' && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-sm text-gray-400">$25/mes equivalente</span>
+                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">Ahorra 20%</span>
+                      </div>
+                    )}
+                    {billingCycle === 'monthly' && <div className="h-6 mb-4" />}
                     <ul className="space-y-3 mb-6">
                       <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Airdrops con guías detalladas</span></li>
                       <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Portfolio tracking</span></li>
@@ -158,6 +207,7 @@ export default function PremiumModal({ isOpen, onClose }) {
                   </div>
                 </div>
 
+                {/* Alpha Pro */}
                 <div
                   className="relative rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/10 to-orange-500/5 hover:border-amber-500 cursor-pointer transition-all hover:scale-[1.02]"
                   onClick={() => { setSelectedTier('pro'); setStep('select'); }}
@@ -171,10 +221,26 @@ export default function PremiumModal({ isOpen, onClose }) {
                       </div>
                       <h3 className="text-xl font-bold text-white">Alpha Pro</h3>
                     </div>
-                    <div className="mb-6">
-                      <span className="text-4xl font-black text-white">$100</span>
-                      <span className="text-gray-400">/mes USDC</span>
+                    <div className="mb-2">
+                      {billingCycle === 'monthly' ? (
+                        <>
+                          <span className="text-4xl font-black text-white">$100</span>
+                          <span className="text-gray-400">/mes USDC</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-4xl font-black text-white">$840</span>
+                          <span className="text-gray-400">/año USDC</span>
+                        </>
+                      )}
                     </div>
+                    {billingCycle === 'yearly' && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-sm text-gray-400">$70/mes equivalente</span>
+                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">Ahorra 30%</span>
+                      </div>
+                    )}
+                    {billingCycle === 'monthly' && <div className="h-6 mb-4" />}
                     <ul className="space-y-3 mb-6">
                       <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Todo en Alpha Access</span></li>
                       <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Consultoría personal y empresarial</span></li>
@@ -203,10 +269,10 @@ export default function PremiumModal({ isOpen, onClose }) {
               
               <div className={`text-center py-4 rounded-xl border ${isProTier ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
                 <div className="text-3xl font-black text-white mb-1">
-                  ${getTierPrice()}<span className="text-xl text-gray-400">/mes</span>
+                  ${getTierPrice()}<span className="text-xl text-gray-400">/{billingCycle === 'monthly' ? 'mes' : 'año'}</span>
                 </div>
                 <p className={isProTier ? 'text-amber-500 font-medium' : 'text-emerald-500 font-medium'}>
-                  {isProTier ? 'Alpha Pro' : 'Alpha Access'}
+                  {isProTier ? 'Alpha Pro' : 'Alpha Access'} - {billingCycle === 'monthly' ? 'Mensual' : 'Anual'}
                 </p>
               </div>
               
