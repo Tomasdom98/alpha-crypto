@@ -81,29 +81,29 @@ export default function MarketIndicators({ fearGreed }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* LEFT: Fear & Greed Index - Hero Card */}
+        {/* LEFT: Fear & Greed Index - Compact Card */}
         <div 
-          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/20"
+          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/20"
           data-testid="fear-greed-gauge"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-900/20" />
           
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50">
-                <Activity className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-xl bg-gray-800/50 border border-gray-700/50">
+                <Activity className="w-5 h-5 text-emerald-400" strokeWidth={2.5} />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                <h3 className="text-lg font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                   Fear & Greed Index
                 </h3>
-                <p className="text-sm text-gray-500">Market sentiment indicator</p>
+                <p className="text-xs text-gray-500">Market sentiment indicator</p>
               </div>
             </div>
 
-            {/* Large Gauge Visualization */}
+            {/* Compact Gauge Visualization */}
             <div className="relative">
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={160}>
                 <PieChart>
                   <Pie
                     data={gaugeData}
@@ -111,8 +111,8 @@ export default function MarketIndicators({ fearGreed }) {
                     cy="50%"
                     startAngle={180}
                     endAngle={0}
-                    innerRadius={80}
-                    outerRadius={110}
+                    innerRadius={55}
+                    outerRadius={75}
                     dataKey="value"
                     stroke="none"
                   >
@@ -123,25 +123,25 @@ export default function MarketIndicators({ fearGreed }) {
               </ResponsiveContainer>
               
               {/* Center Value */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ top: '45%' }}>
-                <div className="text-6xl font-black text-white mb-2" style={{ fontFamily: 'Space Grotesk, monospace' }}>
+              <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ top: '30%' }}>
+                <div className="text-4xl font-black text-white mb-1" style={{ fontFamily: 'Space Grotesk, monospace' }}>
                   {fearGreed?.value || 50}
                 </div>
-                <div className="text-lg font-semibold text-gray-400">{fearGreed?.classification || 'Neutral'}</div>
+                <div className="text-sm font-semibold text-gray-400">{fearGreed?.classification || 'Neutral'}</div>
               </div>
             </div>
 
             {/* Scale Labels */}
-            <div className="mt-6 flex justify-between text-xs text-gray-500 px-4">
+            <div className="flex justify-between text-xs text-gray-500 px-2">
               <span>Extreme Fear</span>
               <span>Neutral</span>
               <span>Extreme Greed</span>
             </div>
 
-            <div className="mt-6 p-4 bg-gray-800/30 rounded-xl border border-gray-700/30">
+            <div className="mt-4 p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
               <p className="text-xs text-gray-400 leading-relaxed">
-                The Fear & Greed Index measures market sentiment from 0 (extreme fear) to 100 (extreme greed). 
-                Use it to gauge overall market psychology and potential opportunities.
+                Measures market sentiment from 0 (extreme fear) to 100 (extreme greed). 
+                Use it to gauge market psychology and spot opportunities.
               </p>
             </div>
           </div>
