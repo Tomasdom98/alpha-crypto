@@ -4,8 +4,6 @@ import { useState } from 'react';
 import PremiumModal from './PremiumModal';
 import AlphaiChat from './AlphaiChat';
 
-const OWL_ICON_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png";
-
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
@@ -15,7 +13,7 @@ export default function Navigation() {
   // Free content
   const freeItems = [
     { path: '/', label: 'Inicio' },
-    { path: '/articles', label: 'Artículos' },
+    { path: '/articles', label: 'Alpha Research' },
     { path: '/indices', label: 'Índices' },
     { path: '/airdrops', label: 'Airdrops' },
   ];
@@ -85,15 +83,20 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-2">
-            {/* ALPHA-I Button */}
+          {/* CTA Buttons - ALPHA-I destacado entre Consultoría y Premium */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* ALPHA-I Button - Destacado */}
             <button
               onClick={() => setShowAlphai(true)}
               data-testid="alphai-nav-btn"
-              className="px-3 py-1.5 rounded-lg text-sm font-mono font-medium text-emerald-400 border border-emerald-500/40 hover:border-emerald-500 hover:bg-emerald-500/10 transition-all"
+              className="relative px-4 py-2 rounded-lg text-sm font-bold font-mono bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 text-emerald-400 border border-emerald-500/50 hover:border-emerald-400 hover:from-emerald-500/30 hover:to-cyan-500/30 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)]"
             >
-              ALPHA-I
+              <span className="flex items-center gap-2">
+                <Bot size={16} className="text-cyan-400" />
+                ALPHA-I
+              </span>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 blur-sm -z-10" />
             </button>
             
             {/* Premium Button */}
@@ -161,14 +164,15 @@ export default function Navigation() {
               ))}
             </div>
             
-            {/* ALPHA-I Button Mobile */}
+            {/* ALPHA-I Button Mobile - Destacado */}
             <button
               onClick={() => {
                 setIsOpen(false);
                 setShowAlphai(true);
               }}
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-bold py-3 px-4 rounded-lg transition-all"
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/50 text-emerald-400 font-mono font-bold py-3 px-4 rounded-lg transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]"
             >
+              <Bot size={18} className="text-cyan-400" />
               ALPHA-I
               <span className="text-gray-400 text-sm font-sans">- Asistente DeFi</span>
             </button>
