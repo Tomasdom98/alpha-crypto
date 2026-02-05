@@ -132,19 +132,17 @@ export default function AirdropsPage() {
         (airdrop.chain && airdrop.chain.toLowerCase().includes(searchQuery.toLowerCase()));
       
       const matchesChain = selectedChain === 'all' || airdrop.chain === selectedChain;
-      const matchesPremium = !showPremiumOnly || airdrop.premium;
       
-      return matchesSearch && matchesChain && matchesPremium;
+      return matchesSearch && matchesChain;
     });
-  }, [airdrops, searchQuery, selectedChain, showPremiumOnly]);
+  }, [airdrops, searchQuery, selectedChain]);
 
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedChain('all');
-    setShowPremiumOnly(false);
   };
 
-  const hasActiveFilters = searchQuery !== '' || selectedChain !== 'all' || showPremiumOnly;
+  const hasActiveFilters = searchQuery !== '' || selectedChain !== 'all';
 
   const getProtocolLogo = (projectName) => {
     return PROTOCOL_LOGOS[projectName] || null;
