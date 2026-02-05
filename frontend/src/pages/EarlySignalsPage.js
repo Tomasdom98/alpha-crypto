@@ -100,7 +100,10 @@ function EarlySignalsPage() {
   }
 
   return (
-    <div className="min-h-screen py-12" data-testid="early-signals-page">
+    <div className="min-h-screen py-12 relative" data-testid="early-signals-page">
+      {/* Owl Seal */}
+      <OwlSeal position="bottom-right" size="md" opacity={0.1} className="fixed z-10 hidden lg:block" />
+      
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
