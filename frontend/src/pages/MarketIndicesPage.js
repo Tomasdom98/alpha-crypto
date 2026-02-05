@@ -402,24 +402,30 @@ export default function MarketIndicesPage() {
         </div>
 
         {/* Signal Summary */}
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-4 gap-4 mb-10">
           <div className="glass-card rounded-xl p-4 text-center border border-emerald-500/30">
             <div className="text-3xl font-black text-emerald-400">
               {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Buy').length}
             </div>
-            <div className="text-sm text-gray-400">Señales Buy</div>
+            <div className="text-sm text-gray-400">Buy</div>
           </div>
           <div className="glass-card rounded-xl p-4 text-center border border-amber-500/30">
             <div className="text-3xl font-black text-amber-400">
               {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Hold').length}
             </div>
-            <div className="text-sm text-gray-400">Señales Hold</div>
+            <div className="text-sm text-gray-400">Hold</div>
           </div>
           <div className="glass-card rounded-xl p-4 text-center border border-red-500/30">
             <div className="text-3xl font-black text-red-400">
               {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Sell').length}
             </div>
-            <div className="text-sm text-gray-400">Señales Sell</div>
+            <div className="text-sm text-gray-400">Sell</div>
+          </div>
+          <div className="glass-card rounded-xl p-4 text-center border border-cyan-500/30">
+            <div className="text-3xl font-black text-cyan-400">
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Watchlist').length}
+            </div>
+            <div className="text-sm text-gray-400">Watchlist</div>
           </div>
         </div>
 
