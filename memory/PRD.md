@@ -77,10 +77,12 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - **Note:** Requires domain verification for production use
 
 ## Newsletter System (Feb 2026) - NEW
-- **Component:** `/app/frontend/src/components/NewsletterSignup.js`
+- **Components:** 
+  - `/app/frontend/src/components/NewsletterSignup.js` - Hero variant for homepage
+  - `/app/frontend/src/components/NewsletterPopup.js` - Popup for articles page (5s delay)
 - **Features:**
-  - Hero variant (large, prominent on homepage)
-  - Compact variant (for sidebars)
+  - Popup appears after 5 seconds on Articles page
+  - Saves to localStorage to avoid repeat popups
   - Welcome email on subscription
   - Article distribution endpoint
 - **Backend Endpoints:**
@@ -88,6 +90,14 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
   - `POST /api/newsletter/send-article?article_id=X` - Send article to all subscribers
   - `GET /api/admin/alert-subscribers` - List all subscribers
   - `POST /api/alerts/unsubscribe` - Unsubscribe
+
+## Real-Time Charts API (Feb 2026) - NEW
+- **Data Source:** CoinGecko API with caching + mock fallback
+- **Endpoints:**
+  - `GET /api/crypto/chart/{coin_id}?days=30` - Historical price data
+  - `GET /api/crypto/global` - Global market data (dominance, market cap)
+- **Caching:** 5 minutes for charts, 2 minutes for global data
+- **Fallback:** Auto-generates mock data if CoinGecko fails
 
 ## API Endpoints
 
