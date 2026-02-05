@@ -138,6 +138,24 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
   - Fear & Greed Index from Alternative.me
 - [x] Articles emoji reduction - Only owl (🦉) signature at end of each article
 - [x] Tables in articles render correctly with proper styling
+- [x] OwlSeal Dynamic Animations (Feb 5, 2026):
+  - Floating animation (subtle up/down)
+  - Breathing/scale effect
+  - Pulsing inner glow
+  - Sparkle effects on corners
+- [x] Search & Filters for Articles Page:
+  - Search by title, content, or tags
+  - Filter by category (Stablecoins, AI, Mercado, DeFi, Tecnología)
+  - Results count display
+- [x] Search & Filters for Airdrops Page:
+  - Search by name, description, or chain
+  - Filter by chain (zkSync, Solana, Starknet, Reya L2, Base, Arbitrum)
+  - Filter by difficulty (Easy, Medium, Hard)
+  - Premium toggle filter
+- [x] Airdrops Data Update (Feb 5, 2026):
+  - 8 verified airdrops with simplified steps
+  - Premium airdrops: GRVT, Backpack, Paradex, Reya Network
+  - Standard: Avantis, Ostium, Lighter, Pacifica
 
 ### Pending
 - [ ] Resend domain verification for production emails
@@ -149,8 +167,6 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - Resend in testing mode - emails only to verified addresses
 
 ## Future Tasks (Backlog)
-- Dynamic owl animations for OwlSeal component
-- Search/filter functionality for Articles and Airdrops pages
 - Custom domain configuration post-deployment
 
 ## Color Scheme
