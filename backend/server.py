@@ -32,6 +32,37 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 # =============================================================================
+# EMAIL SERVICE - Resend configuration
+# =============================================================================
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'tomdomingueclaro@gmail.com')
+
+# Initialize Resend if API key is available
+if RESEND_API_KEY:
+    resend.api_key = RESEND_API_KEY
+
+async def send_notification_email(subject: str, html_content: str, to_email: str = None):
+    """Send email notification using Resend (non-blocking)"""
+    if not RESEND_API_KEY:
+        logging.warning("Resend API key not configured - email not sent")
+        return None
+    
+    try:
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [to_email or ADMIN_EMAIL],
+            "subject": subject,
+            "html": html_content
+        }
+        result = await asyncio.to_thread(resend.Emails.send, params)
+        logging.info(f"Email sent successfully: {subject}")
+        return result
+    except Exception as e:
+        logging.error(f"Failed to send email: {e}")
+        return None
+
+# =============================================================================
 # API CACHE SYSTEM - Reduces external API calls to prevent rate limiting
 # =============================================================================
 class APICache:
