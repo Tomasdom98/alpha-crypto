@@ -122,12 +122,12 @@ export default function AlphaiChat({ isOpen, onClose }) {
               </div>
             </div>
           ))}
-          {loading && (
+            {loading && (
             <div className="flex justify-start">
               <div className="bg-gray-800 rounded-2xl px-4 py-3">
                 <div className="flex items-center gap-2">
                   <Loader2 size={16} className="animate-spin text-emerald-400" />
-                  <span className="text-gray-400 text-sm">ALPHAI está pensando...</span>
+                  <span className="text-gray-400 text-sm">ALPHA-I está pensando...</span>
                 </div>
               </div>
             </div>
