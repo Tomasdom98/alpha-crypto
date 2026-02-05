@@ -6,11 +6,12 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import httpx
 import aiohttp
+import asyncio
 from sanity_client import (
     get_articles as sanity_get_articles, 
     get_article_by_slug as sanity_get_article_by_slug,
@@ -28,6 +29,52 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# =============================================================================
+# API CACHE SYSTEM - Reduces external API calls to prevent rate limiting
+# =============================================================================
+class APICache:
+    """Simple in-memory cache with TTL for API responses"""
+    def __init__(self):
+        self._cache: Dict[str, Any] = {}
+        self._timestamps: Dict[str, datetime] = {}
+        self._lock = asyncio.Lock()
+    
+    async def get(self, key: str, ttl_seconds: int = 120) -> Optional[Any]:
+        """Get cached value if not expired"""
+        async with self._lock:
+            if key in self._cache:
+                cached_time = self._timestamps.get(key)
+                if cached_time and (datetime.now(timezone.utc) - cached_time).total_seconds() < ttl_seconds:
+                    return self._cache[key]
+                # Expired - remove from cache
+                self._cache.pop(key, None)
+                self._timestamps.pop(key, None)
+            return None
+    
+    async def set(self, key: str, value: Any) -> None:
+        """Store value in cache with current timestamp"""
+        async with self._lock:
+            self._cache[key] = value
+            self._timestamps[key] = datetime.now(timezone.utc)
+    
+    async def clear(self, key: str = None) -> None:
+        """Clear specific key or all cache"""
+        async with self._lock:
+            if key:
+                self._cache.pop(key, None)
+                self._timestamps.pop(key, None)
+            else:
+                self._cache.clear()
+                self._timestamps.clear()
+
+# Initialize global cache instance
+api_cache = APICache()
+
+# Cache TTL settings (in seconds)
+CACHE_TTL_CRYPTO_PRICES = 120  # 2 minutes - balances freshness vs rate limits
+CACHE_TTL_FEAR_GREED = 300     # 5 minutes - this data doesn't change often
+# =============================================================================
 
 # Create the main app without a prefix
 app = FastAPI()
