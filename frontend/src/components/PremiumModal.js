@@ -105,9 +105,13 @@ export default function PremiumModal({ isOpen, onClose }) {
   const isProTier = selectedTier === 'pro';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="premium-modal">
+    <div 
+      className="fixed inset-0 flex items-center justify-center p-4" 
+      data-testid="premium-modal"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}
+    >
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="relative bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-gray-900 border-b border-gray-800 p-6 flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
             <Sparkles className="text-emerald-500" size={28} />
