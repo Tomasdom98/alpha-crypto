@@ -65,27 +65,96 @@ export default function ArticleDetailPage() {
   const formatContent = (content) => {
     if (!content) return '';
     
-    return content
-      .split('\n\n')
-      .map((paragraph, idx) => {
-        // Headers
-        if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-          return `<h3 class="text-xl font-bold text-white mt-8 mb-4">${paragraph.slice(2, -2)}</h3>`;
-        }
-        // Bold text and lists
-        let formatted = paragraph
-          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-          .replace(/^- /gm, '• ');
-        
-        // Check if it's a list
-        if (formatted.includes('• ')) {
-          const items = formatted.split('• ').filter(Boolean);
-          return `<ul class="space-y-2 my-4">${items.map(item => `<li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span><span>${item.trim()}</span></li>`).join('')}</ul>`;
-        }
-        
-        return `<p class="mb-4 leading-relaxed">${formatted}</p>`;
-      })
-      .join('');
+    // Process line by line for better control
+    const lines = content.split('\n');
+    let result = [];
+    let inTable = false;
+    let tableRows = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Table detection
+      if (line.includes('|') && line.trim().startsWith('|')) {
+        inTable = true;
+        if (!line.includes('---')) tableRows.push(line);
+        continue;
+      } else if (inTable && tableRows.length > 0) {
+        // Render table
+        const parseRow = (row) => row.split('|').filter(c => c.trim()).map(c => c.trim());
+        const header = parseRow(tableRows[0]);
+        const body = tableRows.slice(1).map(parseRow);
+        let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full"><thead><tr class="border-b border-gray-700">';
+        header.forEach(h => { tableHtml += '<th class="text-left py-2 px-3 text-emerald-400 text-sm">' + h + '</th>'; });
+        tableHtml += '</tr></thead><tbody>';
+        body.forEach((row, idx) => {
+          tableHtml += '<tr class="' + (idx % 2 === 0 ? 'bg-gray-800/30' : '') + ' border-b border-gray-800">';
+          row.forEach(cell => { tableHtml += '<td class="py-2 px-3 text-gray-300 text-sm">' + cell + '</td>'; });
+          tableHtml += '</tr>';
+        });
+        tableHtml += '</tbody></table></div>';
+        result.push(tableHtml);
+        tableRows = [];
+        inTable = false;
+      }
+      
+      // Skip empty lines
+      if (!line.trim()) continue;
+      
+      // Horizontal rules
+      if (line.trim() === '---') {
+        result.push('<hr class="border-gray-700 my-6" />');
+        continue;
+      }
+      
+      // H2 headers
+      if (line.startsWith('## ')) {
+        result.push('<h2 class="text-2xl font-bold text-white mt-8 mb-4">' + line.slice(3) + '</h2>');
+        continue;
+      }
+      
+      // H3 headers
+      if (line.startsWith('### ')) {
+        result.push('<h3 class="text-xl font-bold text-emerald-400 mt-6 mb-3">' + line.slice(4) + '</h3>');
+        continue;
+      }
+      
+      // Blockquotes
+      if (line.startsWith('> ')) {
+        result.push('<blockquote class="border-l-4 border-emerald-500 pl-4 my-4 text-gray-300 italic">' + line.slice(2) + '</blockquote>');
+        continue;
+      }
+      
+      // Bullet lists
+      if (line.startsWith('- ')) {
+        const text = line.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+        result.push('<div class="flex gap-2 my-1"><span class="text-emerald-500">•</span><span class="text-gray-300">' + text + '</span></div>');
+        continue;
+      }
+      
+      // Regular paragraphs with bold formatting
+      const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+      result.push('<p class="mb-3 text-gray-300 leading-relaxed">' + formatted + '</p>');
+    }
+    
+    // Handle remaining table
+    if (tableRows.length > 0) {
+      const parseRow = (row) => row.split('|').filter(c => c.trim()).map(c => c.trim());
+      const header = parseRow(tableRows[0]);
+      const body = tableRows.slice(1).map(parseRow);
+      let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full"><thead><tr class="border-b border-gray-700">';
+      header.forEach(h => { tableHtml += '<th class="text-left py-2 px-3 text-emerald-400 text-sm">' + h + '</th>'; });
+      tableHtml += '</tr></thead><tbody>';
+      body.forEach((row, idx) => {
+        tableHtml += '<tr class="' + (idx % 2 === 0 ? 'bg-gray-800/30' : '') + ' border-b border-gray-800">';
+        row.forEach(cell => { tableHtml += '<td class="py-2 px-3 text-gray-300 text-sm">' + cell + '</td>'; });
+        tableHtml += '</tr>';
+      });
+      tableHtml += '</tbody></table></div>';
+      result.push(tableHtml);
+    }
+    
+    return result.join('');
   };
 
   return (
