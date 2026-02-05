@@ -393,7 +393,7 @@ export default function PortfolioPage() {
                   </div>
                   <p className="text-gray-400 text-xs mb-4 leading-relaxed">{protocol.desc}</p>
                   <a href={protocol.link} target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                    Ir al Vault →
+                    {tx.goToVault} →
                   </a>
                 </div>
               ))}
@@ -401,7 +401,7 @@ export default function PortfolioPage() {
             
             <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
               <p className="text-amber-400 text-sm">
-                <strong>Nota:</strong> Los APYs son aproximados y pueden variar según condiciones del mercado. Diversifica en varios protocolos para mitigar riesgos.
+                <strong>Nota:</strong> {tx.yieldNote}
               </p>
             </div>
           </div>
@@ -413,9 +413,9 @@ export default function PortfolioPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <PiggyBank className="text-emerald-500" /> Staking
+                  <PiggyBank className="text-emerald-500" /> {tx.stakingTitle}
                 </h2>
-                <p className="text-gray-400 text-sm mt-1">Genera rendimiento pasivo con tus tokens</p>
+                <p className="text-gray-400 text-sm mt-1">{tx.stakingSubtitle}</p>
               </div>
             </div>
             
@@ -423,10 +423,10 @@ export default function PortfolioPage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-800">
-                    <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Asset</th>
-                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">APY Aprox.</th>
-                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">Plataforma</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Acción</th>
+                    <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.asset}</th>
+                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.apyApprox}</th>
+                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.platform}</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">{tx.action}</th>
                   </tr>
                 </thead>
                 <tbody>
