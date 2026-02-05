@@ -16,7 +16,7 @@ export default function OwlSeal({
     xl: 'w-40 h-40'
   };
 
-  // Fixed position for the watermark - just the owl, no text
+  // Fixed position for the watermark - with rounded border and depth
   if (className.includes('fixed')) {
     return (
       <div 
@@ -28,12 +28,22 @@ export default function OwlSeal({
           right: '24px'
         }}
       >
-        <img 
-          src={OWL_URL}
-          alt="Alpha Crypto"
-          className="w-36 h-36 object-contain drop-shadow-[0_0_25px_rgba(16,185,129,0.5)]"
-          style={{ filter: 'brightness(1.3) contrast(1.1)' }}
-        />
+        <div 
+          className="relative p-3 rounded-3xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border border-emerald-500/30 shadow-2xl"
+          style={{
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(16,185,129,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+          }}
+        >
+          {/* Inner glow ring */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
+          
+          <img 
+            src={OWL_URL}
+            alt="Alpha Crypto"
+            className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+            style={{ filter: 'brightness(1.3) contrast(1.1)' }}
+          />
+        </div>
       </div>
     );
   }
