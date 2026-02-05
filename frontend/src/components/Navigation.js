@@ -1,11 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Crown, Sparkles } from 'lucide-react';
+import { Menu, X, Crown, Sparkles, Bot } from 'lucide-react';
 import { useState } from 'react';
 import PremiumModal from './PremiumModal';
+import AlphaiChat from './AlphaiChat';
+
+const OWL_ICON_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [showAlphai, setShowAlphai] = useState(false);
   const location = useLocation();
 
   // Free content
