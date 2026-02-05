@@ -201,7 +201,7 @@ export default function PremiumModal({ isOpen, onClose }) {
   const copyAddress = () => {
     const address = getPaymentAddress();
     navigator.clipboard.writeText(address);
-    toast.success('Dirección copiada al portapapeles!');
+    toast.success(tx.copied);
   };
 
   const handleSubmitPayment = async () => {
