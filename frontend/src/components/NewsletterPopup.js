@@ -11,6 +11,43 @@ export default function NewsletterPopup({ delay = 3000 }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const { language } = useLanguage();
+
+  // Translations
+  const tx = {
+    es: {
+      badge: 'Newsletter Gratuito',
+      title: 'Newsletter Gratuito 🔮',
+      subtitle: 'Recibe nuestros artículos y análisis de mercado directo en tu inbox cada semana 🦉',
+      weeklyArticles: 'Artículos semanales',
+      marketAnalysis: 'Análisis de mercado',
+      noSpam: 'Sin spam',
+      cancelAnytime: 'Cancela cuando quieras',
+      placeholder: 'tu@email.com',
+      subscribe: 'Suscribirme Gratis',
+      welcome: '¡Bienvenido! 🦉',
+      nowPart: 'Ya eres parte de Alpha Crypto',
+      joinCommunity: 'Únete a nuestra comunidad',
+      enterEmail: 'Ingresa tu email',
+      errorSubscribe: 'Error al suscribirse. Intenta de nuevo.',
+    },
+    en: {
+      badge: 'Free Newsletter',
+      title: 'Free Newsletter 🔮',
+      subtitle: 'Receive our articles and market analysis directly in your inbox every week 🦉',
+      weeklyArticles: 'Weekly articles',
+      marketAnalysis: 'Market analysis',
+      noSpam: 'No spam',
+      cancelAnytime: 'Cancel anytime',
+      placeholder: 'your@email.com',
+      subscribe: 'Subscribe Free',
+      welcome: 'Welcome! 🦉',
+      nowPart: 'You are now part of Alpha Crypto',
+      joinCommunity: 'Join our community',
+      enterEmail: 'Enter your email',
+      errorSubscribe: 'Error subscribing. Please try again.',
+    }
+  }[language];
 
   useEffect(() => {
     // Check if already subscribed or dismissed
