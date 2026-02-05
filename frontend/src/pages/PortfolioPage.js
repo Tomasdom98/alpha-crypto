@@ -35,23 +35,26 @@ export default function PortfolioPage() {
   ];
 
   return (
-    <div className="min-h-screen py-12" data-testid="portfolio-page">
+    <div className="min-h-screen py-12 relative" data-testid="portfolio-page">
+      {/* Owl Seal */}
+      <OwlSeal position="bottom-right" size="md" opacity={0.1} className="fixed z-10 hidden lg:block" />
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Back to Home
+            <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
           </Link>
           
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="portfolio-heading">
-                Alpha Crypto Portfolio
+                Portfolio Alpha Crypto
               </h1>
-              <p className="text-gray-400">Transparent portfolio tracking - Copy-trade friendly</p>
+              <p className="text-gray-400">Seguimiento transparente del portfolio - Copy-trade friendly</p>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <RefreshCw size={14} />
-              Updated: {portfolioData.lastUpdated}
+              Actualizado: {portfolioData.lastUpdated}
             </div>
           </div>
         </div>
@@ -60,7 +63,7 @@ export default function PortfolioPage() {
           <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
             <div className="flex items-start justify-between mb-6">
               <div>
-                <div className="text-gray-400 text-sm mb-1">Total Portfolio Value</div>
+                <div className="text-gray-400 text-sm mb-1">Valor Total del Portfolio</div>
                 <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
                   ${portfolioData.totalValue.toLocaleString()}
                 </div>
