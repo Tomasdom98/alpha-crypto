@@ -1,8 +1,33 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink } from 'lucide-react';
+import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, LineChart, PiggyBank } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 
+// Protocol logos for Yield section
+const YIELD_LOGOS = {
+  'Based.one': 'https://pbs.twimg.com/profile_images/1803810548512124928/qUvn6XJd_400x400.jpg',
+  'Felix Protocol': 'https://pbs.twimg.com/profile_images/1804553428792766464/WPdS8j0u_400x400.jpg',
+  'Lighter.xyz': 'https://pbs.twimg.com/profile_images/1628031920227876800/LdHiS0Qe_400x400.jpg',
+  'Extended': 'https://pbs.twimg.com/profile_images/1818688001923534848/DzJJMW8j_400x400.jpg',
+  'Orderly': 'https://pbs.twimg.com/profile_images/1645768594118098946/7G5kvvKk_400x400.jpg',
+  'Avantis Finance': 'https://pbs.twimg.com/profile_images/1717170688523182080/G0P5aYV5_400x400.jpg',
+  'Resolv': 'https://pbs.twimg.com/profile_images/1754134096637546496/GpNe2HCQ_400x400.jpg',
+  'Kamino': 'https://pbs.twimg.com/profile_images/1610737072497053712/o1eNprPR_400x400.jpg',
+  'Drift': 'https://pbs.twimg.com/profile_images/1504509987076579333/RGpeYhMh_400x400.jpg',
+  'StandX': 'https://pbs.twimg.com/profile_images/1787150869618192384/hbEORU6Q_400x400.jpg'
+};
+
+// Staking logos
+const STAKING_LOGOS = {
+  'SOL': 'https://assets.coingecko.com/coins/images/4128/small/solana.png',
+  'ETH': 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
+  'BTC': 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png',
+  'SUI': 'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg'
+};
+
 export default function PortfolioPage() {
+  const [activeTab, setActiveTab] = useState('portfolio');
+
   const portfolioData = {
     totalValue: 50000,
     monthlyReturn: 12,
@@ -34,9 +59,35 @@ export default function PortfolioPage() {
     { type: 'buy', asset: 'SOL', amount: '$750', date: 'Jan 20', reason: 'Rebalance' }
   ];
 
+  const yieldProtocols = [
+    { name: 'Based.one HLP', chain: 'Hyperliquid L1', apy: '139%', desc: 'Market making en perpetuos + liquidaciones', link: 'https://app.based.one/vaults' },
+    { name: 'Felix Protocol', chain: 'Hyperliquid L1', apy: '85%', desc: 'Stability pool: intereses de borrowers', link: 'https://www.usefelix.xyz/earn' },
+    { name: 'Lighter.xyz', chain: 'Arbitrum / Base', apy: '47%', desc: 'LP para DEX de perpetuos', link: 'https://app.lighter.xyz/public-pools' },
+    { name: 'Extended', chain: 'Base / Arbitrum', apy: '37%', desc: 'Market making perpetuos crypto + TradFi', link: 'https://app.extended.exchange/vault' },
+    { name: 'Orderly', chain: 'Arbitrum', apy: '34%', desc: 'LP para orderbook de perpetuos', link: 'https://app.orderly.network/vaults' },
+    { name: 'Avantis Finance', chain: 'Base', apy: '31%', desc: 'Vault perpetuos crypto + RWAs', link: 'https://www.avantisfi.com/earn/avantis-vault' },
+    { name: 'Resolv', chain: 'Multi-chain', apy: '23%', desc: 'Delta-neutral vault con stablecoins', link: 'https://app.resolv.xyz/vaults' },
+    { name: 'Kamino', chain: 'Solana', apy: '19%', desc: 'Lending: intereses + rewards', link: 'https://kamino.com' },
+    { name: 'Drift', chain: 'Solana', apy: '9%', desc: 'Insurance fund: fees + liquidaciones', link: 'https://app.drift.trade/vaults/insurance-fund-vaults' },
+    { name: 'StandX', chain: 'Multi-chain', apy: '25%', desc: 'Vault para perpetuos cross-chain', link: 'https://standx.com' }
+  ];
+
+  const stakingTokens = [
+    { name: 'Solana', symbol: 'SOL', apy: '7-8%', platform: 'Jupiter', link: 'https://www.jup.ag', chainColor: '#14F195' },
+    { name: 'Ethereum', symbol: 'ETH', apy: '3-4%', platform: 'Lido', link: 'https://stake.lido.fi', chainColor: '#627EEA' },
+    { name: 'Bitcoin', symbol: 'BTC', apy: '5-8%', platform: 'Bybit Earn', link: 'https://www.bybit.com/earn', chainColor: '#F7931A' },
+    { name: 'Sui', symbol: 'SUI', apy: '2-3%', platform: 'Sui Staking', link: 'https://sui.io/stake', chainColor: '#4DA2FF' }
+  ];
+
+  const tabs = [
+    { id: 'portfolio', label: 'Portfolio', icon: Wallet },
+    { id: 'signals', label: 'Señales', icon: LineChart },
+    { id: 'yield', label: 'Yield Stablecoins', icon: Coins },
+    { id: 'staking', label: 'Staking', icon: PiggyBank }
+  ];
+
   return (
     <div className="min-h-screen py-12 relative" data-testid="portfolio-page">
-      {/* Owl Seal */}
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,7 +101,7 @@ export default function PortfolioPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="portfolio-heading">
                 Portfolio Alpha Crypto
               </h1>
-              <p className="text-gray-400">Seguimiento transparente del portfolio - Copy-trade friendly</p>
+              <p className="text-gray-400">Seguimiento del portfolio, señales de trading, yields en stablecoins y staking.</p>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <RefreshCw size={14} />
@@ -59,369 +110,325 @@ export default function PortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <div className="text-gray-400 text-sm mb-1">Valor Total del Portfolio</div>
-                <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
-                  ${portfolioData.totalValue.toLocaleString()}
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-gray-400 text-sm mb-1">Monthly Return</div>
-                <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
-                  <TrendingUp size={24} />
-                  +{portfolioData.monthlyReturn}%
-                </div>
-                <div className="text-gray-500 text-sm">+${portfolioData.monthlyReturnValue.toLocaleString()}</div>
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="text-sm font-bold text-gray-400 mb-3">6-Month Performance</h3>
-              <div className="flex items-end gap-2 h-24">
-                {performanceHistory.map(function(month) {
-                  return (
-                    <div key={month.month} className="flex-1 flex flex-col items-center">
-                      <div 
-                        className={'w-full rounded-t transition-all ' + (month.value >= 0 ? 'bg-emerald-500' : 'bg-red-500')}
-                        style={{ height: Math.abs(month.value) * 3 + 'px', minHeight: '4px' }}
-                      />
-                      <div className="text-xs text-gray-500 mt-2">{month.month}</div>
-                      <div className={'text-xs font-bold ' + (month.value >= 0 ? 'text-emerald-400' : 'text-red-400')}>
-                        {month.value > 0 ? '+' : ''}{month.value}%
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-card rounded-2xl p-6">
-            <h3 className="text-sm font-bold text-gray-400 mb-4">Allocation</h3>
-            <div className="space-y-3">
-              {holdings.map(function(h) {
-                return (
-                  <div key={h.symbol} className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: h.color }} />
-                    <span className="text-gray-300 flex-1">{h.symbol}</span>
-                    <span className="text-white font-bold">{h.allocation}%</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="mt-4 pt-4 border-t border-gray-800">
-              <div className="flex h-4 rounded-full overflow-hidden">
-                {holdings.map(function(h) {
-                  return (
-                    <div 
-                      key={h.symbol}
-                      style={{ width: h.allocation + '%', backgroundColor: h.color }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+        {/* Navigation Tabs */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-2 p-1 bg-gray-800/50 rounded-xl border border-gray-700/50">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                data-testid={`tab-${tab.id}`}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-emerald-500 text-white shadow-lg'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                }`}
+              >
+                <tab.icon size={16} />
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-6 mb-8" data-testid="holdings-table">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <Wallet className="text-emerald-500" /> Holdings
-          </h2>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Asset</th>
-                  <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Allocation</th>
-                  <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Value</th>
-                  <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">24h Change</th>
-                </tr>
-              </thead>
-              <tbody>
-                {holdings.map(function(holding) {
-                  return (
-                    <tr key={holding.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
+        {/* Portfolio Section */}
+        {activeTab === 'portfolio' && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1">Valor Total del Portfolio</div>
+                    <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
+                      ${portfolioData.totalValue.toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-gray-400 text-sm mb-1">Monthly Return</div>
+                    <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
+                      <TrendingUp size={24} />
+                      +{portfolioData.monthlyReturn}%
+                    </div>
+                    <div className="text-gray-500 text-sm">+${portfolioData.monthlyReturnValue.toLocaleString()}</div>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-400 mb-3">6-Month Performance</h3>
+                  <div className="flex items-end gap-2 h-24">
+                    {performanceHistory.map((month) => (
+                      <div key={month.month} className="flex-1 flex flex-col items-center">
+                        <div 
+                          className={`w-full rounded-t transition-all ${month.value >= 0 ? 'bg-emerald-500' : 'bg-red-500'}`}
+                          style={{ height: `${Math.abs(month.value) * 3}px`, minHeight: '4px' }}
+                        />
+                        <div className="text-xs text-gray-500 mt-2">{month.month}</div>
+                        <div className={`text-xs font-bold ${month.value >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                          {month.value > 0 ? '+' : ''}{month.value}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="glass-card rounded-2xl p-6">
+                <h3 className="text-sm font-bold text-gray-400 mb-4">Allocation</h3>
+                <div className="space-y-3">
+                  {holdings.map((h) => (
+                    <div key={h.symbol} className="flex items-center gap-3">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: h.color }} />
+                      <span className="text-gray-300 flex-1">{h.symbol}</span>
+                      <span className="text-white font-bold">{h.allocation}%</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-800">
+                  <div className="flex h-4 rounded-full overflow-hidden">
+                    {holdings.map((h) => (
+                      <div key={h.symbol} style={{ width: `${h.allocation}%`, backgroundColor: h.color }} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 mb-8" data-testid="holdings-table">
+              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <Wallet className="text-emerald-500" /> Holdings
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-800">
+                      <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Asset</th>
+                      <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Allocation</th>
+                      <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Value</th>
+                      <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">24h Change</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {holdings.map((holding) => (
+                      <tr key={holding.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
+                        <td className="py-4 px-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style={{ backgroundColor: `${holding.color}30` }}>
+                              {holding.symbol.charAt(0)}
+                            </div>
+                            <div>
+                              <div className="font-medium text-white">{holding.name}</div>
+                              <div className="text-gray-500 text-sm">{holding.symbol}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-4 px-4 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                              <div className="h-full rounded-full" style={{ width: `${holding.allocation}%`, backgroundColor: holding.color }} />
+                            </div>
+                            <span className="text-white font-bold w-10">{holding.allocation}%</span>
+                          </div>
+                        </td>
+                        <td className="py-4 px-4 text-right">
+                          <span className="text-white font-bold" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                            ${holding.value.toLocaleString()}
+                          </span>
+                        </td>
+                        <td className="py-4 px-4 text-right">
+                          <span className={`font-bold ${holding.change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                            {holding.change24h >= 0 ? '+' : ''}{holding.change24h}%
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="glass-card rounded-2xl p-6">
+                <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                  <BarChart3 className="text-emerald-500" /> Recent Trades
+                </h2>
+                <div className="space-y-3">
+                  {recentTrades.map((trade, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${trade.type === 'buy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                          {trade.type === 'buy' ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">{trade.type.toUpperCase()} {trade.asset}</div>
+                          <div className="text-gray-500 text-xs">{trade.reason}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-white font-bold">{trade.amount}</div>
+                        <div className="text-gray-500 text-xs">{trade.date}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass-card rounded-2xl p-6">
+                <h2 className="text-lg font-bold text-white mb-4">Strategy Notes</h2>
+                <div className="space-y-4">
+                  <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                    <h3 className="font-bold text-emerald-400 mb-1">Current Strategy</h3>
+                    <p className="text-gray-300 text-sm">
+                      DCA semanal en BTC y ETH. Manteniendo posición defensiva con 15% en stables.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                    <h3 className="font-bold text-amber-400 mb-1">Next Moves</h3>
+                    <p className="text-gray-300 text-sm">
+                      Monitorear soporte en $65K BTC. Si se rompe, aumentar stables a 25%.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Signals Section */}
+        {activeTab === 'signals' && (
+          <div className="glass-card rounded-2xl p-8 text-center">
+            <LineChart className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-white mb-2">Señales de Trading</h2>
+            <p className="text-gray-400 mb-6">Próximamente: Alertas de entrada/salida, niveles clave y análisis técnico en tiempo real.</p>
+            <Link to="/signals" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition-all">
+              Ver Página de Señales <ExternalLink size={16} />
+            </Link>
+          </div>
+        )}
+
+        {/* Yield Stablecoins Section */}
+        {activeTab === 'yield' && (
+          <div className="glass-card rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <Coins className="text-emerald-500" /> Stablecoin Yields
+                </h2>
+                <p className="text-gray-400 text-sm mt-1">Las mejores oportunidades para rentabilizar tus stablecoins</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {yieldProtocols.map((protocol) => (
+                <div key={protocol.name} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+                  <div className="flex items-center gap-3 mb-4">
+                    {YIELD_LOGOS[protocol.name.replace(' HLP', '')] ? (
+                      <img 
+                        src={YIELD_LOGOS[protocol.name.replace(' HLP', '')]} 
+                        alt={protocol.name}
+                        className="w-10 h-10 rounded-lg object-cover border border-gray-600"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/30 to-teal-500/30 flex items-center justify-center text-white font-bold">
+                        {protocol.name.charAt(0)}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-sm">{protocol.name}</h3>
+                      <span className="text-cyan-400 text-xs">{protocol.chain}</span>
+                    </div>
+                    <span className="text-2xl font-black text-emerald-400">{protocol.apy}</span>
+                  </div>
+                  <p className="text-gray-400 text-xs mb-4 leading-relaxed">{protocol.desc}</p>
+                  <a href={protocol.link} target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                    Ir al Vault →
+                  </a>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+              <p className="text-amber-400 text-sm">
+                <strong>Nota:</strong> Los APYs son aproximados y pueden variar según condiciones del mercado. Diversifica en varios protocolos para mitigar riesgos.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Staking Section */}
+        {activeTab === 'staking' && (
+          <div className="glass-card rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <PiggyBank className="text-emerald-500" /> Staking
+                </h2>
+                <p className="text-gray-400 text-sm mt-1">Genera rendimiento pasivo con tus tokens</p>
+              </div>
+            </div>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-800">
+                    <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Asset</th>
+                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">APY Aprox.</th>
+                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">Plataforma</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stakingTokens.map((token) => (
+                    <tr key={token.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3">
-                          <div 
-                            className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
-                            style={{ backgroundColor: holding.color + '30' }}
-                          >
-                            {holding.symbol.charAt(0)}
-                          </div>
+                          {STAKING_LOGOS[token.symbol] ? (
+                            <img src={STAKING_LOGOS[token.symbol]} alt={token.symbol} className="w-10 h-10 rounded-full" />
+                          ) : (
+                            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style={{ backgroundColor: token.chainColor }}>
+                              {token.symbol.charAt(0)}
+                            </div>
+                          )}
                           <div>
-                            <div className="font-medium text-white">{holding.name}</div>
-                            <div className="text-gray-500 text-sm">{holding.symbol}</div>
+                            <div className="font-medium text-white">{token.name}</div>
+                            <div className="text-gray-500 text-sm">{token.symbol}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full rounded-full"
-                              style={{ width: holding.allocation + '%', backgroundColor: holding.color }}
-                            />
-                          </div>
-                          <span className="text-white font-bold w-10">{holding.allocation}%</span>
-                        </div>
+                      <td className="py-4 px-4 text-center">
+                        <span className="text-emerald-400 font-bold text-lg">{token.apy}</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="text-gray-300">{token.platform}</span>
                       </td>
                       <td className="py-4 px-4 text-right">
-                        <span className="text-white font-bold" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                          ${holding.value.toLocaleString()}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <span className={'font-bold ' + (holding.change24h >= 0 ? 'text-emerald-400' : 'text-red-400')}>
-                          {holding.change24h >= 0 ? '+' : ''}{holding.change24h}%
-                        </span>
+                        <a 
+                          href={token.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                          Stake <ExternalLink size={14} />
+                        </a>
                       </td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="glass-card rounded-2xl p-6">
-            <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <BarChart3 className="text-emerald-500" /> Recent Trades
-            </h2>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             
-            <div className="space-y-3">
-              {recentTrades.map(function(trade, index) {
-                return (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className={'w-8 h-8 rounded-full flex items-center justify-center ' + (trade.type === 'buy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400')}>
-                        {trade.type === 'buy' ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">{trade.type.toUpperCase()} {trade.asset}</div>
-                        <div className="text-gray-500 text-xs">{trade.reason}</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-white font-bold">{trade.amount}</div>
-                      <div className="text-gray-500 text-xs">{trade.date}</div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+              <p className="text-blue-400 text-sm">
+                <strong>Nota:</strong> Los APYs son aproximados y pueden variar según condiciones del mercado y la red. Siempre verifica en la plataforma oficial antes de hacer staking.
+              </p>
             </div>
           </div>
-
-          <div className="glass-card rounded-2xl p-6">
-            <h2 className="text-lg font-bold text-white mb-4">Strategy Notes</h2>
-            
-            <div className="space-y-4">
-              <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
-                <h3 className="font-bold text-emerald-400 mb-1">Current Strategy</h3>
-                <p className="text-gray-300 text-sm">
-                  DCA semanal en BTC y ETH. Manteniendo posicion defensiva con 15% en stables. 
-                  Buscando oportunidades en L2s para proxima rotacion.
-                </p>
-              </div>
-              
-              <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                <h3 className="font-bold text-amber-400 mb-1">Next Moves</h3>
-                <p className="text-gray-300 text-sm">
-                  Monitorear niveles de soporte en $65K BTC. Si se rompe, aumentar stables a 25%. 
-                  Oportunidad de entrada en SOL si cae a $80.
-                </p>
-              </div>
-              
-              <div className="text-center pt-4">
-                <p className="text-gray-500 text-sm">
-                  Want to copy this portfolio?
-                </p>
-                <button className="mt-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-6 rounded-lg transition-all inline-flex items-center gap-2">
-                  Get Premium Access
-                  <ExternalLink size={14} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stablecoin Yields Section */}
-        <div className="mt-8 glass-card rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                💰 Stablecoin Yields
-              </h2>
-              <p className="text-gray-400 text-sm mt-1">Las mejores oportunidades para rentabilizar tus stablecoins</p>
-            </div>
-            <span className="bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
-              DeFi Vaults
-            </span>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Based.one HLP */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">B</div>
-                <div>
-                  <h3 className="font-bold text-white">Based.one HLP</h3>
-                  <span className="text-cyan-400 text-xs">Hyperliquid L1</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">139%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Market making en perpetuos + liquidaciones + fees de trading</p>
-              <a href="https://app.based.one/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Felix Protocol */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-sm">F</div>
-                <div>
-                  <h3 className="font-bold text-white">Felix Protocol</h3>
-                  <span className="text-cyan-400 text-xs">Hyperliquid L1</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">85%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Stability pool: intereses de borrowers + colateral liquidado</p>
-              <a href="https://www.usefelix.xyz/earn" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Lighter.xyz */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">L</div>
-                <div>
-                  <h3 className="font-bold text-white">Lighter.xyz</h3>
-                  <span className="text-blue-400 text-xs">Arbitrum / Base</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">47%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">LP para DEX de perpetuos + fees de exchange</p>
-              <a href="https://app.lighter.xyz/public-pools" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Extended Exchange */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm">E</div>
-                <div>
-                  <h3 className="font-bold text-white">Extended</h3>
-                  <span className="text-blue-400 text-xs">Base / Arbitrum</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">37%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Market making en perpetuos crypto + TradFi (oro, S&P500)</p>
-              <a href="https://app.extended.exchange/vault" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Orderly */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">O</div>
-                <div>
-                  <h3 className="font-bold text-white">Orderly</h3>
-                  <span className="text-blue-400 text-xs">Arbitrum</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">34%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">LP para orderbook de perpetuos + trading fees</p>
-              <a href="https://app.orderly.network/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Avantis Finance */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">A</div>
-                <div>
-                  <h3 className="font-bold text-white">Avantis Finance</h3>
-                  <span className="text-blue-400 text-xs">Base</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">31%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Vault perpetuos crypto + RWAs, 100% fees a holders</p>
-              <a href="https://www.avantisfi.com/earn/avantis-vault" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Resolv */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-500 to-gray-600 flex items-center justify-center text-white font-bold text-sm">R</div>
-                <div>
-                  <h3 className="font-bold text-white">Resolv</h3>
-                  <span className="text-gray-400 text-xs">Multi-chain</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">23%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Delta-neutral vault con stablecoins</p>
-              <a href="https://app.resolv.xyz/vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Kamino */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm">K</div>
-                <div>
-                  <h3 className="font-bold text-white">Kamino</h3>
-                  <span className="text-purple-400 text-xs">Solana</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">19%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Lending: intereses de préstamos + rewards</p>
-              <a href="https://kamino.com" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-            
-            {/* Drift */}
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">D</div>
-                <div>
-                  <h3 className="font-bold text-white">Drift</h3>
-                  <span className="text-purple-400 text-xs">Solana</span>
-                </div>
-                <span className="ml-auto text-2xl font-black text-emerald-400">9%</span>
-              </div>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">Insurance fund: fees del protocolo + liquidaciones</p>
-              <a href="https://app.drift.trade/vaults/insurance-fund-vaults" target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                Ir al Vault →
-              </a>
-            </div>
-          </div>
-          
-          <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-            <p className="text-amber-400 text-sm">
-              💡 <strong>Recomendación:</strong> Diversifica en varios protocolos para mitigar riesgos. No pongas todo en uno solo.
-            </p>
-          </div>
-        </div>
+        )}
 
         <div className="mt-8 p-4 bg-gray-900/50 border border-gray-800 rounded-xl text-center">
           <p className="text-xs text-gray-500">
             This portfolio is for educational purposes only. Past performance does not guarantee future results. 
-            Always DYOR before making investment decisions. Data updated manually.
+            Always DYOR before making investment decisions.
           </p>
         </div>
       </div>
