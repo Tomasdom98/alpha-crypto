@@ -387,10 +387,22 @@ export default function MarketIndicesPage() {
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
             <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-            Dashboard de Índices
-          </h1>
-          <p className="text-gray-400 text-lg">Vista completa de indicadores de mercado con señales accionables</p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                Dashboard de Índices
+              </h1>
+              <p className="text-gray-400 text-lg">Vista completa de indicadores de mercado con señales accionables</p>
+            </div>
+            <Link 
+              to="/calendar"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 hover:text-purple-300 transition-all"
+            >
+              <Clock size={18} />
+              <span className="font-medium">Calendario Macro</span>
+              <ChevronRight size={16} />
+            </Link>
+          </div>
         </div>
 
         {/* Main Recommendation Card */}
