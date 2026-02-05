@@ -87,14 +87,13 @@ export default function Navigation() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-2">
-            {/* ALPHAI Button */}
+            {/* ALPHA-I Button */}
             <button
               onClick={() => setShowAlphai(true)}
               data-testid="alphai-nav-btn"
-              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-emerald-500/50 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 group"
+              className="relative px-4 py-2 rounded-lg font-mono font-bold text-emerald-400 border border-emerald-500/50 bg-emerald-500/10 hover:bg-emerald-500/20 transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
             >
-              <img src={OWL_ICON_URL} alt="ALPHAI" className="w-5 h-5 object-contain group-hover:scale-110 transition-transform" />
-              <span className="text-emerald-400">ALPHAI</span>
+              ALPHA-I
             </button>
             
             {/* Premium Button */}
@@ -162,17 +161,16 @@ export default function Navigation() {
               ))}
             </div>
             
-            {/* ALPHAI Button Mobile */}
+            {/* ALPHA-I Button Mobile */}
             <button
               onClick={() => {
                 setIsOpen(false);
                 setShowAlphai(true);
               }}
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-gray-800 border border-emerald-500/30 text-white font-bold py-3 px-4 rounded-lg transition-all"
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-bold py-3 px-4 rounded-lg transition-all"
             >
-              <img src={OWL_ICON_URL} alt="ALPHAI" className="w-5 h-5 object-contain" />
-              <span className="text-emerald-400">ALPHAI</span>
-              <span className="text-gray-400 text-sm">- Asistente DeFi</span>
+              ALPHA-I
+              <span className="text-gray-400 text-sm font-sans">- Asistente DeFi</span>
             </button>
             
             <button
