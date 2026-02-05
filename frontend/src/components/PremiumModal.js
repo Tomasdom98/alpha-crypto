@@ -172,10 +172,20 @@ export default function PremiumModal({ isOpen, onClose }) {
                       </div>
                       <h3 className="text-xl font-bold text-white">Alpha Pro</h3>
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                       <span className="text-4xl font-black text-white">${PRICING.pro[billingCycle]}</span>
                       <span className="text-gray-400">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
                     </div>
+                    {billingCycle === 'yearly' ? (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-sm text-gray-400">$70{isEs ? '/mes equiv.' : '/mo equiv.'}</span>
+                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡Ahorra 30%!' : 'Save 30%!'}</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-xs text-amber-400/70">{isEs ? '→ $70/mes si pagas anual' : '→ $70/mo if paid yearly'}</span>
+                      </div>
+                    )}
                     <ul className="space-y-3 mb-6">
                       {proFeatures.map((f, i) => (
                         <li key={i} className="flex items-start gap-3">
