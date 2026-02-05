@@ -62,22 +62,6 @@ export default function HomePage() {
         <div className="absolute inset-0 grid-background" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         
-        {/* Owl mascot - positioned for visual impact */}
-        <div className="absolute right-4 md:right-12 lg:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
-          <div className="relative">
-            <img 
-              src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png" 
-              alt="Alpha Owl" 
-              className="w-56 lg:w-72 xl:w-80 h-auto animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.3)]"
-              style={{ 
-                mixBlendMode: 'lighten',
-                opacity: 0.7,
-                maskImage: 'radial-gradient(ellipse 80% 80% at center, black 40%, transparent 70%)'
-              }}
-            />
-          </div>
-        </div>
-        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm animate-pulse-glow">
             <Sparkles className="w-4 h-4 text-emerald-400" />
