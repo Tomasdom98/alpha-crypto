@@ -6,22 +6,22 @@ const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f
 export default function OwlSeal({ 
   position = 'bottom-right', // 'bottom-right', 'bottom-left', 'top-right', 'center'
   size = 'md', // 'sm', 'md', 'lg'
-  opacity = 0.15,
-  showText = false,
+  opacity = 0.25,
+  showText = true,
   className = ''
 }) {
   const sizeClasses = {
-    sm: 'w-16 h-16',
-    md: 'w-24 h-24',
-    lg: 'w-32 h-32',
-    xl: 'w-40 h-40'
+    sm: 'w-12 h-12',
+    md: 'w-16 h-16',
+    lg: 'w-20 h-20',
+    xl: 'w-28 h-28'
   };
 
   const positionClasses = {
-    'bottom-right': 'absolute bottom-4 right-4',
-    'bottom-left': 'absolute bottom-4 left-4',
-    'top-right': 'absolute top-4 right-4',
-    'top-left': 'absolute top-4 left-4',
+    'bottom-right': 'absolute bottom-6 right-6',
+    'bottom-left': 'absolute bottom-6 left-6',
+    'top-right': 'absolute top-6 right-6',
+    'top-left': 'absolute top-6 left-6',
     'center': 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
     'inline': 'relative inline-block'
   };
@@ -35,12 +35,12 @@ export default function OwlSeal({
         <img 
           src={OWL_URL}
           alt="Alpha Crypto"
-          className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]`}
-          style={{ filter: 'brightness(1.1)' }}
+          className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
+          style={{ filter: 'brightness(1.2) contrast(1.1)' }}
         />
         {showText && (
-          <span className="text-xs text-gray-500 font-medium tracking-wider">
-            ALPHA CRYPTO
+          <span className="text-[10px] text-emerald-500/70 font-bold tracking-widest">
+            αC
           </span>
         )}
       </div>
