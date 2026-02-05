@@ -206,13 +206,13 @@ export default function PortfolioPage() {
               <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <div className="text-gray-400 text-sm mb-1">Valor Total del Portfolio</div>
+                    <div className="text-gray-400 text-sm mb-1">{tx.totalValue}</div>
                     <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
                       ${portfolioData.totalValue.toLocaleString()}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-gray-400 text-sm mb-1">Monthly Return</div>
+                    <div className="text-gray-400 text-sm mb-1">{tx.monthlyReturn}</div>
                     <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
                       <TrendingUp size={24} />
                       +{portfolioData.monthlyReturn}%
@@ -222,7 +222,7 @@ export default function PortfolioPage() {
                 </div>
 
                 <div className="mb-4">
-                  <h3 className="text-sm font-bold text-gray-400 mb-3">6-Month Performance</h3>
+                  <h3 className="text-sm font-bold text-gray-400 mb-3">{tx.performance}</h3>
                   <div className="flex items-end gap-2 h-24">
                     {performanceHistory.map((month) => (
                       <div key={month.month} className="flex-1 flex flex-col items-center">
