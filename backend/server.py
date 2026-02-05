@@ -1772,7 +1772,7 @@ async def update_consulting_status(request_id: str, status: str):
 # Email Alert Subscription endpoints
 @api_router.post("/alerts/subscribe")
 async def subscribe_to_alerts(subscription: EmailAlertSubscription):
-    """Subscribe to email alerts for premium airdrops"""
+    """Subscribe to email alerts and newsletter"""
     try:
         existing = await db.alert_subscriptions.find_one({"email": subscription.email})
         if existing:
@@ -1785,7 +1785,61 @@ async def subscribe_to_alerts(subscription: EmailAlertSubscription):
             "active": True
         }
         await db.alert_subscriptions.insert_one(sub_doc)
-        return {"success": True, "message": "Successfully subscribed to alerts"}
+        
+        # Send welcome email
+        welcome_html = """
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; padding: 40px; border-radius: 16px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <span style="font-size: 32px; font-weight: bold;">
+                    <span style="color: #10b981; font-family: serif;">α</span><span style="color: white;">C</span>
+                </span>
+                <span style="color: white; font-size: 24px; font-weight: bold; margin-left: 10px;">Alpha Crypto</span>
+            </div>
+            
+            <h1 style="color: #10b981; font-size: 28px; margin-bottom: 20px; text-align: center;">🎉 ¡Bienvenido a la familia!</h1>
+            
+            <p style="color: #9ca3af; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                Acabas de unirte a la comunidad de inversores cripto más informados de LATAM. 
+                A partir de ahora recibirás:
+            </p>
+            
+            <div style="background: #1a1f2e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                    <span style="color: #10b981; margin-right: 10px;">📊</span>
+                    <span style="color: white;">Análisis de mercado semanales</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                    <span style="color: #10b981; margin-right: 10px;">🎯</span>
+                    <span style="color: white;">Nuevos airdrops verificados</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                    <span style="color: #10b981; margin-right: 10px;">📚</span>
+                    <span style="color: white;">Artículos educativos exclusivos</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="color: #10b981; margin-right: 10px;">⚡</span>
+                    <span style="color: white;">Alertas de oportunidades</span>
+                </div>
+            </div>
+            
+            <p style="color: #6b7280; font-size: 14px; text-align: center;">
+                Visita <a href="https://alphacrypto.com" style="color: #10b981;">alphacrypto.com</a> para explorar todo nuestro contenido.
+            </p>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #374151; text-align: center;">
+                <p style="color: #4b5563; font-size: 12px;">
+                    Alpha Crypto • Tu alpha en el mercado 🦉
+                </p>
+            </div>
+        </div>
+        """
+        await send_notification_email(
+            subject="🦉 ¡Bienvenido a Alpha Crypto!",
+            html_content=welcome_html,
+            to_email=subscription.email
+        )
+        
+        return {"success": True, "message": "Successfully subscribed to newsletter"}
     except Exception as e:
         logger.error(f"Error subscribing to alerts: {e}")
         raise HTTPException(status_code=500, detail="Failed to subscribe")
@@ -1812,6 +1866,88 @@ async def unsubscribe_from_alerts(subscription: EmailAlertSubscription):
     except Exception as e:
         logger.error(f"Error unsubscribing: {e}")
         raise HTTPException(status_code=500, detail="Failed to unsubscribe")
+
+@api_router.post("/newsletter/send-article")
+async def send_article_newsletter(article_id: str):
+    """Send an article to all newsletter subscribers"""
+    try:
+        # Get the article
+        articles = get_mock_articles()
+        article = next((a for a in articles if a["id"] == article_id), None)
+        if not article:
+            raise HTTPException(status_code=404, detail="Article not found")
+        
+        # Get all active subscribers
+        subscribers = await db.alert_subscriptions.find({"active": True}).to_list(1000)
+        if not subscribers:
+            return {"success": True, "sent_count": 0, "message": "No subscribers"}
+        
+        # Create newsletter HTML
+        newsletter_html = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; padding: 40px; border-radius: 16px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <span style="font-size: 32px; font-weight: bold;">
+                    <span style="color: #10b981; font-family: serif;">α</span><span style="color: white;">C</span>
+                </span>
+                <span style="color: white; font-size: 24px; font-weight: bold; margin-left: 10px;">Alpha Crypto</span>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 3px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="background: #1a1f2e; padding: 20px; border-radius: 10px;">
+                    <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                        {article.get('category', 'NUEVO ARTÍCULO')}
+                    </span>
+                </div>
+            </div>
+            
+            <h1 style="color: white; font-size: 24px; margin-bottom: 15px; line-height: 1.3;">
+                {article['title']}
+            </h1>
+            
+            <p style="color: #9ca3af; font-size: 16px; line-height: 1.6; margin-bottom: 25px;">
+                {article['excerpt']}
+            </p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://alphacrypto.com/articles/{article['id']}" 
+                   style="display: inline-block; background: #10b981; color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+                    📖 Leer Artículo Completo
+                </a>
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #374151;">
+                <p style="color: #6b7280; font-size: 12px; text-align: center; margin-bottom: 10px;">
+                    Recibiste este email porque te suscribiste a Alpha Crypto Newsletter.
+                </p>
+                <p style="color: #4b5563; font-size: 11px; text-align: center;">
+                    <a href="https://alphacrypto.com/unsubscribe" style="color: #4b5563;">Cancelar suscripción</a>
+                </p>
+            </div>
+        </div>
+        """
+        
+        # Send to all subscribers
+        sent_count = 0
+        for sub in subscribers:
+            result = await send_notification_email(
+                subject=f"📚 {article['title'][:50]}...",
+                html_content=newsletter_html,
+                to_email=sub['email']
+            )
+            if result:
+                sent_count += 1
+        
+        return {
+            "success": True, 
+            "sent_count": sent_count, 
+            "total_subscribers": len(subscribers),
+            "message": f"Newsletter sent to {sent_count} subscribers"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error sending newsletter: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send newsletter")
 
 
 # Feedback endpoints
