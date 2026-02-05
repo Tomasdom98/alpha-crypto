@@ -127,15 +127,18 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 ## In Progress / Upcoming Tasks
 
 ### Priority Media (Next)
-- [ ] Airdrops Educational Intro - "¿Qué es un Airdrop?" section
-- [ ] Indices Charts - Mini sparkline charts for each indicator
+- [x] Airdrops Educational Intro - "¿Qué es un Airdrop?" section ✅
+- [x] Indices Charts - Mini sparkline charts for each indicator ✅
+- [x] CoinGecko API Cache System - Server-side caching implemented ✅
 - [ ] Visual identity improvements (Milk Road inspired)
+- [ ] Full-size charts for Total Market Cap, Stablecoin Market Cap, DeFi TVL
 
 ### Future Tasks
 - [ ] Integrate real email service (Resend/SendGrid)
+- [ ] Search/Filter functionality for articles and airdrops
+- [ ] Automatic on-chain payment verification
 - [ ] Migrate to Next.js
 - [ ] Export to GitHub
-- [ ] Real-time data from DeFiLlama/CoinGecko APIs for charts
 
 ## Test Reports
 - `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
