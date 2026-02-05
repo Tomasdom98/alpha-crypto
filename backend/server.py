@@ -984,9 +984,8 @@ async def verify_payment(payment_id: str):
         raise HTTPException(status_code=500, detail="Failed to verify payment")
 
 # Early Signals endpoint
-@api_router.get("/early-signals")
-async def get_early_signals():
-    """Get early signals and quick opportunities"""
+def get_mock_signals():
+    """Mock signals data"""
     return [
         {
             "id": "1",
@@ -1069,6 +1068,24 @@ async def get_early_signals():
             "premium": True
         }
     ]
+
+@api_router.get("/early-signals")
+async def get_early_signals():
+    """Get early signals - tries Sanity CMS first, falls back to mock data"""
+    try:
+        # Try Sanity CMS first
+        signals = await sanity_get_signals()
+        
+        if signals and len(signals) > 0:
+            logger.info(f"Fetched {len(signals)} signals from Sanity CMS")
+            return signals
+        
+        # Fallback to mock data
+        logger.info("Sanity returned no signals, using mock data")
+        return get_mock_signals()
+    except Exception as e:
+        logger.error(f"Error fetching signals: {e}")
+        return get_mock_signals()
 
 
 @api_router.get("/admin/users")
