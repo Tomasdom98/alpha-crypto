@@ -33,7 +33,7 @@ export default function Footer() {
       setFeedbackForm({ name: '', email: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError('Failed to submit feedback. Please try again.');
+      setError('Error al enviar. Por favor intenta de nuevo.');
     } finally {
       setSubmitting(false);
     }
