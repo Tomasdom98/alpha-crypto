@@ -1707,6 +1707,32 @@ async def submit_consulting_request(request: ConsultingSubmission):
             "status": "new"
         }
         await db.consulting.insert_one(consulting_doc)
+        
+        # Send email notification
+        service_label = "Personal" if request.service_type == "personal" else "Empresarial"
+        company_info = f"<p style='color: #9ca3af; margin: 5px 0;'><strong style='color: white;'>Empresa:</strong> {request.company}</p>" if request.company else ""
+        
+        email_html = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1f2e; padding: 30px; border-radius: 10px;">
+            <h2 style="color: #f59e0b; margin-bottom: 20px;">🎯 Nueva Solicitud de Consultoría - Alpha Crypto</h2>
+            <div style="background: linear-gradient(135deg, #f59e0b22, #10b98122); padding: 10px 15px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">
+                <span style="color: #f59e0b; font-weight: bold;">{service_label}</span>
+            </div>
+            <div style="background: #0f172a; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Nombre:</strong> {request.name}</p>
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Email:</strong> {request.email}</p>
+                {company_info}
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Mensaje:</strong></p>
+                <p style="color: white; background: #1e293b; padding: 15px; border-radius: 5px;">{request.message}</p>
+            </div>
+            <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">Enviado desde Alpha Crypto Platform</p>
+        </div>
+        """
+        await send_notification_email(
+            subject=f"🎯 Consultoría {service_label}: {request.name}",
+            html_content=email_html
+        )
+        
         return {"success": True, "message": "Consulting request submitted successfully"}
     except Exception as e:
         logger.error(f"Error submitting consulting request: {e}")
