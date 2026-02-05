@@ -111,11 +111,9 @@ export default function PremiumModal({ isOpen, onClose }) {
                 <span className={billingCycle === 'yearly' ? 'text-white text-sm font-medium' : 'text-gray-500 text-sm font-medium'}>
                   {isEs ? 'Anual' : 'Yearly'}
                 </span>
-                {billingCycle === 'yearly' && (
-                  <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-1 rounded-full">
-                    {isEs ? 'Ahorra 30%' : 'Save 30%'}
-                  </span>
-                )}
+                <span className={`text-xs font-bold px-2 py-1 rounded-full ${billingCycle === 'yearly' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-500/10 text-emerald-400/70'}`}>
+                  {billingCycle === 'yearly' ? (isEs ? '¡30% OFF!' : '30% OFF!') : (isEs ? '30% OFF Anual' : '30% OFF Yearly')}
+                </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -130,10 +128,20 @@ export default function PremiumModal({ isOpen, onClose }) {
                       </div>
                       <h3 className="text-xl font-bold text-white">Alpha Access</h3>
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                       <span className="text-4xl font-black text-white">${PRICING.alpha[billingCycle]}</span>
                       <span className="text-gray-400">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
                     </div>
+                    {billingCycle === 'yearly' ? (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-sm text-gray-400">$21{isEs ? '/mes equiv.' : '/mo equiv.'}</span>
+                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡Ahorra 30%!' : 'Save 30%!'}</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-xs text-emerald-400/70">{isEs ? '→ $21/mes si pagas anual' : '→ $21/mo if paid yearly'}</span>
+                      </div>
+                    )}
                     <ul className="space-y-3 mb-6">
                       {alphaFeatures.map((f, i) => (
                         <li key={i} className="flex items-start gap-3">
