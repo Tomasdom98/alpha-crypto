@@ -262,6 +262,7 @@ export default function MarketIndicesPage() {
   const getSignalColor = (signal) => {
     if (signal === 'Buy') return 'text-emerald-400 bg-emerald-500/20';
     if (signal === 'Sell') return 'text-red-400 bg-red-500/20';
+    if (signal === 'Watchlist') return 'text-cyan-400 bg-cyan-500/20';
     return 'text-amber-400 bg-amber-500/20';
   };
 
