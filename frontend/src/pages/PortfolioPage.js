@@ -149,9 +149,9 @@ export default function PortfolioPage() {
   ];
 
   const tabs = [
-    { id: 'portfolio', label: 'Portfolio', icon: Wallet },
-    { id: 'yield', label: 'Yield Stablecoins', icon: Coins },
-    { id: 'staking', label: 'Staking', icon: PiggyBank }
+    { id: 'portfolio', label: tabLabels.portfolio, icon: Wallet },
+    { id: 'yield', label: tabLabels.yield, icon: Coins },
+    { id: 'staking', label: tabLabels.staking, icon: PiggyBank }
   ];
 
   return (
