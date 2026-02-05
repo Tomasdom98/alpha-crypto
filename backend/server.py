@@ -106,9 +106,11 @@ class Article(BaseModel):
     excerpt: str
     content: str
     category: str
-    premium: bool
+    premium: bool = False
     published_at: str
     image_url: str
+    tags: Optional[List[str]] = None
+    read_time: Optional[str] = None
 
 class AirdropTask(BaseModel):
     id: str
