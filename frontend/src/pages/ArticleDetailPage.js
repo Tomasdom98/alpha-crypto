@@ -61,148 +61,31 @@ export default function ArticleDetailPage() {
     );
   }
 
-  // Enhanced content parser for rich Milk Road style articles
+  // Parse content - convert markdown-like syntax to HTML
   const formatContent = (content) => {
     if (!content) return '';
     
-    // Format inline elements (bold, code, etc)
-    const formatInline = (text) => {
-      if (!text) return '';
-      return text
-        .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
-        .replace(/`([^`]+)`/g, '<code class="bg-gray-800 px-2 py-0.5 rounded text-emerald-400 text-sm">$1</code>');
-    };
-    
-    // Render markdown table to HTML
-    const renderTable = (rows) => {
-      if (rows.length === 0) return '';
-      
-      const parseRow = (row) => {
-        return row.split('|').filter(cell => cell.trim()).map(cell => cell.trim());
-      };
-      
-      const headerCells = parseRow(rows[0]);
-      const bodyRows = rows.slice(1).map(parseRow);
-      
-      let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse">';
-      tableHtml += '<thead><tr class="border-b border-gray-700">';
-      headerCells.forEach(cell => {
-        tableHtml += `<th class="text-left py-3 px-4 text-emerald-400 font-semibold text-sm">${formatInline(cell)}</th>`;
-      });
-      tableHtml += '</tr></thead><tbody>';
-      bodyRows.forEach((row, idx) => {
-        const bgClass = idx % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/10';
-        tableHtml += `<tr class="${bgClass} border-b border-gray-800">`;
-        row.forEach(cell => {
-          tableHtml += `<td class="py-3 px-4 text-gray-300 text-sm">${formatInline(cell)}</td>`;
-        });
-        tableHtml += '</tr>';
-      });
-      tableHtml += '</tbody></table></div>';
-      return tableHtml;
-    };
-    
-    const lines = content.split('\n');
-    let html = '';
-    let inTable = false;
-    let tableRows = [];
-    let inCodeBlock = false;
-    let codeLines = [];
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      
-      // Code blocks
-      if (line.trim().startsWith('```')) {
-        if (inCodeBlock) {
-          html += `<pre class="bg-gray-900/80 border border-gray-700 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-emerald-400 text-sm font-mono">${codeLines.join('\n')}</code></pre>`;
-          codeLines = [];
-          inCodeBlock = false;
-        } else {
-          inCodeBlock = true;
+    return content
+      .split('\n\n')
+      .map((paragraph, idx) => {
+        // Headers
+        if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+          return `<h3 class="text-xl font-bold text-white mt-8 mb-4">${paragraph.slice(2, -2)}</h3>`;
         }
-        continue;
-      }
-      
-      if (inCodeBlock) {
-        codeLines.push(line);
-        continue;
-      }
-      
-      // Table handling
-      if (line.includes('|') && line.trim().startsWith('|')) {
-        inTable = true;
-        if (!line.includes('---')) {
-          tableRows.push(line);
+        // Bold text and lists
+        let formatted = paragraph
+          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+          .replace(/^- /gm, '• ');
+        
+        // Check if it's a list
+        if (formatted.includes('• ')) {
+          const items = formatted.split('• ').filter(Boolean);
+          return `<ul class="space-y-2 my-4">${items.map(item => `<li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span><span>${item.trim()}</span></li>`).join('')}</ul>`;
         }
-        continue;
-      } else if (inTable) {
-        html += renderTable(tableRows);
-        tableRows = [];
-        inTable = false;
-      }
-      
-      // Skip empty lines
-      if (!line.trim()) {
-        html += '<div class="h-4"></div>';
-        continue;
-      }
-      
-      // Horizontal rule
-      if (line.trim() === '---') {
-        html += '<hr class="border-gray-700 my-8" />';
-        continue;
-      }
-      
-      // H2 headers
-      if (line.startsWith('## ')) {
-        html += `<h2 class="text-2xl font-black text-white mt-10 mb-6">${line.slice(3)}</h2>`;
-        continue;
-      }
-      
-      // H3 headers
-      if (line.startsWith('### ')) {
-        html += `<h3 class="text-xl font-bold text-emerald-400 mt-8 mb-4">${line.slice(4)}</h3>`;
-        continue;
-      }
-      
-      // Blockquotes
-      if (line.startsWith('> ')) {
-        html += `<blockquote class="border-l-4 border-emerald-500 pl-6 my-6 py-2 bg-emerald-500/5 rounded-r-lg"><p class="text-lg text-gray-300 italic">${formatInline(line.slice(2))}</p></blockquote>`;
-        continue;
-      }
-      
-      // Bullet lists
-      if (line.startsWith('- ')) {
-        html += `<div class="flex items-start gap-3 my-2"><span class="text-emerald-500 mt-1.5">•</span><span class="text-gray-300">${formatInline(line.slice(2))}</span></div>`;
-        continue;
-      }
-      
-      // Numbered lists
-      const numberedMatch = line.match(/^(\d+\.)\s+(.+)$/);
-      if (numberedMatch) {
-        html += `<div class="flex items-start gap-3 my-2"><span class="text-emerald-400 font-bold min-w-[24px]">${numberedMatch[1]}</span><span class="text-gray-300">${formatInline(numberedMatch[2])}</span></div>`;
-        continue;
-      }
-      
-      // Emoji prefixed items (medals, checkmarks, etc)
-      if (/^[🥇🥈🥉✅❌🔴🟢🟡⚡💡🔥🎯⚠️1️⃣2️⃣3️⃣4️⃣5️⃣]/.test(line)) {
-        const emoji = line.match(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}✅❌]/u)?.[0] || '';
-        const text = emoji ? line.slice(emoji.length).trim() : line;
-        html += `<div class="flex items-start gap-3 my-2"><span class="text-xl">${emoji}</span><span class="text-gray-300">${formatInline(text)}</span></div>`;
-        continue;
-      }
-      
-      // Regular paragraphs
-      html += `<p class="mb-4 leading-relaxed text-gray-300">${formatInline(line)}</p>`;
-    }
-    
-    // Close any remaining table
-    if (inTable && tableRows.length > 0) {
-      html += renderTable(tableRows);
-    }
-    
-    return html;
+        
+        return `<p class="mb-4 leading-relaxed">${formatted}</p>`;
+      })
+      .join('');
   };
 
   return (
@@ -238,10 +121,9 @@ export default function ArticleDetailPage() {
               <span className="bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium">
                 {article.category}
               </span>
-              {article.read_time && (
-                <span className="bg-gray-900/80 text-gray-300 px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5">
-                  <Clock size={14} />
-                  {article.read_time}
+              {article.premium && (
+                <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold">
+                  PREMIUM
                 </span>
               )}
             </div>
@@ -271,7 +153,7 @@ export default function ArticleDetailPage() {
               </div>
               <div className="flex items-center gap-2 text-gray-400">
                 <BookOpen size={16} />
-                <span className="text-sm">{article.read_time || '5 min lectura'}</span>
+                <span className="text-sm">5 min lectura</span>
               </div>
               <button 
                 onClick={handleShare}
@@ -295,19 +177,17 @@ export default function ArticleDetailPage() {
 
             {/* Tags / Related */}
             <div className="mt-12 pt-8 border-t border-gray-800">
-              <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm text-gray-500 mr-2">Temas:</span>
-                <span className="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-sm border border-emerald-500/30">
+              <div className="flex flex-wrap gap-2">
+                <span className="text-sm text-gray-500">Temas:</span>
+                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
                   {article.category}
                 </span>
-                {article.tags && article.tags.map((tag, idx) => (
-                  <span 
-                    key={idx}
-                    className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm hover:bg-gray-700 transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
+                  Crypto
+                </span>
+                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
+                  Inversión
+                </span>
               </div>
             </div>
           </div>
