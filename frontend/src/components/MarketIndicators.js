@@ -20,13 +20,13 @@ export default function MarketIndicators({ fearGreed }) {
       label: 'Neutral',
       interpretation: 'neutral',
       icon: Activity,
-      description: 'Market value vs realized value',
+      description: 'Valor de mercado vs valor realizado',
     },
     {
       id: 'nupl',
       name: 'NUPL',
       value: '62%',
-      label: 'Optimism',
+      label: 'Optimismo',
       interpretation: 'bullish',
       icon: TrendingUp,
       description: 'Ganancia/Pérdida No Realizada'
