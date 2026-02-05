@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -85,9 +85,10 @@ export default function ArticlesPage() {
                     <span className="bg-emerald-500/90 text-white px-2.5 py-1 rounded text-xs font-medium">
                       {article.category}
                     </span>
-                    {article.premium && (
-                      <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2.5 py-1 rounded text-xs font-bold">
-                        PREMIUM
+                    {article.read_time && (
+                      <span className="bg-gray-800/90 text-gray-300 px-2 py-1 rounded text-xs flex items-center gap-1">
+                        <Clock size={10} />
+                        {article.read_time}
                       </span>
                     )}
                   </div>
@@ -97,6 +98,21 @@ export default function ArticlesPage() {
                     {article.title}
                   </h3>
                   <p className="text-sm text-gray-400 line-clamp-3 mb-4">{article.excerpt}</p>
+                  
+                  {/* Category Tags */}
+                  {article.tags && article.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {article.tags.slice(0, 3).map((tag, idx) => (
+                        <span 
+                          key={idx}
+                          className="bg-gray-800/80 text-gray-400 px-2 py-0.5 rounded text-xs border border-gray-700/50"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  
                   <div className="flex items-center justify-between">
                     <div className="text-xs text-gray-500">
                       {new Date(article.published_at).toLocaleDateString('es-ES', {

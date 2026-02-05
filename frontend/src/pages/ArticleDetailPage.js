@@ -61,31 +61,168 @@ export default function ArticleDetailPage() {
     );
   }
 
-  // Parse content - convert markdown-like syntax to HTML
+  // Enhanced content parser for rich Milk Road style articles
   const formatContent = (content) => {
     if (!content) return '';
     
-    return content
-      .split('\n\n')
-      .map((paragraph, idx) => {
-        // Headers
-        if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-          return `<h3 class="text-xl font-bold text-white mt-8 mb-4">${paragraph.slice(2, -2)}</h3>`;
+    const lines = content.split('\n');
+    let html = '';
+    let inTable = false;
+    let tableRows = [];
+    let inCodeBlock = false;
+    let codeContent = '';
+    
+    const processLine = (line) => {
+      // Skip empty lines
+      if (!line.trim()) return '';
+      
+      // Code blocks
+      if (line.trim().startsWith('```')) {
+        if (inCodeBlock) {
+          inCodeBlock = false;
+          const result = `<pre class="bg-gray-900/80 border border-gray-700 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-emerald-400 text-sm font-mono">${codeContent}</code></pre>`;
+          codeContent = '';
+          return result;
+        } else {
+          inCodeBlock = true;
+          return '';
         }
-        // Bold text and lists
-        let formatted = paragraph
-          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-          .replace(/^- /gm, '• ');
-        
-        // Check if it's a list
-        if (formatted.includes('• ')) {
-          const items = formatted.split('• ').filter(Boolean);
-          return `<ul class="space-y-2 my-4">${items.map(item => `<li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span><span>${item.trim()}</span></li>`).join('')}</ul>`;
+      }
+      
+      if (inCodeBlock) {
+        codeContent += line + '\n';
+        return '';
+      }
+      
+      // Horizontal rule
+      if (line.trim() === '---') {
+        return '<hr class="border-gray-700 my-8" />';
+      }
+      
+      // Table detection
+      if (line.includes('|') && line.trim().startsWith('|')) {
+        if (!inTable) {
+          inTable = true;
+          tableRows = [];
         }
-        
-        return `<p class="mb-4 leading-relaxed">${formatted}</p>`;
-      })
-      .join('');
+        // Skip separator rows
+        if (!line.includes('---')) {
+          tableRows.push(line);
+        }
+        return '';
+      } else if (inTable) {
+        // End of table
+        inTable = false;
+        const tableHtml = renderTable(tableRows);
+        tableRows = [];
+        return tableHtml + processLine(line);
+      }
+      
+      // H2 headers
+      if (line.startsWith('## ')) {
+        const text = line.slice(3);
+        return `<h2 class="text-2xl font-black text-white mt-10 mb-6 flex items-center gap-3">${text}</h2>`;
+      }
+      
+      // H3 headers
+      if (line.startsWith('### ')) {
+        const text = line.slice(4);
+        return `<h3 class="text-xl font-bold text-emerald-400 mt-8 mb-4">${text}</h3>`;
+      }
+      
+      // Blockquotes
+      if (line.startsWith('> ')) {
+        const text = formatInline(line.slice(2));
+        return `<blockquote class="border-l-4 border-emerald-500 pl-6 my-6 py-2 bg-emerald-500/5 rounded-r-lg"><p class="text-lg text-gray-300 italic">${text}</p></blockquote>`;
+      }
+      
+      // Numbered lists with emoji
+      const numberedMatch = line.match(/^(\d+️⃣|\d+\.) (.+)$/);
+      if (numberedMatch) {
+        return `<div class="flex items-start gap-3 my-2"><span class="text-emerald-400 font-bold min-w-[24px]">${numberedMatch[1]}</span><span class="text-gray-300">${formatInline(numberedMatch[2])}</span></div>`;
+      }
+      
+      // Medal/ranking emojis
+      const medalMatch = line.match(/^(🥇|🥈|🥉|4️⃣|5️⃣) (.+)$/);
+      if (medalMatch) {
+        return `<div class="flex items-center gap-3 my-2 py-1"><span class="text-2xl">${medalMatch[1]}</span><span class="text-gray-300 font-medium">${formatInline(medalMatch[2])}</span></div>`;
+      }
+      
+      // Bullet lists
+      if (line.startsWith('- ')) {
+        const text = formatInline(line.slice(2));
+        return `<div class="flex items-start gap-3 my-2"><span class="text-emerald-500 mt-1.5">•</span><span class="text-gray-300">${text}</span></div>`;
+      }
+      
+      // Check/cross items
+      if (line.startsWith('✅ ') || line.startsWith('❌ ') || line.startsWith('🔴 ') || line.startsWith('🟢 ') || line.startsWith('🟡 ')) {
+        const emoji = line.slice(0, 2);
+        const text = formatInline(line.slice(3));
+        return `<div class="flex items-start gap-3 my-2"><span class="text-lg">${emoji}</span><span class="text-gray-300">${text}</span></div>`;
+      }
+      
+      // Regular paragraphs
+      const formatted = formatInline(line);
+      if (formatted.trim()) {
+        return `<p class="mb-4 leading-relaxed text-gray-300">${formatted}</p>`;
+      }
+      
+      return '';
+    };
+    
+    // Format inline elements (bold, links, etc)
+    const formatInline = (text) => {
+      return text
+        .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="bg-gray-800 px-2 py-0.5 rounded text-emerald-400 text-sm">$1</code>');
+    };
+    
+    // Render markdown table to HTML
+    const renderTable = (rows) => {
+      if (rows.length === 0) return '';
+      
+      const parseRow = (row) => {
+        return row.split('|').filter(cell => cell.trim()).map(cell => cell.trim());
+      };
+      
+      const headerCells = parseRow(rows[0]);
+      const bodyRows = rows.slice(1).map(parseRow);
+      
+      let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse">';
+      
+      // Header
+      tableHtml += '<thead><tr class="border-b border-gray-700">';
+      headerCells.forEach(cell => {
+        tableHtml += `<th class="text-left py-3 px-4 text-emerald-400 font-semibold text-sm">${formatInline(cell)}</th>`;
+      });
+      tableHtml += '</tr></thead>';
+      
+      // Body
+      tableHtml += '<tbody>';
+      bodyRows.forEach((row, idx) => {
+        const bgClass = idx % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/10';
+        tableHtml += `<tr class="${bgClass} border-b border-gray-800">`;
+        row.forEach(cell => {
+          tableHtml += `<td class="py-3 px-4 text-gray-300 text-sm">${formatInline(cell)}</td>`;
+        });
+        tableHtml += '</tr>';
+      });
+      tableHtml += '</tbody></table></div>';
+      
+      return tableHtml;
+    };
+    
+    // Process all lines
+    for (const line of lines) {
+      html += processLine(line);
+    }
+    
+    // Close any remaining table
+    if (inTable && tableRows.length > 0) {
+      html += renderTable(tableRows);
+    }
+    
+    return html;
   };
 
   return (
