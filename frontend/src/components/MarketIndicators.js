@@ -139,7 +139,7 @@ export default function MarketIndicators({ fearGreed }) {
                 <div className="text-4xl font-black text-white mb-1" style={{ fontFamily: 'Space Grotesk, monospace' }}>
                   {fearGreed?.value || 50}
                 </div>
-                <div className="text-sm font-semibold text-gray-400">{fearGreed?.classification || 'Neutral'}</div>
+                <div className="text-sm font-semibold text-gray-400">{translateClassification(fearGreed?.classification)}</div>
               </div>
             </div>
 
