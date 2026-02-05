@@ -120,12 +120,22 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [x] ArticlesPage - Category tags display
 - [x] Backend - Resend email integration
 - [x] Backend - Article model with tags/read_time fields
+- [x] Newsletter Popup - 3 second delay on Articles page
+- [x] Real-time APIs:
+  - Stablecoins from DefiLlama (`/api/crypto/stablecoins`)
+  - DeFi TVL from DefiLlama (`/api/crypto/defi-tvl`)
+  - Global market data from CoinGecko (`/api/crypto/global`)
+  - Historical charts (`/api/crypto/chart/{coin_id}`)
+- [x] ALPHAI Chat Assistant:
+  - GPT-4o-mini powered (gpt-4o for premium)
+  - 5 free messages/day limit
+  - Spanish language responses
+  - DeFi/crypto specialist
 
 ### Pending
+- [ ] Connect /indices page to use real API data
 - [ ] Resend domain verification for production emails
-- [ ] CoinGecko API fallback (rate limiting issues)
-- [ ] Real data for large charts (DefiLlama)
-- [ ] Airdrop steps verification
+- [ ] More airdrop verification
 
 ## Known Issues
 - CoinGecko API rate limiting (falls back to cached/mock data)
