@@ -148,9 +148,74 @@ const IMPACT_CONFIG = {
 export default function MacroCalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 1, 1)); // February 2026
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const { language } = useLanguage();
+
+  // Translations
+  const tx = {
+    es: {
+      backToIndices: 'Volver a Índices',
+      title: 'Calendario Macro',
+      subtitle: 'Eventos económicos que impactan los mercados crypto',
+      all: 'Todos',
+      fedFomc: 'Fed/FOMC',
+      economic: 'Económico',
+      earnings: 'Earnings',
+      tokenUnlock: 'Token Unlock',
+      options: 'Opciones',
+      upcomingEvents: 'Próximos Eventos',
+      noEvents: 'No hay eventos este mes',
+      more: 'más',
+      impactLegend: 'Leyenda de Impacto',
+      bullish: 'Bullish - Potencialmente positivo para crypto',
+      bearish: 'Bearish - Potencialmente negativo para crypto',
+      neutral: 'Neutral - Depende del resultado del evento',
+      back: 'Volver a Índices',
+      high: 'Alta',
+      medium: 'Media',
+      low: 'Baja',
+      days: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+    },
+    en: {
+      backToIndices: 'Back to Indices',
+      title: 'Macro Calendar',
+      subtitle: 'Economic events that impact crypto markets',
+      all: 'All',
+      fedFomc: 'Fed/FOMC',
+      economic: 'Economic',
+      earnings: 'Earnings',
+      tokenUnlock: 'Token Unlock',
+      options: 'Options',
+      upcomingEvents: 'Upcoming Events',
+      noEvents: 'No events this month',
+      more: 'more',
+      impactLegend: 'Impact Legend',
+      bullish: 'Bullish - Potentially positive for crypto',
+      bearish: 'Bearish - Potentially negative for crypto',
+      neutral: 'Neutral - Depends on event outcome',
+      back: 'Back to Indices',
+      high: 'High',
+      medium: 'Medium',
+      low: 'Low',
+      days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    }
+  }[language];
+
+  const CATEGORY_CONFIG = {
+    fed: { label: tx.fedFomc, icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
+    economic: { label: tx.economic, icon: LineChart, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
+    earnings: { label: tx.earnings, icon: TrendingUp, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+    unlock: { label: tx.tokenUnlock, icon: Coins, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
+    options: { label: tx.options, icon: AlertCircle, color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20' },
+  };
+
+  const IMPACT_CONFIG = {
+    bullish: { label: 'Bullish', icon: TrendingUp, color: 'text-emerald-400', emoji: '🟢' },
+    bearish: { label: 'Bearish', icon: TrendingDown, color: 'text-red-400', emoji: '🔴' },
+    neutral: { label: 'Neutral', icon: Minus, color: 'text-yellow-400', emoji: '🟡' },
+  };
 
   const getMonthName = (date) => {
-    return date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+    return date.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { month: 'long', year: 'numeric' });
   };
 
   const getDaysInMonth = (date) => {
