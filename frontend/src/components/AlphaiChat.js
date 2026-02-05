@@ -233,7 +233,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
               <div style={{ backgroundColor: '#1f2937', borderRadius: '16px', padding: '12px 16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Loader2 size={16} className="animate-spin" style={{ color: '#10b981' }} />
-                  <span style={{ color: '#9ca3af', fontSize: '14px' }}>ALPHA-I está pensando...</span>
+                  <span style={{ color: '#9ca3af', fontSize: '14px' }}>{tx.thinking}</span>
                 </div>
               </div>
             </div>
