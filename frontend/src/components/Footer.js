@@ -17,11 +17,62 @@ export default function Footer() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const currentYear = new Date().getFullYear();
+  const { language } = useLanguage();
+
+  // Translations
+  const tx = {
+    es: {
+      description: 'Tu fuente de alpha en crypto. Análisis profundo, airdrops verificados, e insights de mercado.',
+      freeContent: 'Contenido Gratuito',
+      articles: 'Artículos',
+      airdrops: 'Airdrops',
+      marketIndices: 'Índices de Mercado',
+      analysis: 'Análisis',
+      premium: 'Premium',
+      portfolio: 'Portfolio',
+      signals: 'Señales',
+      consulting: 'Consultoría',
+      yourFeedback: 'Tu Feedback',
+      whatWouldYouLike: '¿Qué te gustaría ver en Alpha Crypto?',
+      yourName: 'Tu nombre',
+      yourEmail: 'Tu email',
+      yourMessage: 'Tu mensaje...',
+      send: 'Enviar',
+      thanksFeedback: '¡Gracias por tu feedback!',
+      errorSending: 'Error al enviar. Por favor intenta de nuevo.',
+      fillAllFields: 'Por favor llena todos los campos',
+      copyright: 'Alpha Crypto. Tu alpha en el mercado.',
+      poweredBy: 'Powered by Intelligence',
+    },
+    en: {
+      description: 'Your source of alpha in crypto. Deep analysis, verified airdrops, and market insights.',
+      freeContent: 'Free Content',
+      articles: 'Articles',
+      airdrops: 'Airdrops',
+      marketIndices: 'Market Indices',
+      analysis: 'Analysis',
+      premium: 'Premium',
+      portfolio: 'Portfolio',
+      signals: 'Signals',
+      consulting: 'Consulting',
+      yourFeedback: 'Your Feedback',
+      whatWouldYouLike: 'What would you like to see in Alpha Crypto?',
+      yourName: 'Your name',
+      yourEmail: 'Your email',
+      yourMessage: 'Your message...',
+      send: 'Send',
+      thanksFeedback: 'Thanks for your feedback!',
+      errorSending: 'Error sending. Please try again.',
+      fillAllFields: 'Please fill in all fields',
+      copyright: 'Alpha Crypto. Your alpha in the market.',
+      poweredBy: 'Powered by Intelligence',
+    }
+  }[language];
 
   const handleSubmitFeedback = async (e) => {
     e.preventDefault();
     if (!feedbackForm.name || !feedbackForm.email || !feedbackForm.message) {
-      setError('Please fill in all fields');
+      setError(tx.fillAllFields);
       return;
     }
     
@@ -34,7 +85,7 @@ export default function Footer() {
       setFeedbackForm({ name: '', email: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError('Error al enviar. Por favor intenta de nuevo.');
+      setError(tx.errorSending);
     } finally {
       setSubmitting(false);
     }
