@@ -259,7 +259,7 @@ export default function AirdropsPage() {
                 to={`/airdrops/${airdrop.id}`}
                 key={airdrop.id}
                 data-testid={`airdrop-card-${airdrop.id}`}
-                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg animate-fade-in-up ${airdrop.premium ? 'border-amber-500/30 hover:border-amber-500/50' : ''}`}
+                className="block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="flex items-start justify-between mb-6">
