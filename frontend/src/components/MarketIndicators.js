@@ -133,15 +133,15 @@ export default function MarketIndicators({ fearGreed }) {
 
             {/* Scale Labels */}
             <div className="flex justify-between text-xs text-gray-500 px-2">
-              <span>Extreme Fear</span>
+              <span>Miedo Extremo</span>
               <span>Neutral</span>
-              <span>Extreme Greed</span>
+              <span>Codicia Extrema</span>
             </div>
 
             <div className="mt-4 p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
               <p className="text-xs text-gray-400 leading-relaxed">
-                Measures market sentiment from 0 (extreme fear) to 100 (extreme greed). 
-                Use it to gauge market psychology and spot opportunities.
+                Mide el sentimiento del mercado de 0 (miedo extremo) a 100 (codicia extrema). 
+                Úsalo para evaluar la psicología del mercado y detectar oportunidades.
               </p>
             </div>
           </div>
