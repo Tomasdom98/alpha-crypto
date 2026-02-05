@@ -341,19 +341,15 @@ export default function PortfolioPage() {
               </div>
 
               <div className="glass-card rounded-2xl p-6">
-                <h2 className="text-lg font-bold text-white mb-4">Strategy Notes</h2>
+                <h2 className="text-lg font-bold text-white mb-4">{tx.strategyNotes}</h2>
                 <div className="space-y-4">
                   <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
-                    <h3 className="font-bold text-emerald-400 mb-1">Current Strategy</h3>
-                    <p className="text-gray-300 text-sm">
-                      DCA semanal en BTC y ETH. Manteniendo posición defensiva con 15% en stables.
-                    </p>
+                    <h3 className="font-bold text-emerald-400 mb-1">{tx.currentStrategy}</h3>
+                    <p className="text-gray-300 text-sm">{tx.currentStrategyText}</p>
                   </div>
                   <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                    <h3 className="font-bold text-amber-400 mb-1">Next Moves</h3>
-                    <p className="text-gray-300 text-sm">
-                      Monitorear soporte en $65K BTC. Si se rompe, aumentar stables a 25%.
-                    </p>
+                    <h3 className="font-bold text-amber-400 mb-1">{tx.nextMoves}</h3>
+                    <p className="text-gray-300 text-sm">{tx.nextMovesText}</p>
                   </div>
                 </div>
               </div>
@@ -361,17 +357,15 @@ export default function PortfolioPage() {
           </>
         )}
 
-        {/* Signals Section - Removed, now only 3 tabs */}
-
         {/* Yield Stablecoins Section */}
         {activeTab === 'yield' && (
           <div className="glass-card rounded-2xl p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <Coins className="text-emerald-500" /> Stablecoin Yields
+                  <Coins className="text-emerald-500" /> {tx.yieldTitle}
                 </h2>
-                <p className="text-gray-400 text-sm mt-1">Las mejores oportunidades para rentabilizar tus stablecoins</p>
+                <p className="text-gray-400 text-sm mt-1">{tx.yieldSubtitle}</p>
               </div>
             </div>
             
