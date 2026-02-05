@@ -55,11 +55,12 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center space-x-3 mb-4 group">
-              <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#1a1f2e] shadow-lg shadow-emerald-500/10 transition-transform group-hover:scale-105">
+              <div className="w-12 h-12 rounded-full overflow-hidden transition-transform group-hover:scale-105">
                 <img 
                   src={LOGO_URL} 
                   alt="Alpha Crypto" 
                   className="w-full h-full object-cover"
+                  style={{ mixBlendMode: 'lighten' }}
                 />
               </div>
               <span className="font-bold text-xl text-white group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
