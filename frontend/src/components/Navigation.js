@@ -162,12 +162,25 @@ export default function Navigation() {
               ))}
             </div>
             
+            {/* ALPHAI Button Mobile */}
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                setShowAlphai(true);
+              }}
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-gray-800 border border-emerald-500/30 text-white font-bold py-3 px-4 rounded-lg transition-all"
+            >
+              <img src={OWL_ICON_URL} alt="ALPHAI" className="w-5 h-5 object-contain" />
+              <span className="text-emerald-400">ALPHAI</span>
+              <span className="text-gray-400 text-sm">- Asistente DeFi</span>
+            </button>
+            
             <button
               onClick={() => {
                 setIsOpen(false);
                 setShowPremiumModal(true);
               }}
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
+              className="w-full mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
             >
               <Sparkles size={18} />
               Ver Planes Premium
@@ -177,6 +190,7 @@ export default function Navigation() {
       )}
       
       <PremiumModal isOpen={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} />
     </nav>
   );
 }
