@@ -747,26 +747,22 @@ async def get_market_stats():
 
 @api_router.get("/articles", response_model=List[Article])
 async def get_articles_route(category: Optional[str] = None, search: Optional[str] = None):
-    """Get articles - tries Sanity CMS first, falls back to mock data"""
+    """Get articles - tries Sanity CMS first, falls back to mock data if not enough content"""
     try:
         # Try Sanity CMS first
-        articles = await sanity_get_articles(category)
+        sanity_articles = await sanity_get_articles(category)
         
-        if articles and len(articles) > 0:
-            logger.info(f"Fetched {len(articles)} articles from Sanity CMS")
-            # Apply search filter if provided
-            if search:
-                search_lower = search.lower()
-                articles = [a for a in articles if search_lower in a.get('title', '').lower() or search_lower in a.get('excerpt', '').lower()]
-            return articles
-        
-        # Fallback to mock data if Sanity returns empty
-        logger.info("Sanity returned no articles, using mock data")
-        articles = get_mock_articles()
-        
-        # Apply category filter
-        if category and category != "all":
-            articles = [a for a in articles if a.get('category', '').lower() == category.lower()]
+        # Use Sanity if it has at least 3 articles, otherwise use mock data
+        if sanity_articles and len(sanity_articles) >= 3:
+            logger.info(f"Using {len(sanity_articles)} articles from Sanity CMS")
+            articles = sanity_articles
+        else:
+            logger.info(f"Sanity has only {len(sanity_articles) if sanity_articles else 0} articles, using mock data")
+            articles = get_mock_articles()
+            
+            # Apply category filter to mock data
+            if category and category != "all":
+                articles = [a for a in articles if a.get('category', '').lower() == category.lower()]
         
         # Apply search filter if provided
         if search:
