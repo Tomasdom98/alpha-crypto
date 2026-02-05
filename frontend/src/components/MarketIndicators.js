@@ -7,11 +7,11 @@ export default function MarketIndicators({ fearGreed }) {
     {
       id: 'rainbow',
       name: 'Bitcoin Rainbow Chart',
-      value: 'Accumulate',
-      label: 'Buy Zone',
+      value: 'Acumular',
+      label: 'Zona de Compra',
       interpretation: 'bullish',
       icon: TrendingUp,
-      description: 'Long-term price indicator',
+      description: 'Indicador de precio a largo plazo',
     },
     {
       id: 'mvrv',
