@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Briefcase, User, Building2, Mail, Send, CheckCircle, Loader2, Shield, Zap } from 'lucide-react';
 import axios from 'axios';
+import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
@@ -15,7 +16,7 @@ function ConsultingPage() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      setError('Please fill in all required fields');
+      setError('Por favor completa todos los campos requeridos');
       return;
     }
     setSubmitting(true);
@@ -25,19 +26,22 @@ function ConsultingPage() {
         setSubmitted(true);
         setForm({ name: '', email: '', company: '', message: '', service_type: 'personal' });
       })
-      .catch(function() { setError('Failed to submit. Please try again.'); })
+      .catch(function() { setError('Error al enviar. Por favor intenta de nuevo.'); })
       .finally(function() { setSubmitting(false); });
   }
 
-  var personalFeatures = 'Portfolio review, Risk assessment, Entry/exit strategies, Airdrop hunting, DeFi yield strategies';
-  var businessFeatures = 'Treasury management, Crypto payments, Tokenomics design, Compliance, Team training';
+  var personalFeatures = 'Revisión de portfolio, Evaluación de riesgo, Estrategias de entrada/salida, Airdrop hunting, Estrategias DeFi';
+  var businessFeatures = 'Gestión de tesorería, Pagos crypto, Diseño de tokenomics, Compliance, Capacitación de equipo';
 
   return (
-    <div className="min-h-screen py-12" data-testid="consulting-page">
+    <div className="min-h-screen py-12 relative" data-testid="consulting-page">
+      {/* Owl Seal */}
+      <OwlSeal position="bottom-right" size="md" opacity={0.1} className="fixed z-10 hidden lg:block" />
+      
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Back to Home
+            <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="consulting-heading">Crypto Consulting</h1>
           <p className="text-gray-400 text-lg">Expert guidance for your crypto journey</p>
