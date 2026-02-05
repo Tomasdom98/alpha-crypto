@@ -142,9 +142,24 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [ ] Export to GitHub
 
 ## Brand Assets
-- **Logo:** Símbolo α (alpha) con gradiente verde esmeralda
-- **Mascota Búho:** Imagen recortada mostrando solo el búho cyber
-- **Asset URL:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png
+- **Logo AC:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/3t4s66a5_Gemini_Generated_Image_2rrfmj2rrfmj2rrf.png
+  - Fondo: #1a1f2e (azul oscuro)
+  - Tamaño: 44px con border-radius: 8px
+  - Ubicación: Header y Footer
+  
+- **Búho Mascota:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png
+  - Fondo: Negro (matchea con #0f172a del sitio)
+  - Tamaño Hero: 280-320px
+  - Ubicación: Hero section, Señales, Footer watermark
+  
+- **Favicon:** Logo AC (link en index.html)
+
+## Color Scheme
+- Fondo principal: #0f172a
+- Fondo cards: #1a1f2e (matchea logo)
+- Acento verde: #10b981 (emerald-500)
+- Texto principal: white
+- Texto secundario: gray-400
 
 ## Custom CSS Animations
 - `animate-float` - Animación flotante para el búho
