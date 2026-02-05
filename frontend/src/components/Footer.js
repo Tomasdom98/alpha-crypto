@@ -59,7 +59,8 @@ export default function Footer() {
               <img 
                 src={LOGO_URL} 
                 alt="Alpha Crypto" 
-                className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(16,185,129,0.4)] transition-transform group-hover:scale-110"
+                className="w-14 h-14 object-contain drop-shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-transform group-hover:scale-110"
+                style={{ objectPosition: 'center 15%' }}
               />
               <span className="font-bold text-xl text-white group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 Alpha Crypto
