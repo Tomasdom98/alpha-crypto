@@ -67,7 +67,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         
         {/* Owl in hero - subtle background element */}
-        <OwlSeal position="center" size="xl" opacity={0.04} className="hidden md:block" style={{ marginTop: '60px' }} />
+        <OwlSeal position="center" size="xl" opacity={0.06} showText={false} className="hidden md:block" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm animate-pulse-glow">
