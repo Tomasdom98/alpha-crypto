@@ -1391,7 +1391,7 @@ async def get_global_market_data():
     """Get global market data from CoinGecko"""
     cache_key = "global_market"
     
-    cached = api_cache.get(cache_key)
+    cached = await api_cache.get(cache_key, ttl_seconds=120)
     if cached:
         return cached
     
@@ -1414,7 +1414,7 @@ async def get_global_market_data():
                         "market_cap_change_24h": round(global_data.get("market_cap_change_percentage_24h_usd", 0), 2)
                     }
                     
-                    api_cache.set(cache_key, result, ttl=120)
+                    await api_cache.set(cache_key, result)
                     return result
                 else:
                     logger.warning(f"CoinGecko global API returned {response.status}")
