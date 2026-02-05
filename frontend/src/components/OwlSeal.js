@@ -1,7 +1,7 @@
 // Alpha Crypto Owl Seal - Brand identity component
 // Used as a watermark/seal across all pages
 
-const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png";
+const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ophjijkw_Screenshot%202026-02-05%20at%2013.02.09.png";
 
 export default function OwlSeal({ 
   position = 'bottom-right',
