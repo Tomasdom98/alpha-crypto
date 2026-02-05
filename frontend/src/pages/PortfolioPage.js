@@ -251,6 +251,126 @@ export default function PortfolioPage() {
           </div>
         </div>
 
+        {/* Stablecoin Yields Section */}
+        <div className="mt-8 glass-card rounded-2xl p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <span className="text-2xl">💰</span> Stablecoin Yields
+              </h2>
+              <p className="text-gray-400 text-sm mt-1">Las mejores opciones para generar rendimiento con tus stablecoins</p>
+            </div>
+            <span className="bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
+              DeFi Opportunities
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Placeholder Card 1 */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
+                  ?
+                </div>
+                <div>
+                  <h3 className="font-bold text-white">Próximamente</h3>
+                  <span className="text-gray-500 text-sm">Protocolo DeFi</span>
+                </div>
+              </div>
+              
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">APY Estimado</span>
+                  <span className="font-mono font-bold text-emerald-400">--%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Stablecoin</span>
+                  <span className="text-gray-300">USDC / USDT</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Riesgo</span>
+                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
+                </div>
+              </div>
+              
+              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
+                Próximamente
+              </button>
+            </div>
+            
+            {/* Placeholder Card 2 */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
+                  ?
+                </div>
+                <div>
+                  <h3 className="font-bold text-white">Próximamente</h3>
+                  <span className="text-gray-500 text-sm">Lending Protocol</span>
+                </div>
+              </div>
+              
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">APY Estimado</span>
+                  <span className="font-mono font-bold text-emerald-400">--%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Stablecoin</span>
+                  <span className="text-gray-300">DAI / USDC</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Riesgo</span>
+                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
+                </div>
+              </div>
+              
+              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
+                Próximamente
+              </button>
+            </div>
+            
+            {/* Placeholder Card 3 */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
+                  ?
+                </div>
+                <div>
+                  <h3 className="font-bold text-white">Próximamente</h3>
+                  <span className="text-gray-500 text-sm">Yield Aggregator</span>
+                </div>
+              </div>
+              
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">APY Estimado</span>
+                  <span className="font-mono font-bold text-emerald-400">--%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Stablecoin</span>
+                  <span className="text-gray-300">Multi-stable</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Riesgo</span>
+                  <span className="text-amber-400 text-sm font-medium">Pendiente</span>
+                </div>
+              </div>
+              
+              <button disabled className="w-full py-2 bg-gray-700 text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed">
+                Próximamente
+              </button>
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+            <p className="text-blue-400 text-sm">
+              <strong>Nota:</strong> Los protocolos serán agregados próximamente con links directos. 
+              Solo incluiremos opciones verificadas y auditadas.
+            </p>
+          </div>
+        </div>
+
         <div className="mt-8 p-4 bg-gray-900/50 border border-gray-800 rounded-xl text-center">
           <p className="text-xs text-gray-500">
             This portfolio is for educational purposes only. Past performance does not guarantee future results. 
