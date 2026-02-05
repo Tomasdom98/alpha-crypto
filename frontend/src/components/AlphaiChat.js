@@ -76,21 +76,14 @@ export default function AlphaiChat({ isOpen, onClose }) {
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-      style={{ 
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        bottom: 0, 
-        zIndex: 9999,
-        margin: 0
-      }}
+      className="fixed inset-0 flex items-center justify-center p-4"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, margin: 0 }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
       <div 
-        className="w-full max-w-2xl bg-[#0f172a] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden"
-        style={{ height: '70vh', maxHeight: '600px' }}
+        className="relative w-full max-w-2xl bg-[#0f172a] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden"
+        style={{ height: '550px', maxHeight: '80vh' }}
       >
         {/* Header */}
         <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-gray-800 bg-gradient-to-r from-gray-900 to-[#0f172a]">
