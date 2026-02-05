@@ -74,7 +74,7 @@ export default function HomePage() {
             Tu fuente de <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">alpha</span> en crypto
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 fade-in" data-testid="hero-description" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Análisis profundo, airdrops verificados, e insights de mercado para inversores inteligentes
+            Indicadores on-chain, artículos educativos, airdrops verificados, señales de inversión y portfolio tracking. Todo en un solo lugar.
           </p>
         </div>
       </section>
