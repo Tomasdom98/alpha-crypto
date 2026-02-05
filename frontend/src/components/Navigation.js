@@ -91,7 +91,7 @@ export default function Navigation() {
             <button
               onClick={() => setShowAlphai(true)}
               data-testid="alphai-nav-btn"
-              className="relative px-4 py-2 rounded-lg font-mono font-bold text-emerald-400 border border-emerald-500/50 bg-emerald-500/10 hover:bg-emerald-500/20 transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+              className="px-3 py-1.5 rounded-lg text-sm font-mono font-medium text-emerald-400 border border-emerald-500/40 hover:border-emerald-500 hover:bg-emerald-500/10 transition-all"
             >
               ALPHA-I
             </button>
