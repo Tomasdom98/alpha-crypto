@@ -740,7 +740,7 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
         },
         {
             "id": "5",
-            "title": "⚡ L2 Wars 2026: Arbitrum vs Optimism vs Base",
+            "title": "L2 Wars 2026: Arbitrum vs Optimism vs Base",
             "excerpt": "Los Layer 2 dominan Ethereum. Aquí está cuál elegir para trading, airdrops y desarrollo.",
             "category": "Tecnología",
             "tags": ["Layer 2", "Ethereum", "Arbitrum", "Base", "Optimism"],
@@ -748,37 +748,37 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
             "premium": False,
             "published_at": "2026-01-25T11:00:00Z",
             "image_url": "https://images.unsplash.com/photo-1666624833516-6d0e320c610d?w=800",
-            "content": """GM. Los L2s son el futuro de Ethereum. Pero, ¿cuál elegir? Te lo desglosamos. ⚡
+            "content": """GM. Los L2s son el futuro de Ethereum. Pero, ¿cuál elegir? Te lo desglosamos.
 
 ---
 
-## 🤔 ¿POR QUÉ LAYER 2?
+## ¿POR QUÉ LAYER 2?
 
 **Ethereum Mainnet:**
-- ✅ Muy seguro
-- ❌ Caro ($5-50 por tx)
-- ❌ Lento (~15 TPS)
+- Muy seguro
+- Caro ($5-50 por tx)
+- Lento (~15 TPS)
 
 **Layer 2s:**
-- ✅ Heredan seguridad de ETH
-- ✅ 10-100x más baratos
-- ✅ Mucho más rápidos
+- Heredan seguridad de ETH
+- 10-100x más baratos
+- Mucho más rápidos
 
 ---
 
-## 📊 COMPARATIVA RÁPIDA
+## COMPARATIVA RÁPIDA
 
 | | Arbitrum | Optimism | Base |
 |--|----------|----------|------|
 | **TVL** | $12B+ | $6B+ | $4B+ |
-| **Token** | ARB | OP | ❌ No tiene |
+| **Token** | ARB | OP | No tiene |
 | **Costo TX** | $0.05-0.20 | $0.05-0.15 | $0.01-0.10 |
 | **Apps** | 400+ | 200+ | 150+ |
 | **Respaldo** | Offchain Labs | Optimism Foundation | Coinbase |
 
 ---
 
-## 🏆 ARBITRUM: EL REY DEL TVL
+## ARBITRUM: EL REY DEL TVL
 
 **Fortalezas:**
 - Mayor ecosistema DeFi
@@ -793,7 +793,7 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
 
 ---
 
-## 🔴 OPTIMISM: LA VISIÓN SUPERCHAIN
+## OPTIMISM: LA VISIÓN SUPERCHAIN
 
 **Fortalezas:**
 - Superchain: Base, Zora usan su tech
@@ -808,7 +808,7 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
 
 ---
 
-## 🔵 BASE: EL ONRAMP DE COINBASE
+## BASE: EL ONRAMP DE COINBASE
 
 **Fortalezas:**
 - Fees más bajos
@@ -823,18 +823,18 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
 
 ---
 
-## 💰 OPORTUNIDADES DE AIRDROP
+## OPORTUNIDADES DE AIRDROP
 
 | Chain | Token | Probabilidad | Qué hacer |
 |-------|-------|--------------|-----------|
-| Base | ❓ | Alta | Usar activamente |
+| Base | ? | Alta | Usar activamente |
 | zkSync | ZK (próx) | Muy Alta | Bridgear, tradear |
-| Scroll | ❓ | Alta | Usar dApps |
-| Linea | ❓ | Media | Actividad básica |
+| Scroll | ? | Alta | Usar dApps |
+| Linea | ? | Media | Actividad básica |
 
 ---
 
-## 🎯 RECOMENDACIÓN
+## RECOMENDACIÓN
 
 **Para trading/DeFi:** Arbitrum
 - Mayor liquidez, más protocolos
@@ -852,15 +852,11 @@ No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
 
 ---
 
-## 🔮 PREDICCIÓN
+## PREDICCIÓN
 
 > "Los L2s procesarán más transacciones que Ethereum mainnet para fin de 2026."
 
-El ganador no será uno. Será un ecosistema interconectado de L2s especializados.
-
----
-
-*¿Cuál es tu L2 favorito? Responde.* 🦉"""
+El ganador no será uno. Será un ecosistema interconectado de L2s especializados. 🦉"""
         }
     ]
 
