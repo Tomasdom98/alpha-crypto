@@ -15,13 +15,13 @@ export default function Navigation() {
     { path: '/', label: 'Inicio' },
     { path: '/articles', label: 'Alpha Research' },
     { path: '/indices', label: 'Índices' },
-    { path: '/airdrops', label: 'Airdrops' },
   ];
 
   // Premium content
   const premiumItems = [
     { path: '/portfolio', label: 'Portfolio' },
     { path: '/signals', label: 'Señales' },
+    { path: '/airdrops', label: 'Airdrops' },
     { path: '/consulting', label: 'Consultoría' },
   ];
 
