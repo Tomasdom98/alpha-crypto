@@ -170,7 +170,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
               <div className="flex items-center justify-between mt-3 text-xs">
                 <div className="flex items-center gap-2 text-gray-500">
                   <Sparkles size={12} />
-                  <span>ALPHAI Research - Powered by AI</span>
+                  <span>ALPHA-I Research - Powered by AI</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-500">{remainingMessages} mensajes restantes</span>
