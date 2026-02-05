@@ -216,11 +216,11 @@ export default function MarketIndicesPage() {
       value: '45',
       status: 'neutral',
       label: 'Bitcoin Season',
-      signal: 'Hold',
-      explanation: 'Aún no es altseason. Enfócate en BTC/ETH hasta índice > 75.',
+      signal: 'Watchlist',
+      explanation: 'Aún no es altseason. En observación hasta índice > 75 para rotar a alts.',
       icon: TrendingDown,
       sparklineData: generateSparklineData('neutral', 0.15),
-      sparklineColor: '#eab308'
+      sparklineColor: '#06b6d4'
     },
     {
       id: 'total-mcap',
