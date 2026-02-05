@@ -320,7 +320,7 @@ def get_mock_airdrops():
         {
             "id": "1",
             "project_name": "Hyperliquid",
-            "logo_url": "https://assets.coingecko.com/coins/images/37089/standard/hyperliquid.jpeg",
+            "logo_url": "https://ui-avatars.com/api/?name=HL&background=3b82f6&color=fff&size=128&bold=true&format=svg",
             "chain": "Hyperliquid L1",
             "description": "High-performance perpetuals DEX with native L1 blockchain",
             "full_description": "Hyperliquid is a decentralized perpetual exchange built on its own L1 blockchain. Offers CEX-like performance with self-custody. One of the most anticipated airdrops with confirmed points program.",
@@ -343,7 +343,7 @@ def get_mock_airdrops():
         {
             "id": "2",
             "project_name": "Drift Protocol",
-            "logo_url": "https://assets.coingecko.com/coins/images/28179/standard/drift.png",
+            "logo_url": "https://ui-avatars.com/api/?name=DR&background=8b5cf6&color=fff&size=128&bold=true&format=svg",
             "chain": "Solana",
             "description": "Leading perpetuals DEX on Solana with proven airdrop track record",
             "full_description": "Drift is the largest perpetuals exchange on Solana. Already airdropped DRIFT token to early users. Season 2 rewards program is live with additional token allocations.",
@@ -366,7 +366,7 @@ def get_mock_airdrops():
         {
             "id": "3",
             "project_name": "GRVT",
-            "logo_url": "https://pbs.twimg.com/profile_images/1697545334978134016/r8bxuFSi_400x400.jpg",
+            "logo_url": "https://ui-avatars.com/api/?name=GR&background=10b981&color=fff&size=128&bold=true&format=svg",
             "chain": "zkSync",
             "description": "Institutional-grade hybrid DEX on zkSync with CEX-like performance",
             "full_description": "GRVT combines the best of CEX and DEX: self-custody with institutional-grade speed and liquidity. Built on zkSync Era with backing from major crypto VCs. Confirmed token launch.",
