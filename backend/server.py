@@ -1068,17 +1068,18 @@ def get_mock_signals():
 
 @api_router.get("/early-signals")
 async def get_early_signals():
-    """Get early signals - tries Sanity CMS first, falls back to mock data"""
+    """Get early signals - tries Sanity CMS first, falls back to mock data if not enough content"""
     try:
         # Try Sanity CMS first
-        signals = await sanity_get_signals()
+        sanity_signals = await sanity_get_signals()
         
-        if signals and len(signals) > 0:
-            logger.info(f"Fetched {len(signals)} signals from Sanity CMS")
-            return signals
+        # Use Sanity if it has at least 3 signals, otherwise use mock data
+        if sanity_signals and len(sanity_signals) >= 3:
+            logger.info(f"Using {len(sanity_signals)} signals from Sanity CMS")
+            return sanity_signals
         
         # Fallback to mock data
-        logger.info("Sanity returned no signals, using mock data")
+        logger.info(f"Sanity has only {len(sanity_signals) if sanity_signals else 0} signals, using mock data")
         return get_mock_signals()
     except Exception as e:
         logger.error(f"Error fetching signals: {e}")
