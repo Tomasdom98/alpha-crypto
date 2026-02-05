@@ -1,7 +1,7 @@
 # Alpha Crypto - Product Requirements Document
 
 ## Overview
-Alpha Crypto is a full-stack crypto alpha platform providing market insights, airdrop tracking, premium content, portfolio transparency, and investment analysis for crypto investors.
+Alpha Crypto is a full-stack crypto alpha platform providing market insights, airdrop tracking, educational content, and investment analysis for crypto investors. The platform is designed with a dark, professional theme inspired by "The Milk Road".
 
 ## Tech Stack
 - **Frontend:** React, React Router, Tailwind CSS, Recharts
@@ -9,186 +9,111 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - **Database:** MongoDB
 - **CMS:** Sanity.io (Project ID: 15c5x8s5) - Integrated with automatic fallback
 - **APIs:** CoinGecko (live prices), Alternative.me (Fear & Greed Index)
+- **Email:** Resend (for form notifications)
 
-## Pricing Structure (Two-Tier)
+## Language
+- Site language: **Spanish (LATAM)**
+- All sections translated to Spanish
 
-### Free Content
-- Articles
-- Market Indices
-- Basic education
-
-### Alpha Access ($30/month USDC)
-- Airdrops with detailed guides
-- Portfolio tracking
-- Early Signals and alerts
-- Premium market analysis
-- Advanced indicators
-
-### Alpha Pro ($100/month USDC)
-- Everything in Alpha Access
-- Personal & business consulting
-- Priority support
-- Exclusive research
-- Monthly strategy calls
-
-### Payment Methods
-- Solana (USDC-SPL): `2X7DSWNgegbCCk1A9cdiSQm5Fk3zpkesDRpQrSqETKiv`
-- Base (USDC): `0x8b1624c8b184Edb4e7430194865490Ba5e860f0C`
-- Arbitrum (USDC): `0x8b1624c8b184Edb4e7430194865490Ba5e860f0C`
-
-## Navigation Structure
-
-### Free Section
-- Home
-- Artículos
-- Índices
-- Airdrops
-
-### Premium Section (highlighted with crown icon)
-- Portfolio
-- Señales
-- Consultoría
+## Brand Identity
+- **Logo:** Text-based `αC Alpha Crypto`
+  - α (alpha) in emerald-400
+  - C in white
+  - "Alpha Crypto" in white with green hover
+  - Location: Header and Footer
+  
+- **Owl Seal:** Component `/app/frontend/src/components/OwlSeal.js`
+  - Fixed position bottom-right on all pages
+  - Opacity: 35%
+  - Professional technological design
 
 ## Core Features
 
 ### 1. Homepage ✅
 - Live crypto ticker (BTC, ETH, SOL, USDC)
-- Fear & Greed Index gauge (compact)
+- Fear & Greed Index gauge
 - Market indicators
 - Two-tier premium banner
 
 ### 2. Articles Page (`/articles`) ✅
 - 5 complete educational articles in Spanish
-- Dark-themed professional images
-- Full article content with formatting
+- Milk Road style content with tables, blockquotes, emojis
+- Category tags displayed (USDC, USDT, Pagos, etc.)
+- Read time indicator
 - Click to read full article
 
-### 3. Airdrops Page (`/airdrops`) ✅
-- **15 verified airdrops with referral links:**
-  1. Hyena Trade - https://app.hyena.trade/ref/ALPHACRYPTO
-  2. Extended Exchange - https://app.extended.exchange/join/TOMDEFI
-  3. GRVT - https://grvt.io (ref: tomd411)
-  4. Based.one - https://app.based.one/r/TOMDEFI
-  5. Backpack - https://backpack.exchange/join/da5e1eb4-cbc1-4faf-afa6-9f11e80ce47a
-  6. Avantis - https://www.avantisfi.com/referral?code=tomdefi
-  7. StandX - https://standx.com/referral?code=tomdefi
-  8. Variational - https://omni.variational.io/perpetual/SOL
-  9. Pacifica - https://app.pacifica.fi?referral=tomdefi
-  10. Hibachi - https://hibachi.xyz/r/alphacrypto
-  11. Reya - https://app.reya.xyz/trade?referredBy=roxzmgsj
-  12. Ostium - https://app.ostium.com/trade?from=SPX&to=USD&ref=01XAZ
-  13. Ethereal - https://app.ethereal.trade
-  14. Paradex - https://app.paradex.trade/r/collaborativeclaimerr
-  15. Lighter - https://app.lighter.xyz
+### 3. Article Detail Page ✅ (Updated Feb 2026)
+- Rich markdown rendering (headers, lists, blockquotes, tables)
+- Dynamic read time from backend
+- Category tags from article data
+- Share functionality
+- Responsive design
 
-### 4. Market Indices Page (`/indices`) ✅
-- Fear & Greed, MVRV, BTC Dominance, Rainbow Chart, Puell Multiple
+### 4. Airdrops Page (`/airdrops`) ✅
+- 15 verified airdrops with referral links
+- Educational intro section
+- Task tracking
+- Difficulty indicators
+
+### 5. Market Indices Page (`/indices`) ✅
+- Fear & Greed, MVRV, BTC Dominance, Rainbow Chart
+- Sparkline charts
+- Large format charts with mock data
 - Buy/Hold/Sell recommendations
 
-### 5. Investment Analysis Page (`/analysis`) ✅
-- Market Report styled after Atlantis
-- Sector Analysis table
-- Recommended Allocations
+### 6. Premium Features
+- Portfolio tracking
+- Early Signals
+- Consulting services
 
-### 6. Portfolio Page (`/portfolio`) ✅
-- Milk Road style display
-- Holdings and performance charts
+## Email Integration (Feb 2026)
+- **Service:** Resend
+- **Configured for:**
+  - Feedback form notifications
+  - Consulting request notifications
+- **Admin Email:** tomdomingueclaro@gmail.com
+- **Note:** Requires domain verification for production use
 
-### 7. Early Signals Page (`/signals`) ✅
-- Real-time alerts and opportunities
-- Email subscription form
+## API Endpoints
 
-### 8. Consulting Page (`/consulting`) ✅
-- Personal/Business consulting form
-- MongoDB storage
+### Public
+- `GET /api/articles` - List all articles with tags
+- `GET /api/articles/{id}` - Single article detail
+- `GET /api/airdrops` - List airdrops
+- `GET /api/crypto/prices` - Live prices (cached)
+- `GET /api/crypto/fear-greed` - Fear & Greed index (cached)
 
-### 9. Admin Page (`/admin`) ✅
-- Payment verification
-- Feedback, Consulting, Subscribers tabs
+### Form Submissions
+- `POST /api/feedback` - Submit feedback (sends email)
+- `POST /api/consulting` - Request consulting (sends email)
 
-## Completed Tasks (February 2026)
+## Recent Updates (Feb 5, 2026)
 
-### Priority Alta ✅
-- [x] Fix Airdrops List - Restored 15 airdrops with correct referral links
-- [x] Fix Article Click - Navigation and full content
-- [x] Two-Tier Pricing - $30 Alpha Access / $100 Alpha Pro modal
+### Completed
+- [x] ArticleDetailPage - Rich markdown rendering
+- [x] ArticleDetailPage - Dynamic tags and read_time
+- [x] ArticlesPage - Category tags display
+- [x] Backend - Resend email integration
+- [x] Backend - Article model with tags/read_time fields
 
-### Navigation Update ✅
-- [x] Restructured navigation: Free vs Premium sections
-- [x] Premium items highlighted with amber/crown icon
+### Pending
+- [ ] Resend domain verification for production emails
+- [ ] CoinGecko API fallback (rate limiting issues)
+- [ ] Real data for large charts (DefiLlama)
+- [ ] Airdrop steps verification
 
-### Articles Update ✅
-- [x] Stablecoins: Dark theme professional image
-- [x] AI Agents: Full educational content
-- [x] Crypto 2026: Complete market analysis
-- [x] DeFi 2.0: Real yield protocols guide
-- [x] L2 Wars: Arbitrum vs Optimism vs Base comparison
-
-## In Progress / Upcoming Tasks
-
-### Priority Media - COMPLETADO ✅
-- [x] Airdrops Educational Intro - "¿Qué es un Airdrop?" section ✅
-- [x] Indices Charts - Mini sparkline charts for each indicator ✅
-- [x] CoinGecko API Cache System - Server-side caching implemented ✅
-- [x] Brand Assets Integration - Logo α + Búho Cyber mascot ✅
-- [x] Visual Identity Improvements - Navigation, Hero, Footer updated ✅
-- [x] Full-size charts - Total Market Cap, Stablecoin Market Cap, DeFi TVL ✅
-
-### Future Tasks
-- [ ] Integrate real email service (Resend/SendGrid)
-- [ ] Search/Filter functionality for articles and airdrops
-- [ ] Automatic on-chain payment verification
-- [ ] Migrate to Next.js
-- [ ] Export to GitHub
-
-## Last Update: Febrero 2026
-
-## Language
-- Idioma del sitio: **Español (LATAM)**
-- Todas las secciones traducidas al español
-
-## Brand Identity
-- **Logo:** Texto `αC Alpha Crypto`
-  - α (alpha) en verde emerald-400
-  - C en blanco
-  - "Alpha Crypto" en blanco con hover verde
-  - Ubicación: Header y Footer
-  
-- **Búho Sello (Owl Seal):** Componente `/app/frontend/src/components/OwlSeal.js`
-  - URL: https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png
-  - Posición: Fixed bottom-right en todas las páginas
-  - Opacidad: 35%
-  - Incluye texto "αC" debajo
-  - Páginas con sello: HomePage, ArticlesPage, AirdropsPage, MarketIndicesPage, EarlySignalsPage, PortfolioPage, ConsultingPage, ArticleDetailPage
-  
-- **Favicon:** Logo AC (configurado en index.html)
+## Known Issues
+- CoinGecko API rate limiting (falls back to cached/mock data)
+- Resend in testing mode - emails only to verified addresses
 
 ## Color Scheme
-- Fondo principal: #0f172a
-- Fondo cards: #1a1f2e 
-- Acento verde: #10b981 (emerald-500)
-- Texto principal: white
-- Texto secundario: gray-400
-
-## Custom CSS Animations
-- `animate-float` - Animación flotante para el búho
-- `animate-pulse-glow` - Efecto glow pulsante para badges
-- `animate-gradient` - Gradiente animado para texto "alpha"
-- `glass-card` - Efecto glassmorphism para cards
-- `premium-glow` - Efecto glow para elementos premium
-
-## Test Reports
-- `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
-
-## User's Preferred Language
-Spanish (Español)
+- Background: #0f172a
+- Cards: #1a1f2e 
+- Accent: #10b981 (emerald-500)
+- Text: white / gray-400
 
 ## Key Files
-- `/app/backend/server.py` - All backend logic, API cache, mock data, endpoints
-- `/app/frontend/src/components/Navigation.js` - Free/Premium nav with logo
-- `/app/frontend/src/components/Footer.js` - Footer with brand assets
-- `/app/frontend/src/components/PremiumModal.js` - Two-tier pricing modal
-- `/app/frontend/src/pages/HomePage.js` - Hero with owl mascot
-- `/app/frontend/src/pages/EarlySignalsPage.js` - Signals with owl decoration
-- `/app/frontend/src/index.css` - Custom animations (float, pulse-slow)
-- `/app/docs/SANITY_SCHEMAS.md` - CMS schema documentation
+- `/app/backend/server.py` - API, cache, email integration
+- `/app/frontend/src/pages/ArticleDetailPage.js` - Rich article view
+- `/app/frontend/src/pages/ArticlesPage.js` - Articles grid with tags
+- `/app/frontend/src/components/OwlSeal.js` - Brand seal component
