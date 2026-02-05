@@ -381,7 +381,7 @@ El market cap podría alcanzar **$500B** para fin de 2026. Las stablecoins no so
         },
         {
             "id": "2",
-            "title": "🤖 AI Agents: Las Máquinas Ya Tienen Wallets... y Están Gastando",
+            "title": "AI Agents: Las Máquinas Ya Tienen Wallets... y Están Gastando",
             "excerpt": "El protocolo x402, Ethereum como backbone, y cómo los agentes de IA están creando una economía de $100B para 2030.",
             "category": "AI",
             "tags": ["Inteligencia Artificial", "x402", "Ethereum", "Automatización"],
@@ -389,23 +389,23 @@ El market cap podría alcanzar **$500B** para fin de 2026. Las stablecoins no so
             "premium": False,
             "published_at": "2026-02-03T15:30:00Z",
             "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800",
-            "content": """GM. ¿Qué pasaría si tu IA pudiera pagar sus propias facturas? Ya está pasando. 🤖💰
+            "content": """GM. ¿Qué pasaría si tu IA pudiera pagar sus propias facturas? Ya está pasando.
 
 ---
 
-## 🧠 ¿QUÉ SON LOS AI AGENTS EN CRYPTO?
+## ¿QUÉ SON LOS AI AGENTS EN CRYPTO?
 
 Imagina un bot que:
-- ✅ Tiene su propia wallet
-- ✅ Puede recibir y enviar pagos
-- ✅ Opera 24/7 sin intervención humana
-- ✅ Toma decisiones financieras autónomas
+- Tiene su propia wallet
+- Puede recibir y enviar pagos
+- Opera 24/7 sin intervención humana
+- Toma decisiones financieras autónomas
 
 **Eso es un AI Agent.** Y están multiplicándose.
 
 ---
 
-## ⚡ EL PROTOCOLO x402: HTTP CON PAGOS
+## EL PROTOCOLO x402: HTTP CON PAGOS
 
 El x402 es como HTTP pero con pagos nativos. Funciona así:
 
@@ -421,11 +421,11 @@ Ejemplo real: Un AI Agent que necesita procesar datos puede automáticamente:
 3. Pagar en crypto
 4. Recibir el servicio
 
-Todo en segundos. 🚀
+Todo en segundos.
 
 ---
 
-## 📊 NÚMEROS QUE IMPORTAN
+## NÚMEROS QUE IMPORTAN
 
 | Métrica | 2025 | 2030 (Proyección) |
 |---------|------|-------------------|
@@ -435,7 +435,7 @@ Todo en segundos. 🚀
 
 ---
 
-## 🔥 PROYECTOS EN EL RADAR
+## PROYECTOS EN EL RADAR
 
 **Tier 1 - Ya funcionando:**
 - **Autonolas** - Framework para agentes autónomos
@@ -449,7 +449,7 @@ Todo en segundos. 🚀
 
 ---
 
-## 💡 ¿POR QUÉ ESTO IMPORTA?
+## ¿POR QUÉ ESTO IMPORTA?
 
 **La economía M2M (Machine-to-Machine) es el próximo salto.**
 
@@ -462,15 +462,15 @@ Piénsalo:
 
 ---
 
-## ⚠️ RIESGOS A CONSIDERAR
+## RIESGOS A CONSIDERAR
 
-🔴 **Regulación**: ¿Quién es responsable si una IA comete fraude?
-🔴 **Seguridad**: Smart contracts con bugs = dinero perdido
-🔴 **Concentración**: ¿Pocas corporaciones controlarán los agents?
+- **Regulación**: ¿Quién es responsable si una IA comete fraude?
+- **Seguridad**: Smart contracts con bugs = dinero perdido
+- **Concentración**: ¿Pocas corporaciones controlarán los agents?
 
 ---
 
-## 🎯 CÓMO POSICIONARSE
+## CÓMO POSICIONARSE
 
 **Conservador:**
 - ETH (backbone de AI agents)
@@ -486,15 +486,11 @@ Piénsalo:
 
 ---
 
-## 🔮 PREDICCIÓN
+## PREDICCIÓN
 
 > Para 2030, el 15% de todas las transacciones crypto serán ejecutadas por máquinas, no humanos.
 
-La economía agentic no es ciencia ficción. **Es la próxima frontera.**
-
----
-
-*¿Ya tienes exposure a AI x Crypto? Cuéntanos.* 🦉"""
+La economía agentic no es ciencia ficción. **Es la próxima frontera.** 🦉"""
         },
         {
             "id": "3",
