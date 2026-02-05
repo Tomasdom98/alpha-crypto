@@ -53,6 +53,18 @@ export default function MarketIndicators({ fearGreed }) {
     }
   };
 
+  // Translate Fear & Greed classification to Spanish
+  const translateClassification = (classification) => {
+    const translations = {
+      'Extreme Fear': 'Miedo Extremo',
+      'Fear': 'Miedo',
+      'Neutral': 'Neutral',
+      'Greed': 'Codicia',
+      'Extreme Greed': 'Codicia Extrema'
+    };
+    return translations[classification] || classification || 'Neutral';
+  };
+
   // Fear & Greed gauge color
   const getFearGreedColor = () => {
     const value = fearGreed?.value || 50;
