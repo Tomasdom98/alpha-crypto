@@ -1802,6 +1802,25 @@ async def submit_feedback(feedback: FeedbackSubmission):
             "read": False
         }
         await db.feedback.insert_one(feedback_doc)
+        
+        # Send email notification
+        email_html = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1f2e; padding: 30px; border-radius: 10px;">
+            <h2 style="color: #10b981; margin-bottom: 20px;">📬 Nuevo Feedback - Alpha Crypto</h2>
+            <div style="background: #0f172a; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Nombre:</strong> {feedback.name}</p>
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Email:</strong> {feedback.email}</p>
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Mensaje:</strong></p>
+                <p style="color: white; background: #1e293b; padding: 15px; border-radius: 5px;">{feedback.message}</p>
+            </div>
+            <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">Enviado desde Alpha Crypto Platform</p>
+        </div>
+        """
+        await send_notification_email(
+            subject=f"📬 Nuevo Feedback de {feedback.name}",
+            html_content=email_html
+        )
+        
         return {"success": True, "message": "Feedback submitted successfully"}
     except Exception as e:
         logger.error(f"Error submitting feedback: {e}")
