@@ -7,6 +7,7 @@ import PremiumBanner from '@/components/PremiumBanner';
 import MarketIndicators from '@/components/MarketIndicators';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import OwlSeal from '@/components/OwlSeal';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
