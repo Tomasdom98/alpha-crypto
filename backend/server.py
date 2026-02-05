@@ -967,25 +967,38 @@ async def get_crypto_prices():
 
 @api_router.get("/crypto/fear-greed")
 async def get_fear_greed_index():
-    """Get Fear & Greed Index from Alternative.me API"""
+    """Get Fear & Greed Index from Alternative.me API with caching"""
+    cache_key = "fear_greed_index"
+    
+    # Check cache first
+    cached_data = await api_cache.get(cache_key, CACHE_TTL_FEAR_GREED)
+    if cached_data:
+        logger.debug("Returning cached Fear & Greed index")
+        return cached_data
+    
     try:
         async with aiohttp.ClientSession() as session:
-            async with session.get("https://api.alternative.me/fng/") as response:
+            async with session.get("https://api.alternative.me/fng/", timeout=10) as response:
                 if response.status == 200:
                     data = await response.json()
                     index_data = data['data'][0]
-                    return {
+                    result = {
                         "value": int(index_data['value']),
                         "classification": index_data['value_classification'],
                         "timestamp": index_data['timestamp']
                     }
+                    await api_cache.set(cache_key, result)
+                    logger.info(f"Fetched Fear & Greed index: {result['value']} - caching for {CACHE_TTL_FEAR_GREED}s")
+                    return result
     except Exception as e:
-        # Fallback to mock data
-        return {
-            "value": 62,
-            "classification": "Greed",
-            "timestamp": str(int(datetime.now(timezone.utc).timestamp()))
-        }
+        logger.error(f"Error fetching Fear & Greed index: {e}")
+    
+    # Fallback to mock data
+    return {
+        "value": 12,
+        "classification": "Extreme Fear",
+        "timestamp": str(int(datetime.now(timezone.utc).timestamp()))
+    }
 
 @api_router.get("/crypto/market-stats")
 async def get_market_stats():
