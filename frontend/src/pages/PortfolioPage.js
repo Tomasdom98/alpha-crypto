@@ -241,7 +241,7 @@ export default function PortfolioPage() {
               </div>
 
               <div className="glass-card rounded-2xl p-6">
-                <h3 className="text-sm font-bold text-gray-400 mb-4">Allocation</h3>
+                <h3 className="text-sm font-bold text-gray-400 mb-4">{tx.allocation}</h3>
                 <div className="space-y-3">
                   {holdings.map((h) => (
                     <div key={h.symbol} className="flex items-center gap-3">
