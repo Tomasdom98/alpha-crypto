@@ -84,7 +84,7 @@ export default function ArticlesPage() {
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             data-testid="articles-page-heading"
           >
-            Artículos & Análisis
+            Alpha Research
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Insights profundos y alpha para inversores crypto. Aprende sobre las últimas tendencias, tecnologías y oportunidades.
