@@ -6,9 +6,9 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Brand Assets
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ge03m8vd_Gemini_Generated_Image_p2d40gp2d40gp2d4.png";
-const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/mt7vcsqk_Gemini_Generated_Image_k7va0ik7va0ik7va.png";
+// Brand Assets - Dark theme versions
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png";
+const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png";
 
 export default function Footer() {
   const [feedbackForm, setFeedbackForm] = useState({ name: '', email: '', message: '' });
