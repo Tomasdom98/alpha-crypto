@@ -54,15 +54,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center space-x-3 mb-4 group">
-              <div className="w-12 h-12 rounded-full overflow-hidden transition-transform group-hover:scale-105">
-                <img 
-                  src={LOGO_URL} 
-                  alt="Alpha Crypto" 
-                  className="w-full h-full object-cover"
-                  style={{ mixBlendMode: 'lighten' }}
-                />
-              </div>
+            <Link to="/" className="flex items-center space-x-2 mb-4 group">
+              <span className="text-2xl font-bold transition-all duration-300 group-hover:scale-105">
+                <span className="text-emerald-400" style={{ fontFamily: 'serif' }}>α</span>
+                <span className="text-white">C</span>
+              </span>
               <span className="font-bold text-xl text-white group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 Alpha Crypto
               </span>
