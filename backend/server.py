@@ -877,7 +877,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Tradear perpetuos regularmente", "completed": False}
             ],
             "estimated_reward": "$2000-5000",
-            "difficulty": "Easy",
+            
             "deadline": "2026-03-31T23:59:59Z",
             "status": "active",
             "link": "https://grvt.io/exchange",
@@ -899,7 +899,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Completar quests disponibles", "completed": False}
             ],
             "estimated_reward": "$1500-4000",
-            "difficulty": "Easy",
+            
             "deadline": "2026-03-31T23:59:59Z",
             "status": "active",
             "link": "https://backpack.exchange",
@@ -921,7 +921,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Mantener actividad semanal", "completed": False}
             ],
             "estimated_reward": "$1500-4000",
-            "difficulty": "Easy",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://app.paradex.trade",
@@ -943,7 +943,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Usar pools de liquidez", "completed": False}
             ],
             "estimated_reward": "$2000-5000",
-            "difficulty": "Medium",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://app.reya.xyz",
@@ -965,7 +965,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Depositar en vaults de yield", "completed": False}
             ],
             "estimated_reward": "$1000-3000",
-            "difficulty": "Medium",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://www.avantisfi.com",
@@ -987,7 +987,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Tradear pares crypto", "completed": False}
             ],
             "estimated_reward": "$1000-3000",
-            "difficulty": "Medium",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://app.ostium.com",
@@ -1009,7 +1009,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Mantener volumen constante", "completed": False}
             ],
             "estimated_reward": "$500-2000",
-            "difficulty": "Easy",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://app.lighter.xyz",
@@ -1031,7 +1031,7 @@ def get_mock_airdrops():
                 {"id": "t3", "description": "Probar yield vaults", "completed": False}
             ],
             "estimated_reward": "$800-2500",
-            "difficulty": "Easy",
+            
             "deadline": "2026-06-30T23:59:59Z",
             "status": "active",
             "link": "https://app.pacifica.fi",
