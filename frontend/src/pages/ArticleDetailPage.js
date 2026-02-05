@@ -65,113 +65,9 @@ export default function ArticleDetailPage() {
   const formatContent = (content) => {
     if (!content) return '';
     
-    const lines = content.split('\n');
-    let html = '';
-    let inTable = false;
-    let tableRows = [];
-    let inCodeBlock = false;
-    let codeContent = '';
-    
-    const processLine = (line) => {
-      // Skip empty lines
-      if (!line.trim()) return '';
-      
-      // Code blocks
-      if (line.trim().startsWith('```')) {
-        if (inCodeBlock) {
-          inCodeBlock = false;
-          const result = `<pre class="bg-gray-900/80 border border-gray-700 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-emerald-400 text-sm font-mono">${codeContent}</code></pre>`;
-          codeContent = '';
-          return result;
-        } else {
-          inCodeBlock = true;
-          return '';
-        }
-      }
-      
-      if (inCodeBlock) {
-        codeContent += line + '\n';
-        return '';
-      }
-      
-      // Horizontal rule
-      if (line.trim() === '---') {
-        return '<hr class="border-gray-700 my-8" />';
-      }
-      
-      // Table detection
-      if (line.includes('|') && line.trim().startsWith('|')) {
-        if (!inTable) {
-          inTable = true;
-          tableRows = [];
-        }
-        // Skip separator rows
-        if (!line.includes('---')) {
-          tableRows.push(line);
-        }
-        return '';
-      } else if (inTable) {
-        // End of table
-        inTable = false;
-        const tableHtml = renderTable(tableRows);
-        tableRows = [];
-        return tableHtml + processLine(line);
-      }
-      
-      // H2 headers
-      if (line.startsWith('## ')) {
-        const text = line.slice(3);
-        return `<h2 class="text-2xl font-black text-white mt-10 mb-6 flex items-center gap-3">${text}</h2>`;
-      }
-      
-      // H3 headers
-      if (line.startsWith('### ')) {
-        const text = line.slice(4);
-        return `<h3 class="text-xl font-bold text-emerald-400 mt-8 mb-4">${text}</h3>`;
-      }
-      
-      // Blockquotes
-      if (line.startsWith('> ')) {
-        const text = formatInline(line.slice(2));
-        return `<blockquote class="border-l-4 border-emerald-500 pl-6 my-6 py-2 bg-emerald-500/5 rounded-r-lg"><p class="text-lg text-gray-300 italic">${text}</p></blockquote>`;
-      }
-      
-      // Numbered lists with emoji
-      const numberedMatch = line.match(/^(\d+️⃣|\d+\.) (.+)$/);
-      if (numberedMatch) {
-        return `<div class="flex items-start gap-3 my-2"><span class="text-emerald-400 font-bold min-w-[24px]">${numberedMatch[1]}</span><span class="text-gray-300">${formatInline(numberedMatch[2])}</span></div>`;
-      }
-      
-      // Medal/ranking emojis
-      const medalMatch = line.match(/^(🥇|🥈|🥉|4️⃣|5️⃣) (.+)$/);
-      if (medalMatch) {
-        return `<div class="flex items-center gap-3 my-2 py-1"><span class="text-2xl">${medalMatch[1]}</span><span class="text-gray-300 font-medium">${formatInline(medalMatch[2])}</span></div>`;
-      }
-      
-      // Bullet lists
-      if (line.startsWith('- ')) {
-        const text = formatInline(line.slice(2));
-        return `<div class="flex items-start gap-3 my-2"><span class="text-emerald-500 mt-1.5">•</span><span class="text-gray-300">${text}</span></div>`;
-      }
-      
-      // Check/cross items
-      if (line.startsWith('✅ ') || line.startsWith('❌ ') || line.startsWith('🔴 ') || line.startsWith('🟢 ') || line.startsWith('🟡 ')) {
-        const emoji = line.slice(0, 2);
-        const text = formatInline(line.slice(3));
-        return `<div class="flex items-start gap-3 my-2"><span class="text-lg">${emoji}</span><span class="text-gray-300">${text}</span></div>`;
-      }
-      
-      // Regular paragraphs
-      const formatted = formatInline(line);
-      if (formatted.trim()) {
-        return `<p class="mb-4 leading-relaxed text-gray-300">${formatted}</p>`;
-      }
-      
-      return '';
-    };
-    
-    // Format inline elements (bold, links, etc)
+    // Format inline elements (bold, code, etc)
     const formatInline = (text) => {
+      if (!text) return '';
       return text
         .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
         .replace(/`([^`]+)`/g, '<code class="bg-gray-800 px-2 py-0.5 rounded text-emerald-400 text-sm">$1</code>');
@@ -189,16 +85,11 @@ export default function ArticleDetailPage() {
       const bodyRows = rows.slice(1).map(parseRow);
       
       let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse">';
-      
-      // Header
       tableHtml += '<thead><tr class="border-b border-gray-700">';
       headerCells.forEach(cell => {
         tableHtml += `<th class="text-left py-3 px-4 text-emerald-400 font-semibold text-sm">${formatInline(cell)}</th>`;
       });
-      tableHtml += '</tr></thead>';
-      
-      // Body
-      tableHtml += '<tbody>';
+      tableHtml += '</tr></thead><tbody>';
       bodyRows.forEach((row, idx) => {
         const bgClass = idx % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/10';
         tableHtml += `<tr class="${bgClass} border-b border-gray-800">`;
@@ -208,13 +99,102 @@ export default function ArticleDetailPage() {
         tableHtml += '</tr>';
       });
       tableHtml += '</tbody></table></div>';
-      
       return tableHtml;
     };
     
-    // Process all lines
-    for (const line of lines) {
-      html += processLine(line);
+    const lines = content.split('\n');
+    let html = '';
+    let inTable = false;
+    let tableRows = [];
+    let inCodeBlock = false;
+    let codeLines = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Code blocks
+      if (line.trim().startsWith('```')) {
+        if (inCodeBlock) {
+          html += `<pre class="bg-gray-900/80 border border-gray-700 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-emerald-400 text-sm font-mono">${codeLines.join('\n')}</code></pre>`;
+          codeLines = [];
+          inCodeBlock = false;
+        } else {
+          inCodeBlock = true;
+        }
+        continue;
+      }
+      
+      if (inCodeBlock) {
+        codeLines.push(line);
+        continue;
+      }
+      
+      // Table handling
+      if (line.includes('|') && line.trim().startsWith('|')) {
+        inTable = true;
+        if (!line.includes('---')) {
+          tableRows.push(line);
+        }
+        continue;
+      } else if (inTable) {
+        html += renderTable(tableRows);
+        tableRows = [];
+        inTable = false;
+      }
+      
+      // Skip empty lines
+      if (!line.trim()) {
+        html += '<div class="h-4"></div>';
+        continue;
+      }
+      
+      // Horizontal rule
+      if (line.trim() === '---') {
+        html += '<hr class="border-gray-700 my-8" />';
+        continue;
+      }
+      
+      // H2 headers
+      if (line.startsWith('## ')) {
+        html += `<h2 class="text-2xl font-black text-white mt-10 mb-6">${line.slice(3)}</h2>`;
+        continue;
+      }
+      
+      // H3 headers
+      if (line.startsWith('### ')) {
+        html += `<h3 class="text-xl font-bold text-emerald-400 mt-8 mb-4">${line.slice(4)}</h3>`;
+        continue;
+      }
+      
+      // Blockquotes
+      if (line.startsWith('> ')) {
+        html += `<blockquote class="border-l-4 border-emerald-500 pl-6 my-6 py-2 bg-emerald-500/5 rounded-r-lg"><p class="text-lg text-gray-300 italic">${formatInline(line.slice(2))}</p></blockquote>`;
+        continue;
+      }
+      
+      // Bullet lists
+      if (line.startsWith('- ')) {
+        html += `<div class="flex items-start gap-3 my-2"><span class="text-emerald-500 mt-1.5">•</span><span class="text-gray-300">${formatInline(line.slice(2))}</span></div>`;
+        continue;
+      }
+      
+      // Numbered lists
+      const numberedMatch = line.match(/^(\d+\.)\s+(.+)$/);
+      if (numberedMatch) {
+        html += `<div class="flex items-start gap-3 my-2"><span class="text-emerald-400 font-bold min-w-[24px]">${numberedMatch[1]}</span><span class="text-gray-300">${formatInline(numberedMatch[2])}</span></div>`;
+        continue;
+      }
+      
+      // Emoji prefixed items (medals, checkmarks, etc)
+      if (/^[🥇🥈🥉✅❌🔴🟢🟡⚡💡🔥🎯⚠️1️⃣2️⃣3️⃣4️⃣5️⃣]/.test(line)) {
+        const emoji = line.match(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}✅❌]/u)?.[0] || '';
+        const text = emoji ? line.slice(emoji.length).trim() : line;
+        html += `<div class="flex items-start gap-3 my-2"><span class="text-xl">${emoji}</span><span class="text-gray-300">${formatInline(text)}</span></div>`;
+        continue;
+      }
+      
+      // Regular paragraphs
+      html += `<p class="mb-4 leading-relaxed text-gray-300">${formatInline(line)}</p>`;
     }
     
     // Close any remaining table
