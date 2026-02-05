@@ -122,11 +122,11 @@ export default function MarketIndicesPage() {
       name: 'Puell Multiple',
       value: '1.2',
       status: 'neutral',
-      signal: 'Hold',
-      explanation: 'Ingresos de mineros estables. Sin señales extremas de compra o venta.',
+      signal: 'Watchlist',
+      explanation: 'Ingresos de mineros estables. En observación para señales extremas.',
       icon: Zap,
       sparklineData: generateSparklineData('neutral', 0.12),
-      sparklineColor: '#eab308'
+      sparklineColor: '#06b6d4'
     }
   ];
 
