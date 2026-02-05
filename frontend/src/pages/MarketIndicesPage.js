@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, ChevronRight, Target, ShieldCheck, AlertTriangle, Zap } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, ChevronRight, Target, ShieldCheck, AlertTriangle, Zap, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
