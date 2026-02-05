@@ -164,7 +164,7 @@ class Airdrop(BaseModel):
     reward_note: Optional[str] = None
     tasks: List[AirdropTask]
     estimated_reward: str
-    difficulty: str
+    difficulty: Optional[str] = None
     deadline: str
     status: str
     link: str
