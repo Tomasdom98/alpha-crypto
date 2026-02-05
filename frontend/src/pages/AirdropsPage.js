@@ -7,12 +7,23 @@ import OwlSeal from '@/components/OwlSeal';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Protocol logos mapping
+const PROTOCOL_LOGOS = {
+  'GRVT': 'https://assets.coingecko.com/coins/images/36654/small/grvt.png',
+  'Backpack': 'https://assets.coingecko.com/coins/images/35809/small/backpack.jpg',
+  'Paradex': 'https://pbs.twimg.com/profile_images/1661674397886795776/G2YcSRXv_400x400.jpg',
+  'Reya Network': 'https://pbs.twimg.com/profile_images/1742206766913351680/Q1pKpH_Y_400x400.jpg',
+  'Avantis': 'https://pbs.twimg.com/profile_images/1717170688523182080/G0P5aYV5_400x400.jpg',
+  'Ostium': 'https://pbs.twimg.com/profile_images/1781680920452296704/pBKGT5Kk_400x400.jpg',
+  'Lighter': 'https://pbs.twimg.com/profile_images/1628031920227white876800/LdHiS0Qe_400x400.jpg',
+  'Pacifica': 'https://pbs.twimg.com/profile_images/1801651557270855680/7y_VkNnN_400x400.jpg'
+};
+
 function EducationalSection() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className="mb-8 glass-card rounded-2xl overflow-hidden border border-emerald-500/20">
-      {/* Header - Always visible */}
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full p-6 flex items-center justify-between hover:bg-gray-800/30 transition-colors"
@@ -35,19 +46,15 @@ function EducationalSection() {
         )}
       </button>
 
-      {/* Expandable Content */}
       {isExpanded && (
         <div className="px-6 pb-6 space-y-6 border-t border-gray-800">
-          {/* Main explanation */}
           <div className="pt-6">
             <p className="text-gray-300 leading-relaxed">
               Un <span className="text-emerald-400 font-semibold">airdrop</span> es una distribución gratuita de tokens 
-              que los proyectos crypto realizan para recompensar a usuarios tempranos y construir comunidad. 
-              En lugar de una ICO tradicional, los proyectos regalan tokens a quienes interactúan con su plataforma.
+              que los proyectos crypto realizan para recompensar a usuarios tempranos y construir comunidad.
             </p>
           </div>
 
-          {/* Info Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
               <div className="flex items-center gap-3 mb-3">
@@ -56,22 +63,9 @@ function EducationalSection() {
               </div>
               <ul className="text-sm text-gray-400 space-y-2">
                 <li>• Usa la aplicación o protocolo</li>
-                <li>• Completa tareas específicas (trades, bridges, stakes)</li>
-                <li>• Acumula puntos o volumen de actividad</li>
-                <li>• Cuando lanzan el token, recibes tu parte proporcional</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
-              <div className="flex items-center gap-3 mb-3">
-                <Users className="text-purple-400" size={20} />
-                <h3 className="font-bold text-white">¿Por qué los proyectos hacen airdrops?</h3>
-              </div>
-              <ul className="text-sm text-gray-400 space-y-2">
-                <li>• Descentralizar la propiedad del token</li>
-                <li>• Recompensar a early adopters</li>
-                <li>• Crear una comunidad leal</li>
-                <li>• Generar actividad y liquidez inicial</li>
+                <li>• Completa tareas específicas</li>
+                <li>• Acumula puntos o volumen</li>
+                <li>• Recibe tokens al TGE</li>
               </ul>
             </div>
 
@@ -81,33 +75,18 @@ function EducationalSection() {
                 <h3 className="font-bold text-white">¿Cómo calificar?</h3>
               </div>
               <ul className="text-sm text-gray-400 space-y-2">
-                <li>• Mantén actividad constante (no solo una vez)</li>
+                <li>• Actividad constante (no solo una vez)</li>
                 <li>• Genera volumen de trading real</li>
-                <li>• Usa múltiples features del protocolo</li>
-                <li>• Participa en testnets si están disponibles</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
-              <div className="flex items-center gap-3 mb-3">
-                <AlertTriangle className="text-amber-400" size={20} />
-                <h3 className="font-bold text-white">Expectativas realistas</h3>
-              </div>
-              <ul className="text-sm text-gray-400 space-y-2">
-                <li>• Las recompensas varían según tu actividad</li>
-                <li>• No todos los proyectos lanzan token</li>
-                <li>• Nunca inviertas más de lo que puedes perder</li>
-                <li>• Los airdrops "confirmados" aún pueden cambiar</li>
+                <li>• Usa múltiples features</li>
+                <li>• Participa en testnets</li>
               </ul>
             </div>
           </div>
 
-          {/* Pro Tips */}
           <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/5 rounded-xl p-5 border border-emerald-500/20">
             <h3 className="font-bold text-emerald-400 mb-3">Tips de Alpha Crypto</h3>
             <div className="text-sm text-gray-300 space-y-2">
-              <p>• <strong>Diversifica:</strong> Participa en múltiples airdrops para reducir riesgo</p>
-              <p>• <strong>Documenta:</strong> Usa los links de referido para obtener bonificaciones extras</p>
+              <p>• <strong>Diversifica:</strong> Participa en múltiples airdrops</p>
               <p>• <strong>Consistencia:</strong> La actividad regular vale más que un solo trade grande</p>
               <p>• <strong>Comunidad:</strong> Únete a Discords oficiales para no perderte snapshots</p>
             </div>
@@ -123,7 +102,6 @@ export default function AirdropsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedChain, setSelectedChain] = useState('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [showPremiumOnly, setShowPremiumOnly] = useState(false);
 
   useEffect(() => {
@@ -141,15 +119,11 @@ export default function AirdropsPage() {
     fetchAirdrops();
   }, []);
 
-  // Get unique chains and difficulties
   const chains = useMemo(() => {
     const uniqueChains = [...new Set(airdrops.map(a => a.chain).filter(Boolean))];
     return ['all', ...uniqueChains];
   }, [airdrops]);
 
-  const difficulties = ['all', 'Easy', 'Medium', 'Hard'];
-
-  // Filter airdrops
   const filteredAirdrops = useMemo(() => {
     return airdrops.filter(airdrop => {
       const matchesSearch = searchQuery === '' ||
@@ -158,33 +132,22 @@ export default function AirdropsPage() {
         (airdrop.chain && airdrop.chain.toLowerCase().includes(searchQuery.toLowerCase()));
       
       const matchesChain = selectedChain === 'all' || airdrop.chain === selectedChain;
-      const matchesDifficulty = selectedDifficulty === 'all' || airdrop.difficulty === selectedDifficulty;
       const matchesPremium = !showPremiumOnly || airdrop.premium;
       
-      return matchesSearch && matchesChain && matchesDifficulty && matchesPremium;
+      return matchesSearch && matchesChain && matchesPremium;
     });
-  }, [airdrops, searchQuery, selectedChain, selectedDifficulty, showPremiumOnly]);
+  }, [airdrops, searchQuery, selectedChain, showPremiumOnly]);
 
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedChain('all');
-    setSelectedDifficulty('all');
     setShowPremiumOnly(false);
   };
 
-  const hasActiveFilters = searchQuery !== '' || selectedChain !== 'all' || selectedDifficulty !== 'all' || showPremiumOnly;
+  const hasActiveFilters = searchQuery !== '' || selectedChain !== 'all' || showPremiumOnly;
 
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty?.toLowerCase()) {
-      case 'easy':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-      case 'medium':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
-      case 'hard':
-        return 'bg-red-500/10 text-red-400 border-red-500/20';
-      default:
-        return 'bg-gray-500/10 text-gray-400 border-gray-500/20';
-    }
+  const getProtocolLogo = (projectName) => {
+    return PROTOCOL_LOGOS[projectName] || null;
   };
 
   if (loading) {
@@ -197,7 +160,6 @@ export default function AirdropsPage() {
 
   return (
     <div className="min-h-screen py-12 relative">
-      {/* Owl Seal */}
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -215,16 +177,14 @@ export default function AirdropsPage() {
             Airdrops Activos
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Completa tareas y acumula puntos para maximizar tus recompensas. Click en cualquier airdrop para ver la guía completa.
+            Completa tareas y acumula puntos para maximizar tus recompensas.
           </p>
         </div>
 
-        {/* Educational Section */}
         <EducationalSection />
 
-        {/* Search and Filters */}
+        {/* Search and Filters - Sin dificultad */}
         <div className="mb-8 space-y-4">
-          {/* Search Bar */}
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
             <input
@@ -245,12 +205,11 @@ export default function AirdropsPage() {
             )}
           </div>
 
-          {/* Filter Pills */}
           <div className="flex flex-wrap justify-center gap-3">
             {/* Chain Filter */}
             <div className="flex items-center gap-2">
               <span className="text-xs text-gray-500 uppercase tracking-wider">Chain:</span>
-              <div className="flex gap-1">
+              <div className="flex flex-wrap gap-1">
                 {chains.map((chain) => (
                   <button
                     key={chain}
@@ -263,30 +222,6 @@ export default function AirdropsPage() {
                     }`}
                   >
                     {chain === 'all' ? 'Todas' : chain}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Difficulty Filter */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500 uppercase tracking-wider">Dificultad:</span>
-              <div className="flex gap-1">
-                {difficulties.map((diff) => (
-                  <button
-                    key={diff}
-                    onClick={() => setSelectedDifficulty(diff)}
-                    data-testid={`difficulty-filter-${diff}`}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                      selectedDifficulty === diff
-                        ? diff === 'Easy' ? 'bg-emerald-500 text-white' 
-                          : diff === 'Medium' ? 'bg-amber-500 text-white'
-                          : diff === 'Hard' ? 'bg-red-500 text-white'
-                          : 'bg-emerald-500 text-white'
-                        : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
-                    }`}
-                  >
-                    {diff === 'all' ? 'Todas' : diff}
                   </button>
                 ))}
               </div>
@@ -306,7 +241,6 @@ export default function AirdropsPage() {
             </button>
           </div>
 
-          {/* Results Count & Clear */}
           <div className="flex items-center justify-center gap-4 text-sm">
             <span className="text-gray-500" data-testid="airdrops-count">
               {filteredAirdrops.length} airdrop{filteredAirdrops.length !== 1 ? 's' : ''} encontrado{filteredAirdrops.length !== 1 ? 's' : ''}
@@ -323,17 +257,13 @@ export default function AirdropsPage() {
           </div>
         </div>
 
-        {/* Airdrops List */}
+        {/* Airdrops List - Sin badges de dificultad */}
         {filteredAirdrops.length === 0 ? (
           <div className="text-center py-20">
             <Filter className="w-12 h-12 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-500 text-lg mb-2">No se encontraron airdrops</p>
-            <p className="text-gray-600 text-sm mb-4">Intenta con otros filtros o términos de búsqueda</p>
             {hasActiveFilters && (
-              <button
-                onClick={clearFilters}
-                className="text-emerald-400 hover:text-emerald-300 text-sm font-medium"
-              >
+              <button onClick={clearFilters} className="text-emerald-400 hover:text-emerald-300 text-sm font-medium">
                 Limpiar filtros
               </button>
             )}
@@ -345,31 +275,42 @@ export default function AirdropsPage() {
                 to={`/airdrops/${airdrop.id}`}
                 key={airdrop.id}
                 data-testid={`airdrop-card-${airdrop.id}`}
-                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 animate-fade-in-up ${airdrop.premium ? 'border-amber-500/30 hover:border-amber-500/50' : ''}`}
+                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg animate-fade-in-up ${airdrop.premium ? 'border-amber-500/30 hover:border-amber-500/50' : ''}`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-start gap-4 flex-1">
-                    {airdrop.logo_url && (
-                      <img src={airdrop.logo_url} alt={airdrop.project_name} className="w-16 h-16 rounded-lg object-cover" />
-                    )}
+                    {/* Logo del protocolo */}
+                    {getProtocolLogo(airdrop.project_name) ? (
+                      <img 
+                        src={getProtocolLogo(airdrop.project_name)} 
+                        alt={airdrop.project_name} 
+                        className="w-16 h-16 rounded-xl object-cover border border-gray-700"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
+                      className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500/30 to-teal-500/30 flex items-center justify-center text-white font-bold text-xl border border-gray-700"
+                      style={{ display: getProtocolLogo(airdrop.project_name) ? 'none' : 'flex' }}
+                    >
+                      {airdrop.project_name.charAt(0)}
+                    </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <h3 className="text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                           {airdrop.project_name}
                         </h3>
                         {airdrop.premium && (
-                          <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg tracking-wide uppercase">
+                          <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg uppercase">
                             Premium
                           </span>
                         )}
                       </div>
                       <p className="text-gray-400 mb-3 line-clamp-2">{airdrop.description}</p>
                       <div className="flex items-center gap-4 flex-wrap">
-                        <span className={`px-3 py-1 rounded border ${getDifficultyColor(airdrop.difficulty)} text-sm font-medium capitalize`}>
-                          {airdrop.difficulty}
-                        </span>
                         {airdrop.chain && (
                           <span className="px-3 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 text-sm">
                             {airdrop.chain}
@@ -386,10 +327,7 @@ export default function AirdropsPage() {
                   </div>
                   <div className="text-right ml-4">
                     <div className="text-sm text-gray-400 mb-1">Recompensa Estimada*</div>
-                    <div
-                      className="text-2xl font-bold text-emerald-500"
-                      style={{ fontFamily: 'JetBrains Mono, monospace' }}
-                    >
+                    <div className="text-2xl font-bold text-emerald-500" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                       {airdrop.estimated_reward}
                     </div>
                     {airdrop.timeline && (
@@ -399,10 +337,9 @@ export default function AirdropsPage() {
                   </div>
                 </div>
 
-                {/* Tasks Preview */}
                 {airdrop.tasks && airdrop.tasks.length > 0 && (
                   <div className="mb-4">
-                    <h4 className="text-sm font-bold text-gray-400 mb-2">Tareas a Completar:</h4>
+                    <h4 className="text-sm font-bold text-gray-400 mb-2">Tareas:</h4>
                     <div className="space-y-2">
                       {airdrop.tasks.slice(0, 2).map((task) => (
                         <div key={task.id} className="text-sm text-gray-300 pl-4 border-l-2 border-gray-700">
@@ -416,12 +353,11 @@ export default function AirdropsPage() {
                   </div>
                 )}
 
-                {/* Footer */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-800">
                   <div className="text-sm text-gray-500">
                     Estado: <span className="text-emerald-500 capitalize">{airdrop.status === 'active' ? 'Activo' : airdrop.status}</span>
                   </div>
-                  <span className="flex items-center gap-2 text-emerald-500 font-bold text-sm group-hover:gap-3 transition-all">
+                  <span className="flex items-center gap-2 text-emerald-500 font-bold text-sm">
                     Ver Detalles
                     <ChevronRight size={18} />
                   </span>
@@ -431,12 +367,8 @@ export default function AirdropsPage() {
           </div>
         )}
 
-        {/* Back Button */}
         <div className="mt-12 text-center">
-          <Link
-            to="/"
-            className="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-          >
+          <Link to="/" className="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
             Volver al Inicio
           </Link>
         </div>
