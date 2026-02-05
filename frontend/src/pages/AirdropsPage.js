@@ -226,19 +226,6 @@ export default function AirdropsPage() {
                 ))}
               </div>
             </div>
-
-            {/* Premium Toggle */}
-            <button
-              onClick={() => setShowPremiumOnly(!showPremiumOnly)}
-              data-testid="premium-filter"
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
-                showPremiumOnly
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
-                  : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
-              }`}
-            >
-              <span className="text-amber-400">★</span> Solo Premium
-            </button>
           </div>
 
           <div className="flex items-center justify-center gap-4 text-sm">
