@@ -247,17 +247,19 @@ export default function ArticleDetailPage() {
 
             {/* Tags / Related */}
             <div className="mt-12 pt-8 border-t border-gray-800">
-              <div className="flex flex-wrap gap-2">
-                <span className="text-sm text-gray-500">Temas:</span>
-                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-sm text-gray-500 mr-2">Temas:</span>
+                <span className="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-sm border border-emerald-500/30">
                   {article.category}
                 </span>
-                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
-                  Crypto
-                </span>
-                <span className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
-                  Inversión
-                </span>
+                {article.tags && article.tags.map((tag, idx) => (
+                  <span 
+                    key={idx}
+                    className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm hover:bg-gray-700 transition-colors"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
