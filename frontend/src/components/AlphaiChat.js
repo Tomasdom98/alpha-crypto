@@ -8,18 +8,47 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png";
 
 export default function AlphaiChat({ isOpen, onClose }) {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: '¡Hola! Soy ALPHA-I 🦉, tu asistente de investigación DeFi. ¿En qué puedo ayudarte hoy?'
-    }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [remainingMessages, setRemainingMessages] = useState(5);
   const [sessionId] = useState(() => localStorage.getItem('alphai_session') || Math.random().toString(36).substring(7));
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const { language } = useLanguage();
+
+  // Translations
+  const tx = {
+    es: {
+      greeting: '¡Hola! Soy ALPHA-I 🦉, tu asistente de investigación DeFi. ¿En qué puedo ayudarte hoy?',
+      subtitle: 'Tu asistente DeFi personal',
+      placeholder: 'Pregunta sobre crypto, DeFi, airdrops...',
+      thinking: 'ALPHA-I está pensando...',
+      error: 'Lo siento, hubo un error. Por favor intenta de nuevo. 🦉',
+      dailyLimit: 'Límite diario alcanzado',
+      usedAllMessages: 'Has usado tus 5 mensajes gratis de hoy',
+      upgradePremium: 'Upgrade a Premium',
+      poweredBy: 'ALPHA-I Research - Powered by AI',
+      messagesRemaining: 'mensajes restantes',
+    },
+    en: {
+      greeting: 'Hello! I\'m ALPHA-I 🦉, your DeFi research assistant. How can I help you today?',
+      subtitle: 'Your personal DeFi assistant',
+      placeholder: 'Ask about crypto, DeFi, airdrops...',
+      thinking: 'ALPHA-I is thinking...',
+      error: 'Sorry, there was an error. Please try again. 🦉',
+      dailyLimit: 'Daily limit reached',
+      usedAllMessages: 'You have used your 5 free messages today',
+      upgradePremium: 'Upgrade to Premium',
+      poweredBy: 'ALPHA-I Research - Powered by AI',
+      messagesRemaining: 'messages remaining',
+    }
+  }[language];
+
+  // Initialize greeting message based on language
+  useEffect(() => {
+    setMessages([{ role: 'assistant', content: tx.greeting }]);
+  }, [language]);
 
   useEffect(() => {
     localStorage.setItem('alphai_session', sessionId);
