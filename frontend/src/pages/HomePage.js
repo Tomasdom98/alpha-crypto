@@ -104,16 +104,16 @@ export default function HomePage() {
         <div className="flex items-center justify-between mb-10">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="articles-section-heading">
-              Latest Articles
+              Últimos Artículos
             </h2>
-            <p className="text-gray-500">Crypto insights and analysis</p>
+            <p className="text-gray-500">Análisis e insights del mercado crypto</p>
           </div>
           <Link
             to="/articles"
             data-testid="view-all-articles-link"
             className="group flex items-center gap-2 px-5 py-2.5 bg-gray-800/50 hover:bg-emerald-500/10 border border-gray-700 hover:border-emerald-500/50 rounded-xl text-emerald-400 font-semibold transition-all duration-300 hover:scale-105"
           >
-            View All 
+            Ver Todos 
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
