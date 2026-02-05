@@ -116,8 +116,8 @@ export default function NewsletterPopup({ delay = 3000 }) {
               <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="text-emerald-400" size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">¡Bienvenido! 🦉</h3>
-              <p className="text-gray-400">Ya eres parte de Alpha Crypto</p>
+              <h3 className="text-2xl font-bold text-white mb-2">{tx.welcome}</h3>
+              <p className="text-gray-400">{tx.nowPart}</p>
             </div>
           ) : (
             <>
@@ -125,15 +125,15 @@ export default function NewsletterPopup({ delay = 3000 }) {
               <div className="text-center mb-6">
                 <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
                   <span>🔮</span>
-                  <span>Newsletter Gratuito</span>
+                  <span>{tx.badge}</span>
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
-                  Newsletter Gratuito 🔮
+                  {tx.title}
                 </h2>
                 
                 <p className="text-gray-400">
-                  Recibe nuestros artículos y análisis de mercado directo en tu inbox cada semana 🦉
+                  {tx.subtitle}
                 </p>
               </div>
 
@@ -141,19 +141,19 @@ export default function NewsletterPopup({ delay = 3000 }) {
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Artículos semanales</span>
+                  <span>{tx.weeklyArticles}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Análisis de mercado</span>
+                  <span>{tx.marketAnalysis}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Sin spam</span>
+                  <span>{tx.noSpam}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-emerald-400">✓</span>
-                  <span>Cancela cuando quieras</span>
+                  <span>{tx.cancelAnytime}</span>
                 </div>
               </div>
 
@@ -165,7 +165,7 @@ export default function NewsletterPopup({ delay = 3000 }) {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="tu@email.com"
+                    placeholder={tx.placeholder}
                     className="w-full pl-12 pr-4 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
                     data-testid="newsletter-popup-email"
                   />
@@ -183,7 +183,7 @@ export default function NewsletterPopup({ delay = 3000 }) {
                     <Loader2 size={20} className="animate-spin" />
                   ) : (
                     <>
-                      Suscribirme Gratis
+                      {tx.subscribe}
                       <span className="text-lg">→</span>
                     </>
                   )}
@@ -191,7 +191,7 @@ export default function NewsletterPopup({ delay = 3000 }) {
               </form>
 
               <p className="text-gray-600 text-xs text-center mt-4">
-                Únete a nuestra comunidad
+                {tx.joinCommunity}
               </p>
             </>
           )}
