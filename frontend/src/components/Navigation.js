@@ -31,12 +31,17 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <img 
-              src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
-              alt="Alpha Crypto Logo" 
-              className="w-12 h-12 object-contain object-top transition-all duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]"
-              style={{ objectPosition: 'center 15%' }}
-            />
+            <div className="w-10 h-10 overflow-hidden rounded-lg">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
+                alt="Alpha Crypto Logo" 
+                className="w-[200px] h-auto transition-all duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]"
+                style={{ 
+                  marginTop: '-5px',
+                  marginLeft: '-72px'
+                }}
+              />
+            </div>
             <span className="font-bold text-xl text-white transition-colors group-hover:text-emerald-400" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               Alpha Crypto
             </span>
