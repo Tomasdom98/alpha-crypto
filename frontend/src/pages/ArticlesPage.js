@@ -37,6 +37,9 @@ export default function ArticlesPage() {
 
   return (
     <div className="min-h-screen py-12 relative">
+      {/* Newsletter Popup - appears after 5 seconds */}
+      <NewsletterPopup delay={5000} />
+      
       {/* Owl Seal */}
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
