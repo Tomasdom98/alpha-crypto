@@ -161,19 +161,19 @@ export default function PortfolioPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
+            <ChevronRight size={16} className="rotate-180" /> {tx.backToHome}
           </Link>
           
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="portfolio-heading">
-                Portfolio Alpha Crypto
+                {tx.title}
               </h1>
-              <p className="text-gray-400">Seguimiento del portfolio, señales de trading, yields en stablecoins y staking.</p>
+              <p className="text-gray-400">{tx.subtitle}</p>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <RefreshCw size={14} />
-              Actualizado: {portfolioData.lastUpdated}
+              {tx.updated}: {portfolioData.lastUpdated}
             </div>
           </div>
         </div>
