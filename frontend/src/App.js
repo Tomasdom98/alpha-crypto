@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "@/context/LanguageContext";
 import HomePage from "@/pages/HomePage";
 import ArticlesPage from "@/pages/ArticlesPage";
 import ArticleDetailPage from "@/pages/ArticleDetailPage";
@@ -17,26 +18,28 @@ import "@/App.css";
 
 function App() {
   return (
-    <div className="App min-h-screen bg-gray-950">
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/articles/:id" element={<ArticleDetailPage />} />
-          <Route path="/airdrops" element={<AirdropsPage />} />
-          <Route path="/airdrops/:airdropId" element={<AirdropDetailPage />} />
-          <Route path="/indices" element={<MarketIndicesPage />} />
-          <Route path="/analysis" element={<InvestmentAnalysisPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/signals" element={<EarlySignalsPage />} />
-          <Route path="/consulting" element={<ConsultingPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-        <Footer />
-        <Toaster position="top-right" />
-      </BrowserRouter>
-    </div>
+    <LanguageProvider>
+      <div className="App min-h-screen bg-gray-950">
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/articles/:id" element={<ArticleDetailPage />} />
+            <Route path="/airdrops" element={<AirdropsPage />} />
+            <Route path="/airdrops/:airdropId" element={<AirdropDetailPage />} />
+            <Route path="/indices" element={<MarketIndicesPage />} />
+            <Route path="/analysis" element={<InvestmentAnalysisPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/signals" element={<EarlySignalsPage />} />
+            <Route path="/consulting" element={<ConsultingPage />} />
+            <Route path="/admin" element={<AdminPage />} />
+          </Routes>
+          <Footer />
+          <Toaster position="top-right" />
+        </BrowserRouter>
+      </div>
+    </LanguageProvider>
   );
 }
 
