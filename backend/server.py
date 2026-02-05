@@ -797,17 +797,18 @@ async def get_article(article_id: str):
 
 @api_router.get("/airdrops", response_model=List[Airdrop])
 async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None):
-    """Get airdrops - tries Sanity CMS first, falls back to mock data"""
+    """Get airdrops - tries Sanity CMS first, falls back to mock data if not enough content"""
     try:
         # Try Sanity CMS first
-        airdrops = await sanity_get_airdrops(status, difficulty)
+        sanity_airdrops = await sanity_get_airdrops(status, difficulty)
         
-        if airdrops and len(airdrops) > 0:
-            logger.info(f"Fetched {len(airdrops)} airdrops from Sanity CMS")
-            return airdrops
+        # Use Sanity if it has at least 5 airdrops, otherwise use mock data
+        if sanity_airdrops and len(sanity_airdrops) >= 5:
+            logger.info(f"Using {len(sanity_airdrops)} airdrops from Sanity CMS")
+            return sanity_airdrops
         
         # Fallback to mock data
-        logger.info("Sanity returned no airdrops, using mock data")
+        logger.info(f"Sanity has only {len(sanity_airdrops) if sanity_airdrops else 0} airdrops, using mock data")
         airdrops = get_mock_airdrops()
         
         # Apply filters
