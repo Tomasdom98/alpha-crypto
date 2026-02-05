@@ -246,10 +246,10 @@ export default function AlphaiChat({ isOpen, onClose }) {
           {remainingMessages <= 0 ? (
             <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
               <Lock style={{ width: '24px', height: '24px', color: '#f59e0b', margin: '0 auto 8px' }} />
-              <p style={{ color: '#f59e0b', fontWeight: 'bold', marginBottom: '4px' }}>Límite diario alcanzado</p>
-              <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '12px' }}>Has usado tus 5 mensajes gratis de hoy</p>
+              <p style={{ color: '#f59e0b', fontWeight: 'bold', marginBottom: '4px' }}>{tx.dailyLimit}</p>
+              <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '12px' }}>{tx.usedAllMessages}</p>
               <button style={{ background: 'linear-gradient(to right, #f59e0b, #ea580c)', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px' }}>
-                Upgrade a Premium
+                {tx.upgradePremium}
               </button>
             </div>
           ) : (
@@ -260,7 +260,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Pregunta sobre crypto, DeFi, airdrops..."
+                  placeholder={tx.placeholder}
                   disabled={loading}
                   style={{
                     flex: 1,
@@ -292,12 +292,12 @@ export default function AlphaiChat({ isOpen, onClose }) {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px', fontSize: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6b7280' }}>
                   <Sparkles size={12} />
-                  <span>ALPHA-I Research - Powered by AI</span>
+                  <span>{tx.poweredBy}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#6b7280' }}>{remainingMessages} mensajes restantes</span>
+                  <span style={{ color: '#6b7280' }}>{remainingMessages} {tx.messagesRemaining}</span>
                   <span style={{ color: '#f59e0b', cursor: 'pointer' }}>
-                    Upgrade a Premium
+                    {tx.upgradePremium}
                   </span>
                 </div>
               </div>
