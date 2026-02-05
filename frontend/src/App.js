@@ -6,6 +6,7 @@ import ArticleDetailPage from "@/pages/ArticleDetailPage";
 import AirdropsPage from "@/pages/AirdropsPage";
 import AirdropDetailPage from "@/pages/AirdropDetailPage";
 import MarketIndicesPage from "@/pages/MarketIndicesPage";
+import MacroCalendarPage from "@/pages/MacroCalendarPage";
 import InvestmentAnalysisPage from "@/pages/InvestmentAnalysisPage";
 import PortfolioPage from "@/pages/PortfolioPage";
 import EarlySignalsPage from "@/pages/EarlySignalsPage";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/airdrops" element={<AirdropsPage />} />
             <Route path="/airdrops/:airdropId" element={<AirdropDetailPage />} />
             <Route path="/indices" element={<MarketIndicesPage />} />
+            <Route path="/calendar" element={<MacroCalendarPage />} />
             <Route path="/analysis" element={<InvestmentAnalysisPage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/signals" element={<EarlySignalsPage />} />
