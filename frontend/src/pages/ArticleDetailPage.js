@@ -190,9 +190,10 @@ export default function ArticleDetailPage() {
               <span className="bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium">
                 {article.category}
               </span>
-              {article.premium && (
-                <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold">
-                  PREMIUM
+              {article.read_time && (
+                <span className="bg-gray-900/80 text-gray-300 px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5">
+                  <Clock size={14} />
+                  {article.read_time}
                 </span>
               )}
             </div>
