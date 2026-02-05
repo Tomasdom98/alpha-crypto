@@ -78,13 +78,13 @@ export default function PremiumModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
+    <div className="fixed inset-0 flex items-start justify-center p-4 pt-8" style={{ zIndex: 9999 }}>
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
-        <div className="sticky top-0 bg-gray-900 border-b border-gray-800 p-6 flex items-center justify-between z-10">
+      <div className="relative bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div className="sticky top-0 bg-gray-900 border-b border-gray-800 p-4 flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
-            <Sparkles className="text-emerald-500" size={28} />
-            <h2 className="text-2xl font-bold text-white">
+            <Sparkles className="text-emerald-500" size={24} />
+            <h2 className="text-xl font-bold text-white">
               {step === 'tier' ? (isEs ? 'Planes Premium' : 'Premium Plans') : (isProTier ? 'Alpha Pro' : 'Alpha Access')}
             </h2>
           </div>
@@ -93,12 +93,10 @@ export default function PremiumModal({ isOpen, onClose }) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-5">
           {step === 'tier' && (
-            <div className="space-y-6">
-              <p className="text-gray-400 text-center mb-4">{isEs ? 'Elige el plan que mejor se adapte' : 'Choose the best plan'}</p>
-              
-              <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="space-y-4">
+              <div className="flex items-center justify-center gap-4 mb-6">
                 <span className={billingCycle === 'monthly' ? 'text-white text-sm font-medium' : 'text-gray-500 text-sm font-medium'}>
                   {isEs ? 'Mensual' : 'Monthly'}
                 </span>
