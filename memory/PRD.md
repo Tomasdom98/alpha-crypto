@@ -131,36 +131,25 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
   - 5 free messages/day limit
   - Spanish language responses
   - DeFi/crypto specialist
-- [x] Market Indices Page connected to real-time APIs (Feb 5, 2026):
-  - Total Market Cap from CoinGecko ($2.34T)
-  - Stablecoin Market Cap from DeFiLlama ($304B)
-  - DeFi TVL from DeFiLlama ($95.5B)
-  - Fear & Greed Index from Alternative.me
-- [x] Articles emoji reduction - Only owl (🦉) signature at end of each article
-- [x] Tables in articles render correctly with proper styling
-- [x] OwlSeal Dynamic Animations (Feb 5, 2026):
-  - Floating animation (subtle up/down)
-  - Breathing/scale effect
-  - Pulsing inner glow
-  - Sparkle effects on corners
-- [x] Search & Filters for Articles Page:
-  - Search by title, content, or tags
-  - Filter by category (Stablecoins, AI, Mercado, DeFi, Tecnología)
-  - Results count display
-- [x] Search & Filters for Airdrops Page:
-  - Search by name, description, or chain
-  - Filter by chain (zkSync, Solana, Starknet, Reya L2, Base, Arbitrum)
-  - Filter by difficulty (Easy, Medium, Hard)
-  - Premium toggle filter
-- [x] Airdrops Data Update (Feb 5, 2026):
-  - 8 verified airdrops with simplified steps
-  - Premium airdrops: GRVT, Backpack, Paradex, Reya Network
-  - Standard: Avantis, Ostium, Lighter, Pacifica
+- [x] Market Indices Page connected to real-time APIs
+- [x] Articles emoji reduction - Only owl (🦉) signature
+- [x] Tables in articles render correctly
+- [x] OwlSeal Dynamic Animations (floating, breathing, glow)
+- [x] Search & Filters for Articles and Airdrops
+- [x] Airdrops Data Update - 8 verified airdrops
+- [x] **NEW (Feb 5, 2026):**
+  - Renamed "Artículos" to "Alpha Research" in navigation
+  - ALPHA-I button redesigned with gradient and glow
+  - Portfolio page with internal navigation (4 tabs)
+  - New Staking section with SOL, ETH, BTC, SUI
+  - Removed difficulty filters from Airdrops
+  - Protocol logos added to Yield Stablecoins section
 
 ### Pending
 - [ ] Resend domain verification for production emails
 - [ ] Admin Panel for Newsletter (send articles to subscribers)
 - [ ] Full Premium tier for ALPHAI (payment integration)
+- [ ] Add real protocol logos to Airdrops (currently using placeholders)
 
 ## Known Issues
 - CoinGecko API rate limiting (falls back to cached/mock data)
