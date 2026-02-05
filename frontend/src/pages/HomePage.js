@@ -62,17 +62,22 @@ export default function HomePage() {
         <div className="absolute inset-0 grid-background" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         
-        {/* Owl mascot - positioned for visual interest */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-20 md:opacity-30 pointer-events-none hidden md:block">
+        {/* Owl mascot - positioned for visual interest with blend mode for dark bg */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
           <img 
-            src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/mt7vcsqk_Gemini_Generated_Image_k7va0ik7va0ik7va.png" 
+            src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
             alt="Alpha Owl" 
-            className="w-64 lg:w-80 xl:w-96 h-auto drop-shadow-[0_0_30px_rgba(16,185,129,0.3)] animate-pulse-slow"
+            className="w-72 lg:w-96 xl:w-[420px] h-auto opacity-40 md:opacity-60 drop-shadow-[0_0_40px_rgba(16,185,129,0.3)] animate-float"
+            style={{ 
+              objectFit: 'contain',
+              objectPosition: 'center bottom',
+              maskImage: 'linear-gradient(to left, black 60%, transparent 100%)'
+            }}
           />
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm animate-pulse-glow">
             <Sparkles className="w-4 h-4 text-emerald-400" />
             <span className="text-sm text-emerald-400 font-medium">Professional Crypto Intelligence</span>
           </div>
@@ -81,7 +86,7 @@ export default function HomePage() {
             style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}
             data-testid="hero-heading"
           >
-            Tu fuente de <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">alpha</span> en crypto
+            Tu fuente de <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent animate-gradient">alpha</span> en crypto
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 fade-in" data-testid="hero-description" style={{ fontFamily: 'Inter, sans-serif' }}>
             Indicadores on-chain, artículos educativos, airdrops verificados, señales de inversión y portfolio tracking. Todo en un solo lugar.
