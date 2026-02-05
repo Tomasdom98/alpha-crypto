@@ -131,15 +131,27 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
   - 5 free messages/day limit
   - Spanish language responses
   - DeFi/crypto specialist
+- [x] Market Indices Page connected to real-time APIs (Feb 5, 2026):
+  - Total Market Cap from CoinGecko ($2.34T)
+  - Stablecoin Market Cap from DeFiLlama ($304B)
+  - DeFi TVL from DeFiLlama ($95.5B)
+  - Fear & Greed Index from Alternative.me
+- [x] Articles emoji reduction - Only owl (🦉) signature at end of each article
+- [x] Tables in articles render correctly with proper styling
 
 ### Pending
-- [ ] Connect /indices page to use real API data
 - [ ] Resend domain verification for production emails
-- [ ] More airdrop verification
+- [ ] Admin Panel for Newsletter (send articles to subscribers)
+- [ ] Full Premium tier for ALPHAI (payment integration)
 
 ## Known Issues
 - CoinGecko API rate limiting (falls back to cached/mock data)
 - Resend in testing mode - emails only to verified addresses
+
+## Future Tasks (Backlog)
+- Dynamic owl animations for OwlSeal component
+- Search/filter functionality for Articles and Airdrops pages
+- Custom domain configuration post-deployment
 
 ## Color Scheme
 - Background: #0f172a
