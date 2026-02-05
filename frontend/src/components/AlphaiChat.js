@@ -181,7 +181,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
                 ALPHA-I
                 <span style={{ fontSize: '10px', backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#10b981', padding: '2px 8px', borderRadius: '4px' }}>BETA</span>
               </h2>
-              <p style={{ color: '#6b7280', fontSize: '12px', margin: 0 }}>Tu asistente DeFi personal</p>
+              <p style={{ color: '#6b7280', fontSize: '12px', margin: 0 }}>{tx.subtitle}</p>
             </div>
           </div>
           <button
