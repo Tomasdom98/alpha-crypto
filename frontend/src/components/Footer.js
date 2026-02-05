@@ -41,14 +41,6 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gradient-to-b from-[#0f172a] to-[#0a0f1a] border-t border-gray-800/50 mt-20" data-testid="site-footer">
-      {/* Owl watermark */}
-      <div className="absolute right-8 bottom-20 pointer-events-none hidden lg:block">
-        <img 
-          src={OWL_URL} 
-          alt="" 
-          className="w-32 h-auto opacity-[0.08]"
-        />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
