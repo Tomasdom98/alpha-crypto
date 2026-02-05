@@ -68,10 +68,13 @@ export default function HomePage() {
             <img 
               src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png" 
               alt="Alpha Owl" 
-              className="w-56 lg:w-72 xl:w-80 h-auto opacity-80 animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.3)]"
+              className="w-56 lg:w-72 xl:w-80 h-auto animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.3)]"
+              style={{ 
+                mixBlendMode: 'lighten',
+                opacity: 0.7,
+                maskImage: 'radial-gradient(ellipse 80% 80% at center, black 40%, transparent 70%)'
+              }}
             />
-            {/* Subtle glow effect behind owl */}
-            <div className="absolute inset-0 -z-10 bg-emerald-500/10 blur-3xl rounded-full scale-75" />
           </div>
         </div>
         
