@@ -223,7 +223,7 @@ export default function ArticleDetailPage() {
               </div>
               <div className="flex items-center gap-2 text-gray-400">
                 <BookOpen size={16} />
-                <span className="text-sm">5 min lectura</span>
+                <span className="text-sm">{article.read_time || '5 min lectura'}</span>
               </div>
               <button 
                 onClick={handleShare}
