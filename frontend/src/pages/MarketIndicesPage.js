@@ -344,7 +344,7 @@ export default function MarketIndicesPage() {
   return (
     <div className="min-h-screen py-12 relative">
       {/* Owl Seal */}
-      <OwlSeal position="bottom-right" size="md" opacity={0.1} className="fixed z-10 hidden lg:block" />
+      <OwlSeal position="bottom-right" size="md" opacity={0.35} className="fixed z-10 hidden lg:block" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
