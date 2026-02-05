@@ -263,7 +263,7 @@ export default function PortfolioPage() {
 
             <div className="glass-card rounded-2xl p-6 mb-8" data-testid="holdings-table">
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Wallet className="text-emerald-500" /> Holdings
+                <Wallet className="text-emerald-500" /> {tx.holdings}
               </h2>
               <div className="overflow-x-auto">
                 <table className="w-full">
