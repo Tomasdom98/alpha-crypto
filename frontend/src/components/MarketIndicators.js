@@ -75,9 +75,9 @@ export default function MarketIndicators({ fearGreed }) {
           className="text-3xl md:text-4xl font-bold text-white mb-2"
           style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}
         >
-          Market Indicators
+          Indicadores de Mercado
         </h2>
-        <p className="text-gray-400">Key on-chain metrics and market sentiment</p>
+        <p className="text-gray-400">Métricas on-chain y sentimiento del mercado</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -95,9 +95,9 @@ export default function MarketIndicators({ fearGreed }) {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  Fear & Greed Index
+                  Índice de Miedo y Codicia
                 </h3>
-                <p className="text-xs text-gray-500">Market sentiment indicator</p>
+                <p className="text-xs text-gray-500">Indicador del sentimiento del mercado</p>
               </div>
             </div>
 
