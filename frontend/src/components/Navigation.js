@@ -85,8 +85,19 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* ALPHAI Button */}
+            <button
+              onClick={() => setShowAlphai(true)}
+              data-testid="alphai-nav-btn"
+              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-emerald-500/50 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 group"
+            >
+              <img src={OWL_ICON_URL} alt="ALPHAI" className="w-5 h-5 object-contain group-hover:scale-110 transition-transform" />
+              <span className="text-emerald-400">ALPHAI</span>
+            </button>
+            
+            {/* Premium Button */}
             <button
               onClick={() => setShowPremiumModal(true)}
               data-testid="premium-nav-btn"
