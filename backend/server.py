@@ -494,7 +494,7 @@ La economía agentic no es ciencia ficción. **Es la próxima frontera.** 🦉""
         },
         {
             "id": "3",
-            "title": "📈 Estado del Mercado Crypto 2026: Lo Que Necesitas Saber",
+            "title": "Estado del Mercado Crypto 2026: Lo Que Necesitas Saber",
             "excerpt": "BTC a $70K, ETFs con $50B+, y el halving haciendo lo suyo. Aquí está el panorama completo.",
             "category": "Mercado",
             "tags": ["Bitcoin", "ETFs", "Regulación", "Análisis"],
@@ -502,11 +502,11 @@ La economía agentic no es ciencia ficción. **Es la próxima frontera.** 🦉""
             "premium": False,
             "published_at": "2026-02-01T09:00:00Z",
             "image_url": "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800",
-            "content": """GM. Es febrero 2026 y el mercado está en un momento crucial. Te traemos el análisis completo. 📊
+            "content": """GM. Es febrero 2026 y el mercado está en un momento crucial. Te traemos el análisis completo.
 
 ---
 
-## 📉 SNAPSHOT DEL MERCADO
+## SNAPSHOT DEL MERCADO
 
 | Métrica | Valor Actual |
 |---------|--------------|
@@ -520,7 +520,7 @@ La economía agentic no es ciencia ficción. **Es la próxima frontera.** 🦉""
 
 ---
 
-## 🐂 LO BULLISH
+## LO BULLISH
 
 **1. ETFs de Bitcoin = Adopción Institucional**
 - $50B+ en AUM (Assets Under Management)
@@ -530,16 +530,16 @@ La economía agentic no es ciencia ficción. **Es la próxima frontera.** 🦉""
 **2. El Halving Está Haciendo Lo Suyo**
 El halving de abril 2024 redujo rewards de 6.25 a 3.125 BTC.
 - Históricamente: 12-18 meses post-halving = rally
-- Supply shock + demanda institucional = 🚀
+- Supply shock + demanda institucional
 
 **3. Regulación Se Clarifica**
-- EE.UU: GENIUS Act para stablecoins ✅
-- Europa: MiCAR implementado ✅
+- EE.UU: GENIUS Act para stablecoins
+- Europa: MiCAR implementado
 - Menos incertidumbre = más capital institucional
 
 ---
 
-## 🐻 LO BEARISH
+## LO BEARISH
 
 **1. Macro Incierto**
 - Fed todavía hawkish
@@ -558,19 +558,19 @@ El halving de abril 2024 redujo rewards de 6.25 a 3.125 BTC.
 
 ---
 
-## 🔥 SECTORES CON MOMENTUM
+## SECTORES CON MOMENTUM
 
 | Sector | Tendencia | Por Qué |
 |--------|-----------|---------|
-| **RWAs** | 🟢 Up | Tokenización de activos reales |
-| **AI x Crypto** | 🟢 Up | Narrativa fuerte |
-| **DePIN** | 🟡 Neutral | Construyendo infraestructura |
-| **Memecoins** | 🔴 Down | Ciclo de atención terminó |
-| **Gaming** | 🟡 Neutral | AAA games en desarrollo |
+| **RWAs** | Up | Tokenización de activos reales |
+| **AI x Crypto** | Up | Narrativa fuerte |
+| **DePIN** | Neutral | Construyendo infraestructura |
+| **Memecoins** | Down | Ciclo de atención terminó |
+| **Gaming** | Neutral | AAA games en desarrollo |
 
 ---
 
-## 📊 QUÉ ESTÁN HACIENDO LOS INSTITUCIONALES
+## QUÉ ESTÁN HACIENDO LOS INSTITUCIONALES
 
 **MicroStrategy:** 200,000+ BTC en balance. Saylor sigue comprando.
 
@@ -582,7 +582,7 @@ El halving de abril 2024 redujo rewards de 6.25 a 3.125 BTC.
 
 ---
 
-## 🎯 ESTRATEGIA SUGERIDA
+## ESTRATEGIA SUGERIDA
 
 **Si eres holder:**
 - No vendas en pánico
@@ -602,7 +602,7 @@ El halving de abril 2024 redujo rewards de 6.25 a 3.125 BTC.
 
 ---
 
-## 🔮 PREDICCIÓN Q2 2026
+## PREDICCIÓN Q2 2026
 
 > "El mercado está en su mejor momento para acumular. El miedo extremo históricamente precede a rallies significativos."
 
@@ -611,9 +611,7 @@ El halving de abril 2024 redujo rewards de 6.25 a 3.125 BTC.
 - ETH: $4K-5K si escala correctamente
 - Altseason: Posible Q3-Q4 2026
 
----
-
-*DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortunas.* 🦉"""
+DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortunas. 🦉"""
         },
         {
             "id": "4",
