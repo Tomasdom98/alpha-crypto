@@ -978,23 +978,25 @@ def get_mock_airdrops():
             "project_name": "Backpack",
             "logo_url": "https://ui-avatars.com/api/?name=BP&background=14b8a6&color=fff&size=128&bold=true&format=svg",
             "chain": "Solana",
-            "description": "El exchange principal de Solana del equipo de Mad Lads con token confirmado",
-            "full_description": "Backpack está construido por el equipo detrás de Mad Lads NFT (Coral/xNFT). Recientemente levantó $17M y confirmó lanzamiento de token. Uno de los airdrops más anticipados de Solana.",
+            "description": "El exchange principal de Solana del equipo de Mad Lads - TGE confirmado",
+            "full_description": "Backpack está construido por el equipo detrás de Mad Lads NFT (Coral/xNFT). 25% del supply distribuido en TGE, 24% para participantes del programa de puntos. Fase 'epilogue' activa - última oportunidad antes del TGE.",
             "backing": "Respaldado por Jump, Placeholder, $17M Serie A",
-            "reward_note": "La recompensa varía según volumen de trading, puntos ganados y nivel de participación",
+            "reward_note": "Puntos acreditados semanalmente (snapshot jueves 00:00 UTC, crédito viernes 02:00 UTC)",
             "tasks": [
-                {"id": "t1", "description": "Registrarse con código de referido", "completed": False},
-                {"id": "t2", "description": "Completar verificación KYC", "completed": False},
-                {"id": "t3", "description": "Tradear al menos $500 volumen", "completed": False},
-                {"id": "t4", "description": "Tener xNFT o Mad Lads (bonus)", "completed": False}
+                {"id": "t1", "description": "Crear cuenta en Backpack Exchange y completar KYC", "completed": False},
+                {"id": "t2", "description": "Depositar USDT/USDC (0% fee en este par)", "completed": False},
+                {"id": "t3", "description": "Tradear en Spot y Futuros para acumular puntos", "completed": False},
+                {"id": "t4", "description": "Completar quests y tareas disponibles", "completed": False},
+                {"id": "t5", "description": "Usar link de referido para invitar usuarios", "completed": False},
+                {"id": "t6", "description": "Tener Mad Lads NFT para VIP Tier 1 (bonus)", "completed": False}
             ],
             "estimated_reward": "$1500-4000",
             "difficulty": "Easy",
-            "deadline": "2024-09-30T23:59:59Z",
+            "deadline": "2026-03-31T23:59:59Z",
             "status": "active",
             "link": "https://backpack.exchange/join/da5e1eb4-cbc1-4faf-afa6-9f11e80ce47a",
             "premium": True,
-            "timeline": "Lanzamiento Q3 2024 confirmado"
+            "timeline": "Fase Epilogue - TGE próximamente"
         },
         {
             "id": "6",
