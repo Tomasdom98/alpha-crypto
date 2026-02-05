@@ -1433,7 +1433,6 @@ async def get_global_market_data():
 
 def generate_mock_chart_data(coin_id: str, days: int):
     """Generate mock chart data as fallback"""
-    import random
     base_prices = {"bitcoin": 95000, "ethereum": 3200, "solana": 180}
     base = base_prices.get(coin_id, 100)
     
