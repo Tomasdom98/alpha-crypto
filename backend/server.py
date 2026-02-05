@@ -11,7 +11,14 @@ import uuid
 from datetime import datetime, timezone
 import httpx
 import aiohttp
-from sanity_client import get_articles, get_article_by_slug, get_airdrops, get_airdrop_by_id
+from sanity_client import (
+    get_articles as sanity_get_articles, 
+    get_article_by_slug as sanity_get_article_by_slug,
+    get_article_by_id as sanity_get_article_by_id, 
+    get_airdrops as sanity_get_airdrops, 
+    get_airdrop_by_id as sanity_get_airdrop_by_id,
+    get_signals as sanity_get_signals
+)
 
 
 ROOT_DIR = Path(__file__).parent
