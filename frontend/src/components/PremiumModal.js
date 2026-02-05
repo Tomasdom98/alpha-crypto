@@ -184,21 +184,15 @@ export default function PremiumModal({ isOpen, onClose }) {
                         <span className="text-xs text-amber-400/80">{isEs ? '→ $70/mes si activas anual' : '→ $70/mo if paid yearly'}</span>
                       </div>
                     )}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-xs text-amber-400/70">{isEs ? '→ $70/mes si pagas anual' : '→ $70/mo if paid yearly'}</span>
-                      </div>
-                    )}
-                    <ul className="space-y-3 mb-6">
+                    <ul className="space-y-2 mb-4">
                       {proFeatures.map((f, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} />
+                        <li key={i} className="flex items-start gap-2">
+                          <Check className="text-amber-500 flex-shrink-0 mt-0.5" size={14} />
                           <span className="text-gray-300 text-sm">{f}</span>
                         </li>
                       ))}
                     </ul>
-                    <button className="w-full py-3 px-4 rounded-lg font-bold bg-amber-500 hover:bg-amber-400 text-black">
+                    <button className="w-full py-2.5 px-4 rounded-lg font-bold bg-amber-500 hover:bg-amber-400 text-black text-sm">
                       {isEs ? 'Seleccionar' : 'Select'}
                     </button>
                   </div>
