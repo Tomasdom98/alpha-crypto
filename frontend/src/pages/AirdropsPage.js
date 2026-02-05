@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Clock, ChevronRight, Gift, Target, Users, TrendingUp, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, ChevronRight, Gift, Target, Users, TrendingUp, AlertTriangle, ChevronDown, ChevronUp, Search, X, Filter } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -11,7 +11,7 @@ function EducationalSection() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="mb-10 glass-card rounded-2xl overflow-hidden border border-emerald-500/20">
+    <div className="mb-8 glass-card rounded-2xl overflow-hidden border border-emerald-500/20">
       {/* Header - Always visible */}
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
@@ -104,7 +104,7 @@ function EducationalSection() {
 
           {/* Pro Tips */}
           <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/5 rounded-xl p-5 border border-emerald-500/20">
-            <h3 className="font-bold text-emerald-400 mb-3">💡 Tips de Alpha Crypto</h3>
+            <h3 className="font-bold text-emerald-400 mb-3">Tips de Alpha Crypto</h3>
             <div className="text-sm text-gray-300 space-y-2">
               <p>• <strong>Diversifica:</strong> Participa en múltiples airdrops para reducir riesgo</p>
               <p>• <strong>Documenta:</strong> Usa los links de referido para obtener bonificaciones extras</p>
@@ -121,6 +121,10 @@ function EducationalSection() {
 export default function AirdropsPage() {
   const [airdrops, setAirdrops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedChain, setSelectedChain] = useState('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [showPremiumOnly, setShowPremiumOnly] = useState(false);
 
   useEffect(() => {
     const fetchAirdrops = async () => {
@@ -136,6 +140,39 @@ export default function AirdropsPage() {
 
     fetchAirdrops();
   }, []);
+
+  // Get unique chains and difficulties
+  const chains = useMemo(() => {
+    const uniqueChains = [...new Set(airdrops.map(a => a.chain).filter(Boolean))];
+    return ['all', ...uniqueChains];
+  }, [airdrops]);
+
+  const difficulties = ['all', 'Easy', 'Medium', 'Hard'];
+
+  // Filter airdrops
+  const filteredAirdrops = useMemo(() => {
+    return airdrops.filter(airdrop => {
+      const matchesSearch = searchQuery === '' ||
+        airdrop.project_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        airdrop.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (airdrop.chain && airdrop.chain.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      const matchesChain = selectedChain === 'all' || airdrop.chain === selectedChain;
+      const matchesDifficulty = selectedDifficulty === 'all' || airdrop.difficulty === selectedDifficulty;
+      const matchesPremium = !showPremiumOnly || airdrop.premium;
+      
+      return matchesSearch && matchesChain && matchesDifficulty && matchesPremium;
+    });
+  }, [airdrops, searchQuery, selectedChain, selectedDifficulty, showPremiumOnly]);
+
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedChain('all');
+    setSelectedDifficulty('all');
+    setShowPremiumOnly(false);
+  };
+
+  const hasActiveFilters = searchQuery !== '' || selectedChain !== 'all' || selectedDifficulty !== 'all' || showPremiumOnly;
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty?.toLowerCase()) {
@@ -185,29 +222,131 @@ export default function AirdropsPage() {
         {/* Educational Section */}
         <EducationalSection />
 
-        {/* Results Count */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="text-gray-400" data-testid="airdrops-count">
-            Mostrando {airdrops.length} airdrop{airdrops.length !== 1 ? 's' : ''} activo{airdrops.length !== 1 ? 's' : ''}
+        {/* Search and Filters */}
+        <div className="mb-8 space-y-4">
+          {/* Search Bar */}
+          <div className="relative max-w-xl mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Buscar por nombre, descripción o chain..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              data-testid="airdrops-search-input"
+              className="w-full pl-12 pr-10 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
-          <div className="text-sm text-gray-500">
-            <span className="text-emerald-500">●</span> Premium = Mayor potencial de recompensa
+
+          {/* Filter Pills */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {/* Chain Filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500 uppercase tracking-wider">Chain:</span>
+              <div className="flex gap-1">
+                {chains.map((chain) => (
+                  <button
+                    key={chain}
+                    onClick={() => setSelectedChain(chain)}
+                    data-testid={`chain-filter-${chain}`}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                      selectedChain === chain
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                    }`}
+                  >
+                    {chain === 'all' ? 'Todas' : chain}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Difficulty Filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500 uppercase tracking-wider">Dificultad:</span>
+              <div className="flex gap-1">
+                {difficulties.map((diff) => (
+                  <button
+                    key={diff}
+                    onClick={() => setSelectedDifficulty(diff)}
+                    data-testid={`difficulty-filter-${diff}`}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                      selectedDifficulty === diff
+                        ? diff === 'Easy' ? 'bg-emerald-500 text-white' 
+                          : diff === 'Medium' ? 'bg-amber-500 text-white'
+                          : diff === 'Hard' ? 'bg-red-500 text-white'
+                          : 'bg-emerald-500 text-white'
+                        : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                    }`}
+                  >
+                    {diff === 'all' ? 'Todas' : diff}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Premium Toggle */}
+            <button
+              onClick={() => setShowPremiumOnly(!showPremiumOnly)}
+              data-testid="premium-filter"
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
+                showPremiumOnly
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
+                  : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+              }`}
+            >
+              <span className="text-amber-400">★</span> Solo Premium
+            </button>
+          </div>
+
+          {/* Results Count & Clear */}
+          <div className="flex items-center justify-center gap-4 text-sm">
+            <span className="text-gray-500" data-testid="airdrops-count">
+              {filteredAirdrops.length} airdrop{filteredAirdrops.length !== 1 ? 's' : ''} encontrado{filteredAirdrops.length !== 1 ? 's' : ''}
+            </span>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                <X className="w-3 h-3" />
+                Limpiar filtros
+              </button>
+            )}
           </div>
         </div>
 
         {/* Airdrops List */}
-        {airdrops.length === 0 ? (
+        {filteredAirdrops.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-lg mb-4">No hay airdrops disponibles</p>
+            <Filter className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 text-lg mb-2">No se encontraron airdrops</p>
+            <p className="text-gray-600 text-sm mb-4">Intenta con otros filtros o términos de búsqueda</p>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="text-emerald-400 hover:text-emerald-300 text-sm font-medium"
+              >
+                Limpiar filtros
+              </button>
+            )}
           </div>
         ) : (
           <div className="space-y-6">
-            {airdrops.map((airdrop) => (
+            {filteredAirdrops.map((airdrop, index) => (
               <Link
                 to={`/airdrops/${airdrop.id}`}
                 key={airdrop.id}
                 data-testid={`airdrop-card-${airdrop.id}`}
-                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 ${airdrop.premium ? 'border-amber-500/30 hover:border-amber-500/50' : ''}`}
+                className={`block glass-card rounded-xl p-6 card-hover transition-all hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 animate-fade-in-up ${airdrop.premium ? 'border-amber-500/30 hover:border-amber-500/50' : ''}`}
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
