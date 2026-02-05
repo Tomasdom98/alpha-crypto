@@ -37,7 +37,7 @@ export default function PortfolioPage() {
   return (
     <div className="min-h-screen py-12 relative" data-testid="portfolio-page">
       {/* Owl Seal */}
-      <OwlSeal position="bottom-right" size="md" opacity={0.35} className="fixed z-10 hidden lg:block" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
