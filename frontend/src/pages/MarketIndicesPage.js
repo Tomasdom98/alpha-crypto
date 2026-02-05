@@ -505,7 +505,7 @@ export default function MarketIndicesPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent mb-4" />
-          <div className="text-emerald-500 text-xl font-semibold">Cargando datos de mercado...</div>
+          <div className="text-emerald-500 text-xl font-semibold">{tx.loading}</div>
         </div>
       </div>
     );
@@ -522,21 +522,21 @@ export default function MarketIndicesPage() {
         {/* Header */}
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
+            <ChevronRight size={16} className="rotate-180" /> {tx.backToHome}
           </Link>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                Dashboard de Índices
+                {tx.dashboardTitle}
               </h1>
-              <p className="text-gray-400 text-lg">Vista completa de indicadores de mercado con señales accionables</p>
+              <p className="text-gray-400 text-lg">{tx.dashboardSubtitle}</p>
             </div>
             <Link 
               to="/calendar"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 hover:text-purple-300 transition-all"
             >
               <Clock size={18} />
-              <span className="font-medium">Calendario Macro</span>
+              <span className="font-medium">{tx.macroCalendar}</span>
               <ChevronRight size={16} />
             </Link>
           </div>
@@ -553,7 +553,7 @@ export default function MarketIndicesPage() {
                     <RecommendationIcon className={`w-8 h-8 text-${recommendation.color}-400`} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">Recomendación Alpha Crypto</p>
+                    <p className="text-sm text-gray-400 mb-1">{tx.recommendation}</p>
                     <h2 className={`text-3xl md:text-4xl font-black text-${recommendation.color}-400`}>
                       {recommendation.zone}
                     </h2>
@@ -588,27 +588,27 @@ export default function MarketIndicesPage() {
         <div className="grid grid-cols-4 gap-4 mb-10">
           <div className="glass-card rounded-xl p-4 text-center border border-emerald-500/30">
             <div className="text-3xl font-black text-emerald-400">
-              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Buy').length}
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === tx.buy).length}
             </div>
-            <div className="text-sm text-gray-400">Buy</div>
+            <div className="text-sm text-gray-400">{tx.buy}</div>
           </div>
           <div className="glass-card rounded-xl p-4 text-center border border-amber-500/30">
             <div className="text-3xl font-black text-amber-400">
-              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Hold').length}
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === tx.hold).length}
             </div>
-            <div className="text-sm text-gray-400">Hold</div>
+            <div className="text-sm text-gray-400">{tx.hold}</div>
           </div>
           <div className="glass-card rounded-xl p-4 text-center border border-red-500/30">
             <div className="text-3xl font-black text-red-400">
-              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Sell').length}
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === tx.sell).length}
             </div>
-            <div className="text-sm text-gray-400">Sell</div>
+            <div className="text-sm text-gray-400">{tx.sell}</div>
           </div>
           <div className="glass-card rounded-xl p-4 text-center border border-cyan-500/30">
             <div className="text-3xl font-black text-cyan-400">
-              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Watchlist').length}
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === tx.watchlist).length}
             </div>
-            <div className="text-sm text-gray-400">Watchlist</div>
+            <div className="text-sm text-gray-400">{tx.watchlist}</div>
           </div>
         </div>
 
@@ -617,7 +617,7 @@ export default function MarketIndicesPage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-white flex items-center gap-2">
               <BarChart3 className="text-emerald-500" size={24} />
-              Market Overview
+              {tx.marketOverview}
             </h2>
             {lastUpdate && (
               <span className="text-xs text-gray-500 flex items-center gap-1">
@@ -631,8 +631,8 @@ export default function MarketIndicesPage() {
             <div className="glass-card rounded-2xl p-6 border border-gray-700/50 hover:border-emerald-500/30 transition-colors">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white">Total Market Cap</h3>
-                  <p className="text-sm text-gray-400">Capitalización total crypto</p>
+                  <h3 className="text-lg font-bold text-white">{tx.totalMarketCap}</h3>
+                  <p className="text-sm text-gray-400">{tx.totalMarketCapDesc}</p>
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-black text-emerald-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
@@ -666,7 +666,7 @@ export default function MarketIndicesPage() {
                 </ResponsiveContainer>
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                <span>BTC Dominance: {globalData?.btc_dominance || '--'}%</span>
+                <span>{tx.btcDominance}: {globalData?.btc_dominance || '--'}%</span>
                 <span>ETH: {globalData?.eth_dominance || '--'}%</span>
               </div>
             </div>
@@ -675,7 +675,7 @@ export default function MarketIndicesPage() {
             <div className="glass-card rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/30 transition-colors">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white">Stablecoin Market Cap</h3>
+                  <h3 className="text-lg font-bold text-white">{tx.stablecoinMarketCap}</h3>
                   <p className="text-sm text-gray-400">USDT, USDC, DAI, etc.</p>
                 </div>
                 <div className="text-right">
@@ -708,11 +708,11 @@ export default function MarketIndicesPage() {
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="flex items-center justify-center h-full text-gray-500">Cargando...</div>
+                  <div className="flex items-center justify-center h-full text-gray-500">{tx.loading}</div>
                 )}
               </div>
               <p className="text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                Fuente: DefiLlama • {stablecoinData?.source || 'API'}
+                {tx.source}: DefiLlama • {stablecoinData?.source || 'API'}
               </p>
             </div>
 
@@ -720,8 +720,8 @@ export default function MarketIndicesPage() {
             <div className="glass-card rounded-2xl p-6 border border-gray-700/50 hover:border-purple-500/30 transition-colors">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white">DeFi TVL</h3>
-                  <p className="text-sm text-gray-400">Total Value Locked</p>
+                  <h3 className="text-lg font-bold text-white">{tx.defiTvl}</h3>
+                  <p className="text-sm text-gray-400">{tx.totalValueLocked}</p>
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-black text-purple-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
@@ -755,7 +755,7 @@ export default function MarketIndicesPage() {
                 </ResponsiveContainer>
               </div>
               <p className="text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                Capital en protocolos DeFi • {defiTvl?.source || 'DefiLlama'}
+                {tx.capitalInDefi} • {defiTvl?.source || 'DefiLlama'}
               </p>
             </div>
           </div>
@@ -765,7 +765,7 @@ export default function MarketIndicesPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
             <Activity className="text-emerald-500" size={24} />
-            Métricas On-Chain
+            {tx.onChainMetrics}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {onChainMetrics.map((m, i) => renderMetricCard(m, i))}
@@ -776,7 +776,7 @@ export default function MarketIndicesPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
             <TrendingUp className="text-emerald-500" size={24} />
-            Indicadores de Sentimiento
+            {tx.sentimentIndicators}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {sentimentMetrics.map((m, i) => renderMetricCard(m, i))}
@@ -787,7 +787,7 @@ export default function MarketIndicesPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
             <DollarSign className="text-emerald-500" size={24} />
-            Métricas de Liquidez
+            {tx.liquidityMetrics}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {liquidityMetrics.map((m, i) => renderMetricCard(m, i))}
@@ -798,7 +798,7 @@ export default function MarketIndicesPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
             <BarChart3 className="text-emerald-500" size={24} />
-            Estructura de Mercado
+            {tx.marketStructure}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {marketStructure.map((m, i) => renderMetricCard(m, i))}
@@ -808,7 +808,7 @@ export default function MarketIndicesPage() {
         {/* Disclaimer */}
         <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-xl">
           <p className="text-sm text-gray-500">
-            <strong className="text-gray-400">Disclaimer:</strong> Estas señales son solo para propósitos informativos y no constituyen asesoramiento financiero. Siempre haz tu propia investigación (DYOR) antes de tomar decisiones de inversión.
+            <strong className="text-gray-400">Disclaimer:</strong> {tx.disclaimer}
           </p>
         </div>
       </div>
