@@ -7,184 +7,145 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - **Frontend:** React, React Router, Tailwind CSS, Recharts
 - **Backend:** FastAPI (Python)
 - **Database:** MongoDB
-- **CMS:** Sanity.io (Project ID: 15c5x8s5) - Integrated with automatic fallback to mock data
+- **CMS:** Sanity.io (Project ID: 15c5x8s5) - Integrated with automatic fallback
 - **APIs:** CoinGecko (live prices), Alternative.me (Fear & Greed Index)
+
+## Pricing Structure (Two-Tier)
+
+### Free Content
+- Articles
+- Market Indices
+- Basic education
+
+### Alpha Access ($30/month USDC)
+- Airdrops with detailed guides
+- Portfolio tracking
+- Early Signals and alerts
+- Premium market analysis
+- Advanced indicators
+
+### Alpha Pro ($100/month USDC)
+- Everything in Alpha Access
+- Personal & business consulting
+- Priority support
+- Exclusive research
+- Monthly strategy calls
+
+### Payment Methods
+- Solana (USDC-SPL): `2X7DSWNgegbCCk1A9cdiSQm5Fk3zpkesDRpQrSqETKiv`
+- Base (USDC): `0x8b1624c8b184Edb4e7430194865490Ba5e860f0C`
+- Arbitrum (USDC): `0x8b1624c8b184Edb4e7430194865490Ba5e860f0C`
+
+## Navigation Structure
+
+### Free Section
+- Home
+- Artículos
+- Índices
+- Airdrops
+
+### Premium Section (highlighted with crown icon)
+- Portfolio
+- Señales
+- Consultoría
 
 ## Core Features
 
-### 1. Homepage
-- ✅ Live crypto price ticker (BTC, ETH, SOL, USDC from CoinGecko)
-- ✅ Fear & Greed Index with gauge visualization
-- ✅ Market indicators with glassmorphism cards
-- ✅ Article and airdrop previews
-- ✅ Premium subscription CTA ($20/mo)
-- ✅ Feedback form in footer
+### 1. Homepage ✅
+- Live crypto ticker (BTC, ETH, SOL, USDC)
+- Fear & Greed Index gauge (compact)
+- Market indicators
+- Two-tier premium banner
 
-### 2. Articles Page (`/articles`)
-- ✅ 5 articles including 3 new Spanish articles
-- ✅ Relevant images for each article
-- ✅ Category filtering, Premium badges
-- ✅ **Sanity CMS integration** (uses Sanity if 3+ articles, otherwise mock data)
+### 2. Articles Page (`/articles`) ✅
+- 5 complete educational articles in Spanish
+- Dark-themed professional images
+- Full article content with formatting
+- Click to read full article
 
-### 3. Airdrops Page (`/airdrops`)
-- ✅ 15 perpetuals DEX airdrops
-- ✅ **Professional UI Avatar logos** with project initials and distinct colors
-- ✅ Reward clarification notes
-- ✅ Premium badges, Chain badges
-- ✅ **Sanity CMS integration** (uses Sanity if 5+ airdrops, otherwise mock data)
+### 3. Airdrops Page (`/airdrops`) ✅
+- **15 verified airdrops with referral links:**
+  1. Hyena Trade - https://app.hyena.trade/ref/ALPHACRYPTO
+  2. Extended Exchange - https://app.extended.exchange/join/TOMDEFI
+  3. GRVT - https://grvt.io (ref: tomd411)
+  4. Based.one - https://app.based.one/r/TOMDEFI
+  5. Backpack - https://backpack.exchange/join/da5e1eb4-cbc1-4faf-afa6-9f11e80ce47a
+  6. Avantis - https://www.avantisfi.com/referral?code=tomdefi
+  7. StandX - https://standx.com/referral?code=tomdefi
+  8. Variational - https://omni.variational.io/perpetual/SOL
+  9. Pacifica - https://app.pacifica.fi?referral=tomdefi
+  10. Hibachi - https://hibachi.xyz/r/alphacrypto
+  11. Reya - https://app.reya.xyz/trade?referredBy=roxzmgsj
+  12. Ostium - https://app.ostium.com/trade?from=SPX&to=USD&ref=01XAZ
+  13. Ethereal - https://app.ethereal.trade
+  14. Paradex - https://app.paradex.trade/r/collaborativeclaimerr
+  15. Lighter - https://app.lighter.xyz
 
-### 4. Airdrop Detail Page (`/airdrops/:id`)
-- ✅ Full info, interactive task checklist
-- ✅ Investors & backing, Timeline
+### 4. Market Indices Page (`/indices`) ✅
+- Fear & Greed, MVRV, BTC Dominance, Rainbow Chart, Puell Multiple
+- Buy/Hold/Sell recommendations
 
-### 5. Market Indices Page (`/indices`)
-- ✅ Buy/Hold/Sell recommendations
-- ✅ Signal explanations on each card
-- ✅ Fear & Greed gauge
+### 5. Investment Analysis Page (`/analysis`) ✅
+- Market Report styled after Atlantis
+- Sector Analysis table
+- Recommended Allocations
 
-### 6. Investment Analysis Page (`/analysis`)
-- ✅ Market Report styled like Atlantis report
-- ✅ Market Overview (BTC, ETH, MCap, Fear & Greed)
-- ✅ Alpha Crypto Assessment with recommendations
-- ✅ Key Insights (bullish/bearish/neutral signals)
-- ✅ Sector Analysis table (L1s, L2s, DeFi, AI, Memecoins)
-- ✅ Recommended Allocations (Conservative/Balanced/Aggressive)
+### 6. Portfolio Page (`/portfolio`) ✅
+- Milk Road style display
+- Holdings and performance charts
 
-### 7. Portfolio Page (`/portfolio`)
-- ✅ Milk Road style portfolio display
-- ✅ Total Value: $50,000, Monthly Return: +12%
-- ✅ 6-Month Performance bar chart
-- ✅ Allocation breakdown (BTC 35%, ETH 25%, SOL 20%, USDC 15%, ALTS 5%)
-- ✅ Holdings table with live values
-- ✅ Recent Trades section
-- ✅ Strategy Notes (Current Strategy, Next Moves)
+### 7. Early Signals Page (`/signals`) ✅
+- Real-time alerts and opportunities
+- Email subscription form
 
-### 8. Early Signals Page (`/signals`)
-- ✅ Live Updates indicator
-- ✅ Urgent Signals section (red border, PREMIUM badges)
-- ✅ All Signals with priority badges (HIGH, MEDIUM, LOW)
-- ✅ Signal types: opportunity, alert, news, community
-- ✅ Action recommendations
-- ✅ External links and timestamps
-- ✅ Email Alert Subscription (FASE 3)
-- ✅ **Sanity CMS integration** (uses Sanity if 3+ signals, otherwise mock data)
+### 8. Consulting Page (`/consulting`) ✅
+- Personal/Business consulting form
+- MongoDB storage
 
-### 9. Consulting Page (`/consulting`) - FASE 3 ✅
-- ✅ Service type selection (Personal/Business Consulting)
-- ✅ Contact form (name, email, company optional, message)
-- ✅ Success state with "Message Sent!" confirmation
-- ✅ Privacy commitment section
-- ✅ Submissions saved to MongoDB
+### 9. Admin Page (`/admin`) ✅
+- Payment verification
+- Feedback, Consulting, Subscribers tabs
 
-### 10. Admin Page (`/admin`)
-- ✅ Payment verification dashboard (Pending/Verified tabs)
-- ✅ Premium users list (Users tab)
-- ✅ Feedback tab with submissions
-- ✅ Consulting tab (FASE 3) - View/manage consulting requests
-- ✅ Subscribers tab (FASE 3) - View email alert subscribers
+## Completed Tasks (February 2026)
 
-### 11. Premium Subscription
-- ✅ $20/month, Multi-chain payments
-- ✅ Manual verification
+### Priority Alta ✅
+- [x] Fix Airdrops List - Restored 15 airdrops with correct referral links
+- [x] Fix Article Click - Navigation and full content
+- [x] Two-Tier Pricing - $30 Alpha Access / $100 Alpha Pro modal
 
-### 12. Feedback System
-- ✅ Footer form, MongoDB storage
-- ✅ Admin panel review
+### Navigation Update ✅
+- [x] Restructured navigation: Free vs Premium sections
+- [x] Premium items highlighted with amber/crown icon
 
-## Navigation
-Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals | Consulting
+### Articles Update ✅
+- [x] Stablecoins: Dark theme professional image
+- [x] AI Agents: Full educational content
+- [x] Crypto 2026: Complete market analysis
+- [x] DeFi 2.0: Real yield protocols guide
+- [x] L2 Wars: Arbitrum vs Optimism vs Base comparison
 
-## Completed Tasks
+## In Progress / Upcoming Tasks
 
-### FASE 1 (February 2026)
-- [x] Market Indices with Buy/Hold/Sell recommendations
-- [x] Live crypto prices from CoinGecko API
-- [x] 3 new Spanish articles
-- [x] Airdrops with reward clarification
-- [x] Feedback form + Admin panel
+### Priority Media (Next)
+- [ ] Airdrops Educational Intro - "¿Qué es un Airdrop?" section
+- [ ] Indices Charts - Mini sparkline charts for each indicator
+- [ ] Visual identity improvements (Milk Road inspired)
 
-### FASE 2 (February 2026)
-- [x] Investment Analysis page (Atlantis style)
-- [x] Portfolio page (Milk Road style)
-- [x] Early Signals page
-
-### FASE 3 (February 2026) ✅
-- [x] Consulting page with Personal/Business service types
-- [x] Consulting form with contact info and message
-- [x] Email alert subscription in Signals page
-- [x] Admin Consulting tab with status management
-- [x] Admin Subscribers tab showing email list
-
-### P1 Tasks (February 2026) ✅
-- [x] **Sanity CMS Integration** - Backend connects to Sanity with intelligent fallback:
-  - Articles: Uses Sanity if 3+ articles exist, otherwise mock data
-  - Airdrops: Uses Sanity if 5+ airdrops exist, otherwise mock data
-  - Signals: Uses Sanity if 3+ signals exist, otherwise mock data
-- [x] **Professional Airdrop Logos** - UI Avatars with project initials (HL, DR, GR, etc.) and distinct brand colors
-- [x] **Sanity Schema Documentation** - Created `/app/docs/SANITY_SCHEMAS.md` with complete schema definitions
-
-## Sanity CMS Setup
-
-### How Content Management Works
-1. Backend attempts to fetch content from Sanity CMS first
-2. If Sanity has sufficient content (3+ articles, 5+ airdrops, 3+ signals), it uses Sanity data
-3. If Sanity has less content, it falls back to mock data
-4. This ensures the app always has content while you build up CMS content
-
-### Schemas Available
-See `/app/docs/SANITY_SCHEMAS.md` for complete schema definitions:
-- **article**: Title, slug, excerpt, content, category, premium, publishedAt, imageUrl
-- **airdrop**: projectName, logoUrl, chain, description, fullDescription, backing, timeline, rewardNote, steps, estimatedReward, difficulty, deadline, status, link, premium
-- **signal**: title, type, priority, description, action, link, timestamp, premium
-
-## Future Tasks - P2
-- [ ] Integrate real email service (Resend/SendGrid) for notifications
-- [ ] Migrate to Next.js for Vercel deployment
-- [ ] Export project to GitHub
-- [ ] User authentication system
-
-## Backlog - P3
-- [ ] Automatic on-chain payment verification
-- [ ] Real portfolio data connection
-- [ ] Saved airdrops/favorites
-- [ ] Search/filter functionality
-
-## Key API Endpoints
-
-### Sanity-Integrated Endpoints
-- `GET /api/articles` - Articles from Sanity or mock data
-- `GET /api/articles/{id}` - Single article
-- `GET /api/airdrops` - Airdrops from Sanity or mock data
-- `GET /api/airdrops/{id}` - Single airdrop
-- `GET /api/early-signals` - Signals from Sanity or mock data
-
-### FASE 3 Endpoints
-- `POST /api/consulting` - Submit consulting request
-- `GET /api/admin/consulting` - Get consulting requests (admin)
-- `POST /api/admin/consulting/{id}/status` - Update consulting status
-- `POST /api/alerts/subscribe` - Subscribe to email alerts
-- `GET /api/admin/alert-subscribers` - Get alert subscribers (admin)
-
-### Other Endpoints
-- `GET /api/crypto/prices` - Live CoinGecko prices
-- `GET /api/crypto/fear-greed` - Fear & Greed Index
-- `POST /api/feedback` - Submit feedback
-- `GET /api/admin/feedback` - Admin feedback view
-- `GET /api/admin/payments` - Admin payments
-- `GET /api/admin/users` - Premium users
-
-## Database Collections (MongoDB)
-- `payments` - Payment records
-- `users` - User accounts
-- `feedback` - Feedback submissions
-- `consulting` - Consulting requests
-- `alert_subscriptions` - Email alert subscribers
+### Future Tasks
+- [ ] Integrate real email service (Resend/SendGrid)
+- [ ] Migrate to Next.js
+- [ ] Export to GitHub
+- [ ] Real-time data from DeFiLlama/CoinGecko APIs for charts
 
 ## Test Reports
-- `/app/test_reports/iteration_1.json` - Airdrops feature
 - `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
-- `/app/test_reports/pytest/fase1_results.xml` - FASE 1 tests
-- `/app/test_reports/pytest/fase3_results.xml` - FASE 3 tests
 
 ## User's Preferred Language
 Spanish (Español)
+
+## Key Files
+- `/app/backend/server.py` - All backend logic, mock data, API endpoints
+- `/app/frontend/src/components/Navigation.js` - Free/Premium nav structure
+- `/app/frontend/src/components/PremiumModal.js` - Two-tier pricing modal
+- `/app/frontend/src/pages/ArticleDetailPage.js` - Full article view
+- `/app/docs/SANITY_SCHEMAS.md` - CMS schema documentation
