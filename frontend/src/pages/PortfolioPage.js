@@ -81,7 +81,6 @@ export default function PortfolioPage() {
 
   const tabs = [
     { id: 'portfolio', label: 'Portfolio', icon: Wallet },
-    { id: 'signals', label: 'Señales', icon: LineChart },
     { id: 'yield', label: 'Yield Stablecoins', icon: Coins },
     { id: 'staking', label: 'Staking', icon: PiggyBank }
   ];
