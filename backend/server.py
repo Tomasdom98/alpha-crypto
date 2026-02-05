@@ -642,7 +642,7 @@ def get_mock_airdrops():
         {
             "id": "15",
             "project_name": "Perennial",
-            "logo_url": "https://pbs.twimg.com/profile_images/1652034459082334208/RIjMuIzy_400x400.jpg",
+            "logo_url": "https://ui-avatars.com/api/?name=PE&background=a855f7&color=fff&size=128&bold=true&format=svg",
             "chain": "Arbitrum",
             "description": "DeFi-native perpetuals protocol with capital-efficient vaults",
             "full_description": "Perennial enables perpetual futures trading through a unique vault system. Backed by Polychain and optimized for capital efficiency. Token confirmed.",
