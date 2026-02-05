@@ -62,18 +62,17 @@ export default function HomePage() {
         <div className="absolute inset-0 grid-background" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         
-        {/* Owl mascot - cropped to show only the owl part */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block overflow-hidden" 
-             style={{ width: '350px', height: '300px' }}>
-          <img 
-            src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
-            alt="Alpha Owl" 
-            className="w-[600px] h-auto opacity-50 md:opacity-70 animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.4)]"
-            style={{ 
-              marginTop: '-190px',
-              marginLeft: '-130px'
-            }}
-          />
+        {/* Owl mascot - positioned for visual impact */}
+        <div className="absolute right-4 md:right-12 lg:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
+          <div className="relative">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png" 
+              alt="Alpha Owl" 
+              className="w-56 lg:w-72 xl:w-80 h-auto opacity-80 animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.3)]"
+            />
+            {/* Subtle glow effect behind owl */}
+            <div className="absolute inset-0 -z-10 bg-emerald-500/10 blur-3xl rounded-full scale-75" />
+          </div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
