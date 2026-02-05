@@ -747,9 +747,21 @@ async def get_market_stats():
 
 @api_router.get("/articles", response_model=List[Article])
 async def get_articles_route(category: Optional[str] = None, search: Optional[str] = None):
-    """Get articles - uses mock data with new articles"""
+    """Get articles - tries Sanity CMS first, falls back to mock data"""
     try:
-        # Use the comprehensive mock articles
+        # Try Sanity CMS first
+        articles = await sanity_get_articles(category)
+        
+        if articles and len(articles) > 0:
+            logger.info(f"Fetched {len(articles)} articles from Sanity CMS")
+            # Apply search filter if provided
+            if search:
+                search_lower = search.lower()
+                articles = [a for a in articles if search_lower in a.get('title', '').lower() or search_lower in a.get('excerpt', '').lower()]
+            return articles
+        
+        # Fallback to mock data if Sanity returns empty
+        logger.info("Sanity returned no articles, using mock data")
         articles = get_mock_articles()
         
         # Apply category filter
@@ -768,8 +780,14 @@ async def get_articles_route(category: Optional[str] = None, search: Optional[st
 
 @api_router.get("/articles/{article_id}", response_model=Article)
 async def get_article(article_id: str):
-    """Get single article by ID"""
+    """Get single article by ID - tries Sanity CMS first, falls back to mock data"""
     try:
+        # Try Sanity CMS first
+        article = await sanity_get_article_by_id(article_id)
+        if article:
+            return article
+        
+        # Fallback to mock data
         articles = get_mock_articles()
         article = next((a for a in articles if a['id'] == article_id), None)
         if not article:
@@ -783,9 +801,17 @@ async def get_article(article_id: str):
 
 @api_router.get("/airdrops", response_model=List[Airdrop])
 async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None):
-    """Get airdrops - uses mock data for the 15 DEX airdrops"""
+    """Get airdrops - tries Sanity CMS first, falls back to mock data"""
     try:
-        # Use the comprehensive mock data with 15 airdrops
+        # Try Sanity CMS first
+        airdrops = await sanity_get_airdrops(status, difficulty)
+        
+        if airdrops and len(airdrops) > 0:
+            logger.info(f"Fetched {len(airdrops)} airdrops from Sanity CMS")
+            return airdrops
+        
+        # Fallback to mock data
+        logger.info("Sanity returned no airdrops, using mock data")
         airdrops = get_mock_airdrops()
         
         # Apply filters
@@ -802,8 +828,14 @@ async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[
 
 @api_router.get("/airdrops/{airdrop_id}", response_model=Airdrop)
 async def get_airdrop(airdrop_id: str):
-    """Get single airdrop by ID from mock data"""
+    """Get single airdrop by ID - tries Sanity CMS first, falls back to mock data"""
     try:
+        # Try Sanity CMS first
+        airdrop = await sanity_get_airdrop_by_id(airdrop_id)
+        if airdrop:
+            return airdrop
+        
+        # Fallback to mock data
         airdrops = get_mock_airdrops()
         airdrop = next((a for a in airdrops if a['id'] == airdrop_id), None)
         if not airdrop:
