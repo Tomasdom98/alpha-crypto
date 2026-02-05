@@ -2247,6 +2247,136 @@ async def mark_feedback_read(feedback_id: str):
         raise HTTPException(status_code=500, detail="Failed to update feedback")
 
 
+# =============================================================================
+# ALPHAI - DeFi Research Assistant
+# =============================================================================
+
+ALPHAI_SYSTEM_MESSAGE = """Eres ALPHAI 🦉, el asistente de investigación DeFi de Alpha Crypto. 
+
+Tu personalidad:
+- Eres experto, amigable y directo
+- Respondes siempre en español
+- Usas emojis ocasionalmente para hacer la conversación más amena
+- Eres honesto cuando no sabes algo
+
+Tu especialidad:
+- Crypto y DeFi (protocolos, tokens, yield farming, staking)
+- Análisis de mercado y tendencias
+- Explicar conceptos complejos de forma simple
+- Airdrops y oportunidades
+- Seguridad en crypto
+
+Reglas:
+- NO des consejos financieros específicos (no digas "compra X" o "vende Y")
+- Siempre menciona que hagan su propia investigación (DYOR)
+- Si preguntan por precios específicos, di que no tienes datos en tiempo real
+- Mantén respuestas concisas pero informativas (máx 300 palabras)
+- Si la pregunta no es sobre crypto/finanzas, responde brevemente y redirige al tema"""
+
+FREE_DAILY_LIMIT = 5
+
+class AlphaiMessage(BaseModel):
+    message: str
+    session_id: str
+    is_premium: bool = False
+
+class AlphaiResponse(BaseModel):
+    response: str
+    remaining_messages: int
+    is_premium: bool
+
+@api_router.post("/alphai/chat")
+async def alphai_chat(request: AlphaiMessage):
+    """ALPHAI chat endpoint - DeFi research assistant"""
+    try:
+        # Get or create user session tracking
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        session_key = f"alphai_{request.session_id}_{today}"
+        
+        # Check message count for free users
+        if not request.is_premium:
+            user_data = await db.alphai_usage.find_one({"session_key": session_key})
+            message_count = user_data.get("count", 0) if user_data else 0
+            
+            if message_count >= FREE_DAILY_LIMIT:
+                return {
+                    "response": "🔒 Has alcanzado el límite de 5 mensajes gratuitos por día. ¡Actualiza a Premium para mensajes ilimitados y análisis más profundos!",
+                    "remaining_messages": 0,
+                    "is_premium": False,
+                    "limit_reached": True
+                }
+        
+        # Get LLM key
+        llm_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not llm_key:
+            raise HTTPException(status_code=500, detail="LLM service not configured")
+        
+        # Initialize chat with appropriate model
+        model = "gpt-4o" if request.is_premium else "gpt-4o-mini"
+        
+        chat = LlmChat(
+            api_key=llm_key,
+            session_id=request.session_id,
+            system_message=ALPHAI_SYSTEM_MESSAGE
+        ).with_model("openai", model)
+        
+        # Send message
+        user_message = UserMessage(text=request.message)
+        response = await chat.send_message(user_message)
+        
+        # Update usage for free users
+        remaining = FREE_DAILY_LIMIT
+        if not request.is_premium:
+            await db.alphai_usage.update_one(
+                {"session_key": session_key},
+                {"$inc": {"count": 1}, "$set": {"updated_at": datetime.now(timezone.utc).isoformat()}},
+                upsert=True
+            )
+            remaining = FREE_DAILY_LIMIT - (message_count + 1)
+        else:
+            remaining = -1  # Unlimited for premium
+        
+        # Save to chat history
+        await db.alphai_history.insert_one({
+            "session_id": request.session_id,
+            "user_message": request.message,
+            "ai_response": response,
+            "is_premium": request.is_premium,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        })
+        
+        return {
+            "response": response,
+            "remaining_messages": remaining,
+            "is_premium": request.is_premium,
+            "limit_reached": False
+        }
+        
+    except Exception as e:
+        logger.error(f"ALPHAI chat error: {e}")
+        return {
+            "response": "Lo siento, hubo un error procesando tu mensaje. Por favor intenta de nuevo. 🦉",
+            "remaining_messages": -1,
+            "is_premium": request.is_premium,
+            "error": True
+        }
+
+@api_router.get("/alphai/usage/{session_id}")
+async def get_alphai_usage(session_id: str):
+    """Get remaining messages for a session"""
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    session_key = f"alphai_{session_id}_{today}"
+    
+    user_data = await db.alphai_usage.find_one({"session_key": session_key})
+    message_count = user_data.get("count", 0) if user_data else 0
+    
+    return {
+        "used": message_count,
+        "remaining": max(0, FREE_DAILY_LIMIT - message_count),
+        "limit": FREE_DAILY_LIMIT
+    }
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
