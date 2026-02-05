@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Mail, CheckCircle, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { useLanguage } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 

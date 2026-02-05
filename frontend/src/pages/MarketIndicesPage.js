@@ -4,6 +4,7 @@ import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, ChevronRight
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import OwlSeal from '@/components/OwlSeal';
+import { useLanguage } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;

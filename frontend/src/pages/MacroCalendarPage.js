@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ChevronLeft, ChevronRight, Clock, TrendingUp, TrendingDown, Minus, AlertCircle, Building2, Coins, LineChart } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Macro events data (static for now - can be connected to APIs later)
 const MACRO_EVENTS = [
