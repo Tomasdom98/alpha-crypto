@@ -71,7 +71,7 @@ export default function NewsletterPopup({ delay = 3000 }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-      setError('Ingresa tu email');
+      setError(tx.enterEmail);
       return;
     }
     
@@ -84,7 +84,7 @@ export default function NewsletterPopup({ delay = 3000 }) {
       localStorage.setItem('newsletter_subscribed', 'true');
       setTimeout(() => setShow(false), 3000);
     } catch (err) {
-      setError('Error al suscribirse. Intenta de nuevo.');
+      setError(tx.errorSubscribe);
     } finally {
       setLoading(false);
     }
