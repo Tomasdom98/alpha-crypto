@@ -931,22 +931,24 @@ def get_mock_airdrops():
             "logo_url": "https://ui-avatars.com/api/?name=GR&background=8b5cf6&color=fff&size=128&bold=true&format=svg",
             "chain": "zkSync",
             "description": "DEX híbrido de grado institucional en zkSync con rendimiento tipo CEX",
-            "full_description": "GRVT combina lo mejor de CEX y DEX: auto-custodia con velocidad y liquidez institucional. Construido sobre zkSync Era con respaldo de VCs crypto importantes. Lanzamiento de token confirmado.",
+            "full_description": "GRVT combina lo mejor de CEX y DEX: auto-custodia con velocidad y liquidez institucional. Construido sobre zkSync Era. 22% del token supply asignado a airdrops (Season 1 y 2). TGE confirmado para Q1 2026.",
             "backing": "Respaldado por Paradigm, Variant, Robot Ventures - $7M raised",
-            "reward_note": "La recompensa varía según volumen de trading, puntos ganados y nivel de participación",
+            "reward_note": "12% para Season 2 + 10% Season 1. Distribución post-TGE con releases mensuales.",
             "tasks": [
-                {"id": "t1", "description": "Crear cuenta con referido: tomd411", "completed": False},
-                {"id": "t2", "description": "Completar verificación de identidad", "completed": False},
-                {"id": "t3", "description": "Hacer al menos 10 trades (cualquier tamaño)", "completed": False},
-                {"id": "t4", "description": "Mantener actividad de trading por 30 días", "completed": False}
+                {"id": "t1", "description": "Crear cuenta en grvt.io/exchange con código referido", "completed": False},
+                {"id": "t2", "description": "Completar verificación KYC (obligatorio para rewards)", "completed": False},
+                {"id": "t3", "description": "Depositar USDT para ganar Daily Balance Points (ZK Rewards)", "completed": False},
+                {"id": "t4", "description": "Tradear perpetuos para generar Trader Points", "completed": False},
+                {"id": "t5", "description": "Completar quests de Zealy para puntos extra", "completed": False},
+                {"id": "t6", "description": "Referir amigos para maximizar puntos", "completed": False}
             ],
             "estimated_reward": "$2000-5000",
             "difficulty": "Easy",
-            "deadline": "2024-08-31T23:59:59Z",
+            "deadline": "2026-03-31T23:59:59Z",
             "status": "active",
-            "link": "https://grvt.io",
+            "link": "https://grvt.io/exchange?ref=tomd411",
             "premium": True,
-            "timeline": "Lanzamiento de token Q3 2024"
+            "timeline": "Season 2 activa - TGE Q1 2026"
         },
         {
             "id": "4",
