@@ -103,13 +103,17 @@ function EarlySignalsPage() {
 
   return (
     <div className="min-h-screen py-12 relative" data-testid="early-signals-page">
-      {/* Owl mascot decoration */}
-      <div className="absolute right-2 top-4 pointer-events-none hidden md:block overflow-hidden" style={{ height: '160px' }}>
+      {/* Owl mascot decoration - cropped to show only the owl */}
+      <div className="absolute right-2 top-4 pointer-events-none hidden md:block overflow-hidden" 
+           style={{ width: '120px', height: '130px' }}>
         <img 
           src={OWL_URL}
           alt="Alpha Owl" 
-          className="w-28 lg:w-36 h-auto opacity-30 animate-float drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]"
-          style={{ objectFit: 'contain', objectPosition: 'center bottom' }}
+          className="w-[280px] h-auto opacity-40 animate-float drop-shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+          style={{ 
+            marginTop: '-160px',
+            marginLeft: '-80px'
+          }}
         />
       </div>
       
