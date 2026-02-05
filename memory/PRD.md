@@ -141,22 +141,30 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [ ] Migrate to Next.js
 - [ ] Export to GitHub
 
+## Last Update: Febrero 2026
+
+## Language
+- Idioma del sitio: **Español (LATAM)**
+- Todas las secciones traducidas al español
+
 ## Brand Assets
 - **Logo AC:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/3t4s66a5_Gemini_Generated_Image_2rrfmj2rrfmj2rrf.png
-  - Fondo: #1a1f2e (azul oscuro)
-  - Tamaño: 44px con border-radius: 8px
+  - Forma: Circular (border-radius: 50%)
+  - Blend mode: `mix-blend-mode: lighten` para fundirse con header
+  - Tamaño: 44px
   - Ubicación: Header y Footer
   
 - **Búho Mascota:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/hvgiid52_Gemini_Generated_Image_abg785abg785abg7.png
-  - Fondo: Negro (matchea con #0f172a del sitio)
+  - Blend mode: `mix-blend-mode: lighten` + opacidad 70%
+  - Mask: radial gradient para fade en bordes
   - Tamaño Hero: 280-320px
   - Ubicación: Hero section, Señales, Footer watermark
   
-- **Favicon:** Logo AC (link en index.html)
+- **Favicon:** Logo AC (configurado en index.html)
 
 ## Color Scheme
 - Fondo principal: #0f172a
-- Fondo cards: #1a1f2e (matchea logo)
+- Fondo cards: #1a1f2e 
 - Acento verde: #10b981 (emerald-500)
 - Texto principal: white
 - Texto secundario: gray-400
