@@ -7,6 +7,9 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
 
+// Brand Assets
+const OWL_URL = "https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/mt7vcsqk_Gemini_Generated_Image_k7va0ik7va0ik7va.png";
+
 function EarlySignalsPage() {
   const [signals, setSignals] = useState([]);
   const [loading, setLoading] = useState(true);
