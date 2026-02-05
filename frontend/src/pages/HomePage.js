@@ -62,16 +62,16 @@ export default function HomePage() {
         <div className="absolute inset-0 grid-background" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
         
-        {/* Owl mascot - positioned for visual interest with blend mode for dark bg */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
+        {/* Owl mascot - cropped to show only the owl part */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block overflow-hidden" 
+             style={{ width: '350px', height: '300px' }}>
           <img 
             src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
             alt="Alpha Owl" 
-            className="w-72 lg:w-96 xl:w-[420px] h-auto opacity-40 md:opacity-60 drop-shadow-[0_0_40px_rgba(16,185,129,0.3)] animate-float"
+            className="w-[600px] h-auto opacity-50 md:opacity-70 animate-float drop-shadow-[0_0_40px_rgba(16,185,129,0.4)]"
             style={{ 
-              objectFit: 'contain',
-              objectPosition: 'center bottom',
-              maskImage: 'linear-gradient(to left, black 60%, transparent 100%)'
+              marginTop: '-190px',
+              marginLeft: '-130px'
             }}
           />
         </div>
