@@ -5,31 +5,27 @@ import { ArrowLeft, Clock, BookOpen, Share2 } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 
-export default function ArticleDetailPage() {
+function ArticleDetailPage() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        const { data } = await axios.get(`${API}/articles/${id}`);
-        setArticle(data);
-      } catch (error) {
-        console.error('Error fetching article:', error);
-        setError('No se pudo cargar el artículo');
-      } finally {
+    axios.get(BACKEND_URL + '/api/articles/' + id)
+      .then(function(response) {
+        setArticle(response.data);
         setLoading(false);
-      }
-    };
-
-    fetchArticle();
+      })
+      .catch(function(err) {
+        console.error('Error:', err);
+        setError('No se pudo cargar el artículo');
+        setLoading(false);
+      });
   }, [id]);
 
-  const handleShare = () => {
+  function handleShare() {
     if (navigator.share) {
       navigator.share({
         title: article.title,
@@ -40,7 +36,38 @@ export default function ArticleDetailPage() {
       navigator.clipboard.writeText(window.location.href);
       alert('Link copiado al portapapeles');
     }
-  };
+  }
+
+  function formatContent(content) {
+    if (!content) return '';
+    var lines = content.split('\n');
+    var result = '';
+    
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (!line.trim()) continue;
+      
+      if (line.trim() === '---') {
+        result += '<hr class="border-gray-700 my-6" />';
+      } else if (line.startsWith('## ')) {
+        result += '<h2 class="text-2xl font-bold text-white mt-8 mb-4">' + line.slice(3) + '</h2>';
+      } else if (line.startsWith('### ')) {
+        result += '<h3 class="text-xl font-bold text-emerald-400 mt-6 mb-3">' + line.slice(4) + '</h3>';
+      } else if (line.startsWith('> ')) {
+        result += '<blockquote class="border-l-4 border-emerald-500 pl-4 my-4 text-gray-300 italic">' + line.slice(2) + '</blockquote>';
+      } else if (line.startsWith('- ')) {
+        var txt = line.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+        result += '<div class="flex gap-2 my-1"><span class="text-emerald-500">•</span><span class="text-gray-300">' + txt + '</span></div>';
+      } else if (line.includes('|') && line.trim().startsWith('|')) {
+        // Skip tables for now - just show as text
+        result += '<p class="mb-2 text-gray-400 text-sm font-mono">' + line + '</p>';
+      } else {
+        var formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+        result += '<p class="mb-3 text-gray-300 leading-relaxed">' + formatted + '</p>';
+      }
+    }
+    return result;
+  }
 
   if (loading) {
     return (
@@ -61,109 +88,22 @@ export default function ArticleDetailPage() {
     );
   }
 
-  // Parse content - convert markdown-like syntax to HTML
-  const formatContent = (content) => {
-    if (!content) return '';
-    
-    // Process line by line for better control
-    const lines = content.split('\n');
-    let result = [];
-    let inTable = false;
-    let tableRows = [];
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      
-      // Table detection
-      if (line.includes('|') && line.trim().startsWith('|')) {
-        inTable = true;
-        if (!line.includes('---')) tableRows.push(line);
-        continue;
-      } else if (inTable && tableRows.length > 0) {
-        // Render table
-        const parseRow = (row) => row.split('|').filter(c => c.trim()).map(c => c.trim());
-        const header = parseRow(tableRows[0]);
-        const body = tableRows.slice(1).map(parseRow);
-        let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full"><thead><tr class="border-b border-gray-700">';
-        header.forEach(h => { tableHtml += '<th class="text-left py-2 px-3 text-emerald-400 text-sm">' + h + '</th>'; });
-        tableHtml += '</tr></thead><tbody>';
-        body.forEach((row, idx) => {
-          tableHtml += '<tr class="' + (idx % 2 === 0 ? 'bg-gray-800/30' : '') + ' border-b border-gray-800">';
-          row.forEach(cell => { tableHtml += '<td class="py-2 px-3 text-gray-300 text-sm">' + cell + '</td>'; });
-          tableHtml += '</tr>';
-        });
-        tableHtml += '</tbody></table></div>';
-        result.push(tableHtml);
-        tableRows = [];
-        inTable = false;
-      }
-      
-      // Skip empty lines
-      if (!line.trim()) continue;
-      
-      // Horizontal rules
-      if (line.trim() === '---') {
-        result.push('<hr class="border-gray-700 my-6" />');
-        continue;
-      }
-      
-      // H2 headers
-      if (line.startsWith('## ')) {
-        result.push('<h2 class="text-2xl font-bold text-white mt-8 mb-4">' + line.slice(3) + '</h2>');
-        continue;
-      }
-      
-      // H3 headers
-      if (line.startsWith('### ')) {
-        result.push('<h3 class="text-xl font-bold text-emerald-400 mt-6 mb-3">' + line.slice(4) + '</h3>');
-        continue;
-      }
-      
-      // Blockquotes
-      if (line.startsWith('> ')) {
-        result.push('<blockquote class="border-l-4 border-emerald-500 pl-4 my-4 text-gray-300 italic">' + line.slice(2) + '</blockquote>');
-        continue;
-      }
-      
-      // Bullet lists
-      if (line.startsWith('- ')) {
-        const text = line.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
-        result.push('<div class="flex gap-2 my-1"><span class="text-emerald-500">•</span><span class="text-gray-300">' + text + '</span></div>');
-        continue;
-      }
-      
-      // Regular paragraphs with bold formatting
-      const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
-      result.push('<p class="mb-3 text-gray-300 leading-relaxed">' + formatted + '</p>');
+  var tagElements = [];
+  if (article.tags) {
+    for (var i = 0; i < article.tags.length; i++) {
+      tagElements.push(
+        <span key={i} className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm">
+          {article.tags[i]}
+        </span>
+      );
     }
-    
-    // Handle remaining table
-    if (tableRows.length > 0) {
-      const parseRow = (row) => row.split('|').filter(c => c.trim()).map(c => c.trim());
-      const header = parseRow(tableRows[0]);
-      const body = tableRows.slice(1).map(parseRow);
-      let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full"><thead><tr class="border-b border-gray-700">';
-      header.forEach(h => { tableHtml += '<th class="text-left py-2 px-3 text-emerald-400 text-sm">' + h + '</th>'; });
-      tableHtml += '</tr></thead><tbody>';
-      body.forEach((row, idx) => {
-        tableHtml += '<tr class="' + (idx % 2 === 0 ? 'bg-gray-800/30' : '') + ' border-b border-gray-800">';
-        row.forEach(cell => { tableHtml += '<td class="py-2 px-3 text-gray-300 text-sm">' + cell + '</td>'; });
-        tableHtml += '</tr>';
-      });
-      tableHtml += '</tbody></table></div>';
-      result.push(tableHtml);
-    }
-    
-    return result.join('');
-  };
+  }
 
   return (
     <div className="min-h-screen py-8 relative">
-      {/* Owl Seal */}
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back button */}
         <Link 
           to="/articles" 
           className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-500 mb-8 transition-colors"
@@ -172,9 +112,7 @@ export default function ArticleDetailPage() {
           <span>Volver a artículos</span>
         </Link>
 
-        {/* Article Header */}
         <article className="glass-card rounded-2xl overflow-hidden">
-          {/* Hero Image */}
           <div className="h-64 md:h-96 overflow-hidden relative">
             {article.image_url && (
               <img 
@@ -185,7 +123,6 @@ export default function ArticleDetailPage() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
             
-            {/* Category Badge */}
             <div className="absolute bottom-6 left-6 flex items-center gap-3">
               <span className="bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium">
                 {article.category}
@@ -199,9 +136,7 @@ export default function ArticleDetailPage() {
             </div>
           </div>
 
-          {/* Article Content */}
           <div className="p-6 md:p-10">
-            {/* Title */}
             <h1 
               className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
@@ -209,7 +144,6 @@ export default function ArticleDetailPage() {
               {article.title}
             </h1>
 
-            {/* Meta Info */}
             <div className="flex flex-wrap items-center gap-6 mb-8 pb-8 border-b border-gray-800">
               <div className="flex items-center gap-2 text-gray-400">
                 <Clock size={16} />
@@ -234,38 +168,27 @@ export default function ArticleDetailPage() {
               </button>
             </div>
 
-            {/* Excerpt */}
             <div className="text-xl text-gray-300 mb-8 leading-relaxed border-l-4 border-emerald-500 pl-6 italic">
               {article.excerpt}
             </div>
 
-            {/* Main Content */}
             <div 
               className="prose prose-invert prose-emerald max-w-none text-gray-300"
               dangerouslySetInnerHTML={{ __html: formatContent(article.content) }}
             />
 
-            {/* Tags / Related */}
             <div className="mt-12 pt-8 border-t border-gray-800">
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-sm text-gray-500 mr-2">Temas:</span>
                 <span className="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-sm border border-emerald-500/30">
                   {article.category}
                 </span>
-                {article.tags && article.tags.map((tag, idx) => (
-                  <span 
-                    key={idx}
-                    className="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm hover:bg-gray-700 transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                {tagElements}
               </div>
             </div>
           </div>
         </article>
 
-        {/* CTA */}
         <div className="mt-8 p-6 glass-card rounded-xl text-center">
           <h3 className="text-lg font-bold text-white mb-2">¿Te gustó este contenido?</h3>
           <p className="text-gray-400 text-sm mb-4">
@@ -282,3 +205,5 @@ export default function ArticleDetailPage() {
     </div>
   );
 }
+
+export default ArticleDetailPage;
