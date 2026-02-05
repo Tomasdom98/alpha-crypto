@@ -1350,7 +1350,7 @@ async def get_crypto_chart(coin_id: str, days: int = 30):
     cache_key = f"chart_{coin_id}_{days}"
     
     # Check cache first
-    cached = api_cache.get(cache_key)
+    cached = await api_cache.get(cache_key, ttl_seconds=300)
     if cached:
         logger.info(f"Returning cached chart data for {coin_id}")
         return cached
@@ -1376,11 +1376,11 @@ async def get_crypto_chart(coin_id: str, days: int = 30):
                         })
                     
                     result = {"coin_id": coin_id, "days": days, "data": chart_data}
-                    api_cache.set(cache_key, result, ttl=300)  # Cache for 5 min
+                    await api_cache.set(cache_key, result)
                     return result
                 else:
                     logger.warning(f"CoinGecko chart API returned {response.status}")
-                    raise HTTPException(status_code=response.status, detail="Failed to fetch chart data")
+                    return generate_mock_chart_data(coin_id, days)
     except Exception as e:
         logger.error(f"Error fetching chart data: {e}")
         # Return mock data as fallback
