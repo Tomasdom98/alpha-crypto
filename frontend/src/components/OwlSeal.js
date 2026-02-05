@@ -17,6 +17,35 @@ export default function OwlSeal({
     xl: 'w-28 h-28'
   };
 
+  // Fixed position for the watermark
+  if (className.includes('fixed')) {
+    return (
+      <div 
+        className={`pointer-events-none select-none z-50 ${className}`}
+        style={{ 
+          opacity,
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px'
+        }}
+      >
+        <div className="flex flex-col items-center gap-1">
+          <img 
+            src={OWL_URL}
+            alt="Alpha Crypto"
+            className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
+            style={{ filter: 'brightness(1.2) contrast(1.1)' }}
+          />
+          {showText && (
+            <span className="text-[10px] text-emerald-500/70 font-bold tracking-widest">
+              αC
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   const positionClasses = {
     'bottom-right': 'absolute bottom-6 right-6',
     'bottom-left': 'absolute bottom-6 left-6',
