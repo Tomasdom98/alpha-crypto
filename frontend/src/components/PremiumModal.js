@@ -117,38 +117,38 @@ export default function PremiumModal({ isOpen, onClose }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div
                   onClick={() => { setSelectedTier('alpha'); setStep('select'); }}
-                  className="rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 cursor-pointer hover:border-emerald-500 hover:scale-[1.02] transition-all"
+                  className="rounded-xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 cursor-pointer hover:border-emerald-500 hover:scale-[1.02] transition-all"
                 >
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 rounded-xl bg-emerald-500/20">
-                        <Zap className="text-emerald-500" size={24} />
+                  <div className="p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-2 rounded-lg bg-emerald-500/20">
+                        <Zap className="text-emerald-500" size={20} />
                       </div>
-                      <h3 className="text-xl font-bold text-white">Alpha Access</h3>
+                      <h3 className="text-lg font-bold text-white">Alpha Access</h3>
                     </div>
-                    <div className="mb-2">
-                      <span className="text-4xl font-black text-white">${PRICING.alpha[billingCycle]}</span>
-                      <span className="text-gray-400">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
+                    <div className="mb-1">
+                      <span className="text-3xl font-black text-white">${PRICING.alpha[billingCycle]}</span>
+                      <span className="text-gray-400 text-sm">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
                     </div>
                     {billingCycle === 'yearly' ? (
-                      <div className="flex items-center gap-2 mb-4">
+                      <div className="flex items-center gap-2 mb-3">
                         <span className="text-sm text-gray-400">$21{isEs ? '/mes equiv.' : '/mo equiv.'}</span>
-                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡Ahorra 30%!' : 'Save 30%!'}</span>
+                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡30% OFF!' : '30% OFF!'}</span>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-xs text-emerald-400/70">{isEs ? '→ $21/mes si pagas anual' : '→ $21/mo if paid yearly'}</span>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs text-emerald-400/80">{isEs ? '→ $21/mes si activas anual' : '→ $21/mo if paid yearly'}</span>
                       </div>
                     )}
-                    <ul className="space-y-3 mb-6">
+                    <ul className="space-y-2 mb-4">
                       {alphaFeatures.map((f, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} />
+                        <li key={i} className="flex items-start gap-2">
+                          <Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={14} />
                           <span className="text-gray-300 text-sm">{f}</span>
                         </li>
                       ))}
                     </ul>
-                    <button className="w-full py-3 px-4 rounded-lg font-bold bg-emerald-500 hover:bg-emerald-400 text-white">
+                    <button className="w-full py-2.5 px-4 rounded-lg font-bold bg-emerald-500 hover:bg-emerald-400 text-white text-sm">
                       {isEs ? 'Seleccionar' : 'Select'}
                     </button>
                   </div>
@@ -156,28 +156,34 @@ export default function PremiumModal({ isOpen, onClose }) {
 
                 <div
                   onClick={() => { setSelectedTier('pro'); setStep('select'); }}
-                  className="relative rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/10 to-orange-500/5 cursor-pointer hover:border-amber-500 hover:scale-[1.02] transition-all"
+                  className="relative rounded-xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/10 to-orange-500/5 cursor-pointer hover:border-amber-500 hover:scale-[1.02] transition-all"
                 >
                   <div className="text-center -mt-3">
-                    <span className="bg-amber-500 text-black text-xs font-bold px-4 py-1 rounded-full">
+                    <span className="bg-amber-500 text-black text-xs font-bold px-3 py-0.5 rounded-full">
                       {isEs ? 'MÁS POPULAR' : 'MOST POPULAR'}
                     </span>
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 rounded-xl bg-amber-500/20">
-                        <Crown className="text-amber-500" size={24} />
+                  <div className="p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-2 rounded-lg bg-amber-500/20">
+                        <Crown className="text-amber-500" size={20} />
                       </div>
-                      <h3 className="text-xl font-bold text-white">Alpha Pro</h3>
+                      <h3 className="text-lg font-bold text-white">Alpha Pro</h3>
                     </div>
-                    <div className="mb-2">
-                      <span className="text-4xl font-black text-white">${PRICING.pro[billingCycle]}</span>
-                      <span className="text-gray-400">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
+                    <div className="mb-1">
+                      <span className="text-3xl font-black text-white">${PRICING.pro[billingCycle]}</span>
+                      <span className="text-gray-400 text-sm">{billingCycle === 'monthly' ? (isEs ? '/mes' : '/mo') : (isEs ? '/año' : '/yr')} USDC</span>
                     </div>
                     {billingCycle === 'yearly' ? (
-                      <div className="flex items-center gap-2 mb-4">
+                      <div className="flex items-center gap-2 mb-3">
                         <span className="text-sm text-gray-400">$70{isEs ? '/mes equiv.' : '/mo equiv.'}</span>
-                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡Ahorra 30%!' : 'Save 30%!'}</span>
+                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">{isEs ? '¡30% OFF!' : '30% OFF!'}</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs text-amber-400/80">{isEs ? '→ $70/mes si activas anual' : '→ $70/mo if paid yearly'}</span>
+                      </div>
+                    )}
                       </div>
                     ) : (
                       <div className="flex items-center gap-2 mb-4">
