@@ -465,10 +465,18 @@ export default function MarketIndicesPage() {
 
         {/* Large Market Charts Section */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <BarChart3 className="text-emerald-500" size={24} />
-            Gráficos de Capitalización
-          </h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <BarChart3 className="text-emerald-500" size={24} />
+              Market Overview
+            </h2>
+            {lastUpdate && (
+              <span className="text-xs text-gray-500 flex items-center gap-1">
+                <Clock size={12} />
+                {getTimeAgo(lastUpdate)}
+              </span>
+            )}
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Total Market Cap Chart */}
             <div className="glass-card rounded-2xl p-6 border border-gray-700/50 hover:border-emerald-500/30 transition-colors">
@@ -478,8 +486,14 @@ export default function MarketIndicesPage() {
                   <p className="text-sm text-gray-400">Capitalización total crypto</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-emerald-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>$2.15T</div>
-                  <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">+2.3%</span>
+                  <div className="text-2xl font-black text-emerald-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                    {globalData ? formatNumber(globalData.total_market_cap_usd) : '$--'}
+                  </div>
+                  {globalData && (
+                    <span className={`text-xs ${globalData.market_cap_change_24h >= 0 ? 'text-emerald-400 bg-emerald-500/10' : 'text-red-400 bg-red-500/10'} px-2 py-0.5 rounded-full`}>
+                      {globalData.market_cap_change_24h >= 0 ? '+' : ''}{globalData.market_cap_change_24h}%
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="h-40">
@@ -502,12 +516,13 @@ export default function MarketIndicesPage() {
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
-              <p className="text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                Datos históricos de los últimos 90 días. Fuente: CoinGecko
-              </p>
+              <div className="flex justify-between text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
+                <span>BTC Dominance: {globalData?.btc_dominance || '--'}%</span>
+                <span>ETH: {globalData?.eth_dominance || '--'}%</span>
+              </div>
             </div>
 
-            {/* Stablecoin Market Cap Chart */}
+            {/* Stablecoin Market Cap with Distribution */}
             <div className="glass-card rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/30 transition-colors">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -515,32 +530,40 @@ export default function MarketIndicesPage() {
                   <p className="text-sm text-gray-400">USDT, USDC, DAI, etc.</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-blue-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>$162B</div>
-                  <span className="text-xs text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full">+0.8%</span>
+                  <div className="text-2xl font-black text-blue-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                    {stablecoinData ? formatNumber(stablecoinData.total_market_cap) : '$--'}
+                  </div>
                 </div>
               </div>
+              {/* Stablecoin Distribution Bar Chart */}
               <div className="h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={generateLargeChartData('stable', 90)}>
-                    <defs>
-                      <linearGradient id="stableMcapGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <Area 
-                      type="monotone" 
-                      dataKey="value" 
-                      stroke="#3b82f6" 
-                      strokeWidth={2}
-                      fill="url(#stableMcapGradient)"
-                      dot={false}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+                {stablecoinData?.top_stablecoins ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={stablecoinData.top_stablecoins.slice(0, 5)} layout="vertical">
+                      <XAxis type="number" hide />
+                      <YAxis type="category" dataKey="symbol" tick={{ fill: '#9ca3af', fontSize: 11 }} width={50} />
+                      <Tooltip 
+                        content={({ payload }) => {
+                          if (payload && payload[0]) {
+                            return (
+                              <div className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-xs">
+                                <span className="text-white">{payload[0].payload.name}: </span>
+                                <span className="text-blue-400">{payload[0].payload.percentage}%</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Bar dataKey="percentage" fill="#3b82f6" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-500">Cargando...</div>
+                )}
               </div>
               <p className="text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                Liquidez disponible para entrar al mercado. Fuente: DefiLlama
+                Fuente: DefiLlama • {stablecoinData?.source || 'API'}
               </p>
             </div>
 
@@ -552,8 +575,14 @@ export default function MarketIndicesPage() {
                   <p className="text-sm text-gray-400">Total Value Locked</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-purple-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>$85.2B</div>
-                  <span className="text-xs text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-full">+5.2%</span>
+                  <div className="text-2xl font-black text-purple-400" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                    {defiTvl ? formatNumber(defiTvl.total_tvl) : '$--'}
+                  </div>
+                  {defiTvl && (
+                    <span className={`text-xs ${defiTvl.change_24h >= 0 ? 'text-emerald-400 bg-emerald-500/10' : 'text-red-400 bg-red-500/10'} px-2 py-0.5 rounded-full`}>
+                      {defiTvl.change_24h >= 0 ? '+' : ''}{defiTvl.change_24h}%
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="h-40">
@@ -577,7 +606,7 @@ export default function MarketIndicesPage() {
                 </ResponsiveContainer>
               </div>
               <p className="text-xs text-gray-500 mt-3 border-t border-gray-700/50 pt-3">
-                Capital bloqueado en protocolos DeFi. Fuente: DefiLlama
+                Capital en protocolos DeFi • {defiTvl?.source || 'DefiLlama'}
               </p>
             </div>
           </div>
