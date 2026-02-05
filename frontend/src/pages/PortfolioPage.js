@@ -292,17 +292,7 @@ export default function PortfolioPage() {
           </>
         )}
 
-        {/* Signals Section */}
-        {activeTab === 'signals' && (
-          <div className="glass-card rounded-2xl p-8 text-center">
-            <LineChart className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Señales de Trading</h2>
-            <p className="text-gray-400 mb-6">Próximamente: Alertas de entrada/salida, niveles clave y análisis técnico en tiempo real.</p>
-            <Link to="/signals" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition-all">
-              Ver Página de Señales <ExternalLink size={16} />
-            </Link>
-          </div>
-        )}
+        {/* Signals Section - Removed, now only 3 tabs */}
 
         {/* Yield Stablecoins Section */}
         {activeTab === 'yield' && (
