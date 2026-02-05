@@ -102,7 +102,6 @@ export default function AirdropsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedChain, setSelectedChain] = useState('all');
-  const [showPremiumOnly, setShowPremiumOnly] = useState(false);
 
   useEffect(() => {
     const fetchAirdrops = async () => {
