@@ -386,7 +386,7 @@ export default function PremiumModal({ isOpen, onClose }) {
               
               <div className={`text-center py-4 rounded-xl border ${isProTier ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
                 <div className="text-3xl font-black text-white mb-1">
-                  ${getTierPrice()}<span className="text-xl text-gray-400">/{billingCycle === 'monthly' ? (language === 'es' ? 'mes' : 'month') : (language === 'es' ? 'año' : 'year')}</span>
+                  ${getTierPrice()}<span className="text-xl text-gray-400">/{billingCycle === 'monthly' ? tx.month : tx.year}</span>
                 </div>
                 <p className={isProTier ? 'text-amber-500 font-medium' : 'text-emerald-500 font-medium'}>
                   {isProTier ? tx.alphaPro : tx.alphaAccess} - {billingCycle === 'monthly' ? tx.monthly : tx.yearly}
