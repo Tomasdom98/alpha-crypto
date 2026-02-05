@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, LineChart, PiggyBank } from 'lucide-react';
+import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, PiggyBank } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Protocol logos for Yield section
 const YIELD_LOGOS = {
