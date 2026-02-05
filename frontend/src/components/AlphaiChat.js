@@ -9,7 +9,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: '¡Hola! Soy ALPHAI 🦉, tu asistente de investigación DeFi. ¿En qué puedo ayudarte hoy?'
+      content: '¡Hola! Soy ALPHA-I 🦉, tu asistente de investigación DeFi. ¿En qué puedo ayudarte hoy?'
     }
   ]);
   const [input, setInput] = useState('');
