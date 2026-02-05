@@ -68,12 +68,25 @@ function Sparkline({ data, color, height = 40 }) {
 export default function MarketIndicesPage() {
   const [fearGreed, setFearGreed] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [globalData, setGlobalData] = useState(null);
+  const [stablecoinData, setStablecoinData] = useState(null);
+  const [defiTvl, setDefiTvl] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fgRes = await axios.get(`${API}/crypto/fear-greed`);
+        const [fgRes, globalRes, stableRes, tvlRes] = await Promise.all([
+          axios.get(`${API}/crypto/fear-greed`),
+          axios.get(`${API}/crypto/global`),
+          axios.get(`${API}/crypto/stablecoins`),
+          axios.get(`${API}/crypto/defi-tvl`)
+        ]);
         setFearGreed(fgRes.data);
+        setGlobalData(globalRes.data);
+        setStablecoinData(stableRes.data);
+        setDefiTvl(tvlRes.data);
+        setLastUpdate(new Date());
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -81,7 +94,28 @@ export default function MarketIndicesPage() {
       }
     };
     fetchData();
+    // Refresh every 2 minutes
+    const interval = setInterval(fetchData, 120000);
+    return () => clearInterval(interval);
   }, []);
+
+  // Format large numbers
+  const formatNumber = (num, decimals = 2) => {
+    if (!num) return '--';
+    if (num >= 1e12) return `$${(num / 1e12).toFixed(decimals)}T`;
+    if (num >= 1e9) return `$${(num / 1e9).toFixed(decimals)}B`;
+    if (num >= 1e6) return `$${(num / 1e6).toFixed(decimals)}M`;
+    return `$${num.toFixed(decimals)}`;
+  };
+
+  // Time ago helper
+  const getTimeAgo = (date) => {
+    if (!date) return '';
+    const mins = Math.floor((new Date() - date) / 60000);
+    if (mins < 1) return 'Actualizado ahora';
+    if (mins < 60) return `Actualizado hace ${mins} min`;
+    return `Actualizado hace ${Math.floor(mins / 60)}h`;
+  };
 
   const onChainMetrics = [
     {
