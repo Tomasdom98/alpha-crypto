@@ -284,7 +284,7 @@ def get_mock_articles():
     return [
         {
             "id": "1",
-            "title": "🪙 Stablecoins: $300B y Contando... La Revolución Ya Llegó",
+            "title": "Stablecoins: $300B y Contando... La Revolución Ya Llegó",
             "excerpt": "$46 trillones en transacciones anuales. Los stablecoins ya procesan más que Visa y Mastercard combinadas. Aquí está la data que necesitas saber.",
             "category": "Stablecoins",
             "tags": ["USDC", "USDT", "Pagos", "Remesas"],
@@ -292,11 +292,11 @@ def get_mock_articles():
             "premium": False,
             "published_at": "2026-02-05T10:00:00Z",
             "image_url": "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800",
-            "content": """GM. Esta es Alpha Crypto, tu newsletter de inteligencia cripto. Hoy hablamos del elefante en la habitación que nadie puede ignorar. 🐘
+            "content": """GM. Esta es Alpha Crypto, tu newsletter de inteligencia cripto. Hoy hablamos del elefante en la habitación que nadie puede ignorar.
 
 ---
 
-## 📊 LOS NÚMEROS QUE IMPORTAN
+## LOS NÚMEROS QUE IMPORTAN
 
 Las stablecoins dejaron de ser "cripto" para convertirse en infraestructura financiera global. Mira estos números:
 
@@ -307,30 +307,30 @@ Las stablecoins dejaron de ser "cripto" para convertirse en infraestructura fina
 | Usuarios Activos | 25M | 46.7M | +87% |
 | Países con Usuarios | 70 | 106 | +51% |
 
-**El dato que vuela cabezas:** Las stablecoins procesaron $46 TRILLONES en 2025. Eso es más que Visa y Mastercard COMBINADAS. 🤯
+**El dato que vuela cabezas:** Las stablecoins procesaron $46 TRILLONES en 2025. Eso es más que Visa y Mastercard COMBINADAS.
 
 ---
 
-## 🌍 ADOPCIÓN GLOBAL: LATAM LIDERA
+## ADOPCIÓN GLOBAL: LATAM LIDERA
 
 Los países con mayor adopción de stablecoins (2025):
 
-🥇 **India** - #1 global
-🥈 **Estados Unidos** - #2
-🥉 **Pakistán** - #3
-4️⃣ **Filipinas** - #4
-5️⃣ **Brasil** - #5
+1. **India** - #1 global
+2. **Estados Unidos** - #2
+3. **Pakistán** - #3
+4. **Filipinas** - #4
+5. **Brasil** - #5
 
 **Argentina (#18), México (#19), Venezuela (#11)** - LATAM está en el mapa. Las remesas con stablecoins cuestan 80% menos que Western Union.
 
 ---
 
-## 💡 ¿POR QUÉ ESTÁ PASANDO ESTO?
+## ¿POR QUÉ ESTÁ PASANDO ESTO?
 
 **1. Regulación Clara**
-- EE.UU: GENIUS Act aprobado ✅
-- Europa: MiCAR implementado ✅
-- Japón y Singapur: Marcos legales claros ✅
+- EE.UU: GENIUS Act aprobado
+- Europa: MiCAR implementado
+- Japón y Singapur: Marcos legales claros
 
 **2. Adopción Institucional**
 - Interactive Brokers integró stablecoins
@@ -345,7 +345,7 @@ Los países con mayor adopción de stablecoins (2025):
 
 ---
 
-## 🔥 USDC vs USDT: LA BATALLA
+## USDC vs USDT: LA BATALLA
 
 | | USDC | USDT |
 |--|------|------|
@@ -358,7 +358,7 @@ Los países con mayor adopción de stablecoins (2025):
 
 ---
 
-## 🚀 ¿CÓMO APROVECHAR ESTA TENDENCIA?
+## ¿CÓMO APROVECHAR ESTA TENDENCIA?
 
 **Para inversores:**
 1. **Infraestructura**: ETH, SOL, TRX (las chains donde corren los stables)
@@ -372,16 +372,12 @@ Los países con mayor adopción de stablecoins (2025):
 
 ---
 
-## 📈 PREDICCIÓN 2026
+## PREDICCIÓN 2026
 
 > "Los stablecoins se convertirán en infraestructura invisible. Estarán en todas partes pero nadie los verá."
 > — ZeroHash Report 2026
 
-El market cap podría alcanzar **$500B** para fin de 2026. Las stablecoins no son el futuro. **Son el presente.**
-
----
-
-*¿Preguntas? Responde a este artículo. Leemos todo.* 🦉"""
+El market cap podría alcanzar **$500B** para fin de 2026. Las stablecoins no son el futuro. **Son el presente.** 🦉"""
         },
         {
             "id": "2",
