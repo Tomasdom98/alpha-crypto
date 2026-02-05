@@ -108,7 +108,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 text-sm mb-4">
-              Tu fuente de alpha en crypto. Análisis profundo, airdrops verificados, e insights de mercado.
+              {tx.description}
             </p>
             <div className="flex items-center gap-3">
               <a 
