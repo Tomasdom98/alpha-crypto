@@ -132,22 +132,22 @@ export default function Footer() {
 
           {/* Platform Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Contenido Gratuito</h4>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{tx.freeContent}</h4>
             <div className="space-y-3">
               <Link to="/articles" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
-                Artículos
+                {tx.articles}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link to="/airdrops" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
-                Airdrops
+                {tx.airdrops}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link to="/indices" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
-                Índices de Mercado
+                {tx.marketIndices}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link to="/analysis" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
-                Análisis
+                {tx.analysis}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
             </div>
@@ -155,18 +155,18 @@ export default function Footer() {
 
           {/* Premium */}
           <div>
-            <h4 className="font-semibold text-amber-500 mb-4 text-sm uppercase tracking-wider">Premium</h4>
+            <h4 className="font-semibold text-amber-500 mb-4 text-sm uppercase tracking-wider">{tx.premium}</h4>
             <div className="space-y-3">
               <Link to="/portfolio" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
-                Portfolio
+                {tx.portfolio}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link to="/signals" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
-                Señales
+                {tx.signals}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link to="/consulting" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
-                Consultoría
+                {tx.consulting}
                 <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
             </div>
@@ -174,19 +174,19 @@ export default function Footer() {
 
           {/* Feedback Form */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Tu Feedback</h4>
-            <p className="text-gray-500 text-xs mb-3">¿Qué te gustaría ver en Alpha Crypto?</p>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{tx.yourFeedback}</h4>
+            <p className="text-gray-500 text-xs mb-3">{tx.whatWouldYouLike}</p>
             
             {submitted ? (
               <div className="flex items-center gap-2 text-emerald-500 p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
                 <CheckCircle size={18} />
-                <span className="text-sm">¡Gracias por tu feedback!</span>
+                <span className="text-sm">{tx.thanksFeedback}</span>
               </div>
             ) : (
               <form onSubmit={handleSubmitFeedback} className="space-y-3" data-testid="feedback-form">
                 <input
                   type="text"
-                  placeholder="Tu nombre"
+                  placeholder={tx.yourName}
                   value={feedbackForm.name}
                   onChange={(e) => setFeedbackForm({ ...feedbackForm, name: e.target.value })}
                   className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
@@ -194,14 +194,14 @@ export default function Footer() {
                 />
                 <input
                   type="email"
-                  placeholder="Tu email"
+                  placeholder={tx.yourEmail}
                   value={feedbackForm.email}
                   onChange={(e) => setFeedbackForm({ ...feedbackForm, email: e.target.value })}
                   className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
                   data-testid="feedback-email"
                 />
                 <textarea
-                  placeholder="Tu mensaje..."
+                  placeholder={tx.yourMessage}
                   rows={2}
                   value={feedbackForm.message}
                   onChange={(e) => setFeedbackForm({ ...feedbackForm, message: e.target.value })}
@@ -220,7 +220,7 @@ export default function Footer() {
                   ) : (
                     <>
                       <Send size={14} />
-                      Enviar
+                      {tx.send}
                     </>
                   )}
                 </button>
@@ -232,7 +232,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
-            © {currentYear} Alpha Crypto. Tu alpha en el mercado.
+            © {currentYear} {tx.copyright}
           </p>
           <div className="flex items-center gap-2">
             <img 
@@ -240,7 +240,7 @@ export default function Footer() {
               alt="Alpha Owl" 
               className="w-5 h-5 object-contain opacity-40"
             />
-            <span className="text-gray-600 text-xs">Powered by Intelligence</span>
+            <span className="text-gray-600 text-xs">{tx.poweredBy}</span>
           </div>
         </div>
       </div>
