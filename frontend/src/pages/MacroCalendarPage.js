@@ -131,20 +131,6 @@ const MACRO_EVENTS = [
   },
 ];
 
-const CATEGORY_CONFIG = {
-  fed: { label: 'Fed/FOMC', icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
-  economic: { label: 'Económico', icon: LineChart, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
-  earnings: { label: 'Earnings', icon: TrendingUp, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-  unlock: { label: 'Token Unlock', icon: Coins, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
-  options: { label: 'Opciones', icon: AlertCircle, color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20' },
-};
-
-const IMPACT_CONFIG = {
-  bullish: { label: 'Bullish', icon: TrendingUp, color: 'text-emerald-400', emoji: '🟢' },
-  bearish: { label: 'Bearish', icon: TrendingDown, color: 'text-red-400', emoji: '🔴' },
-  neutral: { label: 'Neutral', icon: Minus, color: 'text-yellow-400', emoji: '🟡' },
-};
-
 export default function MacroCalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 1, 1)); // February 2026
   const [selectedCategory, setSelectedCategory] = useState('all');
