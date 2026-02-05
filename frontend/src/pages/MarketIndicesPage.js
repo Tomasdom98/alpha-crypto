@@ -22,6 +22,24 @@ const generateSparklineData = (trend, volatility = 0.1) => {
   return data;
 };
 
+// Generate larger chart data for market cap charts
+const generateLargeChartData = (trend, days = 90) => {
+  const data = [];
+  let value = trend === 'stable' ? 50 : 30;
+  
+  for (let i = 0; i < days; i++) {
+    const volatility = trend === 'stable' ? 0.02 : 0.08;
+    const change = (Math.random() - 0.5) * volatility * 20;
+    const trendAdjust = trend === 'up' ? 0.2 : trend === 'stable' ? 0.02 : 0;
+    value = Math.max(20, Math.min(80, value + change + trendAdjust));
+    data.push({ 
+      day: i + 1,
+      value: Math.round(value * 10) / 10 
+    });
+  }
+  return data;
+};
+
 // Mini Sparkline Component
 function Sparkline({ data, color, height = 40 }) {
   return (
