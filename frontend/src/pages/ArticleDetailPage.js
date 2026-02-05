@@ -42,9 +42,52 @@ function ArticleDetailPage() {
     if (!content) return '';
     var lines = content.split('\n');
     var result = '';
+    var tableBuffer = [];
+    var inTable = false;
+    
+    function renderTable(rows) {
+      if (rows.length < 2) return '';
+      
+      var html = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse bg-gray-800/30 rounded-lg overflow-hidden">';
+      
+      // Parse header
+      var headerCells = rows[0].split('|').filter(function(c) { return c.trim(); });
+      html += '<thead><tr class="bg-gray-800">';
+      for (var i = 0; i < headerCells.length; i++) {
+        html += '<th class="text-left py-3 px-4 text-emerald-400 font-semibold text-sm border-b border-gray-700">' + headerCells[i].trim() + '</th>';
+      }
+      html += '</tr></thead><tbody>';
+      
+      // Parse body (skip separator row)
+      for (var j = 1; j < rows.length; j++) {
+        if (rows[j].includes('---')) continue;
+        var cells = rows[j].split('|').filter(function(c) { return c.trim(); });
+        var bgClass = j % 2 === 0 ? 'bg-gray-800/20' : '';
+        html += '<tr class="' + bgClass + ' border-b border-gray-800/50">';
+        for (var k = 0; k < cells.length; k++) {
+          html += '<td class="py-2.5 px-4 text-gray-300 text-sm">' + cells[k].trim() + '</td>';
+        }
+        html += '</tr>';
+      }
+      
+      html += '</tbody></table></div>';
+      return html;
+    }
     
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
+      
+      // Table detection
+      if (line.includes('|') && line.trim().startsWith('|')) {
+        inTable = true;
+        tableBuffer.push(line);
+        continue;
+      } else if (inTable) {
+        result += renderTable(tableBuffer);
+        tableBuffer = [];
+        inTable = false;
+      }
+      
       if (!line.trim()) continue;
       
       if (line.trim() === '---') {
@@ -58,14 +101,17 @@ function ArticleDetailPage() {
       } else if (line.startsWith('- ')) {
         var txt = line.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
         result += '<div class="flex gap-2 my-1"><span class="text-emerald-500">•</span><span class="text-gray-300">' + txt + '</span></div>';
-      } else if (line.includes('|') && line.trim().startsWith('|')) {
-        // Skip tables for now - just show as text
-        result += '<p class="mb-2 text-gray-400 text-sm font-mono">' + line + '</p>';
       } else {
         var formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
         result += '<p class="mb-3 text-gray-300 leading-relaxed">' + formatted + '</p>';
       }
     }
+    
+    // Handle remaining table
+    if (tableBuffer.length > 0) {
+      result += renderTable(tableBuffer);
+    }
+    
     return result;
   }
 
