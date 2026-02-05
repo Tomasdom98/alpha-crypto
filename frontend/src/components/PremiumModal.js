@@ -248,7 +248,7 @@ export default function PremiumModal({ isOpen, onClose }) {
           <div className="flex items-center gap-3">
             <Sparkles className="text-emerald-500" size={28} />
             <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              {step === 'tier' ? 'Planes Premium' : (isProTier ? 'Alpha Pro' : 'Alpha Access')}
+              {step === 'tier' ? tx.premiumPlans : (isProTier ? tx.alphaPro : tx.alphaAccess)}
             </h2>
           </div>
           <button data-testid="close-modal-btn" onClick={onClose} className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
@@ -259,11 +259,11 @@ export default function PremiumModal({ isOpen, onClose }) {
         <div className="p-6">
           {step === 'tier' && (
             <div className="space-y-6">
-              <p className="text-gray-400 text-center mb-4">Elige el plan que mejor se adapte a tus necesidades</p>
+              <p className="text-gray-400 text-center mb-4">{tx.choosePlan}</p>
               
               {/* Billing Toggle */}
               <div className="flex items-center justify-center gap-4 mb-8">
-                <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-500'}`}>Mensual</span>
+                <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-500'}`}>{tx.monthly}</span>
                 <button
                   onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
                   data-testid="billing-toggle"
@@ -271,9 +271,9 @@ export default function PremiumModal({ isOpen, onClose }) {
                 >
                   <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-all ${billingCycle === 'yearly' ? 'left-8' : 'left-1'}`} />
                 </button>
-                <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-white' : 'text-gray-500'}`}>Anual</span>
+                <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-white' : 'text-gray-500'}`}>{tx.yearly}</span>
                 {billingCycle === 'yearly' && (
-                  <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-1 rounded-full">Ahorra hasta 30%</span>
+                  <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-1 rounded-full">{tx.saveUpTo}</span>
                 )}
               </div>
               
@@ -289,36 +289,35 @@ export default function PremiumModal({ isOpen, onClose }) {
                       <div className="p-3 rounded-xl bg-emerald-500/20">
                         <Zap className="text-emerald-500" size={24} />
                       </div>
-                      <h3 className="text-xl font-bold text-white">Alpha Access</h3>
+                      <h3 className="text-xl font-bold text-white">{tx.alphaAccess}</h3>
                     </div>
                     <div className="mb-2">
                       {billingCycle === 'monthly' ? (
                         <>
                           <span className="text-4xl font-black text-white">$30</span>
-                          <span className="text-gray-400">/mes USDC</span>
+                          <span className="text-gray-400">{tx.perMonth}</span>
                         </>
                       ) : (
                         <>
                           <span className="text-4xl font-black text-white">$300</span>
-                          <span className="text-gray-400">/año USDC</span>
+                          <span className="text-gray-400">{tx.perYear}</span>
                         </>
                       )}
                     </div>
                     {billingCycle === 'yearly' && (
                       <div className="flex items-center gap-2 mb-4">
-                        <span className="text-sm text-gray-400">$25/mes equivalente</span>
-                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">Ahorra 20%</span>
+                        <span className="text-sm text-gray-400">$25{tx.monthlyEquiv}</span>
+                        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-0.5 rounded-full">{tx.save20}</span>
                       </div>
                     )}
                     {billingCycle === 'monthly' && <div className="h-6 mb-4" />}
                     <ul className="space-y-3 mb-6">
-                      <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Airdrops con guías detalladas</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Portfolio tracking</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Early Signals y alertas</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Análisis de mercado premium</span></li>
+                      {tx.alphaFeatures.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3"><Check className="text-emerald-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">{feature}</span></li>
+                      ))}
                     </ul>
                     <button className="w-full py-3 px-4 rounded-lg font-bold bg-emerald-500 hover:bg-emerald-400 text-white transition-all">
-                      Seleccionar
+                      {tx.select}
                     </button>
                   </div>
                 </div>
@@ -329,50 +328,48 @@ export default function PremiumModal({ isOpen, onClose }) {
                   onClick={() => { setSelectedTier('pro'); setStep('select'); }}
                   data-testid="tier-pro"
                 >
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-bold px-4 py-1 rounded-full">MÁS POPULAR</div>
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-bold px-4 py-1 rounded-full">{tx.mostPopular}</div>
                   <div className="p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 rounded-xl bg-amber-500/20">
                         <Crown className="text-amber-500" size={24} />
                       </div>
-                      <h3 className="text-xl font-bold text-white">Alpha Pro</h3>
+                      <h3 className="text-xl font-bold text-white">{tx.alphaPro}</h3>
                     </div>
                     <div className="mb-2">
                       {billingCycle === 'monthly' ? (
                         <>
                           <span className="text-4xl font-black text-white">$100</span>
-                          <span className="text-gray-400">/mes USDC</span>
+                          <span className="text-gray-400">{tx.perMonth}</span>
                         </>
                       ) : (
                         <>
                           <span className="text-4xl font-black text-white">$840</span>
-                          <span className="text-gray-400">/año USDC</span>
+                          <span className="text-gray-400">{tx.perYear}</span>
                         </>
                       )}
                     </div>
                     {billingCycle === 'yearly' && (
                       <div className="flex items-center gap-2 mb-4">
-                        <span className="text-sm text-gray-400">$70/mes equivalente</span>
-                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">Ahorra 30%</span>
+                        <span className="text-sm text-gray-400">$70{tx.monthlyEquiv}</span>
+                        <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-0.5 rounded-full">{tx.save30}</span>
                       </div>
                     )}
                     {billingCycle === 'monthly' && <div className="h-6 mb-4" />}
                     <ul className="space-y-3 mb-6">
-                      <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Todo en Alpha Access</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Consultoría personal y empresarial</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Soporte prioritario</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Research exclusivo</span></li>
-                      <li className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">Llamadas mensuales de estrategia</span></li>
+                      {tx.proFeatures.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3"><Check className="text-amber-500 flex-shrink-0 mt-0.5" size={16} /><span className="text-gray-300 text-sm">{feature}</span></li>
+                      ))}
                     </ul>
                     <button className="w-full py-3 px-4 rounded-lg font-bold bg-amber-500 hover:bg-amber-400 text-black transition-all">
-                      Seleccionar
+                      {tx.select}
                     </button>
                   </div>
                 </div>
               </div>
               
               <div className="text-center text-sm text-gray-500 mt-6">
-                <p>Contenido gratuito: Articles, Market Indices, Educación básica</p>
+                <p>{tx.freeContent}</p>
               </div>
             </div>
           )}
@@ -380,19 +377,19 @@ export default function PremiumModal({ isOpen, onClose }) {
           {step === 'select' && (
             <div className="space-y-4">
               <button onClick={() => setStep('tier')} className="text-gray-400 hover:text-emerald-500 text-sm transition-colors mb-4">
-                ← Cambiar plan
+                {tx.changePlan}
               </button>
               
               <div className={`text-center py-4 rounded-xl border ${isProTier ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
                 <div className="text-3xl font-black text-white mb-1">
-                  ${getTierPrice()}<span className="text-xl text-gray-400">/{billingCycle === 'monthly' ? 'mes' : 'año'}</span>
+                  ${getTierPrice()}<span className="text-xl text-gray-400">/{billingCycle === 'monthly' ? (language === 'es' ? 'mes' : 'month') : (language === 'es' ? 'año' : 'year')}</span>
                 </div>
                 <p className={isProTier ? 'text-amber-500 font-medium' : 'text-emerald-500 font-medium'}>
-                  {isProTier ? 'Alpha Pro' : 'Alpha Access'} - {billingCycle === 'monthly' ? 'Mensual' : 'Anual'}
+                  {isProTier ? tx.alphaPro : tx.alphaAccess} - {billingCycle === 'monthly' ? tx.monthly : tx.yearly}
                 </p>
               </div>
               
-              <h3 className="text-lg font-bold text-white mt-6">Selecciona método de pago:</h3>
+              <h3 className="text-lg font-bold text-white mt-6">{tx.selectPayment}</h3>
               
               <button onClick={() => { setSelectedChain('solana'); setStep('payment'); }} data-testid="chain-solana" className="w-full p-5 bg-gray-800/50 border border-gray-700 rounded-xl transition-all duration-300 flex items-center justify-between group hover:bg-emerald-500/10 hover:border-emerald-500/50">
                 <div className="flex items-center gap-4">
@@ -432,12 +429,12 @@ export default function PremiumModal({ isOpen, onClose }) {
           {step === 'payment' && selectedChain && (
             <div className="space-y-6">
               <button onClick={() => setStep('select')} className="text-gray-400 hover:text-emerald-500 text-sm transition-colors">
-                ← Cambiar método de pago
+                {tx.changePayment}
               </button>
 
               <div className="text-center">
                 <h3 className="text-xl font-bold text-white mb-4">
-                  Envía el pago vía {selectedChain === 'solana' ? 'Solana' : selectedChain === 'base' ? 'Base' : 'Arbitrum'}
+                  {tx.sendPayment} {selectedChain === 'solana' ? 'Solana' : selectedChain === 'base' ? 'Base' : 'Arbitrum'}
                 </h3>
                 
                 <div className="flex justify-center mb-6">
@@ -448,24 +445,24 @@ export default function PremiumModal({ isOpen, onClose }) {
 
                 <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 mb-4">
                   <div className="text-sm text-gray-400 mb-2">
-                    Envía exactamente <strong className="text-white">${getTierPrice()} USDC</strong> a:
+                    {tx.sendExactly} <strong className="text-white">${getTierPrice()} USDC</strong> {tx.to}
                   </div>
                   <div className="flex items-center gap-2 justify-center">
                     <code className={`${isProTier ? 'text-amber-400' : 'text-emerald-400'} text-sm break-all`}>
                       {getPaymentAddress()}
                     </code>
-                    <button onClick={copyAddress} className="p-2 hover:bg-gray-700 rounded-lg transition-colors" title="Copiar dirección">
+                    <button onClick={copyAddress} className="p-2 hover:bg-gray-700 rounded-lg transition-colors" title="Copy address">
                       <Copy size={16} className="text-gray-400" />
                     </button>
                   </div>
                 </div>
 
                 <div className="text-xs text-gray-500 mb-6">
-                  Asegúrate de enviar en la red {selectedChain === 'solana' ? 'Solana' : selectedChain === 'base' ? 'Base' : 'Arbitrum'} únicamente
+                  {tx.ensureNetwork} {selectedChain === 'solana' ? 'Solana' : selectedChain === 'base' ? 'Base' : 'Arbitrum'} {tx.only}
                 </div>
 
                 <button onClick={() => setStep('email')} data-testid="payment-sent-btn" className={`w-full font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:scale-102 ${isProTier ? 'bg-amber-500 hover:bg-amber-400 text-black shadow-[0_0_30px_rgba(245,158,11,0.4)]' : 'bg-emerald-500 hover:bg-emerald-400 text-white shadow-[0_0_30px_rgba(16,185,129,0.4)]'}`}>
-                  Ya envié el pago
+                  {tx.paymentSent}
                 </button>
               </div>
             </div>
@@ -473,24 +470,24 @@ export default function PremiumModal({ isOpen, onClose }) {
 
           {step === 'email' && (
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-white mb-4">Confirma tu email</h3>
+              <h3 className="text-xl font-bold text-white mb-4">{tx.confirmEmail}</h3>
               <p className="text-gray-400 text-sm mb-6">
-                Ingresa tu email para recibir la confirmación de acceso premium.
+                {tx.emailDesc}
               </p>
               
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-gray-400 mb-2 block">Email *</label>
+                  <label className="text-sm text-gray-400 mb-2 block">{tx.email}</label>
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@email.com" data-testid="email-input" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
                 </div>
 
                 <div>
-                  <label className="text-sm text-gray-400 mb-2 block">Hash de transacción (Opcional)</label>
-                  <input type="text" value={txHash} onChange={(e) => setTxHash(e.target.value)} placeholder="0x... o firma de transacción" data-testid="tx-hash-input" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                  <label className="text-sm text-gray-400 mb-2 block">{tx.txHashOptional}</label>
+                  <input type="text" value={txHash} onChange={(e) => setTxHash(e.target.value)} placeholder={tx.txHashPlaceholder} data-testid="tx-hash-input" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
                 </div>
 
                 <button onClick={handleSubmitPayment} disabled={loading} data-testid="submit-payment-btn" className={`w-full font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:scale-102 disabled:opacity-50 disabled:cursor-not-allowed ${isProTier ? 'bg-amber-500 hover:bg-amber-400 text-black' : 'bg-emerald-500 hover:bg-emerald-400 text-white'}`}>
-                  {loading ? 'Enviando...' : 'Enviar pago'}
+                  {loading ? tx.sending : tx.submitPayment}
                 </button>
               </div>
             </div>
@@ -501,15 +498,15 @@ export default function PremiumModal({ isOpen, onClose }) {
               <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${isProTier ? 'bg-amber-500/20' : 'bg-emerald-500/20'}`}>
                 <Check className={isProTier ? 'text-amber-500' : 'text-emerald-500'} size={40} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">¡Pago enviado!</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{tx.success}</h3>
               <p className="text-gray-400 mb-6">
-                Tu pago está pendiente de verificación. Recibirás un email en <strong className="text-white">{email}</strong> cuando tu membresía esté activada.
+                {tx.successDesc} <strong className="text-white">{email}</strong> {tx.whenActivated}
               </p>
               <p className="text-sm text-gray-500 mb-6">
-                Esto normalmente toma 24-48 horas.
+                {tx.normalTime}
               </p>
               <button onClick={onClose} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-                Cerrar
+                {tx.close}
               </button>
             </div>
           )}
