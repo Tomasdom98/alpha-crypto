@@ -206,7 +206,7 @@ export default function PremiumModal({ isOpen, onClose }) {
 
   const handleSubmitPayment = async () => {
     if (!email || !email.includes('@')) {
-      toast.error('Por favor ingresa un email válido');
+      toast.error(tx.errorEmail);
       return;
     }
 
@@ -223,10 +223,10 @@ export default function PremiumModal({ isOpen, onClose }) {
       });
 
       setStep('success');
-      toast.success('Pago enviado exitosamente!');
+      toast.success(language === 'es' ? 'Pago enviado exitosamente!' : 'Payment sent successfully!');
     } catch (error) {
       console.error('Error submitting payment:', error);
-      toast.error('Error al enviar el pago. Intenta de nuevo.');
+      toast.error(tx.errorSubmit);
     } finally {
       setLoading(false);
     }
