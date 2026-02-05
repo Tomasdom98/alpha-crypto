@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Crown, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import PremiumModal from './PremiumModal';
 
@@ -8,15 +8,19 @@ export default function Navigation() {
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const location = useLocation();
 
-  const navItems = [
+  // Free content
+  const freeItems = [
     { path: '/', label: 'Home' },
-    { path: '/articles', label: 'Articles' },
+    { path: '/articles', label: 'Artículos' },
+    { path: '/indices', label: 'Índices' },
     { path: '/airdrops', label: 'Airdrops' },
-    { path: '/indices', label: 'Indices' },
-    { path: '/analysis', label: 'Analysis' },
+  ];
+
+  // Premium content
+  const premiumItems = [
     { path: '/portfolio', label: 'Portfolio' },
-    { path: '/signals', label: 'Signals' },
-    { path: '/consulting', label: 'Consulting' },
+    { path: '/signals', label: 'Señales' },
+    { path: '/consulting', label: 'Consultoría' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -37,12 +41,13 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
+            {/* Free Items */}
+            {freeItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive(item.path)
                     ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                     : 'text-gray-300 hover:text-white hover:bg-gray-800'
@@ -51,6 +56,28 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Separator */}
+            <div className="h-6 w-px bg-gray-700 mx-2" />
+            
+            {/* Premium Items */}
+            <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-500/20">
+              <Crown className="w-3.5 h-3.5 text-amber-500" />
+              {premiumItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'bg-amber-500/20 text-amber-400'
+                      : 'text-amber-300/80 hover:text-amber-300 hover:bg-amber-500/10'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* CTA Button */}
@@ -58,9 +85,10 @@ export default function Navigation() {
             <button
               onClick={() => setShowPremiumModal(true)}
               data-testid="premium-nav-btn"
-              className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
+              className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-2 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
             >
-              Premium $20/mo
+              <Sparkles size={16} />
+              <span>Premium</span>
             </button>
           </div>
 
@@ -79,7 +107,9 @@ export default function Navigation() {
       {isOpen && (
         <div className="md:hidden border-t border-gray-800 bg-gray-900/95 backdrop-blur-xl" data-testid="mobile-menu">
           <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => (
+            {/* Free Section */}
+            <div className="text-xs text-gray-500 uppercase tracking-wider px-4 mb-2">Contenido Gratuito</div>
+            {freeItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
@@ -93,11 +123,38 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Premium Section */}
+            <div className="border-t border-gray-800 pt-4 mt-4">
+              <div className="flex items-center gap-2 text-xs text-amber-500 uppercase tracking-wider px-4 mb-2">
+                <Crown size={12} />
+                Premium
+              </div>
+              {premiumItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      : 'text-amber-300/80 hover:text-amber-300 hover:bg-amber-500/10'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+            
             <button
-              onClick={() => setShowPremiumModal(true)}
-              className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
+              onClick={() => {
+                setIsOpen(false);
+                setShowPremiumModal(true);
+              }}
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
             >
-              Premium $20/mo
+              <Sparkles size={18} />
+              Ver Planes Premium
             </button>
           </div>
         </div>
