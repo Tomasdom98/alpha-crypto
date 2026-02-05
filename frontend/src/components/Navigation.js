@@ -30,17 +30,9 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 overflow-hidden rounded-lg">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/wqm01lrp_Gemini_Generated_Image_xn8vxaxn8vxaxn8v.png" 
-                alt="Alpha Crypto Logo" 
-                className="w-[200px] h-auto transition-all duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(16,185,129,0.6)]"
-                style={{ 
-                  marginTop: '-5px',
-                  marginLeft: '-72px'
-                }}
-              />
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center font-bold text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-500/40 border border-gray-700 group-hover:border-emerald-500/50">
+              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent" style={{ fontFamily: 'serif' }}>α</span>
             </div>
             <span className="font-bold text-xl text-white transition-colors group-hover:text-emerald-400" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               Alpha Crypto
