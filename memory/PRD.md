@@ -71,8 +71,23 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - **Configured for:**
   - Feedback form notifications
   - Consulting request notifications
+  - Newsletter welcome emails (on subscription)
+  - Newsletter article distribution
 - **Admin Email:** tomdomingueclaro@gmail.com
 - **Note:** Requires domain verification for production use
+
+## Newsletter System (Feb 2026) - NEW
+- **Component:** `/app/frontend/src/components/NewsletterSignup.js`
+- **Features:**
+  - Hero variant (large, prominent on homepage)
+  - Compact variant (for sidebars)
+  - Welcome email on subscription
+  - Article distribution endpoint
+- **Backend Endpoints:**
+  - `POST /api/alerts/subscribe` - Subscribe to newsletter
+  - `POST /api/newsletter/send-article?article_id=X` - Send article to all subscribers
+  - `GET /api/admin/alert-subscribers` - List all subscribers
+  - `POST /api/alerts/unsubscribe` - Unsubscribe
 
 ## API Endpoints
 
