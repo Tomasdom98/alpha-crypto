@@ -11,8 +11,8 @@ const SOLANA_WALLET = '2X7DSWNgegbCCk1A9cdiSQm5Fk3zpkesDRpQrSqETKiv';
 const EVM_WALLET = '0x8b1624c8b184Edb4e7430194865490Ba5e860f0C';
 
 const PRICING = {
-  alpha: { monthly: 30, yearly: 300 },
-  pro: { monthly: 100, yearly: 840 }
+  alpha: { monthly: 30, yearly: 252 },  // 30% discount: 30*12*0.7 = 252
+  pro: { monthly: 100, yearly: 840 }    // 30% discount: 100*12*0.7 = 840
 };
 
 const ALPHA_FEATURES_ES = ['Airdrops detallados', 'Portfolio tracking', 'Early Signals', 'Análisis premium'];
