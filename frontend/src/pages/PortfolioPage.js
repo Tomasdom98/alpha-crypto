@@ -28,6 +28,74 @@ const STAKING_LOGOS = {
 
 export default function PortfolioPage() {
   const [activeTab, setActiveTab] = useState('portfolio');
+  const { language } = useLanguage();
+
+  // Translations
+  const tx = {
+    es: {
+      title: 'Portfolio Alpha Crypto',
+      subtitle: 'Seguimiento del portfolio, yields en stablecoins y staking.',
+      totalValue: 'Valor Total del Portfolio',
+      monthlyReturn: 'Monthly Return',
+      performance: 'Rendimiento 6 Meses',
+      allocation: 'Allocation',
+      holdings: 'Holdings',
+      recentTrades: 'Trades Recientes',
+      strategyNotes: 'Notas de Estrategia',
+      currentStrategy: 'Estrategia Actual',
+      currentStrategyText: 'DCA semanal en BTC y ETH. Manteniendo posición defensiva con 15% en stables.',
+      nextMoves: 'Próximos Movimientos',
+      nextMovesText: 'Monitorear soporte en $65K BTC. Si se rompe, aumentar stables a 25%.',
+      yieldTitle: 'Stablecoin Yields',
+      yieldSubtitle: 'Las mejores oportunidades para rentabilizar tus stablecoins',
+      yieldNote: 'Los APYs son aproximados y pueden variar según condiciones del mercado.',
+      stakingTitle: 'Staking',
+      stakingSubtitle: 'Genera rendimiento pasivo con tus tokens',
+      stakingNote: 'Los APYs son aproximados y pueden variar según condiciones del mercado y la red.',
+      asset: 'Asset',
+      apyApprox: 'APY Aprox.',
+      platform: 'Plataforma',
+      action: 'Acción',
+      disclaimer: 'Este portfolio es solo para fines educativos. Rendimientos pasados no garantizan resultados futuros.',
+      backToHome: 'Volver al Inicio',
+      updated: 'Actualizado',
+      goToVault: 'Ir al Vault',
+    },
+    en: {
+      title: 'Alpha Crypto Portfolio',
+      subtitle: 'Portfolio tracking, stablecoin yields and staking.',
+      totalValue: 'Total Portfolio Value',
+      monthlyReturn: 'Monthly Return',
+      performance: '6-Month Performance',
+      allocation: 'Allocation',
+      holdings: 'Holdings',
+      recentTrades: 'Recent Trades',
+      strategyNotes: 'Strategy Notes',
+      currentStrategy: 'Current Strategy',
+      currentStrategyText: 'Weekly DCA in BTC and ETH. Maintaining defensive position with 15% in stables.',
+      nextMoves: 'Next Moves',
+      nextMovesText: 'Monitor support at $65K BTC. If broken, increase stables to 25%.',
+      yieldTitle: 'Stablecoin Yields',
+      yieldSubtitle: 'Best opportunities to earn yield on your stablecoins',
+      yieldNote: 'APYs are approximate and may vary according to market conditions.',
+      stakingTitle: 'Staking',
+      stakingSubtitle: 'Generate passive income with your tokens',
+      stakingNote: 'APYs are approximate and may vary according to market and network conditions.',
+      asset: 'Asset',
+      apyApprox: 'APY Approx.',
+      platform: 'Platform',
+      action: 'Action',
+      disclaimer: 'This portfolio is for educational purposes only. Past performance does not guarantee future results.',
+      backToHome: 'Back to Home',
+      updated: 'Updated',
+      goToVault: 'Go to Vault',
+    }
+  }[language];
+
+  const tabLabels = {
+    es: { portfolio: 'Portfolio', yield: 'Yield Stablecoins', staking: 'Staking' },
+    en: { portfolio: 'Portfolio', yield: 'Stablecoin Yields', staking: 'Staking' }
+  }[language];
 
   const portfolioData = {
     totalValue: 50000,
