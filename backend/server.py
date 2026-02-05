@@ -685,7 +685,11 @@ async def get_crypto_prices():
                 "sparkline": "false",
                 "price_change_percentage": "24h"
             }
-            async with session.get(url, params=params, timeout=10) as response:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                "Accept": "application/json"
+            }
+            async with session.get(url, params=params, headers=headers, timeout=15) as response:
                 if response.status == 200:
                     data = await response.json()
                     prices = []
@@ -700,11 +704,15 @@ async def get_crypto_prices():
                             "volume_24h": coin.get("total_volume", 0) or 0
                         })
                     if prices:
+                        logger.info(f"Fetched {len(prices)} prices from CoinGecko")
                         return prices
+                else:
+                    logger.warning(f"CoinGecko returned status {response.status}")
     except Exception as e:
         logger.error(f"Error fetching CoinGecko prices: {e}")
     
     # Fallback to mock data if API fails
+    logger.info("Using mock crypto prices as fallback")
     return get_mock_crypto_prices()
 
 @api_router.get("/crypto/fear-greed")
