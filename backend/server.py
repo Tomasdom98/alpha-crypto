@@ -550,7 +550,7 @@ def get_mock_airdrops():
         {
             "id": "11",
             "project_name": "Paradex",
-            "logo_url": "https://pbs.twimg.com/profile_images/1694388131303714816/Aq6qU1-k_400x400.jpg",
+            "logo_url": "https://ui-avatars.com/api/?name=PX&background=f97316&color=fff&size=128&bold=true&format=svg",
             "chain": "Starknet",
             "description": "Paradigm-backed perpetuals DEX on Starknet with institutional focus",
             "full_description": "Paradex is built on Starknet with backing from Paradigm (one of crypto's top VCs). Offers institutional-grade perpetual trading with self-custody. Token launch confirmed.",
@@ -573,7 +573,7 @@ def get_mock_airdrops():
         {
             "id": "12",
             "project_name": "Zeta Markets",
-            "logo_url": "https://assets.coingecko.com/coins/images/31313/standard/Zeta.jpg",
+            "logo_url": "https://ui-avatars.com/api/?name=ZE&background=84cc16&color=fff&size=128&bold=true&format=svg",
             "chain": "Solana",
             "description": "Solana's premier options and perpetuals DEX with Z-Score rewards",
             "full_description": "Zeta Markets offers options and perpetuals trading on Solana. Z-Score points program rewards active traders. Strong community and institutional partnerships.",
@@ -596,7 +596,7 @@ def get_mock_airdrops():
         {
             "id": "13",
             "project_name": "Kwenta",
-            "logo_url": "https://assets.coingecko.com/coins/images/27409/standard/Kwenta.png",
+            "logo_url": "https://ui-avatars.com/api/?name=KW&background=ec4899&color=fff&size=128&bold=true&format=svg",
             "chain": "Optimism/Base",
             "description": "Synthetix-powered perpetuals with deep liquidity and low fees",
             "full_description": "Kwenta offers perpetual futures trading powered by Synthetix liquidity. KWENTA token live with staking rewards and governance rights.",
@@ -619,7 +619,7 @@ def get_mock_airdrops():
         {
             "id": "14",
             "project_name": "Gains Network",
-            "logo_url": "https://assets.coingecko.com/coins/images/19737/standard/logo.png",
+            "logo_url": "https://ui-avatars.com/api/?name=GN&background=eab308&color=fff&size=128&bold=true&format=svg",
             "chain": "Arbitrum/Polygon",
             "description": "Multi-chain perpetuals DEX with innovative gTrade platform",
             "full_description": "Gains Network pioneered synthetic leverage trading. GNS token offers real yield from platform fees. gTrade v7 brings improved capital efficiency.",
