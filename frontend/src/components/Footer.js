@@ -40,17 +40,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-gray-900 to-gray-950 border-t border-gray-800/50 mt-20" data-testid="site-footer">
-      {/* Owl watermark - cropping to show only the owl part */}
-      <div className="absolute right-4 bottom-16 pointer-events-none hidden lg:block overflow-hidden" style={{ width: '140px', height: '140px' }}>
+    <footer className="relative bg-gradient-to-b from-[#0f172a] to-[#0a0f1a] border-t border-gray-800/50 mt-20" data-testid="site-footer">
+      {/* Owl watermark */}
+      <div className="absolute right-8 bottom-20 pointer-events-none hidden lg:block">
         <img 
           src={OWL_URL} 
           alt="" 
-          className="w-[300px] h-auto opacity-10"
-          style={{ 
-            marginTop: '-160px',
-            marginLeft: '-80px'
-          }}
+          className="w-32 h-auto opacity-[0.08]"
         />
       </div>
 
