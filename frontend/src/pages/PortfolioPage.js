@@ -471,17 +471,14 @@ export default function PortfolioPage() {
             
             <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
               <p className="text-blue-400 text-sm">
-                <strong>Nota:</strong> Los APYs son aproximados y pueden variar según condiciones del mercado y la red. Siempre verifica en la plataforma oficial antes de hacer staking.
+                <strong>Nota:</strong> {tx.stakingNote}
               </p>
             </div>
           </div>
         )}
 
         <div className="mt-8 p-4 bg-gray-900/50 border border-gray-800 rounded-xl text-center">
-          <p className="text-xs text-gray-500">
-            This portfolio is for educational purposes only. Past performance does not guarantee future results. 
-            Always DYOR before making investment decisions.
-          </p>
+          <p className="text-xs text-gray-500">{tx.disclaimer}</p>
         </div>
       </div>
     </div>
