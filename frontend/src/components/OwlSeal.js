@@ -33,11 +33,11 @@ export default function OwlSeal({
           <img 
             src={OWL_URL}
             alt="Alpha Crypto"
-            className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]`}
-            style={{ filter: 'brightness(1.3) contrast(1.1)' }}
+            className="w-44 h-44 object-contain drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]"
+            style={{ filter: 'brightness(1.4) contrast(1.15)' }}
           />
           {showText && (
-            <span className="text-xs text-emerald-400 font-bold tracking-widest">
+            <span className="text-sm text-emerald-400 font-bold tracking-widest">
               αC
             </span>
           )}
