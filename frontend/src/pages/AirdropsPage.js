@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Clock, ChevronRight, Gift, Target, Users, TrendingUp, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
+import OwlSeal from '@/components/OwlSeal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
