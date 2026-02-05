@@ -1,11 +1,50 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, AlertCircle, ChevronRight, Target, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, ChevronRight, Target, ShieldCheck, AlertTriangle, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+// Generate mock historical data for sparklines
+const generateSparklineData = (trend, volatility = 0.1) => {
+  const points = 30;
+  let value = 50;
+  const data = [];
+  
+  for (let i = 0; i < points; i++) {
+    const change = (Math.random() - 0.5) * volatility * 20;
+    const trendAdjust = trend === 'up' ? 0.3 : trend === 'down' ? -0.3 : 0;
+    value = Math.max(10, Math.min(90, value + change + trendAdjust));
+    data.push({ value: Math.round(value) });
+  }
+  return data;
+};
+
+// Mini Sparkline Component
+function Sparkline({ data, color, height = 40 }) {
+  return (
+    <ResponsiveContainer width="100%" height={height}>
+      <AreaChart data={data}>
+        <defs>
+          <linearGradient id={`gradient-${color}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
+            <stop offset="95%" stopColor={color} stopOpacity={0}/>
+          </linearGradient>
+        </defs>
+        <Area 
+          type="monotone" 
+          dataKey="value" 
+          stroke={color} 
+          strokeWidth={1.5}
+          fill={`url(#gradient-${color})`}
+          dot={false}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+}
 
 export default function MarketIndicesPage() {
   const [fearGreed, setFearGreed] = useState(null);
@@ -32,8 +71,10 @@ export default function MarketIndicesPage() {
       value: '2.3',
       status: 'neutral',
       signal: 'Hold',
-      explanation: 'Market is fairly valued. Neither overbought nor oversold.',
-      icon: Activity
+      explanation: 'Mercado valorado de forma justa. Ni sobrecomprado ni sobrevendido.',
+      icon: Activity,
+      sparklineData: generateSparklineData('neutral', 0.15),
+      sparklineColor: '#eab308'
     },
     {
       id: 'nupl',
@@ -41,8 +82,10 @@ export default function MarketIndicesPage() {
       value: '62%',
       status: 'bullish',
       signal: 'Hold',
-      explanation: 'Profit-taking zone. Consider partial profits on large gains.',
-      icon: TrendingUp
+      explanation: 'Zona de toma de ganancias. Considera profits parciales en grandes ganancias.',
+      icon: TrendingUp,
+      sparklineData: generateSparklineData('up', 0.1),
+      sparklineColor: '#10b981'
     },
     {
       id: 'realized-price',
@@ -50,8 +93,21 @@ export default function MarketIndicesPage() {
       value: '$28,450',
       status: 'bullish',
       signal: 'Buy',
-      explanation: 'Current price above realized = market in profit, healthy trend.',
-      icon: BarChart3
+      explanation: 'Precio actual sobre realizado = mercado en profit, tendencia saludable.',
+      icon: BarChart3,
+      sparklineData: generateSparklineData('up', 0.08),
+      sparklineColor: '#10b981'
+    },
+    {
+      id: 'puell',
+      name: 'Puell Multiple',
+      value: '1.2',
+      status: 'neutral',
+      signal: 'Hold',
+      explanation: 'Ingresos de mineros estables. Sin señales extremas de compra o venta.',
+      icon: Zap,
+      sparklineData: generateSparklineData('neutral', 0.12),
+      sparklineColor: '#eab308'
     }
   ];
 
@@ -64,20 +120,24 @@ export default function MarketIndicesPage() {
       status: (fearGreed?.value || 14) < 25 ? 'bullish' : (fearGreed?.value || 14) > 75 ? 'bearish' : 'neutral',
       signal: (fearGreed?.value || 14) < 25 ? 'Buy' : (fearGreed?.value || 14) > 75 ? 'Sell' : 'Hold',
       explanation: (fearGreed?.value || 14) < 25 
-        ? 'Extreme fear = historically best time to accumulate.' 
+        ? 'Miedo extremo = históricamente mejor momento para acumular.' 
         : (fearGreed?.value || 14) > 75 
-        ? 'Extreme greed = caution, consider taking profits.' 
-        : 'Market sentiment is balanced.',
-      icon: Activity
+        ? 'Codicia extrema = precaución, considera tomar ganancias.' 
+        : 'Sentimiento de mercado equilibrado.',
+      icon: Activity,
+      sparklineData: generateSparklineData('down', 0.2),
+      sparklineColor: '#ef4444'
     },
     {
       id: 'rainbow',
       name: 'Bitcoin Rainbow Chart',
-      value: 'Accumulate',
+      value: 'Acumular',
       status: 'bullish',
       signal: 'Buy',
-      explanation: 'Blue/green zone suggests good accumulation opportunity.',
-      icon: TrendingUp
+      explanation: 'Zona azul/verde sugiere buena oportunidad de acumulación.',
+      icon: TrendingUp,
+      sparklineData: generateSparklineData('up', 0.1),
+      sparklineColor: '#10b981'
     }
   ];
 
@@ -88,18 +148,34 @@ export default function MarketIndicesPage() {
       value: '8.2%',
       status: 'bullish',
       signal: 'Buy',
-      explanation: 'Low SSR = lots of buying power on sidelines ready to deploy.',
-      icon: DollarSign
+      explanation: 'Bajo SSR = mucho poder de compra al margen listo para desplegar.',
+      icon: DollarSign,
+      sparklineData: generateSparklineData('down', 0.1),
+      sparklineColor: '#10b981'
     },
     {
       id: 'reserves',
       name: 'Exchange Reserves',
       value: '2.1M BTC',
       status: 'bullish',
-      label: 'Decreasing',
+      label: 'Decreciendo',
       signal: 'Hold',
-      explanation: 'Coins leaving exchanges = accumulation, less selling pressure.',
-      icon: BarChart3
+      explanation: 'Monedas saliendo de exchanges = acumulación, menos presión vendedora.',
+      icon: BarChart3,
+      sparklineData: generateSparklineData('down', 0.08),
+      sparklineColor: '#10b981'
+    },
+    {
+      id: 'defi-tvl',
+      name: 'DeFi TVL',
+      value: '$85.2B',
+      status: 'bullish',
+      label: '+5.2%',
+      signal: 'Hold',
+      explanation: 'TVL creciente indica confianza y actividad en el ecosistema DeFi.',
+      icon: TrendingUp,
+      sparklineData: generateSparklineData('up', 0.12),
+      sparklineColor: '#10b981'
     }
   ];
 
@@ -110,8 +186,10 @@ export default function MarketIndicesPage() {
       value: '52.3%',
       status: 'neutral',
       signal: 'Hold',
-      explanation: 'Stable dominance. Wait for clear trend before rotating to alts.',
-      icon: Activity
+      explanation: 'Dominancia estable. Espera tendencia clara antes de rotar a alts.',
+      icon: Activity,
+      sparklineData: generateSparklineData('neutral', 0.05),
+      sparklineColor: '#eab308'
     },
     {
       id: 'alt-season',
@@ -120,8 +198,10 @@ export default function MarketIndicesPage() {
       status: 'neutral',
       label: 'Bitcoin Season',
       signal: 'Hold',
-      explanation: 'Not altseason yet. Focus on BTC/ETH until index > 75.',
-      icon: TrendingDown
+      explanation: 'Aún no es altseason. Enfócate en BTC/ETH hasta índice > 75.',
+      icon: TrendingDown,
+      sparklineData: generateSparklineData('neutral', 0.15),
+      sparklineColor: '#eab308'
     },
     {
       id: 'total-mcap',
@@ -130,8 +210,10 @@ export default function MarketIndicesPage() {
       status: 'bullish',
       label: '+2.3%',
       signal: 'Hold',
-      explanation: 'Market growing steadily. Healthy uptrend in progress.',
-      icon: BarChart3
+      explanation: 'Mercado creciendo de forma constante. Tendencia alcista saludable.',
+      icon: BarChart3,
+      sparklineData: generateSparklineData('up', 0.1),
+      sparklineColor: '#10b981'
     }
   ];
 
@@ -142,12 +224,12 @@ export default function MarketIndicesPage() {
     const holdCount = allMetrics.filter(m => m.signal === 'Hold').length;
     
     if (buyCount > sellCount && buyCount >= holdCount) {
-      return { zone: 'BUY ZONE', color: 'emerald', icon: Target, description: 'Multiple indicators suggest accumulation opportunity. Consider DCA into positions.' };
+      return { zone: 'ZONA DE COMPRA', color: 'emerald', icon: Target, description: 'Múltiples indicadores sugieren oportunidad de acumulación. Considera DCA en tus posiciones.' };
     }
     if (sellCount > buyCount && sellCount >= holdCount) {
-      return { zone: 'SELL ZONE', color: 'red', icon: AlertTriangle, description: 'Caution advised. Consider taking partial profits and reducing exposure.' };
+      return { zone: 'ZONA DE VENTA', color: 'red', icon: AlertTriangle, description: 'Se aconseja precaución. Considera tomar ganancias parciales y reducir exposición.' };
     }
-    return { zone: 'HOLD ZONE', color: 'amber', icon: ShieldCheck, description: 'Mixed signals. Maintain current positions and wait for clearer direction.' };
+    return { zone: 'ZONA DE HOLD', color: 'amber', icon: ShieldCheck, description: 'Señales mixtas. Mantén posiciones actuales y espera dirección más clara.' };
   };
 
   const recommendation = calculateRecommendation();
@@ -184,10 +266,11 @@ export default function MarketIndicesPage() {
       <div
         key={metric.id}
         data-testid={`metric-${metric.id}`}
-        className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/20 hover:border-emerald-500/50"
+        className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-500/30"
       >
         <div className="relative z-10">
-          <div className="flex items-start justify-between mb-3">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="p-2 rounded-lg bg-gray-800/50 border border-gray-700/50">
                 <Icon className="w-4 h-4 text-emerald-400" strokeWidth={2.5} />
@@ -199,17 +282,25 @@ export default function MarketIndicesPage() {
             </span>
           </div>
 
-          <div className="mb-3">
-            <div className="text-3xl font-bold text-white mb-1" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-              {metric.value}
+          {/* Value and Sparkline Row */}
+          <div className="flex items-end justify-between mb-3">
+            <div>
+              <div className="text-2xl font-bold text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                {metric.value}
+              </div>
+              {metric.label && (
+                <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold border mt-1 ${getStatusColor(metric.status)}`}>
+                  {metric.label}
+                </span>
+              )}
             </div>
-            {metric.label && (
-              <span className={`inline-block px-2 py-1 rounded-full text-xs font-bold border ${getStatusColor(metric.status)}`}>
-                {metric.label}
-              </span>
-            )}
+            {/* Mini Sparkline */}
+            <div className="w-24 h-10">
+              <Sparkline data={metric.sparklineData} color={metric.sparklineColor} height={40} />
+            </div>
           </div>
 
+          {/* Explanation */}
           <p className="text-xs text-gray-400 leading-relaxed border-t border-gray-700/50 pt-3">
             {metric.explanation}
           </p>
@@ -223,7 +314,7 @@ export default function MarketIndicesPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent mb-4" />
-          <div className="text-emerald-500 text-xl font-semibold">Loading market data...</div>
+          <div className="text-emerald-500 text-xl font-semibold">Cargando datos de mercado...</div>
         </div>
       </div>
     );
@@ -234,14 +325,15 @@ export default function MarketIndicesPage() {
   return (
     <div className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Back to Home
+            <ChevronRight size={16} className="rotate-180" /> Volver al Inicio
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading">
-            Market Indices Dashboard
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Dashboard de Índices
           </h1>
-          <p className="text-gray-400 text-lg">Comprehensive view of all market indicators and actionable signals</p>
+          <p className="text-gray-400 text-lg">Vista completa de indicadores de mercado con señales accionables</p>
         </div>
 
         {/* Main Recommendation Card */}
@@ -255,7 +347,7 @@ export default function MarketIndicesPage() {
                     <RecommendationIcon className={`w-8 h-8 text-${recommendation.color}-400`} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">Alpha Crypto Recommendation</p>
+                    <p className="text-sm text-gray-400 mb-1">Recomendación Alpha Crypto</p>
                     <h2 className={`text-3xl md:text-4xl font-black text-${recommendation.color}-400`}>
                       {recommendation.zone}
                     </h2>
@@ -288,30 +380,43 @@ export default function MarketIndicesPage() {
 
         {/* Signal Summary */}
         <div className="grid grid-cols-3 gap-4 mb-10">
-          {['Buy', 'Hold', 'Sell'].map(signal => {
-            const allMetrics = [...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure];
-            const count = allMetrics.filter(m => m.signal === signal).length;
-            const color = signal === 'Buy' ? 'emerald' : signal === 'Sell' ? 'red' : 'amber';
-            return (
-              <div key={signal} className={`glass-card rounded-xl p-4 text-center border border-${color}-500/30`}>
-                <div className={`text-3xl font-black text-${color}-400`}>{count}</div>
-                <div className="text-sm text-gray-400">{signal} Signals</div>
-              </div>
-            );
-          })}
+          <div className="glass-card rounded-xl p-4 text-center border border-emerald-500/30">
+            <div className="text-3xl font-black text-emerald-400">
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Buy').length}
+            </div>
+            <div className="text-sm text-gray-400">Señales Buy</div>
+          </div>
+          <div className="glass-card rounded-xl p-4 text-center border border-amber-500/30">
+            <div className="text-3xl font-black text-amber-400">
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Hold').length}
+            </div>
+            <div className="text-sm text-gray-400">Señales Hold</div>
+          </div>
+          <div className="glass-card rounded-xl p-4 text-center border border-red-500/30">
+            <div className="text-3xl font-black text-red-400">
+              {[...onChainMetrics, ...sentimentMetrics, ...liquidityMetrics, ...marketStructure].filter(m => m.signal === 'Sell').length}
+            </div>
+            <div className="text-sm text-gray-400">Señales Sell</div>
+          </div>
         </div>
 
         {/* On-Chain Metrics */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-white mb-4">On-Chain Metrics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <Activity className="text-emerald-500" size={24} />
+            Métricas On-Chain
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {onChainMetrics.map((m, i) => renderMetricCard(m, i))}
           </div>
         </section>
 
         {/* Sentiment */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-white mb-4">Sentiment Indicators</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <TrendingUp className="text-emerald-500" size={24} />
+            Indicadores de Sentimiento
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {sentimentMetrics.map((m, i) => renderMetricCard(m, i))}
           </div>
@@ -319,23 +424,30 @@ export default function MarketIndicesPage() {
 
         {/* Liquidity */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-white mb-4">Liquidity Metrics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <DollarSign className="text-emerald-500" size={24} />
+            Métricas de Liquidez
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {liquidityMetrics.map((m, i) => renderMetricCard(m, i))}
           </div>
         </section>
 
         {/* Market Structure */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-white mb-4">Market Structure</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <BarChart3 className="text-emerald-500" size={24} />
+            Estructura de Mercado
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {marketStructure.map((m, i) => renderMetricCard(m, i))}
           </div>
         </section>
 
+        {/* Disclaimer */}
         <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-xl">
           <p className="text-sm text-gray-500">
-            <strong className="text-gray-400">Disclaimer:</strong> These signals are for informational purposes only and do not constitute financial advice. Always do your own research (DYOR) before making investment decisions.
+            <strong className="text-gray-400">Disclaimer:</strong> Estas señales son solo para propósitos informativos y no constituyen asesoramiento financiero. Siempre haz tu propia investigación (DYOR) antes de tomar decisiones de inversión.
           </p>
         </div>
       </div>
