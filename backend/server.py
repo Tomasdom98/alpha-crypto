@@ -910,7 +910,16 @@ async def root():
 
 @api_router.get("/crypto/prices", response_model=List[CryptoPrice])
 async def get_crypto_prices():
-    """Get current crypto prices from CoinGecko API"""
+    """Get current crypto prices from CoinGecko API with caching"""
+    cache_key = "crypto_prices"
+    
+    # Check cache first
+    cached_prices = await api_cache.get(cache_key, CACHE_TTL_CRYPTO_PRICES)
+    if cached_prices:
+        logger.debug("Returning cached crypto prices")
+        return cached_prices
+    
+    # Fetch from API if not cached
     try:
         async with aiohttp.ClientSession() as session:
             url = "https://api.coingecko.com/api/v3/coins/markets"
@@ -942,8 +951,11 @@ async def get_crypto_prices():
                             "volume_24h": coin.get("total_volume", 0) or 0
                         })
                     if prices:
-                        logger.info(f"Fetched {len(prices)} prices from CoinGecko")
+                        logger.info(f"Fetched {len(prices)} prices from CoinGecko - caching for {CACHE_TTL_CRYPTO_PRICES}s")
+                        await api_cache.set(cache_key, prices)
                         return prices
+                elif response.status == 429:
+                    logger.warning("CoinGecko rate limit hit (429) - using cached/mock data")
                 else:
                     logger.warning(f"CoinGecko returned status {response.status}")
     except Exception as e:
