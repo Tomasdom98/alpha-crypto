@@ -1,171 +1,130 @@
-# Alpha Crypto - Product Requirements Document
+# Alpha Crypto - PRD & Status Document
 
-## Overview
-Alpha Crypto is a full-stack crypto alpha platform providing market insights, airdrop tracking, educational content, and investment analysis for crypto investors. The platform is designed with a dark, professional theme inspired by "The Milk Road".
+## Original Problem Statement
+Build a full-stack crypto intelligence platform called "Alpha Crypto" with:
+- Dark, professional, dynamic theme
+- Free educational content ("Alpha Research")
+- Verified airdrop information
+- Real-time market data from live APIs
+- ALPHA-I AI assistant (Claude Sonnet 4.5)
+- Fully bilingual UI (Spanish/English)
 
-## Tech Stack
-- **Frontend:** React, React Router, Tailwind CSS, Recharts
-- **Backend:** FastAPI (Python)
-- **Database:** MongoDB
-- **CMS:** Sanity.io (Project ID: 15c5x8s5) - Integrated with automatic fallback
-- **APIs:** CoinGecko (live prices), Alternative.me (Fear & Greed Index)
-- **Email:** Resend (for form notifications)
+## User Personas
+- **Crypto Investors**: Looking for market signals and portfolio tracking
+- **Airdrop Hunters**: Seeking verified airdrop opportunities
+- **DeFi Enthusiasts**: Wanting educational content and market analysis
+- **Spanish/English Speakers**: Requiring bilingual interface
 
-## Language
-- Site language: **Spanish (LATAM)**
-- All sections translated to Spanish
+## Core Requirements
+✅ = Implemented | 🔄 = In Progress | ⏳ = Pending
 
-## Brand Identity
-- **Logo:** Text-based `αC Alpha Crypto`
-  - α (alpha) in emerald-400
-  - C in white
-  - "Alpha Crypto" in white with green hover
-  - Location: Header and Footer
-  
-- **Owl Seal:** Component `/app/frontend/src/components/OwlSeal.js`
-  - Fixed position bottom-right on all pages
-  - Opacity: 35%
-  - Professional technological design
+### Content & Data
+- ✅ Alpha Research articles with markdown rendering
+- ✅ Verified airdrop listings (MOCKED)
+- ✅ Live market data (CoinGecko, DeFiLlama, Alternative.me)
+- ✅ Macro Calendar with economic events (MOCKED)
+- ✅ Portfolio tracking with Yields and Staking sections
 
-## Core Features
+### UI/UX
+- ✅ Dark professional theme
+- ✅ Bilingual support (ES/EN) with language toggle
+- ✅ Navigation split into Free/Premium sections
+- ✅ ALPHA-I button prominent in header
+- ✅ OwlSeal brand component with animations
+- ✅ Mobile responsive design
 
-### 1. Homepage ✅
-- Live crypto ticker (BTC, ETH, SOL, USDC)
-- Fear & Greed Index gauge
-- Market indicators
-- Two-tier premium banner
+### Features
+- ✅ ALPHA-I AI Assistant (Claude Sonnet 4.5)
+- ✅ Premium Modal with Monthly/Annual pricing
+- ✅ Macro Calendar page
+- ✅ Search and filtering on articles/airdrops
+- ✅ Newsletter subscription popup
 
-### 2. Articles Page (`/articles`) ✅
-- 5 complete educational articles in Spanish
-- Milk Road style content with tables, blockquotes, emojis
-- Category tags displayed (USDC, USDT, Pagos, etc.)
-- Read time indicator
-- Click to read full article
+## What's Been Implemented
 
-### 3. Article Detail Page ✅ (Updated Feb 2026)
-- Rich markdown rendering (headers, lists, blockquotes, tables)
-- Dynamic read time from backend
-- Category tags from article data
-- Share functionality
-- Responsive design
+### December 5, 2025
+- **Language Translation System**: Complete site-wide ES/EN toggle
+  - Created LanguageContext for state management
+  - Translated all pages: Home, Market Indices, Calendar, Portfolio, Articles, Airdrops
+  - Translated all components: Navigation, Footer, PremiumModal, AlphaiChat, NewsletterPopup
+  - Language preference saved in localStorage
 
-### 4. Airdrops Page (`/airdrops`) ✅
-- 15 verified airdrops with referral links
-- Educational intro section
-- Task tracking
-- Difficulty indicators
+### Previous Sessions
+- Full-stack architecture with React + FastAPI + MongoDB
+- Live API integrations (CoinGecko, DeFiLlama, Alternative.me)
+- ALPHA-I assistant with Claude Sonnet 4.5
+- Premium payment flow with QR codes
+- Tab-based Portfolio with Yields and Staking
+- Macro Calendar page with event filtering
 
-### 5. Market Indices Page (`/indices`) ✅
-- Fear & Greed, MVRV, BTC Dominance, Rainbow Chart
-- Sparkline charts
-- Large format charts with mock data
-- Buy/Hold/Sell recommendations
+## Architecture
 
-### 6. Premium Features
-- Portfolio tracking
-- Early Signals
-- Consulting services
+```
+/app/
+├── backend/
+│   ├── server.py         # FastAPI, all routes and mock data
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── context/
+│   │   │   └── LanguageContext.js  # Language state
+│   │   ├── components/
+│   │   │   ├── Navigation.js       # Language toggle
+│   │   │   ├── PremiumModal.js     # Premium flow
+│   │   │   ├── AlphaiChat.js       # AI assistant
+│   │   │   ├── Footer.js
+│   │   │   └── NewsletterPopup.js
+│   │   └── pages/
+│   │       ├── HomePage.js
+│   │       ├── ArticlesPage.js
+│   │       ├── AirdropsPage.js
+│   │       ├── MarketIndicesPage.js
+│   │       ├── MacroCalendarPage.js
+│   │       └── PortfolioPage.js
+```
 
-## Email Integration (Feb 2026)
-- **Service:** Resend
-- **Configured for:**
-  - Feedback form notifications
-  - Consulting request notifications
-  - Newsletter welcome emails (on subscription)
-  - Newsletter article distribution
-- **Admin Email:** tomdomingueclaro@gmail.com
-- **Note:** Requires domain verification for production use
+## Key APIs
+- **CoinGecko**: /api/crypto/prices, /api/crypto/global
+- **DeFiLlama**: /api/crypto/stablecoins, /api/crypto/defi-tvl
+- **Alternative.me**: /api/crypto/fear-greed
+- **Internal**: /api/articles, /api/airdrops, /api/alphai/chat
 
-## Newsletter System (Feb 2026) - NEW
-- **Components:** 
-  - `/app/frontend/src/components/NewsletterSignup.js` - Hero variant for homepage
-  - `/app/frontend/src/components/NewsletterPopup.js` - Popup for articles page (5s delay)
-- **Features:**
-  - Popup appears after 5 seconds on Articles page
-  - Saves to localStorage to avoid repeat popups
-  - Welcome email on subscription
-  - Article distribution endpoint
-- **Backend Endpoints:**
-  - `POST /api/alerts/subscribe` - Subscribe to newsletter
-  - `POST /api/newsletter/send-article?article_id=X` - Send article to all subscribers
-  - `GET /api/admin/alert-subscribers` - List all subscribers
-  - `POST /api/alerts/unsubscribe` - Unsubscribe
+## Prioritized Backlog
 
-## Real-Time Charts API (Feb 2026) - NEW
-- **Data Source:** CoinGecko API with caching + mock fallback
-- **Endpoints:**
-  - `GET /api/crypto/chart/{coin_id}?days=30` - Historical price data
-  - `GET /api/crypto/global` - Global market data (dominance, market cap)
-- **Caching:** 5 minutes for charts, 2 minutes for global data
-- **Fallback:** Auto-generates mock data if CoinGecko fails
+### P0 (Critical) - DONE
+- ✅ Site-wide language translation (ES/EN)
 
-## API Endpoints
+### P1 (High Priority)
+- ⏳ Add real protocol logos in Airdrops and Yields sections
 
-### Public
-- `GET /api/articles` - List all articles with tags
-- `GET /api/articles/{id}` - Single article detail
-- `GET /api/airdrops` - List airdrops
-- `GET /api/crypto/prices` - Live prices (cached)
-- `GET /api/crypto/fear-greed` - Fear & Greed index (cached)
+### P2 (Medium Priority)
+- ⏳ Admin panel for newsletter management
+- ⏳ Stripe integration for premium payments
+- ⏳ Connect Macro Calendar to live APIs
 
-### Form Submissions
-- `POST /api/feedback` - Submit feedback (sends email)
-- `POST /api/consulting` - Request consulting (sends email)
+### P3 (Lower Priority)
+- ⏳ Push/email notifications system
+- ⏳ Domain verification for Resend emails
+- ⏳ Advanced analytics dashboard
 
-## Recent Updates (Feb 5, 2026)
+## Testing Status
+- Last test: iteration_4.json - 100% pass rate on frontend language tests
+- All language translations verified working
 
-### Completed
-- [x] ArticleDetailPage - Rich markdown rendering
-- [x] ArticleDetailPage - Dynamic tags and read_time
-- [x] ArticlesPage - Category tags display
-- [x] Backend - Resend email integration
-- [x] Backend - Article model with tags/read_time fields
-- [x] Newsletter Popup - 3 second delay on Articles page
-- [x] Real-time APIs:
-  - Stablecoins from DefiLlama (`/api/crypto/stablecoins`)
-  - DeFi TVL from DefiLlama (`/api/crypto/defi-tvl`)
-  - Global market data from CoinGecko (`/api/crypto/global`)
-  - Historical charts (`/api/crypto/chart/{coin_id}`)
-- [x] ALPHAI Chat Assistant:
-  - GPT-4o-mini powered (gpt-4o for premium)
-  - 5 free messages/day limit
-  - Spanish language responses
-  - DeFi/crypto specialist
-- [x] Market Indices Page connected to real-time APIs
-- [x] Articles emoji reduction - Only owl (🦉) signature
-- [x] Tables in articles render correctly
-- [x] OwlSeal Dynamic Animations (floating, breathing, glow)
-- [x] Search & Filters for Articles and Airdrops
-- [x] Airdrops Data Update - 8 verified airdrops
-- [x] **NEW (Feb 5, 2026):**
-  - Renamed "Artículos" to "Alpha Research" in navigation
-  - ALPHA-I button redesigned with gradient and glow
-  - Portfolio page with internal navigation (4 tabs)
-  - New Staking section with SOL, ETH, BTC, SUI
-  - Removed difficulty filters from Airdrops
-  - Protocol logos added to Yield Stablecoins section
+## Mocked Data
+The following data is currently MOCKED in the backend:
+- Articles content
+- Airdrop listings
+- Macro Calendar events
+- Staking data
 
-### Pending
-- [ ] Resend domain verification for production emails
-- [ ] Admin Panel for Newsletter (send articles to subscribers)
-- [ ] Full Premium tier for ALPHAI (payment integration)
-- [ ] Add real protocol logos to Airdrops (currently using placeholders)
-
-## Known Issues
-- CoinGecko API rate limiting (falls back to cached/mock data)
-- Resend in testing mode - emails only to verified addresses
-
-## Future Tasks (Backlog)
-- Custom domain configuration post-deployment
-
-## Color Scheme
-- Background: #0f172a
-- Cards: #1a1f2e 
-- Accent: #10b981 (emerald-500)
-- Text: white / gray-400
-
-## Key Files
-- `/app/backend/server.py` - API, cache, email integration
-- `/app/frontend/src/pages/ArticleDetailPage.js` - Rich article view
-- `/app/frontend/src/pages/ArticlesPage.js` - Articles grid with tags
-- `/app/frontend/src/components/OwlSeal.js` - Brand seal component
+## 3rd Party Integrations
+| Service | Status | Purpose |
+|---------|--------|---------|
+| CoinGecko | ✅ Live | Crypto prices |
+| DeFiLlama | ✅ Live | TVL, Stablecoins |
+| Alternative.me | ✅ Live | Fear & Greed |
+| Emergent LLM (Claude) | ✅ Live | ALPHA-I assistant |
+| Sanity.io | ⏳ Pending | CMS (secondary) |
+| Resend | ⏳ Pending | Emails (needs domain verification) |
+| Stripe | ⏳ Pending | Payments |
