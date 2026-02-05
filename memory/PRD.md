@@ -7,7 +7,7 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - **Frontend:** React, React Router, Tailwind CSS, Recharts
 - **Backend:** FastAPI (Python)
 - **Database:** MongoDB
-- **CMS:** Sanity.io (Project ID: 15c5x8s5) - For future content management
+- **CMS:** Sanity.io (Project ID: 15c5x8s5) - Integrated with automatic fallback to mock data
 - **APIs:** CoinGecko (live prices), Alternative.me (Fear & Greed Index)
 
 ## Core Features
@@ -24,11 +24,14 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ 5 articles including 3 new Spanish articles
 - ✅ Relevant images for each article
 - ✅ Category filtering, Premium badges
+- ✅ **Sanity CMS integration** (uses Sanity if 3+ articles, otherwise mock data)
 
 ### 3. Airdrops Page (`/airdrops`)
-- ✅ 15 DEX airdrops with DiceBear logos
+- ✅ 15 perpetuals DEX airdrops
+- ✅ **Professional UI Avatar logos** with project initials and distinct colors
 - ✅ Reward clarification notes
 - ✅ Premium badges, Chain badges
+- ✅ **Sanity CMS integration** (uses Sanity if 5+ airdrops, otherwise mock data)
 
 ### 4. Airdrop Detail Page (`/airdrops/:id`)
 - ✅ Full info, interactive task checklist
@@ -63,9 +66,10 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Signal types: opportunity, alert, news, community
 - ✅ Action recommendations
 - ✅ External links and timestamps
-- ✅ **Email Alert Subscription** (FASE 3) - Enable Notifications button, email input, subscribe flow
+- ✅ Email Alert Subscription (FASE 3)
+- ✅ **Sanity CMS integration** (uses Sanity if 3+ signals, otherwise mock data)
 
-### 9. Consulting Page (`/consulting`) - NEW FASE 3 ✅
+### 9. Consulting Page (`/consulting`) - FASE 3 ✅
 - ✅ Service type selection (Personal/Business Consulting)
 - ✅ Contact form (name, email, company optional, message)
 - ✅ Success state with "Message Sent!" confirmation
@@ -76,8 +80,8 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - ✅ Payment verification dashboard (Pending/Verified tabs)
 - ✅ Premium users list (Users tab)
 - ✅ Feedback tab with submissions
-- ✅ **Consulting tab** (FASE 3) - View/manage consulting requests with status workflow (new→contacted→completed)
-- ✅ **Subscribers tab** (FASE 3) - View email alert subscribers
+- ✅ Consulting tab (FASE 3) - View/manage consulting requests
+- ✅ Subscribers tab (FASE 3) - View email alert subscribers
 
 ### 11. Premium Subscription
 - ✅ $20/month, Multi-chain payments
@@ -104,16 +108,34 @@ Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals | Consulti
 - [x] Portfolio page (Milk Road style)
 - [x] Early Signals page
 
-### FASE 3 (February 2026) ✅ COMPLETE
+### FASE 3 (February 2026) ✅
 - [x] Consulting page with Personal/Business service types
 - [x] Consulting form with contact info and message
 - [x] Email alert subscription in Signals page
 - [x] Admin Consulting tab with status management
 - [x] Admin Subscribers tab showing email list
 
-## Upcoming Tasks - P1
-- [ ] Sync content with Sanity CMS (articles and airdrops)
-- [ ] Use real project logos for airdrops
+### P1 Tasks (February 2026) ✅
+- [x] **Sanity CMS Integration** - Backend connects to Sanity with intelligent fallback:
+  - Articles: Uses Sanity if 3+ articles exist, otherwise mock data
+  - Airdrops: Uses Sanity if 5+ airdrops exist, otherwise mock data
+  - Signals: Uses Sanity if 3+ signals exist, otherwise mock data
+- [x] **Professional Airdrop Logos** - UI Avatars with project initials (HL, DR, GR, etc.) and distinct brand colors
+- [x] **Sanity Schema Documentation** - Created `/app/docs/SANITY_SCHEMAS.md` with complete schema definitions
+
+## Sanity CMS Setup
+
+### How Content Management Works
+1. Backend attempts to fetch content from Sanity CMS first
+2. If Sanity has sufficient content (3+ articles, 5+ airdrops, 3+ signals), it uses Sanity data
+3. If Sanity has less content, it falls back to mock data
+4. This ensures the app always has content while you build up CMS content
+
+### Schemas Available
+See `/app/docs/SANITY_SCHEMAS.md` for complete schema definitions:
+- **article**: Title, slug, excerpt, content, category, premium, publishedAt, imageUrl
+- **airdrop**: projectName, logoUrl, chain, description, fullDescription, backing, timeline, rewardNote, steps, estimatedReward, difficulty, deadline, status, link, premium
+- **signal**: title, type, priority, description, action, link, timestamp, premium
 
 ## Future Tasks - P2
 - [ ] Integrate real email service (Resend/SendGrid) for notifications
@@ -129,21 +151,23 @@ Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals | Consulti
 
 ## Key API Endpoints
 
+### Sanity-Integrated Endpoints
+- `GET /api/articles` - Articles from Sanity or mock data
+- `GET /api/articles/{id}` - Single article
+- `GET /api/airdrops` - Airdrops from Sanity or mock data
+- `GET /api/airdrops/{id}` - Single airdrop
+- `GET /api/early-signals` - Signals from Sanity or mock data
+
 ### FASE 3 Endpoints
 - `POST /api/consulting` - Submit consulting request
 - `GET /api/admin/consulting` - Get consulting requests (admin)
 - `POST /api/admin/consulting/{id}/status` - Update consulting status
 - `POST /api/alerts/subscribe` - Subscribe to email alerts
 - `GET /api/admin/alert-subscribers` - Get alert subscribers (admin)
-- `POST /api/alerts/unsubscribe` - Unsubscribe from alerts
 
-### Existing Endpoints
-- `GET /api/articles` - List articles
-- `GET /api/airdrops` - List airdrops
-- `GET /api/airdrops/{id}` - Airdrop details
+### Other Endpoints
 - `GET /api/crypto/prices` - Live CoinGecko prices
 - `GET /api/crypto/fear-greed` - Fear & Greed Index
-- `GET /api/early-signals` - Get signals and opportunities
 - `POST /api/feedback` - Submit feedback
 - `GET /api/admin/feedback` - Admin feedback view
 - `GET /api/admin/payments` - Admin payments
@@ -157,10 +181,10 @@ Home | Articles | Airdrops | Indices | Analysis | Portfolio | Signals | Consulti
 - `alert_subscriptions` - Email alert subscribers
 
 ## Test Reports
-- `/app/test_reports/iteration_1.json` - 15 DEX Airdrops feature
-- `/app/test_reports/iteration_2.json` - FASE 3 Consulting & Alerts (100% pass rate)
-- `/app/test_reports/pytest/fase1_results.xml` - FASE 1 tests (21 passed)
-- `/app/test_reports/pytest/fase3_results.xml` - FASE 3 tests (16 passed)
+- `/app/test_reports/iteration_1.json` - Airdrops feature
+- `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
+- `/app/test_reports/pytest/fase1_results.xml` - FASE 1 tests
+- `/app/test_reports/pytest/fase3_results.xml` - FASE 3 tests
 
 ## User's Preferred Language
 Spanish (Español)
