@@ -131,60 +131,62 @@ const MACRO_EVENTS = [
   },
 ];
 
+// Translations
+const TRANSLATIONS = {
+  es: {
+    backToIndices: 'Volver a Índices',
+    title: 'Calendario Macro',
+    subtitle: 'Eventos económicos que impactan los mercados crypto',
+    all: 'Todos',
+    fedFomc: 'Fed/FOMC',
+    economic: 'Económico',
+    earnings: 'Earnings',
+    tokenUnlock: 'Token Unlock',
+    options: 'Opciones',
+    upcomingEvents: 'Próximos Eventos',
+    noEvents: 'No hay eventos este mes',
+    more: 'más',
+    impactLegend: 'Leyenda de Impacto',
+    bullish: 'Bullish - Potencialmente positivo para crypto',
+    bearish: 'Bearish - Potencialmente negativo para crypto',
+    neutral: 'Neutral - Depende del resultado del evento',
+    back: 'Volver a Índices',
+    high: 'Alta',
+    medium: 'Media',
+    low: 'Baja',
+    days: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+  },
+  en: {
+    backToIndices: 'Back to Indices',
+    title: 'Macro Calendar',
+    subtitle: 'Economic events that impact crypto markets',
+    all: 'All',
+    fedFomc: 'Fed/FOMC',
+    economic: 'Economic',
+    earnings: 'Earnings',
+    tokenUnlock: 'Token Unlock',
+    options: 'Options',
+    upcomingEvents: 'Upcoming Events',
+    noEvents: 'No events this month',
+    more: 'more',
+    impactLegend: 'Impact Legend',
+    bullish: 'Bullish - Potentially positive for crypto',
+    bearish: 'Bearish - Potentially negative for crypto',
+    neutral: 'Neutral - Depends on event outcome',
+    back: 'Back to Indices',
+    high: 'High',
+    medium: 'Medium',
+    low: 'Low',
+    days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  }
+};
+
 export default function MacroCalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 1, 1)); // February 2026
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { language } = useLanguage();
-
-  // Translations
-  const tx = {
-    es: {
-      backToIndices: 'Volver a Índices',
-      title: 'Calendario Macro',
-      subtitle: 'Eventos económicos que impactan los mercados crypto',
-      all: 'Todos',
-      fedFomc: 'Fed/FOMC',
-      economic: 'Económico',
-      earnings: 'Earnings',
-      tokenUnlock: 'Token Unlock',
-      options: 'Opciones',
-      upcomingEvents: 'Próximos Eventos',
-      noEvents: 'No hay eventos este mes',
-      more: 'más',
-      impactLegend: 'Leyenda de Impacto',
-      bullish: 'Bullish - Potencialmente positivo para crypto',
-      bearish: 'Bearish - Potencialmente negativo para crypto',
-      neutral: 'Neutral - Depende del resultado del evento',
-      back: 'Volver a Índices',
-      high: 'Alta',
-      medium: 'Media',
-      low: 'Baja',
-      days: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-    },
-    en: {
-      backToIndices: 'Back to Indices',
-      title: 'Macro Calendar',
-      subtitle: 'Economic events that impact crypto markets',
-      all: 'All',
-      fedFomc: 'Fed/FOMC',
-      economic: 'Economic',
-      earnings: 'Earnings',
-      tokenUnlock: 'Token Unlock',
-      options: 'Options',
-      upcomingEvents: 'Upcoming Events',
-      noEvents: 'No events this month',
-      more: 'more',
-      impactLegend: 'Impact Legend',
-      bullish: 'Bullish - Potentially positive for crypto',
-      bearish: 'Bearish - Potentially negative for crypto',
-      neutral: 'Neutral - Depends on event outcome',
-      back: 'Back to Indices',
-      high: 'High',
-      medium: 'Medium',
-      low: 'Low',
-      days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    }
-  }[language];
+  
+  const tx = TRANSLATIONS[language] || TRANSLATIONS.es;
 
   const CATEGORY_CONFIG = {
     fed: { label: tx.fedFomc, icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
