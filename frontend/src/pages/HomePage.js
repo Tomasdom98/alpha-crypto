@@ -234,6 +234,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Newsletter Signup */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <NewsletterSignup variant="hero" />
+      </section>
+
       {/* Premium Banner */}
       <PremiumBanner />
     </div>
