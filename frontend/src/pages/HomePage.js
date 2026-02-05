@@ -56,7 +56,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative">
       {/* Owl Seal - Fixed position watermark */}
-      <OwlSeal position="bottom-right" size="lg" opacity={0.35} className="fixed z-10 hidden lg:block" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
       {/* Live Ticker */}
       <LiveTicker />
