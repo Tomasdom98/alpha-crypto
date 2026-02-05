@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink } from 'lucide-react';
+import OwlSeal from '@/components/OwlSeal';
 
 export default function PortfolioPage() {
   const portfolioData = {
