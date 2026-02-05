@@ -615,7 +615,7 @@ DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortuna
         },
         {
             "id": "4",
-            "title": "💰 DeFi 2.0: Dónde Encontrar Yield REAL en 2026",
+            "title": "DeFi 2.0: Dónde Encontrar Yield REAL en 2026",
             "excerpt": "Olvídate de APYs de 10,000%. Aquí están los protocolos con revenue real y yields sostenibles.",
             "category": "DeFi",
             "tags": ["Yield", "Protocolos", "Staking", "Inversión"],
@@ -623,24 +623,24 @@ DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortuna
             "premium": False,
             "published_at": "2026-01-28T14:00:00Z",
             "image_url": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800",
-            "content": """GM. ¿Cansado de yields que desaparecen? Hablemos de DeFi que realmente paga. 💸
+            "content": """GM. ¿Cansado de yields que desaparecen? Hablemos de DeFi que realmente paga.
 
 ---
 
-## 🎓 DEFI 1.0 vs DEFI 2.0
+## DEFI 1.0 vs DEFI 2.0
 
 | | DeFi 1.0 (2020-2022) | DeFi 2.0 (2023+) |
 |--|----------------------|------------------|
 | Yields | 1000%+ APY | 5-25% APR |
 | Fuente | Emisiones de tokens | Revenue real |
-| Sostenible | ❌ No | ✅ Sí |
+| Sostenible | No | Sí |
 | Ejemplo | Farm random coin | GMX, Aave |
 
 **La lección:** Si el yield parece demasiado bueno para ser verdad, probablemente lo es.
 
 ---
 
-## 🏆 TOP PROTOCOLOS CON REVENUE REAL
+## TOP PROTOCOLOS CON REVENUE REAL
 
 ### 1. GMX (Arbitrum/Avalanche)
 - **Qué hace:** Exchange de perpetuos descentralizado
@@ -668,36 +668,36 @@ DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortuna
 
 ---
 
-## 📊 COMPARATIVA DE YIELDS (Febrero 2026)
+## COMPARATIVA DE YIELDS (Febrero 2026)
 
 | Protocolo | Asset | APR | Riesgo |
 |-----------|-------|-----|--------|
-| Aave | USDC | 5.2% | 🟢 Bajo |
-| Compound | USDC | 4.8% | 🟢 Bajo |
-| Lido | ETH | 4.1% | 🟢 Bajo |
-| GMX/GLP | Multi | 18% | 🟡 Medio |
-| Pendle | varias | 8-25% | 🟡 Medio |
-| Curve | Stables | 3-6% | 🟢 Bajo |
+| Aave | USDC | 5.2% | Bajo |
+| Compound | USDC | 4.8% | Bajo |
+| Lido | ETH | 4.1% | Bajo |
+| GMX/GLP | Multi | 18% | Medio |
+| Pendle | varias | 8-25% | Medio |
+| Curve | Stables | 3-6% | Bajo |
 
 ---
 
-## 🎯 ESTRATEGIAS POR PERFIL DE RIESGO
+## ESTRATEGIAS POR PERFIL DE RIESGO
 
-**🟢 Conservador (3-6% APR)**
+**Conservador (3-6% APR)**
 ```
 50% USDC en Aave
 30% ETH staked en Lido
 20% Stables en Curve
 ```
 
-**🟡 Moderado (8-15% APR)**
+**Moderado (8-15% APR)**
 ```
 40% GLP en GMX
 30% USDC en Aave
 30% Estrategias Pendle
 ```
 
-**🔴 Agresivo (15-25%+ APR)**
+**Agresivo (15-25%+ APR)**
 ```
 50% GLP + yield farming
 30% Pendle strategies
@@ -706,19 +706,19 @@ DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortuna
 
 ---
 
-## ⚠️ CHECKLIST ANTES DE DEPOSITAR
+## CHECKLIST ANTES DE DEPOSITAR
 
-✅ ¿Tiene múltiples auditorías?
-✅ ¿TVL estable o creciente?
-✅ ¿Revenue real o solo emisiones?
-✅ ¿Historial sin exploits mayores?
-✅ ¿Entiendes cómo genera el yield?
+- ¿Tiene múltiples auditorías?
+- ¿TVL estable o creciente?
+- ¿Revenue real o solo emisiones?
+- ¿Historial sin exploits mayores?
+- ¿Entiendes cómo genera el yield?
 
 **Si no puedes responder SÍ a todas, no deposites.**
 
 ---
 
-## 🔥 OPORTUNIDADES ACTUALES
+## OPORTUNIDADES ACTUALES
 
 **Subvaloradas:**
 - Pendle: Yield tokenization único
@@ -732,15 +732,11 @@ DYOR. Esto no es consejo financiero. Pero el miedo es donde se hacen las fortuna
 
 ---
 
-## 💡 PRO TIP
+## PRO TIP
 
 > "El mejor yield es el que puedes mantener por años sin preocuparte."
 
-No persigas el APY más alto. Persigue el APY más **sostenible**.
-
----
-
-*¿En qué protocolos estás generando yield? Comparte tu estrategia.* 🦉"""
+No persigas el APY más alto. Persigue el APY más **sostenible**. 🦉"""
         },
         {
             "id": "5",
