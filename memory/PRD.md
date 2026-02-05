@@ -130,7 +130,8 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [x] Airdrops Educational Intro - "¿Qué es un Airdrop?" section ✅
 - [x] Indices Charts - Mini sparkline charts for each indicator ✅
 - [x] CoinGecko API Cache System - Server-side caching implemented ✅
-- [ ] Visual identity improvements (Milk Road inspired)
+- [x] Brand Assets Integration - Logo AC + Búho Cyber mascot ✅
+- [x] Visual Identity Improvements - Navigation, Hero, Footer updated ✅
 - [ ] Full-size charts for Total Market Cap, Stablecoin Market Cap, DeFi TVL
 
 ### Future Tasks
@@ -140,6 +141,10 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 - [ ] Migrate to Next.js
 - [ ] Export to GitHub
 
+## Brand Assets
+- **Logo AC:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ge03m8vd_Gemini_Generated_Image_p2d40gp2d40gp2d4.png
+- **Búho Cyber:** https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/mt7vcsqk_Gemini_Generated_Image_k7va0ik7va0ik7va.png
+
 ## Test Reports
 - `/app/test_reports/iteration_2.json` - FASE 3 (100% pass rate)
 
@@ -147,8 +152,11 @@ Alpha Crypto is a full-stack crypto alpha platform providing market insights, ai
 Spanish (Español)
 
 ## Key Files
-- `/app/backend/server.py` - All backend logic, mock data, API endpoints
-- `/app/frontend/src/components/Navigation.js` - Free/Premium nav structure
+- `/app/backend/server.py` - All backend logic, API cache, mock data, endpoints
+- `/app/frontend/src/components/Navigation.js` - Free/Premium nav with logo
+- `/app/frontend/src/components/Footer.js` - Footer with brand assets
 - `/app/frontend/src/components/PremiumModal.js` - Two-tier pricing modal
-- `/app/frontend/src/pages/ArticleDetailPage.js` - Full article view
+- `/app/frontend/src/pages/HomePage.js` - Hero with owl mascot
+- `/app/frontend/src/pages/EarlySignalsPage.js` - Signals with owl decoration
+- `/app/frontend/src/index.css` - Custom animations (float, pulse-slow)
 - `/app/docs/SANITY_SCHEMAS.md` - CMS schema documentation
