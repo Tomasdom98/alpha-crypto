@@ -1,28 +1,30 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Crown, Sparkles, Bot } from 'lucide-react';
+import { Menu, X, Crown, Sparkles, Bot, Globe } from 'lucide-react';
 import { useState } from 'react';
 import PremiumModal from './PremiumModal';
 import AlphaiChat from './AlphaiChat';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [showAlphai, setShowAlphai] = useState(false);
   const location = useLocation();
+  const { language, toggleLanguage, t } = useLanguage();
 
   // Free content
   const freeItems = [
-    { path: '/', label: 'Inicio' },
-    { path: '/articles', label: 'Alpha Research' },
-    { path: '/indices', label: 'Índices' },
+    { path: '/', label: t('nav.home') },
+    { path: '/articles', label: t('nav.research') },
+    { path: '/indices', label: t('nav.indices') },
   ];
 
   // Premium content
   const premiumItems = [
-    { path: '/portfolio', label: 'Portfolio' },
-    { path: '/signals', label: 'Señales' },
-    { path: '/airdrops', label: 'Airdrops' },
-    { path: '/consulting', label: 'Consultoría' },
+    { path: '/portfolio', label: t('nav.portfolio') },
+    { path: '/signals', label: t('nav.signals') },
+    { path: '/airdrops', label: t('nav.airdrops') },
+    { path: '/consulting', label: t('nav.consulting') },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -49,7 +51,7 @@ export default function Navigation() {
               <Link
                 key={item.path}
                 to={item.path}
-                data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
+                data-testid={`nav-${item.path.replace('/', '') || 'home'}`}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive(item.path)
                     ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
@@ -70,7 +72,7 @@ export default function Navigation() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
+                  data-testid={`nav-${item.path.replace('/', '')}`}
                   className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                     isActive(item.path)
                       ? 'bg-amber-500/20 text-amber-400'
@@ -83,8 +85,19 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* CTA Buttons - ALPHA-I destacado entre Consultoría y Premium */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* CTA Buttons + Language Selector */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              data-testid="language-toggle"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-all border border-gray-700/50"
+              title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            >
+              <Globe size={14} />
+              <span className="font-bold">{language === 'es' ? '🇪🇸 ES' : '🇺🇸 EN'}</span>
+            </button>
+
             {/* ALPHA-I Button - Destacado */}
             <button
               onClick={() => setShowAlphai(true)}
@@ -95,7 +108,6 @@ export default function Navigation() {
                 <Bot size={16} className="text-cyan-400" />
                 ALPHA-I
               </span>
-              {/* Glow effect */}
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 blur-sm -z-10" />
             </button>
             
@@ -106,7 +118,7 @@ export default function Navigation() {
               className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-2 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <Sparkles size={16} />
-              <span>Premium</span>
+              <span>{t('nav.premium')}</span>
             </button>
           </div>
 
@@ -125,8 +137,17 @@ export default function Navigation() {
       {isOpen && (
         <div className="md:hidden border-t border-gray-800 bg-gray-900/95 backdrop-blur-xl" data-testid="mobile-menu">
           <div className="px-4 py-4 space-y-2">
+            {/* Language Toggle Mobile */}
+            <button
+              onClick={toggleLanguage}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-all border border-gray-700/50 mb-4"
+            >
+              <Globe size={16} />
+              <span className="font-bold">{language === 'es' ? '🇪🇸 Español' : '🇺🇸 English'}</span>
+            </button>
+
             {/* Free Section */}
-            <div className="text-xs text-gray-500 uppercase tracking-wider px-4 mb-2">Contenido Gratuito</div>
+            <div className="text-xs text-gray-500 uppercase tracking-wider px-4 mb-2">{t('nav.freeContent')}</div>
             {freeItems.map((item) => (
               <Link
                 key={item.path}
@@ -146,7 +167,7 @@ export default function Navigation() {
             <div className="border-t border-gray-800 pt-4 mt-4">
               <div className="flex items-center gap-2 text-xs text-amber-500 uppercase tracking-wider px-4 mb-2">
                 <Crown size={12} />
-                Premium
+                {t('nav.premium')}
               </div>
               {premiumItems.map((item) => (
                 <Link
@@ -164,7 +185,7 @@ export default function Navigation() {
               ))}
             </div>
             
-            {/* ALPHA-I Button Mobile - Destacado */}
+            {/* ALPHA-I Button Mobile */}
             <button
               onClick={() => {
                 setIsOpen(false);
@@ -174,7 +195,6 @@ export default function Navigation() {
             >
               <Bot size={18} className="text-cyan-400" />
               ALPHA-I
-              <span className="text-gray-400 text-sm font-sans">- Asistente DeFi</span>
             </button>
             
             <button
@@ -185,7 +205,7 @@ export default function Navigation() {
               className="w-full mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 px-4 rounded-lg shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
             >
               <Sparkles size={18} />
-              Ver Planes Premium
+              {t('nav.premium')}
             </button>
           </div>
         </div>
