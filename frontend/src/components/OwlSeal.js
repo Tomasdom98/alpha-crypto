@@ -7,7 +7,6 @@ export default function OwlSeal({
   position = 'bottom-right',
   size = 'md',
   opacity = 0.5,
-  showText = true,
   className = ''
 }) {
   const sizeClasses = {
@@ -17,7 +16,7 @@ export default function OwlSeal({
     xl: 'w-40 h-40'
   };
 
-  // Fixed position for the watermark - always visible
+  // Fixed position for the watermark - just the owl, no text
   if (className.includes('fixed')) {
     return (
       <div 
@@ -26,22 +25,15 @@ export default function OwlSeal({
           opacity,
           position: 'fixed',
           bottom: '80px',
-          right: '30px'
+          right: '24px'
         }}
       >
-        <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-gray-900/30 backdrop-blur-sm border border-emerald-500/20">
-          <img 
-            src={OWL_URL}
-            alt="Alpha Crypto"
-            className="w-44 h-44 object-contain drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]"
-            style={{ filter: 'brightness(1.4) contrast(1.15)' }}
-          />
-          {showText && (
-            <span className="text-sm text-emerald-400 font-bold tracking-widest">
-              αC
-            </span>
-          )}
-        </div>
+        <img 
+          src={OWL_URL}
+          alt="Alpha Crypto"
+          className="w-36 h-36 object-contain drop-shadow-[0_0_25px_rgba(16,185,129,0.5)]"
+          style={{ filter: 'brightness(1.3) contrast(1.1)' }}
+        />
       </div>
     );
   }
@@ -60,19 +52,12 @@ export default function OwlSeal({
       className={`pointer-events-none select-none ${positionClasses[position]} ${className}`}
       style={{ opacity }}
     >
-      <div className="flex flex-col items-center gap-1">
-        <img 
-          src={OWL_URL}
-          alt="Alpha Crypto"
-          className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
-          style={{ filter: 'brightness(1.2) contrast(1.1)' }}
-        />
-        {showText && (
-          <span className="text-[10px] text-emerald-500/70 font-bold tracking-widest">
-            αC
-          </span>
-        )}
-      </div>
+      <img 
+        src={OWL_URL}
+        alt="Alpha Crypto"
+        className={`${sizeClasses[size]} object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
+        style={{ filter: 'brightness(1.2) contrast(1.1)' }}
+      />
     </div>
   );
 }
