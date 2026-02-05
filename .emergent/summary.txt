@@ -1,0 +1,181 @@
+<analysis>**original_problem_statement:**
+The user wants to build a full-stack crypto intelligence platform called Alpha Crypto. The platform should have a dark, professional, and dynamic theme, providing free educational content (Alpha Research), verified airdrop information, and real-time market data.
+
+**PRODUCT REQUIREMENTS:**
+- **Content:** All content under Alpha Research must be high-quality and render markdown correctly.
+- **Data Integrity:** All market data must be connected to live, free APIs (DeFiLlama, CoinGecko, Alternative.me).
+- **ALPHA-I Assistant:** An AI chat assistant, ALPHA-I, accessible via a modal with a prominent button in the header.
+- **UI/UX:**
+    - The UI must be fully bilingual (Spanish/English) with a language selector in the header. User preference should be saved in .
+    - The navigation bar should be split into Free and Premium sections to guide users. Airdrops is a premium feature.
+    - The ALPHA-I button must be visually distinct and prominent in the navigation bar.
+    - The Portfolio page needs internal navigation tabs (Portfolio, Yield Stablecoins, Staking).
+    - The  brand component should have subtle animations.
+- **Features:**
+    - **Portfolio Page:** Must include sections for Yield Stablecoins and a new Staking section with static data for SOL, ETH, BTC, and SUI.
+    - **Airdrops Page:** Should display verified airdrops without difficulty or premium badges. Search and filtering by blockchain are required.
+    - **Alpha Research Page:** The page, formerly Articles, should have search and category filtering.
+    - **Premium Modal:** Must include a toggle for Monthly / Annual pricing with corresponding discounts.
+    - **Macro Calendar:** A new page displaying important market events (e.g., FOMC, CPI) with a visual calendar and filters.
+    - **Logos:** Add official logos for all protocols listed in the Airdrops and Yield Stablecoins sections.
+
+**User's preferred language**: Spanish. The next agent MUST respond in Spanish only.
+
+**what currently exists?**
+A full-stack application with a React frontend and FastAPI backend.
+- **Frontend:** A responsive application with a dark theme. Most pages and components have been implemented, including a Homepage, Alpha Research (with search/filters), Airdrops (with filters), Market Indices (with live data), a multi-tab Portfolio page (with Yields and Staking sections), and a new Macro Calendar page. A language-switching mechanism () has been set up and partially implemented.
+- **Backend:** A FastAPI server providing real-time market data from external APIs, mock data for airdrops and articles, and endpoints for the ALPHA-I assistant. The airdrop data model has been updated to remove the 'difficulty' field.
+- **UI/UX:** The navigation is structured into Free and Premium sections. The ALPHA-I button is styled prominently. The OwlSeal component is animated.
+
+**Last working item**:
+- **Last item agent was working:** The agent was implementing a site-wide language translation feature (Spanish/English) as requested by the user. The  was created and integrated, and the agent was in the process of translating individual pages and components. It had successfully translated parts of the navigation and some pages but was stopped by the user who pointed out that the translation was incomplete. The last file being considered for translation was .
+- **Status:** IN PROGRESS
+- **Agent Testing Done:** N (Only partial verification via screenshots)
+- **Which testing method agent to use?** both. Use the **frontend testing agent** to systematically verify that all text on all pages (, , , , etc.) and modals (, ) changes correctly when the language is switched. The backend needs to be tested to see if article/airdrop content can be served in different languages.
+- **User Testing Done:** Y (User confirmed the feature is incomplete)
+
+**All Pending/In progress Issue list**:
+- **Issue 1: Incomplete Site-Wide Translation (P0)**
+  - **Description**: The user requested a full-site language toggle (ES/EN), but the implementation is only partially complete. Many pages and components remain in Spanish even when English is selected.
+  - **Attempted fixes**: The agent created a , added a selector to the navigation, and translated , , , and started on . The user confirmed this was insufficient.
+  - **Next debug checklist**:
+      1.  Continue the translation work, starting with .
+      2.  Systematically translate all remaining pages: , , , .
+      3.  Translate all shared components and modals: , , , .
+      4.  (Advanced) Modify the backend () to serve translated versions of mock data (articles, airdrops) based on a language parameter.
+  - **Why fix this issue and what will be achieved with the fix?**: This is a direct and critical user request. Completing it will make the application accessible to both Spanish and English-speaking users.
+  - **Status**: IN PROGRESS
+  - **Is recurring issue?**: N
+  - **Should Test frontend/backend/both after fix?**: Both.
+  - **Blocked on other issue**: None.
+
+**In progress Task List**:
+- **Task 1: Complete Full-Site Language Translation (P0)**
+  - **Description**: This task is the same as the pending issue. It involves making the entire application bilingual.
+  - **Where to resume**: Resume by adding translation logic to , then proceed to other untranslated files.
+  - **What will be achieved with this?**: A fully functional language switcher that translates all content on the site.
+  - **Status**: IN PROGRESS
+  - **Should Test frontend/backend/both after fix?**: Both.
+  - **Blocked on something**: None.
+
+**Upcoming and Future Tasks**
+- **Upcoming Tasks:**
+    - **Add Protocol Logos (P1):** The user provided URLs for logos for protocols in the Airdrops and Yield Stablecoins sections. The agent implemented placeholders; these need to be replaced with actual image logos. Files to edit: , .
+    - **Fix Premium Modal Layout (P2):** The Monthly/Anual toggle in the  is rendered outside the viewport, making it unclickable. This requires a CSS fix to ensure it's visible and functional.
+- **Future Tasks:**
+    - **Admin Panel for Newsletter (P2):** Create a UI for the admin to manage and send newsletters.
+    - **Full Premium Tier Integration (P2):** Implement Stripe payments for the premium tiers.
+    - **Connect Macro Calendar to Live APIs (P3):** Replace the static calendar data with live data from APIs like CoinGlass.
+    - **Push/Email Notifications (P3):** Implement a system to alert users about important calendar events or new airdrops.
+
+**Completed work in this session**
+- **UI/UX Overhaul:**
+  - Renamed Artículos to Alpha Research and updated the navigation and page title.
+  - Redesigned the main navigation to separate Free and Premium (golden) sections, moving Airdrops to premium.
+  - Restyled the ALPHA-I button to be more prominent with a gradient and glow effect.
+- **Feature Implementation & Refinements:**
+  - **Airdrops Page:** Removed difficulty filters and premium badges from cards for a cleaner look.
+  - **Portfolio Page:** Replaced the old layout with a tab-based navigation (Portfolio, Yield Stablecoins, Staking) and removed the Señales tab.
+  - **New Staking Section:** Added a Staking section within the Portfolio page with static data for SOL, ETH, BTC, and SUI, including logos and links.
+  - **New Macro Calendar Page:** Created a new page at  with a visual calendar, event listings, filters, and a link from the Market Indices page.
+  - **Premium Modal Pricing:** Added a Mensual / Anual toggle to the premium modal that dynamically changes prices.
+  - **Animations:** Added subtle breathing and glow animations to the  component.
+- **Data & Content:**
+  - **Live Data Confirmed:** Confirmed that the Market Indices page was already correctly connected to live APIs.
+  - **Content Cleanup:** Reduced emoji usage in all mock articles for a more professional tone.
+  - **Airdrop Data:** Simplified and verified the mock data for airdrops.
+- **Internationalization (i18n):**
+  - **Setup:** Created  and integrated it into  to manage the application's language state.
+  - **Partial Implementation:** Added a language switcher to the navigation and translated , , and the navigation bar itself.
+
+**Earlier issues found/mentioned but not fixed**
+   - **Issue 1: Resend Domain Verification**
+     - **Debug checklist**: This is not a code issue. The agent needs to inform the user that to receive emails from the live application, they must verify their domain in their Resend account settings.
+     - **Why to solve this issue and what will be achieved with this?**: This blocks all email functionality (forms, newsletters) from working in a production environment.
+     - **Should Test frontend/backend/both after fix**: Backend (by triggering an email send after user confirmation).
+     - **Is recurring issue?**: Y
+
+**Known issue recurrence from previous fork**
+  - **Issue recurrence in previous fork:** Maximum call stack size exceeded Babel error in .
+  - **Recurrence count:** 1
+  - **Status:** RESOLVED. The agent fixed this by rewriting the component. Caution is advised when modifying this file's parsing logic.
+
+**Code Architecture**
+
+
+**Key Technical Concepts**
+- **Frontend:** React, React Router, Tailwind CSS, , React Portals, **React Context**
+- **Backend:** FastAPI (Python), 
+- **APIs:** CoinGecko, DeFiLlama, Alternative.me
+- **AI:**  library
+
+**key DB schema**
+No changes made to the database schema in this session.
+
+**changes in tech stack**
+- No new packages were installed, but the **React Context API** was introduced for state management ().
+
+**All files of reference**
+- : **Newly created** to handle i18n.
+- : **Newly created** for the calendar feature.
+- : **Heavily modified** for UI structure and language switcher.
+- : **Heavily modified** for tabs, new staking section, and translations.
+- : **Modified** to remove UI elements and add translations.
+- : **Modified** to support translations.
+- : **Modified** to support translations.
+- : **Modified** to add the pricing toggle.
+- : **Modified** to update the  Pydantic model and mock data.
+- : **Modified** to wrap the app in  and add the  route.
+
+**key api endpoints**
+No new API endpoints were created.
+
+**Critical Info for New Agent**
+- **La tarea más importante es completar la traducción del sitio.** El usuario ha señalado explícitamente que está incompleta. Debes continuar donde el agente anterior se detuvo () y traducir sistemáticamente cada página y componente restante.
+- Hay dos bugs visuales pendientes:
+    1. El toggle Mensual/Anual en el modal de Premium no es visible/utilizable.
+    2. Los logos de los protocolos en Airdrops y Yields son placeholders y deben ser reemplazados por los logos reales de las URLs que proveyó el usuario.
+- El usuario proporciona feedback muy detallado y en lotes. Prepárate para manejar múltiples solicitudes de cambio a la vez.
+
+**documents and test reports created in this job**
+- 
+-  (updated multiple times)
+
+**Last 10 User Messages and any pending HUMAN messages**
+1. **User (LATEST):** Pointed out that the language translation is incomplete; only the navigation bar changes, not the page content. (IN PROGRESS)
+2. **User:** Requested two new features: annual pricing with discounts in the premium modal and a new macro calendar page. (DONE, with a bug in the modal)
+3. **User:** Requested the implementation of a site-wide language selector (ES/EN). (IN PROGRESS)
+4. **User:** Provided three quick UI adjustments: remove Señales tab from Portfolio, move Airdrops to the premium navigation group, and remove the Premium badge from airdrop cards. (DONE)
+5. **User:** Provided a large batch of new features and corrections, including highlighting the ALPHA-I button, adding navigation to the Portfolio page, removing airdrop difficulty, renaming Artículos to Alpha Research, adding protocol logos, and creating a new Staking section. (DONE, except for real logos)
+6. **User:** Approved the previous work and asked to proceed with UI improvements and data verification. (DONE)
+7. **User:** Approved the plan to work on UI animations, search/filters, and airdrop data verification. (DONE)
+8. **User:** Confirmed that domain/email setup can be left pending and to proceed with other tasks.
+9. **User:** Approved the previous work and asked the agent to continue.
+10. **User:** Acknowledged the completion of the emoji reduction and API connection tasks.
+
+**Project Health Check:**
+- **Broken:**
+    - The language translation feature is incomplete, providing a broken user experience when switching to English.
+    - The pricing toggle in the Premium Modal is positioned off-screen, making it unusable.
+- **Mocked:**
+    - All content for Alpha Research (articles) and Airdrops is from static mock data in .
+    - The new Macro Calendar page is populated with static, hardcoded event data.
+
+**3rd Party Integrations**
+- **CoinGecko:** For crypto prices and global market data.
+- **DeFiLlama:** For Stablecoin Market Cap and DeFi TVL data.
+- **Alternative.me:** For the Fear & Greed Index.
+- **Sanity.io:** Headless CMS (currently secondary to mock data).
+- **Resend:** For sending transactional emails. **Requires user domain verification.**
+- **Emergent Integrations (Claude Sonnet 4.5):** For the ALPHA-I chat assistant. Uses Emergent LLM Key.
+- **recharts:** For data visualizations.
+
+**Testing status**
+- **Testing agent used after significant changes:** YES, but before the last ~150 messages which included major UI changes and the new i18n feature. A new full test run is highly recommended after completing the translation.
+- **Troubleshoot agent used after agent stuck in loop:** NO
+- **Test files created:** None.
+- **Known regressions:** The premium modal layout bug.
+
+**What agent forgot to execute**
+- **Implement Real Logos:** The user provided URLs for protocol logos in . The agent implemented placeholder text/initials instead of fetching and displaying the actual image logos.
+- **Fix Premium Modal Layout:** The agent implemented the pricing toggle but did not verify its position, leaving it unusable off-screen.</analysis>
