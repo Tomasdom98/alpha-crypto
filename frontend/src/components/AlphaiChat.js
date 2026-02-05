@@ -115,7 +115,7 @@ export default function AlphaiChat({ isOpen, onClose }) {
               >
                 {msg.role === 'assistant' && (
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-emerald-400 text-sm font-medium">🦉 ALPHAI</span>
+                    <span className="text-emerald-400 text-sm font-mono font-medium">🦉 ALPHA-I</span>
                   </div>
                 )}
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
