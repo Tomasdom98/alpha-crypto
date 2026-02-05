@@ -14,6 +14,7 @@ import httpx
 import aiohttp
 import asyncio
 import resend
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 from sanity_client import (
     get_articles as sanity_get_articles, 
     get_article_by_slug as sanity_get_article_by_slug,
