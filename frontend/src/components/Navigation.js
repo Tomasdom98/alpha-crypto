@@ -31,9 +31,11 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center font-bold text-white text-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-500/50">
-              Ƶ
-            </div>
+            <img 
+              src="https://customer-assets.emergentagent.com/job_aa332bb7-9735-40f0-a436-aa4f8697591d/artifacts/ge03m8vd_Gemini_Generated_Image_p2d40gp2d40gp2d4.png" 
+              alt="Alpha Crypto Logo" 
+              className="w-9 h-9 object-contain transition-all duration-300 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+            />
             <span className="font-bold text-xl text-white transition-colors group-hover:text-emerald-400" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               Alpha Crypto
             </span>
