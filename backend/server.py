@@ -1041,7 +1041,7 @@ async def root():
 
 @api_router.get("/crypto/prices", response_model=List[CryptoPrice])
 async def get_crypto_prices():
-    """Get current crypto prices from CoinGecko API with caching"""
+    """Get current crypto prices from CoinCap API (free, no rate limits)"""
     cache_key = "crypto_prices"
     
     # Check cache first
@@ -1050,47 +1050,45 @@ async def get_crypto_prices():
         logger.debug("Returning cached crypto prices")
         return cached_prices
     
-    # Fetch from API if not cached
+    # Fetch from CoinCap API
     try:
         async with aiohttp.ClientSession() as session:
-            url = "https://api.coingecko.com/api/v3/coins/markets"
-            params = {
-                "vs_currency": "usd",
-                "ids": "bitcoin,ethereum,solana,usd-coin",
-                "order": "market_cap_desc",
-                "per_page": 10,
-                "page": 1,
-                "sparkline": "false",
-                "price_change_percentage": "24h"
-            }
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Accept": "application/json"
-            }
+            # CoinCap batch endpoint
+            url = "https://api.coincap.io/v2/assets"
+            params = {"ids": "bitcoin,ethereum,solana,usd-coin"}
+            headers = {"Accept": "application/json"}
+            
             async with session.get(url, params=params, headers=headers, timeout=15) as response:
                 if response.status == 200:
                     data = await response.json()
+                    assets = data.get("data", [])
                     prices = []
-                    for coin in data:
+                    for coin in assets:
+                        price = float(coin.get("priceUsd", 0) or 0)
+                        change_24h = float(coin.get("changePercent24Hr", 0) or 0)
+                        market_cap = float(coin.get("marketCapUsd", 0) or 0)
+                        volume = float(coin.get("volumeUsd24Hr", 0) or 0)
+                        
                         prices.append({
                             "id": coin.get("id", ""),
                             "symbol": coin.get("symbol", "").upper(),
                             "name": coin.get("name", ""),
-                            "current_price": coin.get("current_price", 0),
-                            "price_change_24h": coin.get("price_change_percentage_24h", 0) or 0,
-                            "market_cap": coin.get("market_cap", 0) or 0,
-                            "volume_24h": coin.get("total_volume", 0) or 0
+                            "current_price": round(price, 2),
+                            "price_change_24h": round(change_24h, 2),
+                            "market_cap": round(market_cap, 0),
+                            "volume_24h": round(volume, 0)
                         })
+                    
                     if prices:
-                        logger.info(f"Fetched {len(prices)} prices from CoinGecko - caching for {CACHE_TTL_CRYPTO_PRICES}s")
+                        # Sort by market cap
+                        prices.sort(key=lambda x: x["market_cap"], reverse=True)
+                        logger.info(f"Fetched {len(prices)} prices from CoinCap - caching for {CACHE_TTL_CRYPTO_PRICES}s")
                         await api_cache.set(cache_key, prices)
                         return prices
-                elif response.status == 429:
-                    logger.warning("CoinGecko rate limit hit (429) - using cached/mock data")
                 else:
-                    logger.warning(f"CoinGecko returned status {response.status}")
+                    logger.warning(f"CoinCap returned status {response.status}")
     except Exception as e:
-        logger.error(f"Error fetching CoinGecko prices: {e}")
+        logger.error(f"Error fetching CoinCap prices: {e}")
     
     # Fallback to mock data if API fails
     logger.info("Using mock crypto prices as fallback")
