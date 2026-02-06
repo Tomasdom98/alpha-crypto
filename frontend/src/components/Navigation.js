@@ -212,7 +212,7 @@ export default function Navigation() {
       )}
       
       <PremiumModal isOpen={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
-      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => setShowPremiumModal(true)} />
     </nav>
   );
 }
