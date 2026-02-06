@@ -79,35 +79,36 @@ function ConsultingPage() {
   }
 
   return (
-    <div className="min-h-screen py-12 relative" data-testid="consulting-page">
+    <div className="min-h-screen py-12 relative hero-gradient" data-testid="consulting-page">
+      <div className="absolute inset-0 grid-background opacity-30" />
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-all duration-300">
             <ChevronRight size={16} className="rotate-180" /> {tx.backHome}
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="consulting-heading">{tx.title}</h1>
-          <p className="text-gray-400 text-lg">{tx.subtitle}</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="consulting-heading">{tx.title}</h1>
+          <p className="text-gray-500 text-lg">{tx.subtitle}</p>
         </div>
 
-        <div className="glass-card rounded-2xl p-6 mb-8">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-emerald-500/20"><Briefcase className="text-emerald-400" size={28} /></div>
+        <div className="glass-card rounded-2xl p-8 mb-10">
+          <div className="flex items-start gap-5">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30"><Briefcase className="text-emerald-400" size={32} /></div>
             <div>
-              <h2 className="text-xl font-bold text-white mb-2">{tx.whyTitle}</h2>
-              <p className="text-gray-400">{tx.whyDesc}</p>
+              <h2 className="text-xl font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tx.whyTitle}</h2>
+              <p className="text-gray-400 leading-relaxed">{tx.whyDesc}</p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <button type="button" onClick={function() { setForm(Object.assign({}, form, { service_type: 'personal' })); }} className={'glass-card rounded-2xl p-6 text-left transition-all ' + (form.service_type === 'personal' ? 'border-2 border-emerald-500 bg-emerald-500/5' : 'border border-gray-800 hover:border-gray-700')} data-testid="service-personal">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <button type="button" onClick={function() { setForm(Object.assign({}, form, { service_type: 'personal' })); }} className={'glass-card rounded-2xl p-6 text-left transition-all duration-300 ' + (form.service_type === 'personal' ? 'border-2 border-emerald-500 bg-emerald-500/5 shadow-lg shadow-emerald-500/10' : 'hover:border-white/20')} data-testid="service-personal">
             <div className="flex items-start gap-4 mb-4">
-              <div className={'p-3 rounded-xl ' + (form.service_type === 'personal' ? 'bg-emerald-500/20' : 'bg-gray-800')}><User className={form.service_type === 'personal' ? 'text-emerald-400' : 'text-gray-400'} size={24} /></div>
+              <div className={'p-3 rounded-xl transition-colors ' + (form.service_type === 'personal' ? 'bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30' : 'bg-white/5')}><User className={form.service_type === 'personal' ? 'text-emerald-400' : 'text-gray-400'} size={24} /></div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-white">{tx.personalTitle}</h3>
+                  <h3 className="text-lg font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tx.personalTitle}</h3>
                   {form.service_type === 'personal' && <CheckCircle className="text-emerald-400" size={20} />}
                 </div>
                 <p className="text-gray-400 text-sm">{tx.personalDesc}</p>
