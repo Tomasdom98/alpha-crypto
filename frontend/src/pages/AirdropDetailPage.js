@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft, Clock, ExternalLink, CheckCircle2, Circle, Zap, Users, Calendar, Shield } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
@@ -12,6 +13,27 @@ function AirdropDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [completedTasks, setCompletedTasks] = useState({});
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+
+  const tx = {
+    loading: isEs ? 'Cargando detalles del airdrop...' : 'Loading airdrop details...',
+    notFound: isEs ? 'Airdrop No Encontrado' : 'Airdrop Not Found',
+    backToAirdrops: isEs ? 'Volver a Airdrops' : 'Back to Airdrops',
+    premiumAlpha: 'Premium Alpha',
+    difficulty: isEs ? 'Dificultad' : 'Difficulty',
+    deadline: isEs ? 'Fecha límite' : 'Deadline',
+    estimatedReward: isEs ? 'Recompensa Estimada*' : 'Estimated Reward*',
+    aboutAirdrop: isEs ? 'Acerca de Este Airdrop' : 'About This Airdrop',
+    tasksToComplete: isEs ? 'Tareas a Completar' : 'Tasks to Complete',
+    completed: isEs ? 'completadas' : 'completed',
+    step: isEs ? 'Paso' : 'Step',
+    investors: isEs ? 'Inversores y Respaldo' : 'Investors and Backing',
+    timeline: isEs ? 'Cronograma' : 'Timeline',
+    status: 'Status',
+    startAirdrop: isEs ? 'Iniciar Este Airdrop' : 'Start This Airdrop',
+    viewAll: isEs ? 'Ver Todos los Airdrops' : 'View All Airdrops',
+  };
 
   useEffect(() => {
     async function fetchData() {
