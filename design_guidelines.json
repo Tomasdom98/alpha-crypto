@@ -1,0 +1,153 @@
+{
+  "identity": {
+    "name": "Alpha Crypto",
+    "persona": "The Professional's Terminal",
+    "mission": "To provide institutional-grade crypto intelligence with a high-fidelity, immersive interface.",
+    "vibe": "High-Tech, Precision, Deep Liquidity, 'Alpha' Seeking",
+    "emotional_tone": "Serious, Trustworthy, Futuristic, Fast"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Space Grotesk, sans-serif",
+      "weights": ["500", "600", "700"],
+      "tracking": "tracking-tight",
+      "usage": "All section titles, hero text, and major data points."
+    },
+    "body": {
+      "font_family": "Inter, sans-serif",
+      "weights": ["400", "500"],
+      "tracking": "tracking-normal",
+      "usage": "Paragraphs, data tables, UI labels."
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "Code snippets, wallet addresses, transaction hashes."
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": {
+        "default": "#030712",
+        "paper": "#0f172a",
+        "subtle": "#1e293b"
+      },
+      "primary": {
+        "main": "#10b981",
+        "gradient_start": "#10b981",
+        "gradient_end": "#06b6d4",
+        "glow": "rgba(16, 185, 129, 0.5)"
+      },
+      "accent": {
+        "main": "#8b5cf6",
+        "gradient_start": "#8b5cf6",
+        "gradient_end": "#3b82f6",
+        "glow": "rgba(139, 92, 246, 0.5)"
+      },
+      "text": {
+        "primary": "#f9fafb",
+        "secondary": "#94a3b8",
+        "muted": "#64748b"
+      },
+      "border": {
+        "default": "rgba(255, 255, 255, 0.08)",
+        "highlight": "rgba(255, 255, 255, 0.15)"
+      }
+    },
+    "gradients": {
+      "primary": "bg-gradient-to-r from-emerald-500 to-cyan-500",
+      "accent": "bg-gradient-to-r from-violet-500 to-blue-500",
+      "glass": "bg-gray-900/60 backdrop-blur-xl border border-white/10",
+      "glass_hover": "hover:bg-gray-800/60 hover:border-white/20 transition-all duration-300"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "base": "backdrop-blur-xl bg-black/40 border border-white/10 shadow-2xl",
+      "heavy": "backdrop-blur-2xl bg-black/60 border border-white/5",
+      "light": "backdrop-blur-md bg-white/5 border border-white/10"
+    },
+    "shadows": {
+      "glow_primary": "0 0 20px rgba(16, 185, 129, 0.3)",
+      "glow_accent": "0 0 20px rgba(139, 92, 246, 0.3)",
+      "card": "0 8px 32px rgba(0, 0, 0, 0.4)"
+    },
+    "borders": {
+      "subtle": "1px solid rgba(255, 255, 255, 0.08)",
+      "gradient": "border-image-source: linear-gradient(to right, #10b981, #06b6d4)"
+    }
+  },
+  "layout_strategies": {
+    "marketing": {
+      "type": "Bento Grid",
+      "grid_cols": "grid-cols-1 md:grid-cols-12",
+      "gap": "gap-6 md:gap-8",
+      "padding": "p-6 md:p-12"
+    },
+    "dashboard": {
+      "type": "Dense Linear",
+      "grid_cols": "grid-cols-1 md:grid-cols-4",
+      "gap": "gap-4",
+      "padding": "p-4 md:p-6"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-medium rounded-full px-6 py-2 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 transform hover:scale-105",
+      "secondary": "bg-white/5 border border-white/10 text-white font-medium rounded-full px-6 py-2 hover:bg-white/10 transition-all duration-300",
+      "ghost": "text-gray-400 hover:text-white transition-colors duration-200"
+    },
+    "cards": {
+      "default": "bg-gray-900/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-colors duration-300",
+      "highlight": "bg-gradient-to-br from-gray-900/80 to-gray-900/40 backdrop-blur-xl border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden"
+    },
+    "inputs": {
+      "default": "bg-black/20 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all outline-none"
+    }
+  },
+  "image_urls": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1763926444199-836ec5b026ac?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Abstract glowing green rectangles on black, matrix/crypto vibe",
+      "usage": "Hero section background with overlay"
+    },
+    "feature_abstract": {
+      "url": "https://images.unsplash.com/photo-1612189459328-13f9d03623b6?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Metallic blue/purple abstract 3D shapes",
+      "usage": "Features section or 'Alpha Research' header"
+    },
+    "ai_avatar": {
+      "url": "https://images.unsplash.com/photo-1675361770627-763fd7dc3e6f?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Glowing face cell phone, abstract AI representation",
+      "usage": "Alpha-I Chat Assistant Avatar"
+    },
+    "team_placeholder": {
+      "url": "https://images.unsplash.com/photo-1733433306053-1b22d09f7d82?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Minimalist portrait",
+      "usage": "Consulting/Team section"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. UPDATE TAILWIND CONFIG: Add the new colors (emerald, cyan, violet, blue) and extend the theme with the 'glass' utilities.",
+    "2. GLOBAL CSS: Replace the contents of 'src/index.css' with a new setup that imports the fonts and sets the base dark theme (#030712). Add the custom animations (float, pulse, glow) from the discovery phase but refine them.",
+    "3. COMPONENT OVERRIDES: Go through the Shadcn components in 'src/components/ui' and update their base styles to use the new 'border-white/10' and 'bg-black/40' glass styles instead of the default white/gray.",
+    "4. LAYOUT REFACTOR: Update 'HomePage.js' to use the Bento Grid layout. Update 'PortfolioPage.js' and 'AdminPage.js' to use the Dense Linear layout.",
+    "5. GLASSMORPHISM EVERYWHERE: Apply the 'glass-card' class (or equivalent Tailwind utilities) to ALL cards, sidebars, and modals. Ensure text contrast is high (white text on dark glass).",
+    "6. GRADIENTS: Use the primary gradient (Emerald -> Cyan) for the main CTA buttons and active states. Use the accent gradient (Violet -> Blue) for secondary highlights or 'Pro' features.",
+    "7. DATA VISUALIZATION: Ensure all charts (Recharts) use the new color palette. Green for positive, Red for negative, but use the specific Emerald (#10b981) and Rose (#f43f5e) shades.",
+    "8. NAVIGATION: Make the top navigation sticky and glassmorphic. It should feel like it's floating.",
+    "9. TESTING: Ensure all text is readable against the dark backgrounds. Use 'text-gray-300' for secondary text, never 'text-gray-600'."
+  ],
+  "universal_guidelines": {
+    "do_not": [
+      "Do NOT use solid gray backgrounds for cards. Always use semi-transparent black with blur.",
+      "Do NOT use default blue for links. Use the Emerald or Cyan accent.",
+      "Do NOT use 'Inter' for headings. Use 'Space Grotesk'.",
+      "Do NOT make the design 'flat'. Use subtle borders and shadows to create depth."
+    ],
+    "must_do": [
+      "MUST use 'backdrop-blur-xl' for that premium 'frosted glass' look.",
+      "MUST add a subtle 1px border (white/10) to all glass elements to define edges.",
+      "MUST use the 'glow' effects on hover for interactive elements."
+    ]
+  }
+}
