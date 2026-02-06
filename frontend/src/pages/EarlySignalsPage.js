@@ -235,13 +235,13 @@ function EarlySignalsPage() {
         </div>
 
         <div className="mt-10 glass-card rounded-2xl p-6 text-center border border-emerald-500/30">
-          <h3 className="text-xl font-bold text-white mb-2">Never Miss an Opportunity</h3>
-          <p className="text-gray-400 mb-4">Get instant notifications for urgent signals and premium alpha</p>
+          <h3 className="text-xl font-bold text-white mb-2">{tx.neverMiss}</h3>
+          <p className="text-gray-400 mb-4">{tx.getNotifications}</p>
           
           {subscribed ? (
             <div className="flex items-center justify-center gap-2 text-emerald-400">
               <CheckCircle size={20} />
-              <span className="font-bold">Subscribed to alerts!</span>
+              <span className="font-bold">{tx.subscribedAlerts}</span>
             </div>
           ) : showEmailInput ? (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
@@ -249,20 +249,20 @@ function EarlySignalsPage() {
                 type="email"
                 value={email}
                 onChange={function(e) { setEmail(e.target.value); }}
-                placeholder="Enter your email"
+                placeholder={tx.enterEmailPlaceholder}
                 className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500"
                 data-testid="alert-email-input"
               />
               <button
                 onClick={function() {
-                  if (!email) { toast.error('Please enter your email'); return; }
+                  if (!email) { toast.error(tx.enterEmailError); return; }
                   setSubscribing(true);
                   axios.post(API + '/alerts/subscribe', { email: email })
                     .then(function() {
                       setSubscribed(true);
-                      toast.success('Successfully subscribed to alerts!');
+                      toast.success(tx.subscribeSuccess);
                     })
-                    .catch(function() { toast.error('Failed to subscribe'); })
+                    .catch(function() { toast.error(tx.subscribeFailed); })
                     .finally(function() { setSubscribing(false); });
                 }}
                 disabled={subscribing}
@@ -270,7 +270,7 @@ function EarlySignalsPage() {
                 data-testid="alert-subscribe-btn"
               >
                 {subscribing ? <Loader2 size={18} className="animate-spin" /> : <Bell size={18} />}
-                Subscribe
+                {tx.subscribeBtn}
               </button>
             </div>
           ) : (
@@ -278,7 +278,7 @@ function EarlySignalsPage() {
               onClick={function() { setShowEmailInput(true); }}
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-8 rounded-lg transition-all inline-flex items-center gap-2"
             >
-              <Bell size={18} /> Enable Notifications
+              <Bell size={18} /> {tx.enableNotifications}
             </button>
           )}
         </div>
