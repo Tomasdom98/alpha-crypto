@@ -124,8 +124,8 @@ Build a full-stack crypto intelligence platform called "Alpha Crypto" with:
 - ✅ Site-wide language translation (ES/EN) - ALL PAGES COMPLETED
 
 ### P1 (High Priority)
-- ⏳ Connect PortfolioPage.js to backend data (Yields and Staking sections still use hardcoded data, need to fetch from /api/admin/yields and /api/admin/staking)
-- ⏳ Add real protocol logos in Airdrops and Yields sections
+- ✅ Connect PortfolioPage.js to backend data - COMPLETED (Yields and Staking sections now fetch from `/api/yields` and `/api/staking` with fallback to static data)
+- ⏳ Add real protocol logos in Airdrops sections
 
 ### P2 (Medium Priority)
 - ⏳ Admin panel for newsletter management
