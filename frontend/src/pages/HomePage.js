@@ -8,6 +8,8 @@ import MarketIndicators from '@/components/MarketIndicators';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import OwlSeal from '@/components/OwlSeal';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import AlphaiChat from '@/components/AlphaiChat';
+import PremiumModal from '@/components/PremiumModal';
 import { useLanguage, articleTranslations, airdropTranslations } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -19,6 +21,8 @@ export default function HomePage() {
   const [articles, setArticles] = useState([]);
   const [airdrops, setAirdrops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAlphai, setShowAlphai] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
   const { language, t } = useLanguage();
 
   useEffect(() => {
