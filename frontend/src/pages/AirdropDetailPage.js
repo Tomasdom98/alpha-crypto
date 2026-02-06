@@ -75,7 +75,7 @@ function AirdropDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-emerald-500 text-xl font-mono">Loading airdrop details...</div>
+        <div className="text-emerald-500 text-xl font-mono">{tx.loading}</div>
       </div>
     );
   }
@@ -84,8 +84,8 @@ function AirdropDetailPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Airdrop Not Found</h2>
-          <Link to="/airdrops" className="bg-emerald-500 text-white px-6 py-3 rounded-lg">Back to Airdrops</Link>
+          <h2 className="text-2xl font-bold text-white mb-2">{tx.notFound}</h2>
+          <Link to="/airdrops" className="bg-emerald-500 text-white px-6 py-3 rounded-lg">{tx.backToAirdrops}</Link>
         </div>
       </div>
     );
