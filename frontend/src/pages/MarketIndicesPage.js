@@ -500,7 +500,7 @@ export default function MarketIndicesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center hero-gradient">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent mb-4" />
           <div className="text-emerald-500 text-xl font-semibold">{tx.loading}</div>
@@ -512,14 +512,14 @@ export default function MarketIndicesPage() {
   const RecommendationIcon = recommendation.icon;
 
   return (
-    <div className="min-h-screen py-12 relative">
-      {/* Owl Seal */}
+    <div className="min-h-screen py-12 relative hero-gradient">
+      <div className="absolute inset-0 grid-background opacity-30" />
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
+        <div className="mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-all duration-300">
             <ChevronRight size={16} className="rotate-180" /> {tx.backToHome}
           </Link>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -527,11 +527,11 @@ export default function MarketIndicesPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="indices-page-heading" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 {tx.dashboardTitle}
               </h1>
-              <p className="text-gray-400 text-lg">{tx.dashboardSubtitle}</p>
+              <p className="text-gray-500 text-lg">{tx.dashboardSubtitle}</p>
             </div>
             <Link 
               to="/calendar"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 hover:bg-purple-500/30 hover:text-purple-300 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card border-violet-500/30 text-violet-400 hover:border-violet-500/50 transition-all duration-300"
             >
               <Clock size={18} />
               <span className="font-medium">{tx.macroCalendar}</span>
@@ -541,40 +541,40 @@ export default function MarketIndicesPage() {
         </div>
 
         {/* Main Recommendation Card */}
-        <div className={`mb-10 relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-${recommendation.color}-500/50 p-8`} data-testid="recommendation-card">
+        <div className={`mb-12 relative overflow-hidden rounded-2xl glass-card border-2 border-${recommendation.color}-500/50 p-8`} data-testid="recommendation-card">
           <div className={`absolute inset-0 bg-gradient-to-br from-${recommendation.color}-500/10 to-transparent`} />
           <div className="relative z-10">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-3 rounded-xl bg-${recommendation.color}-500/20 border border-${recommendation.color}-500/30`}>
+                <div className="flex items-center gap-4 mb-5">
+                  <div className={`p-4 rounded-2xl bg-${recommendation.color}-500/20 border border-${recommendation.color}-500/30`}>
                     <RecommendationIcon className={`w-8 h-8 text-${recommendation.color}-400`} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">{tx.recommendation}</p>
-                    <h2 className={`text-3xl md:text-4xl font-black text-${recommendation.color}-400`}>
+                    <p className="text-sm text-gray-500 mb-1">{tx.recommendation}</p>
+                    <h2 className={`text-3xl md:text-4xl font-black text-${recommendation.color}-400`} style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                       {recommendation.zone}
                     </h2>
                   </div>
                 </div>
-                <p className="text-gray-300 max-w-2xl">{recommendation.description}</p>
+                <p className="text-gray-400 max-w-2xl leading-relaxed">{recommendation.description}</p>
               </div>
               
               {/* Mini Fear & Greed Gauge */}
-              <div className="glass-card rounded-xl p-4 min-w-[180px]">
-                <p className="text-xs text-gray-400 text-center mb-2">Fear & Greed</p>
+              <div className="glass-card rounded-2xl p-5 min-w-[200px]">
+                <p className="text-xs text-gray-500 text-center mb-3 font-semibold">Fear & Greed</p>
                 <div className="relative">
                   <ResponsiveContainer width="100%" height={100}>
                     <PieChart>
                       <Pie data={gaugeData} cx="50%" cy="50%" startAngle={180} endAngle={0} innerRadius={35} outerRadius={48} dataKey="value" stroke="none">
                         <Cell fill={getFearGreedColor()} />
-                        <Cell fill="#1f2937" />
+                        <Cell fill="rgba(255,255,255,0.05)" />
                       </Pie>
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ top: '25%' }}>
-                    <div className="text-2xl font-black text-white">{fearGreed?.value || 50}</div>
-                    <div className="text-xs text-gray-400">{fearGreed?.classification || 'Neutral'}</div>
+                    <div className="text-2xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }}>{fearGreed?.value || 50}</div>
+                    <div className="text-xs text-gray-500">{fearGreed?.classification || 'Neutral'}</div>
                   </div>
                 </div>
               </div>
