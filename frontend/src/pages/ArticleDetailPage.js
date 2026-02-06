@@ -54,13 +54,13 @@ function ArticleDetailPage() {
     function renderTable(rows) {
       if (rows.length < 2) return '';
       
-      var html = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse bg-gray-800/30 rounded-lg overflow-hidden">';
+      var html = '<div class="overflow-x-auto my-6 -mx-4 px-4"><table class="w-full min-w-[400px] border-collapse bg-gray-800/30 rounded-lg overflow-hidden text-sm">';
       
       // Parse header
       var headerCells = rows[0].split('|').filter(function(c) { return c.trim(); });
       html += '<thead><tr class="bg-gray-800">';
       for (var i = 0; i < headerCells.length; i++) {
-        html += '<th class="text-left py-3 px-4 text-emerald-400 font-semibold text-sm border-b border-gray-700">' + headerCells[i].trim() + '</th>';
+        html += '<th class="text-left py-3 px-3 md:px-4 text-emerald-400 font-semibold whitespace-nowrap border-b border-gray-700">' + headerCells[i].trim() + '</th>';
       }
       html += '</tr></thead><tbody>';
       
