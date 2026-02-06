@@ -1147,11 +1147,11 @@ async def get_market_stats():
 
 @api_router.get("/crypto/chart/{coin_id}")
 async def get_crypto_chart(coin_id: str, days: int = 30):
-    """Get historical price data for charts from CoinGecko"""
+    """Get historical price data for charts from CoinGecko (with 10min cache)"""
     cache_key = f"chart_{coin_id}_{days}"
     
-    # Check cache first
-    cached = await api_cache.get(cache_key, ttl_seconds=300)
+    # Check cache first - use longer TTL for CoinGecko
+    cached = await api_cache.get(cache_key, ttl_seconds=CACHE_TTL_COINGECKO)
     if cached:
         logger.info(f"Returning cached chart data for {coin_id}")
         return cached
@@ -1178,7 +1178,11 @@ async def get_crypto_chart(coin_id: str, days: int = 30):
                     
                     result = {"coin_id": coin_id, "days": days, "data": chart_data}
                     await api_cache.set(cache_key, result)
+                    logger.info(f"Fetched chart for {coin_id} from CoinGecko - caching for {CACHE_TTL_COINGECKO}s")
                     return result
+                elif response.status == 429:
+                    logger.warning(f"CoinGecko chart API rate limited - using mock data")
+                    return generate_mock_chart_data(coin_id, days)
                 else:
                     logger.warning(f"CoinGecko chart API returned {response.status}")
                     return generate_mock_chart_data(coin_id, days)
@@ -1189,10 +1193,11 @@ async def get_crypto_chart(coin_id: str, days: int = 30):
 
 @api_router.get("/crypto/global")
 async def get_global_market_data():
-    """Get global market data from CoinGecko"""
+    """Get global market data from CoinGecko (with 10min cache)"""
     cache_key = "global_market"
     
-    cached = await api_cache.get(cache_key, ttl_seconds=120)
+    # Use longer cache for CoinGecko endpoints
+    cached = await api_cache.get(cache_key, ttl_seconds=CACHE_TTL_COINGECKO)
     if cached:
         return cached
     
