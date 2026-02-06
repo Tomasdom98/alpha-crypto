@@ -92,22 +92,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-[#0f172a] to-[#0a0f1a] border-t border-gray-800/50 mt-20" data-testid="site-footer">
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <footer className="relative bg-gradient-to-b from-[#030712] to-[#0a0f1a] border-t border-white/5 mt-20" data-testid="site-footer">
+      <div className="absolute inset-0 grid-background opacity-20" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center space-x-2 mb-4 group">
-              <span className="text-2xl font-bold transition-all duration-300 group-hover:scale-105">
-                <span className="text-emerald-400" style={{ fontFamily: 'serif' }}>α</span>
-                <span className="text-white">C</span>
+            <Link to="/" className="flex items-center space-x-2 mb-5 group">
+              <span className="text-3xl font-bold transition-all duration-300 group-hover:scale-110">
+                <span className="gradient-text-primary" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>α</span>
               </span>
               <span className="font-bold text-xl text-white group-hover:text-emerald-400 transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 Alpha Crypto
               </span>
             </Link>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-500 text-sm mb-5 leading-relaxed">
               {tx.description}
             </p>
             <div className="flex items-center gap-3">
@@ -115,14 +115,14 @@ export default function Footer() {
                 href="https://x.com/alphacrypto" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-2 bg-gray-800/50 hover:bg-emerald-500/20 border border-gray-700 hover:border-emerald-500/50 rounded-lg text-gray-400 hover:text-emerald-400 transition-all"
+                className="p-2.5 glass-card rounded-xl text-gray-400 hover:text-white hover:border-emerald-500/30 transition-all"
                 aria-label="X (Twitter)"
               >
                 <span className="font-bold text-sm">𝕏</span>
               </a>
               <a 
                 href="mailto:tomdominguezclaro@gmail.com"
-                className="p-2 bg-gray-800/50 hover:bg-emerald-500/20 border border-gray-700 hover:border-emerald-500/50 rounded-lg text-gray-400 hover:text-emerald-400 transition-all"
+                className="p-2.5 glass-card rounded-xl text-gray-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
                 aria-label="Email"
               >
                 <Mail size={16} />
@@ -132,50 +132,53 @@ export default function Footer() {
 
           {/* Platform Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{tx.freeContent}</h4>
-            <div className="space-y-3">
-              <Link to="/articles" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">{tx.freeContent}</h4>
+            <div className="space-y-4">
+              <Link to="/articles" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 text-sm transition-all group">
                 {tx.articles}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
-              <Link to="/airdrops" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
+              <Link to="/airdrops" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 text-sm transition-all group">
                 {tx.airdrops}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
-              <Link to="/indices" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
+              <Link to="/indices" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 text-sm transition-all group">
                 {tx.marketIndices}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
-              <Link to="/analysis" className="flex items-center gap-1 text-gray-400 hover:text-emerald-400 text-sm transition-colors group">
+              <Link to="/analysis" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 text-sm transition-all group">
                 {tx.analysis}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
             </div>
           </div>
 
           {/* Premium */}
           <div>
-            <h4 className="font-semibold text-amber-500 mb-4 text-sm uppercase tracking-wider">{tx.premium}</h4>
-            <div className="space-y-3">
-              <Link to="/portfolio" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
+            <h4 className="font-semibold text-violet-400 mb-5 text-sm uppercase tracking-wider flex items-center gap-2">
+              {tx.premium}
+              <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
+            </h4>
+            <div className="space-y-4">
+              <Link to="/portfolio" className="flex items-center gap-2 text-gray-400 hover:text-violet-400 text-sm transition-all group">
                 {tx.portfolio}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
-              <Link to="/signals" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
+              <Link to="/signals" className="flex items-center gap-2 text-gray-400 hover:text-violet-400 text-sm transition-all group">
                 {tx.signals}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
-              <Link to="/consulting" className="flex items-center gap-1 text-gray-400 hover:text-amber-400 text-sm transition-colors group">
+              <Link to="/consulting" className="flex items-center gap-2 text-gray-400 hover:text-violet-400 text-sm transition-all group">
                 {tx.consulting}
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </Link>
             </div>
           </div>
 
           {/* Feedback Form */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{tx.yourFeedback}</h4>
-            <p className="text-gray-500 text-xs mb-3">{tx.whatWouldYouLike}</p>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">{tx.yourFeedback}</h4>
+            <p className="text-gray-500 text-xs mb-4">{tx.whatWouldYouLike}</p>
             
             {submitted ? (
               <div className="flex items-center gap-2 text-emerald-500 p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
