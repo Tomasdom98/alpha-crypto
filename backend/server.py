@@ -1418,27 +1418,29 @@ async def get_article(article_id: str):
         raise HTTPException(status_code=500, detail="Failed to fetch article")
 
 @api_router.get("/airdrops", response_model=List[Airdrop])
-async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None):
-    """Get airdrops - tries Sanity CMS first, falls back to mock data if not enough content"""
+async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[str] = None, chain: Optional[str] = None):
+    """Get airdrops from MongoDB, falls back to mock data if empty"""
     try:
-        # Try Sanity CMS first
-        sanity_airdrops = await sanity_get_airdrops(status, difficulty)
+        # Build query
+        query = {}
+        if status and status != "all":
+            query["status"] = status
+        if chain and chain != "all":
+            query["chain"] = {"$regex": f"^{chain}$", "$options": "i"}
         
-        # Use Sanity if it has at least 5 airdrops, otherwise use mock data
-        if sanity_airdrops and len(sanity_airdrops) >= 5:
-            logger.info(f"Using {len(sanity_airdrops)} airdrops from Sanity CMS")
-            return sanity_airdrops
+        # Try MongoDB first
+        db_airdrops = await db.airdrops.find(query, {"_id": 0}).sort("deadline", 1).to_list(100)
+        
+        if db_airdrops and len(db_airdrops) >= 1:
+            return db_airdrops
         
         # Fallback to mock data
-        logger.info(f"Sanity has only {len(sanity_airdrops) if sanity_airdrops else 0} airdrops, using mock data")
         airdrops = get_mock_airdrops()
         
-        # Apply filters
         if status and status != "all":
             airdrops = [a for a in airdrops if a['status'] == status]
-        
-        if difficulty and difficulty != "all":
-            airdrops = [a for a in airdrops if a['difficulty'].lower() == difficulty.lower()]
+        if chain and chain != "all":
+            airdrops = [a for a in airdrops if a.get('chain', '').lower() == chain.lower()]
         
         return airdrops
     except Exception as e:
@@ -1447,10 +1449,10 @@ async def get_airdrops_route(status: Optional[str] = None, difficulty: Optional[
 
 @api_router.get("/airdrops/{airdrop_id}", response_model=Airdrop)
 async def get_airdrop(airdrop_id: str):
-    """Get single airdrop by ID - tries Sanity CMS first, falls back to mock data"""
+    """Get single airdrop by ID from MongoDB"""
     try:
-        # Try Sanity CMS first
-        airdrop = await sanity_get_airdrop_by_id(airdrop_id)
+        # Try MongoDB first
+        airdrop = await db.airdrops.find_one({"id": airdrop_id}, {"_id": 0})
         if airdrop:
             return airdrop
         
