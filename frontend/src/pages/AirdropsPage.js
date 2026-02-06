@@ -133,31 +133,32 @@ export default function AirdropsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-emerald-500 text-xl font-mono">{t('common.loading')}</div>
+      <div className="min-h-screen flex items-center justify-center hero-gradient">
+        <div className="text-emerald-500 text-xl font-mono animate-pulse">{t('common.loading')}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen py-12 relative">
+    <div className="min-h-screen py-12 relative hero-gradient">
+      <div className="absolute inset-0 grid-background opacity-30" />
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8 backdrop-blur-xl">
             <Gift className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm text-emerald-400 font-medium">{t('airdrops.badge')}</span>
+            <span className="text-sm text-emerald-400 font-semibold">{t('airdrops.badge')}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="airdrops-page-heading">
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-5" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="airdrops-page-heading">
             {t('airdrops.title')}
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('airdrops.subtitle')}</p>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">{t('airdrops.subtitle')}</p>
         </div>
 
         <EducationalSection />
 
-        <div className="mb-8 space-y-4">
+        <div className="mb-10 space-y-4">
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
             <input
