@@ -113,8 +113,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative">
-      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
       <LiveTicker />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
+      <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
 
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 overflow-hidden">
