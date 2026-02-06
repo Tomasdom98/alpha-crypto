@@ -248,7 +248,10 @@ export default function AlphaiChat({ isOpen, onClose, onUpgrade }) {
               <Lock style={{ width: '24px', height: '24px', color: '#f59e0b', margin: '0 auto 8px' }} />
               <p style={{ color: '#f59e0b', fontWeight: 'bold', marginBottom: '4px' }}>{tx.dailyLimit}</p>
               <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '12px' }}>{tx.usedAllMessages}</p>
-              <button style={{ background: 'linear-gradient(to right, #f59e0b, #ea580c)', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px' }}>
+              <button 
+                onClick={() => { onClose(); if (onUpgrade) onUpgrade(); }}
+                style={{ background: 'linear-gradient(to right, #f59e0b, #ea580c)', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px' }}
+              >
                 {tx.upgradePremium}
               </button>
             </div>
