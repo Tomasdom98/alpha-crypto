@@ -336,16 +336,16 @@ export default function PortfolioPage() {
                   <div>
                     <div className="text-gray-400 text-sm mb-1">{tx.totalValue}</div>
                     <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
-                      ${portfolioData.totalValue.toLocaleString()}
+                      ${displayPortfolio.totalValue.toLocaleString()}
                     </div>
                   </div>
                   <div className="text-right">
                     <div className="text-gray-400 text-sm mb-1">{tx.monthlyReturn}</div>
                     <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
                       <TrendingUp size={24} />
-                      +{portfolioData.monthlyReturn}%
+                      +{displayPortfolio.monthlyReturn}%
                     </div>
-                    <div className="text-gray-500 text-sm">+${portfolioData.monthlyReturnValue.toLocaleString()}</div>
+                    <div className="text-gray-500 text-sm">+${displayPortfolio.monthlyReturnValue.toLocaleString()}</div>
                   </div>
                 </div>
 
