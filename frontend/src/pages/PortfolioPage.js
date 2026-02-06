@@ -424,35 +424,48 @@ export default function PortfolioPage() {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {yieldProtocols.map((protocol) => (
-                <div key={protocol.name} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
-                  <div className="flex items-center gap-3 mb-4">
-                    {YIELD_LOGOS[protocol.name.replace(' HLP', '')] ? (
-                      <img 
-                        src={YIELD_LOGOS[protocol.name.replace(' HLP', '')]} 
-                        alt={protocol.name}
-                        className="w-10 h-10 rounded-lg object-cover border border-gray-600"
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/30 to-teal-500/30 flex items-center justify-center text-white font-bold">
-                        {protocol.name.charAt(0)}
+            {loadingYields ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="animate-spin text-emerald-500" size={32} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {yieldProtocols.map((protocol) => {
+                  const protocolName = protocol.name || protocol.protocol;
+                  const logoKey = protocolName.replace(' HLP', '');
+                  const logoUrl = protocol.logo_url || YIELD_LOGOS[logoKey];
+                  const description = protocol.description || protocol.desc;
+                  
+                  return (
+                    <div key={protocol.id || protocolName} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all">
+                      <div className="flex items-center gap-3 mb-4">
+                        {logoUrl ? (
+                          <img 
+                            src={logoUrl} 
+                            alt={protocolName}
+                            className="w-10 h-10 rounded-lg object-cover border border-gray-600"
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/30 to-teal-500/30 flex items-center justify-center text-white font-bold">
+                            {protocolName.charAt(0)}
+                          </div>
+                        )}
+                        <div className="flex-1">
+                          <h3 className="font-bold text-white text-sm">{protocolName}</h3>
+                          <span className="text-cyan-400 text-xs">{protocol.chain}</span>
+                        </div>
+                        <span className="text-2xl font-black text-emerald-400">{protocol.apy}</span>
                       </div>
-                    )}
-                    <div className="flex-1">
-                      <h3 className="font-bold text-white text-sm">{protocol.name}</h3>
-                      <span className="text-cyan-400 text-xs">{protocol.chain}</span>
+                      <p className="text-gray-400 text-xs mb-4 leading-relaxed">{description}</p>
+                      <a href={protocol.link} target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
+                        {tx.goToVault} →
+                      </a>
                     </div>
-                    <span className="text-2xl font-black text-emerald-400">{protocol.apy}</span>
-                  </div>
-                  <p className="text-gray-400 text-xs mb-4 leading-relaxed">{protocol.desc}</p>
-                  <a href={protocol.link} target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium text-center transition-colors">
-                    {tx.goToVault} →
-                  </a>
-                </div>
-              ))}
-            </div>
+                  );
+                })}
+              </div>
+            )}
             
             <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
               <p className="text-amber-400 text-sm">
