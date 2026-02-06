@@ -219,17 +219,22 @@ function AdminPage() {
   const items = data[activeTab] || [];
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen hero-gradient">
+      <div className="absolute inset-0 grid-background opacity-20" />
+      <div className="relative max-w-7xl mx-auto px-4 py-8">
+        {/* Header */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4"><ChevronRight size={16} className="rotate-180" /> Back</Link>
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
+            <ChevronRight size={16} className="rotate-180" /> Back to site
+          </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-white mb-2">Admin Dashboard</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Admin Dashboard</h1>
+              <p className="text-gray-500">Manage your content and settings</p>
             </div>
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-red-500/20 border border-gray-700 hover:border-red-500/50 text-gray-400 hover:text-red-400 rounded-lg transition-all"
+              className="flex items-center gap-2 px-4 py-2.5 glass-card rounded-xl text-gray-400 hover:text-red-400 hover:border-red-500/30 transition-all duration-300"
             >
               <LogOut size={18} />
               <span className="hidden sm:inline">Cerrar Sesión</span>
@@ -237,71 +242,101 @@ function AdminPage() {
           </div>
         </div>
 
-        <div className="flex gap-2 mb-8 border-b border-gray-800 overflow-x-auto pb-1">
-          {TABS.map(tab => {
-            const Icon = tab.icon;
-            return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-3 font-semibold whitespace-nowrap flex items-center gap-2 ${activeTab === tab.id ? 'text-emerald-400 border-b-2 border-emerald-500' : 'text-gray-400 hover:text-white'}`}>
-                <Icon size={18} />{tab.label}
-              </button>
-            );
-          })}
+        {/* Tabs - Styled like Linear */}
+        <div className="glass-card-static rounded-2xl p-2 mb-8">
+          <div className="flex gap-1 overflow-x-auto">
+            {TABS.map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button 
+                  key={tab.id} 
+                  onClick={() => setActiveTab(tab.id)} 
+                  className={`px-4 py-3 font-medium whitespace-nowrap flex items-center gap-2 rounded-xl transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' 
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Icon size={18} />{tab.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {loading ? (
-          <div className="text-center py-20"><div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent" /></div>
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent" />
+          </div>
         ) : (
-          <div>
+          <div className="animate-fade-in">
+            {/* Stats Grid */}
             {activeTab === 'stats' && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { label: 'Articles', value: stats.articles, icon: FileText, color: 'blue' },
-                  { label: 'Airdrops', value: stats.airdrops, icon: Gift, color: 'purple' },
-                  { label: 'Signals', value: stats.signals, icon: Zap, color: 'yellow' },
-                  { label: 'Subscribers', value: stats.subscribers, icon: Bell, color: 'emerald' },
-                  { label: 'Users', value: stats.total_users, icon: Users, color: 'cyan' },
-                  { label: 'Premium', value: stats.premium_users, icon: DollarSign, color: 'green' },
-                  { label: 'Consulting', value: stats.pending_consulting, icon: Briefcase, color: 'orange' },
-                  { label: 'Feedback', value: stats.unread_feedback, icon: MessageSquare, color: 'pink' },
+                  { label: 'Articles', value: stats.articles, icon: FileText, gradient: 'from-blue-500/20 to-blue-600/20', borderColor: 'border-blue-500/30', textColor: 'text-blue-400' },
+                  { label: 'Airdrops', value: stats.airdrops, icon: Gift, gradient: 'from-violet-500/20 to-purple-600/20', borderColor: 'border-violet-500/30', textColor: 'text-violet-400' },
+                  { label: 'Signals', value: stats.signals, icon: Zap, gradient: 'from-amber-500/20 to-yellow-600/20', borderColor: 'border-amber-500/30', textColor: 'text-amber-400' },
+                  { label: 'Subscribers', value: stats.subscribers, icon: Bell, gradient: 'from-emerald-500/20 to-teal-600/20', borderColor: 'border-emerald-500/30', textColor: 'text-emerald-400' },
+                  { label: 'Users', value: stats.total_users, icon: Users, gradient: 'from-cyan-500/20 to-blue-600/20', borderColor: 'border-cyan-500/30', textColor: 'text-cyan-400' },
+                  { label: 'Premium', value: stats.premium_users, icon: DollarSign, gradient: 'from-green-500/20 to-emerald-600/20', borderColor: 'border-green-500/30', textColor: 'text-green-400' },
+                  { label: 'Consulting', value: stats.pending_consulting, icon: Briefcase, gradient: 'from-orange-500/20 to-amber-600/20', borderColor: 'border-orange-500/30', textColor: 'text-orange-400' },
+                  { label: 'Feedback', value: stats.unread_feedback, icon: MessageSquare, gradient: 'from-pink-500/20 to-rose-600/20', borderColor: 'border-pink-500/30', textColor: 'text-pink-400' },
                 ].map((stat, i) => {
                   const Icon = stat.icon;
                   return (
-                    <div key={i} className="glass-card rounded-2xl p-6 text-center">
-                      <Icon className={`mx-auto text-${stat.color}-400 mb-2`} size={32} />
-                      <div className="text-3xl font-bold text-white">{stat.value || 0}</div>
-                      <div className="text-gray-400 text-sm">{stat.label}</div>
+                    <div key={i} className={`glass-card rounded-2xl p-6 text-center bg-gradient-to-br ${stat.gradient} border ${stat.borderColor} hover:scale-105 transition-transform duration-300`}>
+                      <Icon className={`mx-auto ${stat.textColor} mb-3`} size={32} />
+                      <div className="text-4xl font-bold text-white mb-1" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{stat.value || 0}</div>
+                      <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
                     </div>
                   );
                 })}
               </div>
             )}
 
+            {/* Content Lists */}
             {['articles', 'airdrops', 'signals', 'yields', 'staking'].includes(activeTab) && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-white">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} ({items.length})</h2>
-                  <button onClick={() => openModal(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1))} className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2"><Plus size={18} /> Add</button>
+                  <h2 className="text-xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} ({items.length})</h2>
+                  <button onClick={() => openModal(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1))} className="btn-primary flex items-center gap-2 px-5 py-2.5">
+                    <Plus size={18} /> Add New
+                  </button>
                 </div>
                 {items.length === 0 ? (
-                  <div className="text-center py-20 glass-card rounded-2xl"><p className="text-gray-500">No {activeTab} yet. Add some!</p></div>
+                  <div className="text-center py-20 glass-card rounded-2xl">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                      <Plus size={24} className="text-gray-500" />
+                    </div>
+                    <p className="text-gray-500 mb-4">No {activeTab} yet</p>
+                    <button onClick={() => openModal(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1))} className="btn-secondary">
+                      Add your first {activeTab.slice(0, -1)}
+                    </button>
+                  </div>
                 ) : (
                   <div className="space-y-4">
                     {items.map(item => (
-                      <div key={item.id} className="glass-card rounded-2xl p-6 flex justify-between items-start">
+                      <div key={item.id} className="glass-card rounded-2xl p-6 flex justify-between items-start group hover:border-emerald-500/30 transition-all duration-300">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
+                          <div className="flex items-center gap-3 mb-2 flex-wrap">
                             <h3 className="text-lg font-bold text-white">{item.title || item.project_name || item.name || item.token}</h3>
                             {item.apy && <span className="text-xl font-bold text-emerald-400">{item.apy}</span>}
-                            {item.category && <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-400">{item.category}</span>}
-                            {item.chain && <span className="px-2 py-1 rounded-full text-xs font-bold bg-purple-500/20 text-purple-400">{item.chain}</span>}
-                            {item.platform && <span className="px-2 py-1 rounded-full text-xs font-bold bg-purple-500/20 text-purple-400">{item.platform}</span>}
-                            {item.premium && <span className="px-2 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400">Premium</span>}
+                            {item.category && <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/15 text-blue-400 border border-blue-500/30">{item.category}</span>}
+                            {item.chain && <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-500/15 text-violet-400 border border-violet-500/30">{item.chain}</span>}
+                            {item.platform && <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-500/15 text-violet-400 border border-violet-500/30">{item.platform}</span>}
+                            {item.premium && <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">Premium</span>}
                           </div>
-                          <p className="text-gray-400 text-sm">{item.description || item.excerpt}</p>
+                          <p className="text-gray-400 text-sm line-clamp-2">{item.description || item.excerpt}</p>
                         </div>
-                        <div className="flex gap-2 ml-4">
-                          <button onClick={() => openModal(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1), item)} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg"><Edit2 size={16} /></button>
-                          <button onClick={() => handleDelete(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1), item.id)} className="bg-red-500/20 hover:bg-red-500/40 text-red-400 p-2 rounded-lg"><Trash2 size={16} /></button>
+                        <div className="flex gap-2 ml-4 opacity-50 group-hover:opacity-100 transition-opacity">
+                          <button onClick={() => openModal(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1), item)} className="bg-white/5 hover:bg-emerald-500/20 text-gray-400 hover:text-emerald-400 p-2.5 rounded-xl transition-all duration-300 border border-white/5 hover:border-emerald-500/30">
+                            <Edit2 size={16} />
+                          </button>
+                          <button onClick={() => handleDelete(activeTab === 'yields' ? 'yield' : activeTab.slice(0, -1), item.id)} className="bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 p-2.5 rounded-xl transition-all duration-300 border border-white/5 hover:border-red-500/30">
+                            <Trash2 size={16} />
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -313,9 +348,11 @@ function AdminPage() {
             {activeTab === 'portfolio' && (
               <div className="space-y-8">
                 <div className="glass-card rounded-2xl p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-white">Portfolio Settings</h2>
-                    <button onClick={() => openModal('settings')} className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2"><Edit2 size={16} /> Edit</button>
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Portfolio Settings</h2>
+                    <button onClick={() => openModal('settings')} className="btn-primary flex items-center gap-2 px-5 py-2.5">
+                      <Edit2 size={16} /> Edit Settings
+                    </button>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-gray-800/50 rounded-lg p-4"><div className="text-gray-400 text-sm">Total Value</div><div className="text-2xl font-bold text-white">${(items.settings?.total_value || 50000).toLocaleString()}</div></div>
