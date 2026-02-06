@@ -197,26 +197,6 @@ export default function PortfolioPage() {
     { type: 'buy', asset: 'SOL', amount: '$750', date: 'Jan 20', reason: 'Rebalance' }
   ];
 
-  const yieldProtocols = [
-    { name: 'Based.one HLP', chain: 'Hyperliquid L1', apy: '139%', desc: 'Market making en perpetuos + liquidaciones', link: 'https://app.based.one/vaults' },
-    { name: 'Felix Protocol', chain: 'Hyperliquid L1', apy: '85%', desc: 'Stability pool: intereses de borrowers', link: 'https://www.usefelix.xyz/earn' },
-    { name: 'Lighter.xyz', chain: 'Arbitrum / Base', apy: '47%', desc: 'LP para DEX de perpetuos', link: 'https://app.lighter.xyz/public-pools' },
-    { name: 'Extended', chain: 'Base / Arbitrum', apy: '37%', desc: 'Market making perpetuos crypto + TradFi', link: 'https://app.extended.exchange/vault' },
-    { name: 'Orderly', chain: 'Arbitrum', apy: '34%', desc: 'LP para orderbook de perpetuos', link: 'https://app.orderly.network/vaults' },
-    { name: 'Avantis Finance', chain: 'Base', apy: '31%', desc: 'Vault perpetuos crypto + RWAs', link: 'https://www.avantisfi.com/earn/avantis-vault' },
-    { name: 'Resolv', chain: 'Multi-chain', apy: '23%', desc: 'Delta-neutral vault con stablecoins', link: 'https://app.resolv.xyz/vaults' },
-    { name: 'Kamino', chain: 'Solana', apy: '19%', desc: 'Lending: intereses + rewards', link: 'https://kamino.com' },
-    { name: 'Drift', chain: 'Solana', apy: '9%', desc: 'Insurance fund: fees + liquidaciones', link: 'https://app.drift.trade/vaults/insurance-fund-vaults' },
-    { name: 'StandX', chain: 'Multi-chain', apy: '25%', desc: 'Vault para perpetuos cross-chain', link: 'https://standx.com' }
-  ];
-
-  const stakingTokens = [
-    { name: 'Solana', symbol: 'SOL', apy: '7-8%', platform: 'Jupiter', link: 'https://www.jup.ag', chainColor: '#14F195' },
-    { name: 'Ethereum', symbol: 'ETH', apy: '3-4%', platform: 'Lido', link: 'https://stake.lido.fi', chainColor: '#627EEA' },
-    { name: 'Bitcoin', symbol: 'BTC', apy: '5-8%', platform: 'Bybit Earn', link: 'https://www.bybit.com/earn', chainColor: '#F7931A' },
-    { name: 'Sui', symbol: 'SUI', apy: '2-3%', platform: 'Sui Staking', link: 'https://sui.io/stake', chainColor: '#4DA2FF' }
-  ];
-
   const tabs = [
     { id: 'portfolio', label: tabLabels.portfolio, icon: Wallet },
     { id: 'yield', label: tabLabels.yield, icon: Coins },
