@@ -487,55 +487,66 @@ export default function PortfolioPage() {
               </div>
             </div>
             
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-800">
-                    <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.asset}</th>
-                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.apyApprox}</th>
-                    <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.platform}</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">{tx.action}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stakingTokens.map((token) => (
-                    <tr key={token.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
-                      <td className="py-4 px-4">
-                        <div className="flex items-center gap-3">
-                          {STAKING_LOGOS[token.symbol] ? (
-                            <img src={STAKING_LOGOS[token.symbol]} alt={token.symbol} className="w-10 h-10 rounded-full" />
-                          ) : (
-                            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style={{ backgroundColor: token.chainColor }}>
-                              {token.symbol.charAt(0)}
-                            </div>
-                          )}
-                          <div>
-                            <div className="font-medium text-white">{token.name}</div>
-                            <div className="text-gray-500 text-sm">{token.symbol}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <span className="text-emerald-400 font-bold text-lg">{token.apy}</span>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <span className="text-gray-300">{token.platform}</span>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <a 
-                          href={token.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                        >
-                          Stake <ExternalLink size={14} />
-                        </a>
-                      </td>
+            {loadingStaking ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="animate-spin text-emerald-500" size={32} />
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-800">
+                      <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.asset}</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.apyApprox}</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-medium text-sm">{tx.platform}</th>
+                      <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">{tx.action}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {stakingTokens.map((token) => {
+                      const tokenName = token.token || token.name;
+                      const logoUrl = token.logo_url || STAKING_LOGOS[token.symbol];
+                      
+                      return (
+                        <tr key={token.id || token.symbol} className="border-b border-gray-800/50 hover:bg-gray-800/30">
+                          <td className="py-4 px-4">
+                            <div className="flex items-center gap-3">
+                              {logoUrl ? (
+                                <img src={logoUrl} alt={token.symbol} className="w-10 h-10 rounded-full" onError={(e) => { e.target.style.display = 'none'; }} />
+                              ) : (
+                                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white bg-purple-500/30">
+                                  {token.symbol.charAt(0)}
+                                </div>
+                              )}
+                              <div>
+                                <div className="font-medium text-white">{tokenName}</div>
+                                <div className="text-gray-500 text-sm">{token.symbol}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-4 px-4 text-center">
+                            <span className="text-emerald-400 font-bold text-lg">{token.apy}</span>
+                          </td>
+                          <td className="py-4 px-4 text-center">
+                            <span className="text-gray-300">{token.platform}</span>
+                          </td>
+                          <td className="py-4 px-4 text-right">
+                            <a 
+                              href={token.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                            >
+                              Stake <ExternalLink size={14} />
+                            </a>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
             
             <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
               <p className="text-blue-400 text-sm">
