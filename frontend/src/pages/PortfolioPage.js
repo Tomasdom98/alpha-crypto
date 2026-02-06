@@ -308,20 +308,20 @@ export default function PortfolioPage() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-2 p-1 bg-gray-800/50 rounded-xl border border-gray-700/50">
+        <div className="mb-10">
+          <div className="glass-card-static rounded-2xl p-2 inline-flex gap-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 data-testid={`tab-${tab.id}`}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                   activeTab === tab.id
-                    ? 'bg-emerald-500 text-white shadow-lg'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                    ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-white shadow-lg shadow-emerald-500/25'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <tab.icon size={16} />
+                <tab.icon size={18} />
                 {tab.label}
               </button>
             ))}
@@ -331,35 +331,35 @@ export default function PortfolioPage() {
         {/* Portfolio Section */}
         {activeTab === 'portfolio' && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass-card rounded-2xl p-6 col-span-1 md:col-span-2">
-                <div className="flex items-start justify-between mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+              <div className="glass-card rounded-2xl p-8 col-span-1 md:col-span-2">
+                <div className="flex items-start justify-between mb-8">
                   <div>
-                    <div className="text-gray-400 text-sm mb-1">{tx.totalValue}</div>
+                    <div className="text-gray-500 text-sm mb-2">{tx.totalValue}</div>
                     <div className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }} data-testid="portfolio-value">
                       ${displayPortfolio.totalValue.toLocaleString()}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-gray-400 text-sm mb-1">{tx.monthlyReturn}</div>
-                    <div className="text-2xl font-bold flex items-center gap-1 text-emerald-400" data-testid="monthly-return">
+                    <div className="text-gray-500 text-sm mb-2">{tx.monthlyReturn}</div>
+                    <div className="text-2xl font-bold flex items-center gap-2 text-emerald-400" data-testid="monthly-return">
                       <TrendingUp size={24} />
                       +{displayPortfolio.monthlyReturn}%
                     </div>
-                    <div className="text-gray-500 text-sm">+${displayPortfolio.monthlyReturnValue.toLocaleString()}</div>
+                    <div className="text-gray-500 text-sm mt-1">+${displayPortfolio.monthlyReturnValue.toLocaleString()}</div>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <h3 className="text-sm font-bold text-gray-400 mb-3">{tx.performance}</h3>
-                  <div className="flex items-end gap-2 h-24">
+                  <h3 className="text-sm font-bold text-gray-400 mb-4">{tx.performance}</h3>
+                  <div className="flex items-end gap-3 h-28">
                     {performanceHistory.map((month) => (
-                      <div key={month.month} className="flex-1 flex flex-col items-center">
+                      <div key={month.month} className="flex-1 flex flex-col items-center group">
                         <div 
-                          className={`w-full rounded-t transition-all ${month.value >= 0 ? 'bg-emerald-500' : 'bg-red-500'}`}
-                          style={{ height: `${Math.abs(month.value) * 3}px`, minHeight: '4px' }}
+                          className={`w-full rounded-t-lg transition-all duration-300 group-hover:opacity-80 ${month.value >= 0 ? 'bg-gradient-to-t from-emerald-500 to-emerald-400' : 'bg-gradient-to-t from-red-500 to-red-400'}`}
+                          style={{ height: `${Math.abs(month.value) * 3.5}px`, minHeight: '6px' }}
                         />
-                        <div className="text-xs text-gray-500 mt-2">{month.month}</div>
+                        <div className="text-xs text-gray-500 mt-3">{month.month}</div>
                         <div className={`text-xs font-bold ${month.value >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                           {month.value > 0 ? '+' : ''}{month.value}%
                         </div>
