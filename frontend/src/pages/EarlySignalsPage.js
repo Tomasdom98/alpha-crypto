@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Zap, Bell, TrendingUp, TrendingDown, Clock, ExternalLink, AlertCircle, Flame, Star, MessageCircle, CheckCircle, Loader2 } from 'lucide-react';
+import { ChevronRight, Zap, Bell, TrendingUp, TrendingDown, Clock, ExternalLink, AlertCircle, Flame, Star, MessageCircle, CheckCircle, Loader2, Crown } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import OwlSeal from '@/components/OwlSeal';
