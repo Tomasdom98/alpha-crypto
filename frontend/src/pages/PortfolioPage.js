@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, PiggyBank, Crown } from 'lucide-react';
+import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, PiggyBank, Crown, Loader2 } from 'lucide-react';
+import axios from 'axios';
 import OwlSeal from '@/components/OwlSeal';
 import { useLanguage } from '@/context/LanguageContext';
 
-// Protocol logos for Yield section
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = BACKEND_URL + '/api';
+
+// Protocol logos for Yield section (fallback if not in DB)
 const YIELD_LOGOS = {
   'Based.one': 'https://pbs.twimg.com/profile_images/1803810548512124928/qUvn6XJd_400x400.jpg',
   'Felix Protocol': 'https://pbs.twimg.com/profile_images/1804553428792766464/WPdS8j0u_400x400.jpg',
@@ -18,13 +22,34 @@ const YIELD_LOGOS = {
   'StandX': 'https://pbs.twimg.com/profile_images/1787150869618192384/hbEORU6Q_400x400.jpg'
 };
 
-// Staking logos
+// Staking logos (fallback if not in DB)
 const STAKING_LOGOS = {
   'SOL': 'https://assets.coingecko.com/coins/images/4128/small/solana.png',
   'ETH': 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
   'BTC': 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png',
   'SUI': 'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg'
 };
+
+// Default data as fallback
+const DEFAULT_YIELD_PROTOCOLS = [
+  { name: 'Based.one HLP', chain: 'Hyperliquid L1', apy: '139%', description: 'Market making en perpetuos + liquidaciones', link: 'https://app.based.one/vaults' },
+  { name: 'Felix Protocol', chain: 'Hyperliquid L1', apy: '85%', description: 'Stability pool: intereses de borrowers', link: 'https://www.usefelix.xyz/earn' },
+  { name: 'Lighter.xyz', chain: 'Arbitrum / Base', apy: '47%', description: 'LP para DEX de perpetuos', link: 'https://app.lighter.xyz/public-pools' },
+  { name: 'Extended', chain: 'Base / Arbitrum', apy: '37%', description: 'Market making perpetuos crypto + TradFi', link: 'https://app.extended.exchange/vault' },
+  { name: 'Orderly', chain: 'Arbitrum', apy: '34%', description: 'LP para orderbook de perpetuos', link: 'https://app.orderly.network/vaults' },
+  { name: 'Avantis Finance', chain: 'Base', apy: '31%', description: 'Vault perpetuos crypto + RWAs', link: 'https://www.avantisfi.com/earn/avantis-vault' },
+  { name: 'Resolv', chain: 'Multi-chain', apy: '23%', description: 'Delta-neutral vault con stablecoins', link: 'https://app.resolv.xyz/vaults' },
+  { name: 'Kamino', chain: 'Solana', apy: '19%', description: 'Lending: intereses + rewards', link: 'https://kamino.com' },
+  { name: 'Drift', chain: 'Solana', apy: '9%', description: 'Insurance fund: fees + liquidaciones', link: 'https://app.drift.trade/vaults/insurance-fund-vaults' },
+  { name: 'StandX', chain: 'Multi-chain', apy: '25%', description: 'Vault para perpetuos cross-chain', link: 'https://standx.com' }
+];
+
+const DEFAULT_STAKING_TOKENS = [
+  { token: 'Solana', symbol: 'SOL', apy: '7-8%', platform: 'Jupiter', link: 'https://www.jup.ag', logo_url: 'https://assets.coingecko.com/coins/images/4128/small/solana.png' },
+  { token: 'Ethereum', symbol: 'ETH', apy: '3-4%', platform: 'Lido', link: 'https://stake.lido.fi', logo_url: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png' },
+  { token: 'Bitcoin', symbol: 'BTC', apy: '5-8%', platform: 'Bybit Earn', link: 'https://www.bybit.com/earn', logo_url: 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png' },
+  { token: 'Sui', symbol: 'SUI', apy: '2-3%', platform: 'Sui Staking', link: 'https://sui.io/stake', logo_url: 'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg' }
+];
 
 export default function PortfolioPage() {
   const [activeTab, setActiveTab] = useState('portfolio');
