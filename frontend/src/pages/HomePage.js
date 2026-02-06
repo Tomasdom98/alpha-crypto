@@ -118,27 +118,59 @@ export default function HomePage() {
       <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
       <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
 
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 grid-background" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
-        <OwlSeal position="center" size="xl" opacity={0.06} showText={false} className="hidden md:block" />
+      {/* Hero Section - Enhanced */}
+      <section className="relative py-24 md:py-32 overflow-hidden hero-gradient">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 grid-background opacity-50" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+        <OwlSeal position="center" size="xl" opacity={0.04} showText={false} className="hidden md:block" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-sm animate-pulse-glow">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm text-emerald-400 font-medium">{tx.badge}</span>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8 backdrop-blur-xl animate-fade-in">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-sm text-emerald-400 font-semibold tracking-wide">{tx.badge}</span>
           </div>
+          
+          {/* Main Heading */}
           <h1
-            className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 fade-in leading-tight"
-            style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 animate-fade-in-up"
+            style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, lineHeight: 1.1 }}
             data-testid="hero-heading"
           >
-            {tx.heroTitle} <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent animate-gradient">{tx.heroHighlight}</span> {tx.heroEnd}
+            {tx.heroTitle}
+            <br className="hidden sm:block" />
+            <span className="gradient-text-primary">{tx.heroHighlight}</span>
+            <span className="text-white"> {tx.heroEnd}</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 fade-in" data-testid="hero-description" style={{ fontFamily: 'Inter, sans-serif' }}>
+          
+          {/* Subtitle */}
+          <p 
+            className="text-lg md:text-xl lg:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 animate-fade-in-up leading-relaxed" 
+            data-testid="hero-description" 
+            style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.2s' }}
+          >
             {tx.heroDesc}
           </p>
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <Link
+              to="/articles"
+              className="btn-primary text-lg px-8 py-4 flex items-center gap-2"
+            >
+              <Sparkles size={20} />
+              {t('nav.research')}
+            </Link>
+            <button
+              onClick={() => setShowAlphai(true)}
+              className="btn-secondary text-lg px-8 py-4 flex items-center gap-2"
+            >
+              Ask ALPHA-I
+              <ArrowRight size={20} />
+            </button>
+          </div>
         </div>
       </section>
 
