@@ -124,58 +124,60 @@ export default function MarketIndicators({ fearGreed }) {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" data-testid="market-indicators">
-      <div className="mb-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" data-testid="market-indicators">
+      <div className="mb-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>
           {tx.title}
         </h2>
-        <p className="text-gray-400">{tx.subtitle}</p>
+        <p className="text-gray-500 text-lg">{tx.subtitle}</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Fear & Greed Index */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/20" data-testid="fear-greed-gauge">
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-900/20" />
+        <div className="glass-card rounded-2xl p-8 relative overflow-hidden group" data-testid="fear-greed-gauge">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gray-800/50 border border-gray-700/50">
-                <Activity className="w-5 h-5 text-emerald-400" strokeWidth={2.5} />
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30">
+                <Activity className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                   {tx.fearGreed}
                 </h3>
-                <p className="text-xs text-gray-500">{tx.fearGreedDesc}</p>
+                <p className="text-sm text-gray-500">{tx.fearGreedDesc}</p>
               </div>
             </div>
 
             <div className="relative">
-              <ResponsiveContainer width="100%" height={160}>
+              <ResponsiveContainer width="100%" height={180}>
                 <PieChart>
-                  <Pie data={gaugeData} cx="50%" cy="50%" startAngle={180} endAngle={0} innerRadius={55} outerRadius={75} dataKey="value" stroke="none">
+                  <Pie data={gaugeData} cx="50%" cy="50%" startAngle={180} endAngle={0} innerRadius={60} outerRadius={80} dataKey="value" stroke="none">
                     <Cell fill={getFearGreedColor()} />
-                    <Cell fill="#1f2937" />
+                    <Cell fill="rgba(255,255,255,0.05)" />
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>
               
-              <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ top: '30%' }}>
-                <div className="text-4xl font-black text-white mb-1" style={{ fontFamily: 'Space Grotesk, monospace' }}>
+              <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ top: '25%' }}>
+                <div className="text-5xl font-black text-white mb-1" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                   {fearGreed?.value || 50}
                 </div>
-                <div className="text-sm font-semibold text-gray-400">{translateClassification(fearGreed?.classification)}</div>
+                <div className="text-sm font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: getFearGreedColor() + '20', color: getFearGreedColor() }}>
+                  {translateClassification(fearGreed?.classification)}
+                </div>
               </div>
             </div>
 
-            <div className="flex justify-between text-xs text-gray-500 px-2">
+            <div className="flex justify-between text-xs text-gray-500 px-4 mt-2">
               <span>{tx.extremeFear}</span>
               <span>{tx.neutral}</span>
               <span>{tx.extremeGreed}</span>
             </div>
 
-            <div className="mt-4 p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
-              <p className="text-xs text-gray-400 leading-relaxed">{tx.fearGreedExplanation}</p>
+            <div className="mt-6 p-4 bg-black/20 rounded-xl border border-white/5">
+              <p className="text-sm text-gray-400 leading-relaxed">{tx.fearGreedExplanation}</p>
             </div>
           </div>
         </div>
