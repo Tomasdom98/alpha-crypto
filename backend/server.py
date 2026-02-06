@@ -2184,6 +2184,325 @@ async def get_alphai_usage(session_id: str):
     }
 
 
+# =============================================================================
+# ADMIN CRUD ENDPOINTS - Articles, Airdrops, Signals
+# =============================================================================
+
+# --- Pydantic models for Admin CRUD ---
+class ArticleCreate(BaseModel):
+    title: str
+    excerpt: str
+    content: str
+    category: str
+    premium: bool = False
+    image_url: str = ""
+    tags: Optional[List[str]] = None
+    read_time: Optional[str] = None
+
+class ArticleUpdate(BaseModel):
+    title: Optional[str] = None
+    excerpt: Optional[str] = None
+    content: Optional[str] = None
+    category: Optional[str] = None
+    premium: Optional[bool] = None
+    image_url: Optional[str] = None
+    tags: Optional[List[str]] = None
+    read_time: Optional[str] = None
+
+class AirdropCreate(BaseModel):
+    project_name: str
+    logo_url: str = ""
+    description: str
+    full_description: Optional[str] = None
+    backing: Optional[str] = None
+    chain: Optional[str] = None
+    timeline: Optional[str] = None
+    reward_note: Optional[str] = None
+    tasks: List[Dict[str, Any]] = []
+    estimated_reward: str = "$0"
+    deadline: str
+    status: str = "active"
+    link: str = ""
+    premium: bool = False
+
+class AirdropUpdate(BaseModel):
+    project_name: Optional[str] = None
+    logo_url: Optional[str] = None
+    description: Optional[str] = None
+    full_description: Optional[str] = None
+    backing: Optional[str] = None
+    chain: Optional[str] = None
+    timeline: Optional[str] = None
+    reward_note: Optional[str] = None
+    tasks: Optional[List[Dict[str, Any]]] = None
+    estimated_reward: Optional[str] = None
+    deadline: Optional[str] = None
+    status: Optional[str] = None
+    link: Optional[str] = None
+    premium: Optional[bool] = None
+
+class SignalCreate(BaseModel):
+    type: str  # opportunity, alert, news, community
+    priority: str  # urgent, high, medium, low
+    title: str
+    description: str
+    action: Optional[str] = None
+    link: Optional[str] = None
+    premium: bool = False
+
+class SignalUpdate(BaseModel):
+    type: Optional[str] = None
+    priority: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    action: Optional[str] = None
+    link: Optional[str] = None
+    premium: Optional[bool] = None
+
+# --- ARTICLES CRUD ---
+@api_router.get("/admin/articles")
+async def admin_get_articles():
+    """Get all articles for admin"""
+    try:
+        articles = await db.articles.find({}, {"_id": 0}).sort("published_at", -1).to_list(100)
+        return articles
+    except Exception as e:
+        logger.error(f"Error fetching articles for admin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch articles")
+
+@api_router.post("/admin/articles")
+async def admin_create_article(article: ArticleCreate):
+    """Create a new article"""
+    try:
+        article_doc = {
+            "id": str(uuid.uuid4()),
+            "title": article.title,
+            "excerpt": article.excerpt,
+            "content": article.content,
+            "category": article.category,
+            "premium": article.premium,
+            "published_at": datetime.now(timezone.utc).isoformat(),
+            "image_url": article.image_url or "https://images.unsplash.com/photo-1651054558996-03455fe2702f?w=800",
+            "tags": article.tags or [],
+            "read_time": article.read_time or "5 min"
+        }
+        await db.articles.insert_one(article_doc)
+        return {"success": True, "article": {k: v for k, v in article_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating article: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create article")
+
+@api_router.put("/admin/articles/{article_id}")
+async def admin_update_article(article_id: str, article: ArticleUpdate):
+    """Update an existing article"""
+    try:
+        update_data = {k: v for k, v in article.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.articles.update_one({"id": article_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Article not found")
+        
+        updated = await db.articles.find_one({"id": article_id}, {"_id": 0})
+        return {"success": True, "article": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating article: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update article")
+
+@api_router.delete("/admin/articles/{article_id}")
+async def admin_delete_article(article_id: str):
+    """Delete an article"""
+    try:
+        result = await db.articles.delete_one({"id": article_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Article not found")
+        return {"success": True, "message": "Article deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting article: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete article")
+
+# --- AIRDROPS CRUD ---
+@api_router.get("/admin/airdrops")
+async def admin_get_airdrops():
+    """Get all airdrops for admin"""
+    try:
+        airdrops = await db.airdrops.find({}, {"_id": 0}).sort("deadline", 1).to_list(100)
+        return airdrops
+    except Exception as e:
+        logger.error(f"Error fetching airdrops for admin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch airdrops")
+
+@api_router.post("/admin/airdrops")
+async def admin_create_airdrop(airdrop: AirdropCreate):
+    """Create a new airdrop"""
+    try:
+        # Process tasks to ensure they have IDs
+        tasks = []
+        for i, task in enumerate(airdrop.tasks):
+            if isinstance(task, dict):
+                tasks.append({
+                    "id": task.get("id", f"t{i+1}"),
+                    "description": task.get("description", ""),
+                    "completed": task.get("completed", False)
+                })
+        
+        airdrop_doc = {
+            "id": str(uuid.uuid4()),
+            "project_name": airdrop.project_name,
+            "logo_url": airdrop.logo_url or f"https://ui-avatars.com/api/?name={airdrop.project_name[:2]}&background=8b5cf6&color=fff&size=128&bold=true&format=svg",
+            "description": airdrop.description,
+            "full_description": airdrop.full_description,
+            "backing": airdrop.backing,
+            "chain": airdrop.chain,
+            "timeline": airdrop.timeline,
+            "reward_note": airdrop.reward_note,
+            "tasks": tasks,
+            "estimated_reward": airdrop.estimated_reward,
+            "deadline": airdrop.deadline,
+            "status": airdrop.status,
+            "link": airdrop.link,
+            "premium": airdrop.premium
+        }
+        await db.airdrops.insert_one(airdrop_doc)
+        return {"success": True, "airdrop": {k: v for k, v in airdrop_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating airdrop: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create airdrop")
+
+@api_router.put("/admin/airdrops/{airdrop_id}")
+async def admin_update_airdrop(airdrop_id: str, airdrop: AirdropUpdate):
+    """Update an existing airdrop"""
+    try:
+        update_data = {k: v for k, v in airdrop.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.airdrops.update_one({"id": airdrop_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Airdrop not found")
+        
+        updated = await db.airdrops.find_one({"id": airdrop_id}, {"_id": 0})
+        return {"success": True, "airdrop": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating airdrop: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update airdrop")
+
+@api_router.delete("/admin/airdrops/{airdrop_id}")
+async def admin_delete_airdrop(airdrop_id: str):
+    """Delete an airdrop"""
+    try:
+        result = await db.airdrops.delete_one({"id": airdrop_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Airdrop not found")
+        return {"success": True, "message": "Airdrop deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting airdrop: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete airdrop")
+
+# --- SIGNALS CRUD ---
+@api_router.get("/admin/signals")
+async def admin_get_signals():
+    """Get all signals for admin"""
+    try:
+        signals = await db.signals.find({}, {"_id": 0}).sort("timestamp", -1).to_list(100)
+        return signals
+    except Exception as e:
+        logger.error(f"Error fetching signals for admin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch signals")
+
+@api_router.post("/admin/signals")
+async def admin_create_signal(signal: SignalCreate):
+    """Create a new signal"""
+    try:
+        signal_doc = {
+            "id": str(uuid.uuid4()),
+            "type": signal.type,
+            "priority": signal.priority,
+            "title": signal.title,
+            "description": signal.description,
+            "action": signal.action,
+            "link": signal.link,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "premium": signal.premium
+        }
+        await db.signals.insert_one(signal_doc)
+        return {"success": True, "signal": {k: v for k, v in signal_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating signal: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create signal")
+
+@api_router.put("/admin/signals/{signal_id}")
+async def admin_update_signal(signal_id: str, signal: SignalUpdate):
+    """Update an existing signal"""
+    try:
+        update_data = {k: v for k, v in signal.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.signals.update_one({"id": signal_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Signal not found")
+        
+        updated = await db.signals.find_one({"id": signal_id}, {"_id": 0})
+        return {"success": True, "signal": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating signal: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update signal")
+
+@api_router.delete("/admin/signals/{signal_id}")
+async def admin_delete_signal(signal_id: str):
+    """Delete a signal"""
+    try:
+        result = await db.signals.delete_one({"id": signal_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Signal not found")
+        return {"success": True, "message": "Signal deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting signal: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete signal")
+
+# --- ADMIN STATS ---
+@api_router.get("/admin/stats")
+async def admin_get_stats():
+    """Get admin dashboard statistics"""
+    try:
+        articles_count = await db.articles.count_documents({})
+        airdrops_count = await db.airdrops.count_documents({})
+        signals_count = await db.signals.count_documents({})
+        subscribers_count = await db.alert_subscriptions.count_documents({"active": True})
+        consulting_count = await db.consulting.count_documents({"status": "new"})
+        feedback_count = await db.feedback.count_documents({"read": False})
+        users_count = await db.users.count_documents({})
+        premium_users = await db.users.count_documents({"is_premium": True})
+        
+        return {
+            "articles": articles_count,
+            "airdrops": airdrops_count,
+            "signals": signals_count,
+            "subscribers": subscribers_count,
+            "pending_consulting": consulting_count,
+            "unread_feedback": feedback_count,
+            "total_users": users_count,
+            "premium_users": premium_users
+        }
+    except Exception as e:
+        logger.error(f"Error fetching admin stats: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch stats")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
