@@ -1780,6 +1780,53 @@ async def submit_consulting_request(request: ConsultingSubmission):
         logger.error(f"Error submitting consulting request: {e}")
         raise HTTPException(status_code=500, detail="Failed to submit consulting request")
 
+
+# Support endpoint
+class SupportRequest(BaseModel):
+    name: str
+    email: str
+    message: str
+    subject: Optional[str] = "Soporte - Alpha Crypto"
+
+@api_router.post("/support")
+async def submit_support_request(request: SupportRequest):
+    """Submit support/help request"""
+    try:
+        support_doc = {
+            "id": str(uuid.uuid4()),
+            "name": request.name,
+            "email": request.email,
+            "message": request.message,
+            "subject": request.subject,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "status": "new"
+        }
+        await db.support.insert_one(support_doc)
+        
+        # Send email notification
+        email_html = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1f2e; padding: 30px; border-radius: 10px;">
+            <h2 style="color: #8b5cf6; margin-bottom: 20px;">💬 Nueva Solicitud de Soporte - Alpha Crypto</h2>
+            <div style="background: #0f172a; padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Nombre:</strong> {request.name}</p>
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Email:</strong> {request.email}</p>
+                <p style="color: #9ca3af; margin: 5px 0;"><strong style="color: white;">Mensaje:</strong></p>
+                <p style="color: white; background: #1e293b; padding: 15px; border-radius: 5px; white-space: pre-wrap;">{request.message}</p>
+            </div>
+            <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">Enviado desde Alpha Crypto Platform - Help Hub</p>
+        </div>
+        """
+        await send_notification_email(
+            subject=f"💬 Soporte: {request.name}",
+            html_content=email_html
+        )
+        
+        return {"success": True, "message": "Support request submitted successfully"}
+    except Exception as e:
+        logger.error(f"Error submitting support request: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit support request")
+
+
 @api_router.get("/admin/consulting")
 async def get_consulting_requests(status: Optional[str] = None):
     """Get consulting requests for admin"""
