@@ -3,6 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft, Clock, BookOpen, Share2 } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
+import AlphaiChat from '@/components/AlphaiChat';
+import PremiumModal from '@/components/PremiumModal';
+import { useLanguage } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -11,6 +14,9 @@ function ArticleDetailPage() {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAlphai, setShowAlphai] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
+  const { language } = useLanguage();
 
   useEffect(() => {
     axios.get(BACKEND_URL + '/api/articles/' + id)
