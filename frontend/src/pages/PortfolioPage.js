@@ -166,9 +166,15 @@ export default function PortfolioPage() {
           
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="portfolio-heading">
-                {tx.title}
-              </h1>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="portfolio-heading">
+                  {tx.title}
+                </h1>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-400 text-sm font-bold">
+                  <Crown size={14} />
+                  Premium
+                </span>
+              </div>
               <p className="text-gray-400">{tx.subtitle}</p>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
