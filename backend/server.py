@@ -2518,6 +2518,380 @@ async def admin_get_stats():
         raise HTTPException(status_code=500, detail="Failed to fetch stats")
 
 
+# =============================================================================
+# YIELD STABLECOINS CRUD
+# =============================================================================
+
+class YieldProtocolCreate(BaseModel):
+    name: str
+    chain: str
+    apy: str
+    description: str = ""
+    risk_level: str = "medium"  # low, medium, high
+    link: str = ""
+    logo_url: str = ""
+
+class YieldProtocolUpdate(BaseModel):
+    name: Optional[str] = None
+    chain: Optional[str] = None
+    apy: Optional[str] = None
+    description: Optional[str] = None
+    risk_level: Optional[str] = None
+    link: Optional[str] = None
+    logo_url: Optional[str] = None
+
+@api_router.get("/admin/yields")
+async def admin_get_yields():
+    """Get all yield protocols for admin"""
+    try:
+        yields = await db.yield_protocols.find({}, {"_id": 0}).sort("apy", -1).to_list(100)
+        return yields
+    except Exception as e:
+        logger.error(f"Error fetching yields: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch yields")
+
+@api_router.post("/admin/yields")
+async def admin_create_yield(protocol: YieldProtocolCreate):
+    """Create a new yield protocol"""
+    try:
+        yield_doc = {
+            "id": str(uuid.uuid4()),
+            "name": protocol.name,
+            "chain": protocol.chain,
+            "apy": protocol.apy,
+            "description": protocol.description,
+            "risk_level": protocol.risk_level,
+            "link": protocol.link,
+            "logo_url": protocol.logo_url or f"https://ui-avatars.com/api/?name={protocol.name[:2]}&background=10b981&color=fff&size=128",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.yield_protocols.insert_one(yield_doc)
+        return {"success": True, "yield": {k: v for k, v in yield_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating yield: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create yield")
+
+@api_router.put("/admin/yields/{yield_id}")
+async def admin_update_yield(yield_id: str, protocol: YieldProtocolUpdate):
+    """Update a yield protocol"""
+    try:
+        update_data = {k: v for k, v in protocol.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.yield_protocols.update_one({"id": yield_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Yield protocol not found")
+        
+        updated = await db.yield_protocols.find_one({"id": yield_id}, {"_id": 0})
+        return {"success": True, "yield": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating yield: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update yield")
+
+@api_router.delete("/admin/yields/{yield_id}")
+async def admin_delete_yield(yield_id: str):
+    """Delete a yield protocol"""
+    try:
+        result = await db.yield_protocols.delete_one({"id": yield_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Yield protocol not found")
+        return {"success": True, "message": "Yield protocol deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting yield: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete yield")
+
+# Public endpoint for yields
+@api_router.get("/yields")
+async def get_yields():
+    """Get yield protocols - from DB or fallback to mock"""
+    try:
+        db_yields = await db.yield_protocols.find({}, {"_id": 0}).sort("apy", -1).to_list(100)
+        if db_yields and len(db_yields) >= 1:
+            return db_yields
+        # Return empty array if no data - frontend has fallback
+        return []
+    except Exception as e:
+        logger.error(f"Error fetching yields: {e}")
+        return []
+
+
+# =============================================================================
+# STAKING CRUD
+# =============================================================================
+
+class StakingCreate(BaseModel):
+    token: str
+    symbol: str
+    apy: str
+    platform: str
+    link: str = ""
+    logo_url: str = ""
+
+class StakingUpdate(BaseModel):
+    token: Optional[str] = None
+    symbol: Optional[str] = None
+    apy: Optional[str] = None
+    platform: Optional[str] = None
+    link: Optional[str] = None
+    logo_url: Optional[str] = None
+
+@api_router.get("/admin/staking")
+async def admin_get_staking():
+    """Get all staking options for admin"""
+    try:
+        staking = await db.staking_options.find({}, {"_id": 0}).to_list(100)
+        return staking
+    except Exception as e:
+        logger.error(f"Error fetching staking: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch staking")
+
+@api_router.post("/admin/staking")
+async def admin_create_staking(staking: StakingCreate):
+    """Create a new staking option"""
+    try:
+        staking_doc = {
+            "id": str(uuid.uuid4()),
+            "token": staking.token,
+            "symbol": staking.symbol,
+            "apy": staking.apy,
+            "platform": staking.platform,
+            "link": staking.link,
+            "logo_url": staking.logo_url or f"https://ui-avatars.com/api/?name={staking.symbol}&background=8b5cf6&color=fff&size=128",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.staking_options.insert_one(staking_doc)
+        return {"success": True, "staking": {k: v for k, v in staking_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating staking: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create staking")
+
+@api_router.put("/admin/staking/{staking_id}")
+async def admin_update_staking(staking_id: str, staking: StakingUpdate):
+    """Update a staking option"""
+    try:
+        update_data = {k: v for k, v in staking.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.staking_options.update_one({"id": staking_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Staking option not found")
+        
+        updated = await db.staking_options.find_one({"id": staking_id}, {"_id": 0})
+        return {"success": True, "staking": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating staking: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update staking")
+
+@api_router.delete("/admin/staking/{staking_id}")
+async def admin_delete_staking(staking_id: str):
+    """Delete a staking option"""
+    try:
+        result = await db.staking_options.delete_one({"id": staking_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Staking option not found")
+        return {"success": True, "message": "Staking option deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting staking: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete staking")
+
+# Public endpoint for staking
+@api_router.get("/staking")
+async def get_staking():
+    """Get staking options - from DB or fallback"""
+    try:
+        db_staking = await db.staking_options.find({}, {"_id": 0}).to_list(100)
+        if db_staking and len(db_staking) >= 1:
+            return db_staking
+        return []
+    except Exception as e:
+        logger.error(f"Error fetching staking: {e}")
+        return []
+
+
+# =============================================================================
+# PORTFOLIO CRUD
+# =============================================================================
+
+class PortfolioHoldingCreate(BaseModel):
+    name: str
+    symbol: str
+    allocation: float
+    color: str = "#10b981"
+
+class PortfolioHoldingUpdate(BaseModel):
+    name: Optional[str] = None
+    symbol: Optional[str] = None
+    allocation: Optional[float] = None
+    color: Optional[str] = None
+
+class PortfolioTradeCreate(BaseModel):
+    type: str  # buy, sell
+    asset: str
+    amount: str
+    reason: str = ""
+
+class PortfolioSettingsUpdate(BaseModel):
+    total_value: Optional[float] = None
+    monthly_return: Optional[float] = None
+    strategy_current: Optional[str] = None
+    strategy_next: Optional[str] = None
+
+@api_router.get("/admin/portfolio")
+async def admin_get_portfolio():
+    """Get portfolio data for admin"""
+    try:
+        holdings = await db.portfolio_holdings.find({}, {"_id": 0}).sort("allocation", -1).to_list(20)
+        trades = await db.portfolio_trades.find({}, {"_id": 0}).sort("created_at", -1).to_list(10)
+        settings = await db.portfolio_settings.find_one({"id": "main"}, {"_id": 0})
+        
+        return {
+            "holdings": holdings,
+            "trades": trades,
+            "settings": settings or {
+                "id": "main",
+                "total_value": 50000,
+                "monthly_return": 12,
+                "strategy_current": "DCA semanal en BTC y ETH.",
+                "strategy_next": "Monitorear soporte en $65K BTC."
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error fetching portfolio: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch portfolio")
+
+@api_router.post("/admin/portfolio/holdings")
+async def admin_create_holding(holding: PortfolioHoldingCreate):
+    """Create a new portfolio holding"""
+    try:
+        holding_doc = {
+            "id": str(uuid.uuid4()),
+            "name": holding.name,
+            "symbol": holding.symbol,
+            "allocation": holding.allocation,
+            "color": holding.color,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.portfolio_holdings.insert_one(holding_doc)
+        return {"success": True, "holding": {k: v for k, v in holding_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating holding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create holding")
+
+@api_router.put("/admin/portfolio/holdings/{holding_id}")
+async def admin_update_holding(holding_id: str, holding: PortfolioHoldingUpdate):
+    """Update a portfolio holding"""
+    try:
+        update_data = {k: v for k, v in holding.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        result = await db.portfolio_holdings.update_one({"id": holding_id}, {"$set": update_data})
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Holding not found")
+        
+        updated = await db.portfolio_holdings.find_one({"id": holding_id}, {"_id": 0})
+        return {"success": True, "holding": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating holding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update holding")
+
+@api_router.delete("/admin/portfolio/holdings/{holding_id}")
+async def admin_delete_holding(holding_id: str):
+    """Delete a portfolio holding"""
+    try:
+        result = await db.portfolio_holdings.delete_one({"id": holding_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Holding not found")
+        return {"success": True, "message": "Holding deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting holding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete holding")
+
+@api_router.post("/admin/portfolio/trades")
+async def admin_create_trade(trade: PortfolioTradeCreate):
+    """Create a new portfolio trade"""
+    try:
+        trade_doc = {
+            "id": str(uuid.uuid4()),
+            "type": trade.type,
+            "asset": trade.asset,
+            "amount": trade.amount,
+            "reason": trade.reason,
+            "date": datetime.now(timezone.utc).strftime("%b %d"),
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.portfolio_trades.insert_one(trade_doc)
+        return {"success": True, "trade": {k: v for k, v in trade_doc.items() if k != "_id"}}
+    except Exception as e:
+        logger.error(f"Error creating trade: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create trade")
+
+@api_router.delete("/admin/portfolio/trades/{trade_id}")
+async def admin_delete_trade(trade_id: str):
+    """Delete a portfolio trade"""
+    try:
+        result = await db.portfolio_trades.delete_one({"id": trade_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Trade not found")
+        return {"success": True, "message": "Trade deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting trade: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete trade")
+
+@api_router.put("/admin/portfolio/settings")
+async def admin_update_portfolio_settings(settings: PortfolioSettingsUpdate):
+    """Update portfolio settings"""
+    try:
+        update_data = {k: v for k, v in settings.model_dump().items() if v is not None}
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        await db.portfolio_settings.update_one(
+            {"id": "main"}, 
+            {"$set": update_data}, 
+            upsert=True
+        )
+        updated = await db.portfolio_settings.find_one({"id": "main"}, {"_id": 0})
+        return {"success": True, "settings": updated}
+    except Exception as e:
+        logger.error(f"Error updating portfolio settings: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update settings")
+
+# Public endpoint for portfolio
+@api_router.get("/portfolio")
+async def get_portfolio():
+    """Get portfolio data - from DB or fallback to empty"""
+    try:
+        holdings = await db.portfolio_holdings.find({}, {"_id": 0}).sort("allocation", -1).to_list(20)
+        trades = await db.portfolio_trades.find({}, {"_id": 0}).sort("created_at", -1).to_list(10)
+        settings = await db.portfolio_settings.find_one({"id": "main"}, {"_id": 0})
+        
+        return {
+            "holdings": holdings,
+            "trades": trades,
+            "settings": settings
+        }
+    except Exception as e:
+        logger.error(f"Error fetching portfolio: {e}")
+        return {"holdings": [], "trades": [], "settings": None}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
