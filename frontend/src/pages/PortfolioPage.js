@@ -53,7 +53,51 @@ const DEFAULT_STAKING_TOKENS = [
 
 export default function PortfolioPage() {
   const [activeTab, setActiveTab] = useState('portfolio');
+  const [yieldProtocols, setYieldProtocols] = useState([]);
+  const [stakingTokens, setStakingTokens] = useState([]);
+  const [loadingYields, setLoadingYields] = useState(true);
+  const [loadingStaking, setLoadingStaking] = useState(true);
   const { language } = useLanguage();
+
+  // Fetch yields from backend
+  useEffect(() => {
+    async function fetchYields() {
+      try {
+        const response = await axios.get(API + '/yields');
+        if (response.data && response.data.length > 0) {
+          setYieldProtocols(response.data);
+        } else {
+          setYieldProtocols(DEFAULT_YIELD_PROTOCOLS);
+        }
+      } catch (error) {
+        console.error('Error fetching yields:', error);
+        setYieldProtocols(DEFAULT_YIELD_PROTOCOLS);
+      } finally {
+        setLoadingYields(false);
+      }
+    }
+    fetchYields();
+  }, []);
+
+  // Fetch staking from backend
+  useEffect(() => {
+    async function fetchStaking() {
+      try {
+        const response = await axios.get(API + '/staking');
+        if (response.data && response.data.length > 0) {
+          setStakingTokens(response.data);
+        } else {
+          setStakingTokens(DEFAULT_STAKING_TOKENS);
+        }
+      } catch (error) {
+        console.error('Error fetching staking:', error);
+        setStakingTokens(DEFAULT_STAKING_TOKENS);
+      } finally {
+        setLoadingStaking(false);
+      }
+    }
+    fetchStaking();
+  }, []);
 
   // Translations
   const tx = {
