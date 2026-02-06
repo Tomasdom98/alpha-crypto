@@ -56,22 +56,38 @@ function ArticleDetailPage() {
       
       var html = '<div class="overflow-x-auto my-6 -mx-4 px-4"><table class="w-full min-w-[400px] border-collapse bg-gray-800/30 rounded-lg overflow-hidden text-sm">';
       
-      // Parse header
-      var headerCells = rows[0].split('|').filter(function(c) { return c.trim(); });
+      // Parse header - keep empty cells for proper alignment
+      var headerParts = rows[0].split('|');
+      var headerCells = [];
+      for (var h = 0; h < headerParts.length; h++) {
+        if (h === 0 && headerParts[h].trim() === '') continue; // Skip leading empty from |
+        if (h === headerParts.length - 1 && headerParts[h].trim() === '') continue; // Skip trailing empty from |
+        headerCells.push(headerParts[h]);
+      }
+      
       html += '<thead><tr class="bg-gray-800">';
       for (var i = 0; i < headerCells.length; i++) {
-        html += '<th class="text-left py-3 px-3 md:px-4 text-emerald-400 font-semibold whitespace-nowrap border-b border-gray-700">' + headerCells[i].trim() + '</th>';
+        var cellText = headerCells[i].trim() || '&nbsp;'; // Use nbsp for empty headers
+        var headerClass = i === 0 ? 'text-gray-400' : 'text-emerald-400';
+        html += '<th class="text-left py-3 px-3 md:px-4 ' + headerClass + ' font-semibold whitespace-nowrap border-b border-gray-700">' + cellText + '</th>';
       }
       html += '</tr></thead><tbody>';
       
       // Parse body (skip separator row)
       for (var j = 1; j < rows.length; j++) {
         if (rows[j].includes('---')) continue;
-        var cells = rows[j].split('|').filter(function(c) { return c.trim(); });
+        var bodyParts = rows[j].split('|');
+        var cells = [];
+        for (var b = 0; b < bodyParts.length; b++) {
+          if (b === 0 && bodyParts[b].trim() === '') continue;
+          if (b === bodyParts.length - 1 && bodyParts[b].trim() === '') continue;
+          cells.push(bodyParts[b]);
+        }
         var bgClass = j % 2 === 0 ? 'bg-gray-800/20' : '';
         html += '<tr class="' + bgClass + ' border-b border-gray-800/50 hover:bg-gray-700/30 transition-colors">';
         for (var k = 0; k < cells.length; k++) {
-          html += '<td class="py-2.5 px-3 md:px-4 text-gray-300">' + cells[k].trim() + '</td>';
+          var tdClass = k === 0 ? 'text-gray-400 font-medium' : 'text-gray-300';
+          html += '<td class="py-2.5 px-3 md:px-4 ' + tdClass + '">' + (cells[k].trim() || '&nbsp;') + '</td>';
         }
         html += '</tr>';
       }
