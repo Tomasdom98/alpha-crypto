@@ -157,10 +157,10 @@ The following data is currently MOCKED in the backend:
 ## 3rd Party Integrations
 | Service | Status | Purpose |
 |---------|--------|---------|
-| CoinGecko | ✅ Live | Crypto prices |
+| Kraken | ✅ Live | Crypto prices (replaced CoinGecko for main feed) |
+| CoinGecko | ✅ Live | Historical chart data (10-min cache) |
 | DeFiLlama | ✅ Live | TVL, Stablecoins |
 | Alternative.me | ✅ Live | Fear & Greed |
 | Emergent LLM (Claude) | ✅ Live | ALPHA-I assistant |
-| Sanity.io | ⏳ Pending | CMS (secondary) |
-| Resend | ⏳ Pending | Emails (needs domain verification) |
+| Resend | ⏳ Pending | Emails (needs domain verification by user) |
 | Stripe | ⏳ Pending | Payments |
