@@ -1041,7 +1041,7 @@ async def root():
 
 @api_router.get("/crypto/prices", response_model=List[CryptoPrice])
 async def get_crypto_prices():
-    """Get current crypto prices from CoinCap API (free, no rate limits)"""
+    """Get current crypto prices from Kraken API (free, no rate limits)"""
     cache_key = "crypto_prices"
     
     # Check cache first
@@ -1050,45 +1050,56 @@ async def get_crypto_prices():
         logger.debug("Returning cached crypto prices")
         return cached_prices
     
-    # Fetch from CoinCap API
+    # Fetch from Kraken API
     try:
         async with aiohttp.ClientSession() as session:
-            # CoinCap batch endpoint
-            url = "https://api.coincap.io/v2/assets"
-            params = {"ids": "bitcoin,ethereum,solana,usd-coin"}
-            headers = {"Accept": "application/json"}
+            url = "https://api.kraken.com/0/public/Ticker"
+            params = {"pair": "XBTUSD,ETHUSD,SOLUSD,USDCUSD"}
+            headers = {"User-Agent": "AlphaCrypto/1.0"}
             
             async with session.get(url, params=params, headers=headers, timeout=15) as response:
                 if response.status == 200:
                     data = await response.json()
-                    assets = data.get("data", [])
+                    result = data.get("result", {})
+                    
+                    # Map Kraken pairs to our format
+                    pair_map = {
+                        "XXBTZUSD": {"id": "bitcoin", "symbol": "BTC", "name": "Bitcoin"},
+                        "XETHZUSD": {"id": "ethereum", "symbol": "ETH", "name": "Ethereum"},
+                        "SOLUSD": {"id": "solana", "symbol": "SOL", "name": "Solana"},
+                        "USDCUSD": {"id": "usd-coin", "symbol": "USDC", "name": "USD Coin"}
+                    }
+                    
                     prices = []
-                    for coin in assets:
-                        price = float(coin.get("priceUsd", 0) or 0)
-                        change_24h = float(coin.get("changePercent24Hr", 0) or 0)
-                        market_cap = float(coin.get("marketCapUsd", 0) or 0)
-                        volume = float(coin.get("volumeUsd24Hr", 0) or 0)
-                        
-                        prices.append({
-                            "id": coin.get("id", ""),
-                            "symbol": coin.get("symbol", "").upper(),
-                            "name": coin.get("name", ""),
-                            "current_price": round(price, 2),
-                            "price_change_24h": round(change_24h, 2),
-                            "market_cap": round(market_cap, 0),
-                            "volume_24h": round(volume, 0)
-                        })
+                    for pair, info in result.items():
+                        if pair in pair_map:
+                            meta = pair_map[pair]
+                            current_price = float(info["c"][0])  # Last trade price
+                            open_price = float(info["o"])  # Today's opening price
+                            change_24h = ((current_price - open_price) / open_price * 100) if open_price > 0 else 0
+                            volume = float(info["v"][1])  # 24h volume
+                            
+                            prices.append({
+                                "id": meta["id"],
+                                "symbol": meta["symbol"],
+                                "name": meta["name"],
+                                "current_price": round(current_price, 2),
+                                "price_change_24h": round(change_24h, 2),
+                                "market_cap": 0,  # Kraken doesn't provide market cap
+                                "volume_24h": round(volume * current_price, 0)
+                            })
                     
                     if prices:
-                        # Sort by market cap
-                        prices.sort(key=lambda x: x["market_cap"], reverse=True)
-                        logger.info(f"Fetched {len(prices)} prices from CoinCap - caching for {CACHE_TTL_CRYPTO_PRICES}s")
+                        # Sort: BTC, ETH, SOL, USDC
+                        order = {"bitcoin": 0, "ethereum": 1, "solana": 2, "usd-coin": 3}
+                        prices.sort(key=lambda x: order.get(x["id"], 99))
+                        logger.info(f"Fetched {len(prices)} prices from Kraken - caching for {CACHE_TTL_CRYPTO_PRICES}s")
                         await api_cache.set(cache_key, prices)
                         return prices
                 else:
-                    logger.warning(f"CoinCap returned status {response.status}")
+                    logger.warning(f"Kraken returned status {response.status}")
     except Exception as e:
-        logger.error(f"Error fetching CoinCap prices: {e}")
+        logger.error(f"Error fetching Kraken prices: {e}")
     
     # Fallback to mock data if API fails
     logger.info("Using mock crypto prices as fallback")
