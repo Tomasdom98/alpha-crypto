@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, PiggyBank } from 'lucide-react';
+import { ChevronRight, TrendingUp, TrendingDown, Wallet, BarChart3, RefreshCw, ExternalLink, Coins, PiggyBank, Crown } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 import { useLanguage } from '@/context/LanguageContext';
 
