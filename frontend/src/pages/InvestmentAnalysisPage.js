@@ -81,23 +81,23 @@ function InvestmentAnalysisPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Back to Home
+            <ChevronRight size={16} className="rotate-180" /> {tx.backHome}
           </Link>
           
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="analysis-heading">Investment Analysis</h1>
-              <p className="text-gray-400">Alpha Crypto Market Report</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="analysis-heading">{tx.title}</h1>
+              <p className="text-gray-400">{tx.subtitle}</p>
             </div>
             <div className="glass-card rounded-xl px-4 py-2 text-right">
-              <div className="text-xs text-gray-500">Report Date</div>
+              <div className="text-xs text-gray-500">{tx.reportDate}</div>
               <div className="text-emerald-400 font-bold flex items-center gap-2"><Calendar size={14} />{reportDate}</div>
             </div>
           </div>
         </div>
 
         <div className="glass-card rounded-2xl p-6 mb-8" data-testid="market-overview">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Globe className="text-emerald-500" /> Market Overview</h2>
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Globe className="text-emerald-500" /> {tx.marketOverview}</h2>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-gray-800/50 rounded-xl p-4">
@@ -116,7 +116,7 @@ function InvestmentAnalysisPage() {
               <div className="text-sm text-gray-400">BTC Dom: {marketMetrics.btcDominance}</div>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-4">
-              <div className="text-xs text-gray-500 mb-1">Fear and Greed</div>
+              <div className="text-xs text-gray-500 mb-1">Fear & Greed</div>
               <div className="text-xl font-bold text-red-400">{marketMetrics.fearGreed}</div>
               <div className="text-sm text-red-400">{marketMetrics.fearGreedLabel}</div>
             </div>
@@ -126,15 +126,15 @@ function InvestmentAnalysisPage() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="text-amber-400 flex-shrink-0 mt-0.5" size={20} />
               <div>
-                <h3 className="font-bold text-amber-400 mb-1">Alpha Crypto Assessment</h3>
-                <p className="text-gray-300 text-sm">El mercado muestra senales mixtas. Fear and Greed en Extreme Fear historicamente indica oportunidad de acumulacion, pero factores macro sugieren cautela. Recomendamos DCA en lugar de entradas agresivas.</p>
+                <h3 className="font-bold text-amber-400 mb-1">{tx.assessment}</h3>
+                <p className="text-gray-300 text-sm">{tx.assessmentText}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="glass-card rounded-2xl p-6 mb-8" data-testid="key-insights">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Zap className="text-emerald-500" /> Key Insights</h2>
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Zap className="text-emerald-500" /> {tx.keyInsights}</h2>
           
           <div className="space-y-4">
             {keyInsights.map(function(insight, index) {
@@ -152,16 +152,16 @@ function InvestmentAnalysisPage() {
         </div>
 
         <div className="glass-card rounded-2xl p-6 mb-8" data-testid="sector-analysis">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><BarChart3 className="text-emerald-500" /> Sector Analysis</h2>
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><BarChart3 className="text-emerald-500" /> {tx.sectorAnalysis}</h2>
           
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Sector</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Trend</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Outlook</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Top Picks</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.sector}</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.trend}</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.outlook}</th>
+                  <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">{tx.topPicks}</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,37 +188,37 @@ function InvestmentAnalysisPage() {
         </div>
 
         <div className="glass-card rounded-2xl p-6 mb-8" data-testid="portfolio-recommendation">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Target className="text-emerald-500" /> Recommended Allocations</h2>
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Target className="text-emerald-500" /> {tx.recommendedAlloc}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800/50 rounded-xl p-5">
-              <h3 className="font-bold text-white mb-3">Conservative</h3>
+              <h3 className="font-bold text-white mb-3">{tx.conservative}</h3>
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">BTC</span><span className="text-white font-bold">60%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">ETH</span><span className="text-white font-bold">25%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">STABLES</span><span className="text-white font-bold">15%</span></div>
               </div>
-              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">Risk Level: </span><span className="text-xs font-bold text-emerald-400">Low</span></div>
+              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">{tx.riskLevel}: </span><span className="text-xs font-bold text-emerald-400">{tx.low}</span></div>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-5">
-              <h3 className="font-bold text-white mb-3">Balanced</h3>
+              <h3 className="font-bold text-white mb-3">{tx.balanced}</h3>
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">BTC</span><span className="text-white font-bold">40%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">ETH</span><span className="text-white font-bold">30%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">ALTS</span><span className="text-white font-bold">20%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">STABLES</span><span className="text-white font-bold">10%</span></div>
               </div>
-              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">Risk Level: </span><span className="text-xs font-bold text-amber-400">Medium</span></div>
+              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">{tx.riskLevel}: </span><span className="text-xs font-bold text-amber-400">{tx.medium}</span></div>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-5">
-              <h3 className="font-bold text-white mb-3">Aggressive</h3>
+              <h3 className="font-bold text-white mb-3">{tx.aggressive}</h3>
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">BTC</span><span className="text-white font-bold">30%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">ETH</span><span className="text-white font-bold">25%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">ALTS</span><span className="text-white font-bold">40%</span></div>
                 <div className="flex items-center justify-between"><span className="text-gray-400 text-sm">STABLES</span><span className="text-white font-bold">5%</span></div>
               </div>
-              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">Risk Level: </span><span className="text-xs font-bold text-red-400">High</span></div>
+              <div className="pt-3 border-t border-gray-700"><span className="text-xs text-gray-500">{tx.riskLevel}: </span><span className="text-xs font-bold text-red-400">{tx.high}</span></div>
             </div>
           </div>
         </div>
@@ -227,8 +227,8 @@ function InvestmentAnalysisPage() {
           <div className="flex items-start gap-3">
             <Shield className="text-gray-500 flex-shrink-0" size={20} />
             <div>
-              <h3 className="font-bold text-gray-400 mb-1">Disclaimer</h3>
-              <p className="text-sm text-gray-500">Este reporte es unicamente para fines informativos y no constituye asesoramiento financiero. Las inversiones en criptomonedas conllevan riesgos significativos. Siempre haga su propia investigacion (DYOR) antes de tomar decisiones de inversion.</p>
+              <h3 className="font-bold text-gray-400 mb-1">{tx.disclaimer}</h3>
+              <p className="text-sm text-gray-500">{tx.disclaimerText}</p>
             </div>
           </div>
         </div>
