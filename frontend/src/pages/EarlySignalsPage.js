@@ -112,9 +112,15 @@ function EarlySignalsPage() {
           
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2" data-testid="signals-heading">
-                Early Signals
-              </h1>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="signals-heading">
+                  Early Signals
+                </h1>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-400 text-sm font-bold">
+                  <Crown size={14} />
+                  Premium
+                </span>
+              </div>
               <p className="text-gray-400">Quick opportunities, express news, and community alerts</p>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
