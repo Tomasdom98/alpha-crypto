@@ -309,14 +309,13 @@ export default function OwlSeal({
     xl: 'w-32 h-32'  // Reduced from w-40 h-40
   };
 
-  // Fixed position for the watermark - with rounded border, depth and animations
+  // Fixed position for the watermark - ghostly, transparent style like hero owl
   if (className.includes('fixed')) {
     return (
       <>
         <div 
           className="select-none z-50 pointer-events-auto"
           style={{ 
-            opacity,
             position: 'fixed',
             bottom: '80px',
             right: '24px'
@@ -330,45 +329,68 @@ export default function OwlSeal({
             onOpenSupport={() => setShowSupport(true)}
           />
 
-          {/* Owl Button */}
+          {/* Owl Button - Ghostly watermark style */}
           <button
             onClick={handleOwlClick}
-            className="relative cursor-pointer focus:outline-none group"
+            className="relative cursor-pointer focus:outline-none group owl-ghost-button"
             title={tx.menu}
             data-testid="owl-menu-trigger"
+            style={{
+              opacity: menuOpen ? 0.6 : 0.2,
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              filter: menuOpen 
+                ? 'drop-shadow(0 0 20px rgba(16, 185, 129, 0.5))' 
+                : 'drop-shadow(0 0 10px rgba(16, 185, 129, 0.2))',
+              mixBlendMode: 'screen'
+            }}
           >
             <div 
-              className={`relative p-2.5 rounded-2xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border transition-all duration-300 ${menuOpen ? 'border-emerald-400/60 shadow-[0_0_40px_rgba(16,185,129,0.4)] scale-105' : 'border-emerald-500/30 group-hover:scale-110 group-hover:border-emerald-400/60 group-hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]'}`}
+              className={`relative p-2 rounded-2xl transition-all duration-400 ${
+                menuOpen 
+                  ? 'bg-emerald-500/10 border border-emerald-400/30 scale-105' 
+                  : 'bg-transparent border border-transparent'
+              }`}
               style={{
                 boxShadow: menuOpen 
-                  ? '0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(16,185,129,0.3), inset 0 1px 0 rgba(255,255,255,0.1)'
-                  : '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(16,185,129,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+                  ? '0 0 40px rgba(16,185,129,0.3), inset 0 0 20px rgba(16,185,129,0.1)'
+                  : 'none'
               }}
             >
-              {/* Pulsing glow effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent animate-owl-pulse" />
-              
-              {/* Breathing glow ring */}
+              {/* Subtle breathing glow - only visible on hover/active */}
               <div 
-                className="absolute -inset-1 rounded-2xl animate-owl-glow"
+                className={`absolute -inset-2 rounded-3xl transition-opacity duration-500 ${
+                  menuOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-60'
+                }`}
                 style={{
-                  background: 'radial-gradient(circle at center, rgba(16,185,129,0.15) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle at center, rgba(16,185,129,0.15) 0%, transparent 60%)',
                 }}
               />
               
-              {/* Owl image - 75% of original size */}
+              {/* Owl image - ghostly and tinted */}
               <img 
                 src={OWL_URL}
                 alt="Alpha Crypto"
-                className="relative w-24 h-24 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)]"
-                style={{ filter: 'brightness(1.3) contrast(1.1)' }}
+                className="relative w-20 h-20 object-contain transition-all duration-400"
+                style={{ 
+                  filter: menuOpen 
+                    ? 'brightness(1.4) contrast(1.1) sepia(0.1) hue-rotate(100deg)' 
+                    : 'brightness(0.9) contrast(0.9) sepia(0.15) hue-rotate(100deg)',
+                }}
               />
-              
-              {/* Sparkle effects */}
-              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-owl-sparkle" />
-              <div className="absolute bottom-3 left-1 w-1 h-1 bg-emerald-300 rounded-full animate-owl-sparkle-delay" />
             </div>
           </button>
+
+          {/* CSS for hover effects - inline style override */}
+          <style>{`
+            .owl-ghost-button:hover {
+              opacity: 0.5 !important;
+              filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)) !important;
+              transform: scale(1.05);
+            }
+            .owl-ghost-button:hover img {
+              filter: brightness(1.2) contrast(1) sepia(0.1) hue-rotate(100deg) !important;
+            }
+          `}</style>
         </div>
 
         {/* Support Form Modal */}
