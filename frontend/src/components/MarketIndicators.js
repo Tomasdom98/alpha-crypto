@@ -183,38 +183,36 @@ export default function MarketIndicators({ fearGreed }) {
         </div>
 
         {/* Other Indicators Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {indicators.map((indicator, index) => {
             const Icon = indicator.icon;
             return (
               <div
                 key={indicator.id}
                 data-testid={`indicator-${indicator.id}`}
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-emerald-500/20 hover:border-emerald-500/50"
-                style={{ animationDelay: `${index * 100}ms`, animation: 'fadeInUp 0.6s ease-out forwards' }}
+                className="glass-card rounded-2xl p-6 group relative overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
                 <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="p-2 rounded-lg bg-gray-800/50 border border-gray-700/50 group-hover:border-emerald-500/30 transition-colors">
-                      <Icon className="w-4 h-4 text-emerald-400" strokeWidth={2.5} />
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 group-hover:border-emerald-500/40 transition-colors">
+                      <Icon className="w-5 h-5 text-emerald-400" strokeWidth={2.5} />
                     </div>
-                    <h3 className="text-xs font-semibold text-gray-400">{indicator.name}</h3>
+                    <h3 className="text-sm font-semibold text-gray-400">{indicator.name}</h3>
                   </div>
 
-                  <div className="mt-3">
-                    <div className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Space Grotesk, monospace' }}>
+                  <div className="mb-3">
+                    <div className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                       {indicator.value}
                     </div>
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getInterpretationColor(indicator.interpretation)}`}>
+                    <span className={`inline-block px-3 py-1.5 rounded-full text-xs font-bold border ${getInterpretationColor(indicator.interpretation)}`}>
                       {indicator.label}
                     </span>
                   </div>
 
-                  <p className="text-xs text-gray-600 mt-3">{indicator.description}</p>
-                </div>
-
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <p className="text-xs text-gray-500 leading-relaxed">{indicator.description}</p>
                 </div>
               </div>
             );
