@@ -1,8 +1,42 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, TrendingUp, TrendingDown, AlertTriangle, Shield, Target, BarChart3, Globe, Zap, Calendar } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 function InvestmentAnalysisPage() {
-  var reportDate = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  
+  var reportDate = new Date().toLocaleDateString(isEs ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const tx = {
+    backHome: isEs ? 'Volver al Inicio' : 'Back to Home',
+    title: isEs ? 'Análisis de Inversión' : 'Investment Analysis',
+    subtitle: isEs ? 'Reporte de Mercado Alpha Crypto' : 'Alpha Crypto Market Report',
+    reportDate: isEs ? 'Fecha del Reporte' : 'Report Date',
+    marketOverview: isEs ? 'Resumen del Mercado' : 'Market Overview',
+    keyInsights: isEs ? 'Insights Clave' : 'Key Insights',
+    sectorAnalysis: isEs ? 'Análisis por Sector' : 'Sector Analysis',
+    recommendedAlloc: isEs ? 'Asignaciones Recomendadas' : 'Recommended Allocations',
+    sector: 'Sector',
+    trend: isEs ? 'Tendencia' : 'Trend',
+    outlook: isEs ? 'Perspectiva' : 'Outlook',
+    topPicks: 'Top Picks',
+    riskLevel: isEs ? 'Nivel de Riesgo' : 'Risk Level',
+    low: isEs ? 'Bajo' : 'Low',
+    medium: isEs ? 'Medio' : 'Medium',
+    high: isEs ? 'Alto' : 'High',
+    conservative: isEs ? 'Conservador' : 'Conservative',
+    balanced: isEs ? 'Balanceado' : 'Balanced',
+    aggressive: isEs ? 'Agresivo' : 'Aggressive',
+    disclaimer: 'Disclaimer',
+    disclaimerText: isEs 
+      ? 'Este reporte es únicamente para fines informativos y no constituye asesoramiento financiero. Las inversiones en criptomonedas conllevan riesgos significativos. Siempre haga su propia investigación (DYOR) antes de tomar decisiones de inversión.'
+      : 'This report is for informational purposes only and does not constitute financial advice. Cryptocurrency investments carry significant risks. Always do your own research (DYOR) before making investment decisions.',
+    assessment: isEs ? 'Evaluación Alpha Crypto' : 'Alpha Crypto Assessment',
+    assessmentText: isEs
+      ? 'El mercado muestra señales mixtas. Fear and Greed en Extreme Fear históricamente indica oportunidad de acumulación, pero factores macro sugieren cautela. Recomendamos DCA en lugar de entradas agresivas.'
+      : 'The market shows mixed signals. Fear and Greed in Extreme Fear historically indicates accumulation opportunity, but macro factors suggest caution. We recommend DCA instead of aggressive entries.',
+  };
 
   var marketMetrics = {
     btcPrice: '$72,975',
@@ -12,22 +46,22 @@ function InvestmentAnalysisPage() {
     totalMcap: '$2.15T',
     btcDominance: '52.3%',
     fearGreed: 14,
-    fearGreedLabel: 'Extreme Fear'
+    fearGreedLabel: isEs ? 'Miedo Extremo' : 'Extreme Fear'
   };
 
   var keyInsights = [
-    { type: 'bullish', title: 'Institutional Accumulation', description: 'ETFs de Bitcoin registran entradas netas de $500M esta semana.' },
-    { type: 'bearish', title: 'Presion Macroeconomica', description: 'Fed mantiene tasas altas. Datos de inflacion superiores a expectativas.' },
-    { type: 'neutral', title: 'Halving Effect', description: 'A 60 dias del halving, historicamente periodo de consolidacion.' },
-    { type: 'bullish', title: 'Stablecoin Inflows', description: 'USDT y USDC muestran entradas record a exchanges.' }
+    { type: 'bullish', title: isEs ? 'Acumulación Institucional' : 'Institutional Accumulation', description: isEs ? 'ETFs de Bitcoin registran entradas netas de $500M esta semana.' : 'Bitcoin ETFs record net inflows of $500M this week.' },
+    { type: 'bearish', title: isEs ? 'Presión Macroeconómica' : 'Macroeconomic Pressure', description: isEs ? 'Fed mantiene tasas altas. Datos de inflación superiores a expectativas.' : 'Fed maintains high rates. Inflation data above expectations.' },
+    { type: 'neutral', title: isEs ? 'Efecto Halving' : 'Halving Effect', description: isEs ? 'A 60 días del halving, históricamente período de consolidación.' : '60 days from halving, historically a consolidation period.' },
+    { type: 'bullish', title: isEs ? 'Entradas de Stablecoins' : 'Stablecoin Inflows', description: isEs ? 'USDT y USDC muestran entradas récord a exchanges.' : 'USDT and USDC show record inflows to exchanges.' }
   ];
 
   var sectorAnalysis = [
-    { sector: 'Layer 1s', trend: 'neutral', outlook: 'Consolidacion. ETH y SOL compiten por developers.', picks: 'ETH, SOL' },
-    { sector: 'Layer 2s', trend: 'bullish', outlook: 'Arbitrum y Base lideran en TVL.', picks: 'ARB, OP' },
-    { sector: 'DeFi', trend: 'bullish', outlook: 'Real yield protocols ganando traccion.', picks: 'AAVE, GMX' },
-    { sector: 'AI Tokens', trend: 'neutral', outlook: 'Sector volatil. Especulacion alta.', picks: 'FET, RNDR' },
-    { sector: 'Memecoins', trend: 'bearish', outlook: 'Ciclo agotandose. Cautela recomendada.', picks: '-' }
+    { sector: 'Layer 1s', trend: 'neutral', outlook: isEs ? 'Consolidación. ETH y SOL compiten por developers.' : 'Consolidation. ETH and SOL compete for developers.', picks: 'ETH, SOL' },
+    { sector: 'Layer 2s', trend: 'bullish', outlook: isEs ? 'Arbitrum y Base lideran en TVL.' : 'Arbitrum and Base lead in TVL.', picks: 'ARB, OP' },
+    { sector: 'DeFi', trend: 'bullish', outlook: isEs ? 'Real yield protocols ganando tracción.' : 'Real yield protocols gaining traction.', picks: 'AAVE, GMX' },
+    { sector: 'AI Tokens', trend: 'neutral', outlook: isEs ? 'Sector volátil. Especulación alta.' : 'Volatile sector. High speculation.', picks: 'FET, RNDR' },
+    { sector: 'Memecoins', trend: 'bearish', outlook: isEs ? 'Ciclo agotándose. Cautela recomendada.' : 'Cycle exhausting. Caution recommended.', picks: '-' }
   ];
 
   function getTrendColor(trend) {
