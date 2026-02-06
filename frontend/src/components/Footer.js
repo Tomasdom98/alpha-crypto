@@ -112,16 +112,16 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a 
-                href="https://twitter.com" 
+                href="https://x.com/alphacrypto" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800/50 hover:bg-emerald-500/20 border border-gray-700 hover:border-emerald-500/50 rounded-lg text-gray-400 hover:text-emerald-400 transition-all"
-                aria-label="Twitter"
+                aria-label="X (Twitter)"
               >
-                <Twitter size={16} />
+                <span className="font-bold text-sm">𝕏</span>
               </a>
               <a 
-                href="mailto:contact@alphacrypto.com"
+                href="mailto:tomdominguezclaro@gmail.com"
                 className="p-2 bg-gray-800/50 hover:bg-emerald-500/20 border border-gray-700 hover:border-emerald-500/50 rounded-lg text-gray-400 hover:text-emerald-400 transition-all"
                 aria-label="Email"
               >
