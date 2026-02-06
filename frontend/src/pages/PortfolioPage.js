@@ -244,21 +244,6 @@ export default function PortfolioPage() {
     en: { portfolio: 'Portfolio', yield: 'Stablecoin Yields', staking: 'Staking' }
   }[language];
 
-  const portfolioData = {
-    totalValue: 50000,
-    monthlyReturn: 12,
-    monthlyReturnValue: 5500,
-    lastUpdated: new Date().toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })
-  };
-
-  const holdings = [
-    { name: 'Bitcoin', symbol: 'BTC', allocation: 35, value: 17500, change24h: -3.86, color: '#F7931A' },
-    { name: 'Ethereum', symbol: 'ETH', allocation: 25, value: 12500, change24h: -5.27, color: '#627EEA' },
-    { name: 'Solana', symbol: 'SOL', allocation: 20, value: 10000, change24h: -7.27, color: '#14F195' },
-    { name: 'USDC', symbol: 'USDC', allocation: 15, value: 7500, change24h: 0.01, color: '#2775CA' },
-    { name: 'Altcoins', symbol: 'ALTS', allocation: 5, value: 2500, change24h: -2.15, color: '#8B5CF6' }
-  ];
-
   const performanceHistory = [
     { month: 'Sep', value: 8.2 },
     { month: 'Oct', value: -4.5 },
@@ -268,18 +253,28 @@ export default function PortfolioPage() {
     { month: 'Feb', value: 12.0 }
   ];
 
-  const recentTrades = [
-    { type: 'buy', asset: 'BTC', amount: '$2,500', date: 'Feb 1', reason: 'DCA' },
-    { type: 'sell', asset: 'DOGE', amount: '$500', date: 'Jan 28', reason: 'Take profit' },
-    { type: 'buy', asset: 'ETH', amount: '$1,000', date: 'Jan 25', reason: 'Dip buy' },
-    { type: 'buy', asset: 'SOL', amount: '$750', date: 'Jan 20', reason: 'Rebalance' }
-  ];
-
   const tabs = [
     { id: 'portfolio', label: tabLabels.portfolio, icon: Wallet },
     { id: 'yield', label: tabLabels.yield, icon: Coins },
     { id: 'staking', label: tabLabels.staking, icon: PiggyBank }
   ];
+
+  // Show loading state for portfolio tab
+  if (loadingPortfolio && activeTab === 'portfolio') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-emerald-500" size={40} />
+      </div>
+    );
+  }
+
+  // Use portfolioData or defaults
+  const displayPortfolio = portfolioData || {
+    totalValue: 50000,
+    monthlyReturn: 12,
+    monthlyReturnValue: 5500,
+    lastUpdated: new Date().toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  };
 
   return (
     <div className="min-h-screen py-12 relative" data-testid="portfolio-page">
