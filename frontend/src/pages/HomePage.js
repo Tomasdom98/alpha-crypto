@@ -121,6 +121,9 @@ export default function HomePage() {
 
       {/* Hero Section - Enhanced */}
       <section className="relative py-24 md:py-32 overflow-hidden hero-gradient">
+        {/* Floating crypto/tech icons - background decoration */}
+        <FloatingIcons />
+        
         {/* Animated background elements */}
         <div className="absolute inset-0 grid-background opacity-50" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse-slow" />
