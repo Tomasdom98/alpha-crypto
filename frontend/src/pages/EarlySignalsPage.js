@@ -118,7 +118,7 @@ function EarlySignalsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <div className="text-emerald-500 text-xl font-mono">Loading signals...</div>
+          <div className="text-emerald-500 text-xl font-mono">{tx.loading}</div>
         </div>
       </div>
     );
@@ -126,13 +126,14 @@ function EarlySignalsPage() {
 
   return (
     <div className="min-h-screen py-12 relative" data-testid="early-signals-page">
-      {/* Owl Seal */}
-      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
+      <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
-            <ChevronRight size={16} className="rotate-180" /> Back to Home
+            <ChevronRight size={16} className="rotate-180" /> {tx.backHome}
           </Link>
           
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -146,11 +147,11 @@ function EarlySignalsPage() {
                   Premium
                 </span>
               </div>
-              <p className="text-gray-400">Quick opportunities, express news, and community alerts</p>
+              <p className="text-gray-400">{tx.subtitle}</p>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-emerald-400 text-sm font-bold">Live Updates</span>
+              <span className="text-emerald-400 text-sm font-bold">{tx.liveUpdates}</span>
             </div>
           </div>
         </div>
@@ -158,7 +159,7 @@ function EarlySignalsPage() {
         {urgentSignals.length > 0 && (
           <div className="mb-8">
             <h2 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
-              <Flame className="animate-pulse" /> Urgent Signals
+              <Flame className="animate-pulse" /> {tx.urgentSignals}
             </h2>
             <div className="space-y-4">
               {urgentSignals.map(function(signal) {
@@ -176,13 +177,13 @@ function EarlySignalsPage() {
                           <p className="text-gray-300 text-sm mb-2">{signal.description}</p>
                           {signal.action && (
                             <div className="p-2 bg-gray-800/50 rounded-lg mb-2">
-                              <span className="text-xs text-gray-500">Action: </span>
+                              <span className="text-xs text-gray-500">{tx.action}: </span>
                               <span className="text-emerald-400 text-sm font-medium">{signal.action}</span>
                             </div>
                           )}
                           <div className="flex items-center gap-4">
                             <span className="text-xs text-gray-500 flex items-center gap-1"><Clock size={12} /> {getTimeAgo(signal.timestamp)}</span>
-                            {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1">Learn more <ExternalLink size={12} /></a>}
+                            {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1">{tx.learnMore} <ExternalLink size={12} /></a>}
                           </div>
                         </div>
                       </div>
@@ -196,7 +197,7 @@ function EarlySignalsPage() {
 
         <div>
           <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <Bell /> All Signals
+            <Bell /> {tx.allSignals}
           </h2>
           <div className="space-y-4">
             {otherSignals.map(function(signal) {
