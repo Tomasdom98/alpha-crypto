@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Clock, Search, X, Filter } from 'lucide-react';
 import OwlSeal from '@/components/OwlSeal';
 import NewsletterPopup from '@/components/NewsletterPopup';
+import AlphaiChat from '@/components/AlphaiChat';
+import PremiumModal from '@/components/PremiumModal';
 import { useLanguage, articleTranslations } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -14,6 +16,8 @@ export default function ArticlesPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showAlphai, setShowAlphai] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
   const { language, t } = useLanguage();
 
   useEffect(() => {
