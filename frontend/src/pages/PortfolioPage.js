@@ -301,7 +301,7 @@ export default function PortfolioPage() {
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <RefreshCw size={14} />
-              {tx.updated}: {portfolioData.lastUpdated}
+              {tx.updated}: {displayPortfolio.lastUpdated}
             </div>
           </div>
         </div>
