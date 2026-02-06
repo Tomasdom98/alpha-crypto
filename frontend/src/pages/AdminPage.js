@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Check, Clock, Users, DollarSign, ChevronRight, MessageSquare, Mail, Briefcase, Bell, FileText, Gift, Zap, Plus, Edit2, Trash2, Save, X, BarChart3, Coins, PiggyBank, Wallet, TrendingUp, TrendingDown } from 'lucide-react';
+import { Check, Clock, Users, DollarSign, ChevronRight, MessageSquare, Mail, Briefcase, Bell, FileText, Gift, Zap, Plus, Edit2, Trash2, Save, X, BarChart3, Coins, PiggyBank, Wallet, TrendingUp, TrendingDown, Lock, LogOut, Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
+const ADMIN_PASSWORD = 'alphacrypto2024';
+const AUTH_KEY = 'alpha_admin_auth';
 
 // Tab configurations
 const TABS = [
@@ -21,7 +23,77 @@ const TABS = [
   { id: 'subscribers', label: 'Subscribers', icon: Bell },
 ];
 
+// Login Component
+function AdminLogin({ onLogin }) {
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (password === ADMIN_PASSWORD) {
+      localStorage.setItem(AUTH_KEY, 'true');
+      onLogin();
+    } else {
+      setError('Contraseña incorrecta');
+      setPassword('');
+    }
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="glass-card rounded-2xl p-8 w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="text-emerald-500" size={32} />
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">Admin Panel</h1>
+          <p className="text-gray-400">Ingresa la contraseña para acceder</p>
+        </div>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-400 mb-2">Contraseña</label>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(''); }}
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white pr-12 focus:border-emerald-500 focus:outline-none"
+                placeholder="••••••••••••"
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+            {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+          </div>
+          
+          <button
+            type="submit"
+            className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-4 rounded-lg transition-colors"
+          >
+            Acceder
+          </button>
+        </form>
+        
+        <div className="mt-6 text-center">
+          <Link to="/" className="text-gray-400 hover:text-emerald-400 text-sm">
+            ← Volver al inicio
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('stats');
@@ -30,7 +102,26 @@ function AdminPage() {
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({});
 
-  useEffect(() => { fetchData(); }, [activeTab]);
+  // Check authentication on mount
+  useEffect(() => {
+    const auth = localStorage.getItem(AUTH_KEY);
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  useEffect(() => { if (isAuthenticated) fetchData(); }, [activeTab, isAuthenticated]);
+
+  function handleLogout() {
+    localStorage.removeItem(AUTH_KEY);
+    setIsAuthenticated(false);
+    toast.success('Sesión cerrada');
+  }
+
+  // Show login screen if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
+  }
 
   async function fetchData() {
     setLoading(true);
