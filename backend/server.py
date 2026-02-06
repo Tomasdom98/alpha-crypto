@@ -98,8 +98,9 @@ class APICache:
 api_cache = APICache()
 
 # Cache TTL settings (in seconds)
-CACHE_TTL_CRYPTO_PRICES = 120  # 2 minutes - balances freshness vs rate limits
+CACHE_TTL_CRYPTO_PRICES = 60   # 1 minute - CoinCap has no rate limits
 CACHE_TTL_FEAR_GREED = 300     # 5 minutes - this data doesn't change often
+CACHE_TTL_COINGECKO = 600      # 10 minutes - CoinGecko has strict rate limits
 # =============================================================================
 
 # Create the main app without a prefix
