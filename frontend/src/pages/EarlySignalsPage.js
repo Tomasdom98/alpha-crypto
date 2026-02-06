@@ -4,6 +4,9 @@ import { ChevronRight, Zap, Bell, TrendingUp, TrendingDown, Clock, ExternalLink,
 import axios from 'axios';
 import { toast } from 'sonner';
 import OwlSeal from '@/components/OwlSeal';
+import AlphaiChat from '@/components/AlphaiChat';
+import PremiumModal from '@/components/PremiumModal';
+import { useLanguage } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL + '/api';
@@ -15,6 +18,28 @@ function EarlySignalsPage() {
   const [subscribing, setSubscribing] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [showEmailInput, setShowEmailInput] = useState(false);
+  const [showAlphai, setShowAlphai] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
+  const { language } = useLanguage();
+
+  const tx = {
+    backHome: language === 'es' ? 'Volver al inicio' : 'Back to Home',
+    subtitle: language === 'es' ? 'Oportunidades rápidas, noticias express y alertas de la comunidad' : 'Quick opportunities, express news, and community alerts',
+    liveUpdates: language === 'es' ? 'En vivo' : 'Live Updates',
+    urgentSignals: language === 'es' ? 'Señales Urgentes' : 'Urgent Signals',
+    allSignals: language === 'es' ? 'Todas las Señales' : 'All Signals',
+    action: language === 'es' ? 'Acción' : 'Action',
+    learnMore: language === 'es' ? 'Ver más' : 'Learn more',
+    loading: language === 'es' ? 'Cargando señales...' : 'Loading signals...',
+    subscribeTitle: language === 'es' ? '¿Quieres recibir alertas?' : 'Want to receive alerts?',
+    subscribeDesc: language === 'es' ? 'Suscríbete para recibir señales directamente en tu email' : 'Subscribe to receive signals directly to your email',
+    subscribeBtn: language === 'es' ? 'Suscribirme' : 'Subscribe',
+    subscribing: language === 'es' ? 'Suscribiendo...' : 'Subscribing...',
+    subscribed: language === 'es' ? '¡Suscrito!' : 'Subscribed!',
+    enterEmail: language === 'es' ? 'Tu email' : 'Your email',
+    cancel: language === 'es' ? 'Cancelar' : 'Cancel',
+    noSignals: language === 'es' ? 'No hay señales disponibles' : 'No signals available',
+  };
 
   useEffect(function() {
     async function fetchSignals() {
