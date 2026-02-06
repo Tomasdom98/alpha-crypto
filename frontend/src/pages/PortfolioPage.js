@@ -473,11 +473,11 @@ export default function PortfolioPage() {
                 <div className="space-y-4">
                   <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
                     <h3 className="font-bold text-emerald-400 mb-1">{tx.currentStrategy}</h3>
-                    <p className="text-gray-300 text-sm">{tx.currentStrategyText}</p>
+                    <p className="text-gray-300 text-sm">{strategyNotes.current || tx.currentStrategyText}</p>
                   </div>
                   <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
                     <h3 className="font-bold text-amber-400 mb-1">{tx.nextMoves}</h3>
-                    <p className="text-gray-300 text-sm">{tx.nextMovesText}</p>
+                    <p className="text-gray-300 text-sm">{strategyNotes.next || tx.nextMovesText}</p>
                   </div>
                 </div>
               </div>
