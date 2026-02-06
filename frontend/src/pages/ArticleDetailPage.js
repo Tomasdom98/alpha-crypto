@@ -151,9 +151,25 @@ function ArticleDetailPage() {
     }
   }
 
+  const tx = {
+    back: language === 'es' ? 'Volver a artículos' : 'Back to articles',
+    share: language === 'es' ? 'Compartir' : 'Share',
+    reading: language === 'es' ? 'lectura' : 'read',
+    topics: language === 'es' ? 'Temas:' : 'Topics:',
+    conclusion: language === 'es' ? 'Conclusión' : 'Conclusion',
+    conclusionText: language === 'es' 
+      ? 'Este análisis nos muestra cómo las tendencias actuales del mercado crypto están redefiniendo el ecosistema financiero global. Los movimientos que observamos hoy tendrán un impacto significativo en la adopción institucional y retail en los próximos meses. Mantente informado y adapta tu estrategia según evolucione el mercado.'
+      : 'This analysis shows us how current crypto market trends are redefining the global financial ecosystem. The movements we observe today will have a significant impact on institutional and retail adoption in the coming months. Stay informed and adapt your strategy as the market evolves.',
+    likedContent: language === 'es' ? '¿Te gustó este contenido?' : 'Did you like this content?',
+    moreAnalysis: language === 'es' ? 'Accede a más análisis exclusivos y contenido premium' : 'Access more exclusive analysis and premium content',
+    moreArticles: language === 'es' ? 'Ver más artículos' : 'View more articles',
+  };
+
   return (
     <div className="min-h-screen py-8 relative">
-      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
+      <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link 
@@ -161,7 +177,7 @@ function ArticleDetailPage() {
           className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-500 mb-8 transition-colors"
         >
           <ArrowLeft size={20} />
-          <span>Volver a artículos</span>
+          <span>{tx.back}</span>
         </Link>
 
         <article className="glass-card rounded-2xl overflow-hidden">
@@ -200,7 +216,7 @@ function ArticleDetailPage() {
               <div className="flex items-center gap-2 text-gray-400">
                 <Clock size={16} />
                 <span className="text-sm">
-                  {new Date(article.published_at).toLocaleDateString('es-ES', {
+                  {new Date(article.published_at).toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -209,14 +225,14 @@ function ArticleDetailPage() {
               </div>
               <div className="flex items-center gap-2 text-gray-400">
                 <BookOpen size={16} />
-                <span className="text-sm">{article.read_time || '5 min lectura'}</span>
+                <span className="text-sm">{article.read_time || '5 min ' + tx.reading}</span>
               </div>
               <button 
                 onClick={handleShare}
                 className="flex items-center gap-2 text-gray-400 hover:text-emerald-500 transition-colors ml-auto"
               >
                 <Share2 size={16} />
-                <span className="text-sm">Compartir</span>
+                <span className="text-sm">{tx.share}</span>
               </button>
             </div>
 
@@ -229,9 +245,20 @@ function ArticleDetailPage() {
               dangerouslySetInnerHTML={{ __html: formatContent(article.content) }}
             />
 
+            {/* Conclusion Section */}
+            <div className="mt-10 p-6 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl border border-emerald-500/20">
+              <h3 className="text-xl font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-emerald-500 rounded-full"></span>
+                {tx.conclusion}
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                {tx.conclusionText}
+              </p>
+            </div>
+
             <div className="mt-12 pt-8 border-t border-gray-800">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm text-gray-500 mr-2">Temas:</span>
+                <span className="text-sm text-gray-500 mr-2">{tx.topics}</span>
                 <span className="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-sm border border-emerald-500/30">
                   {article.category}
                 </span>
@@ -242,15 +269,15 @@ function ArticleDetailPage() {
         </article>
 
         <div className="mt-8 p-6 glass-card rounded-xl text-center">
-          <h3 className="text-lg font-bold text-white mb-2">¿Te gustó este contenido?</h3>
+          <h3 className="text-lg font-bold text-white mb-2">{tx.likedContent}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Accede a más análisis exclusivos y contenido premium
+            {tx.moreAnalysis}
           </p>
           <Link 
             to="/articles"
             className="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition-colors"
           >
-            Ver más artículos
+            {tx.moreArticles}
           </Link>
         </div>
       </div>
