@@ -10,6 +10,7 @@ import OwlSeal from '@/components/OwlSeal';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import AlphaiChat from '@/components/AlphaiChat';
 import PremiumModal from '@/components/PremiumModal';
+import FloatingIcons from '@/components/FloatingIcons';
 import { useLanguage, articleTranslations, airdropTranslations } from '@/context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
