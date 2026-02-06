@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Send, CheckCircle, Loader2, Twitter, Mail, ExternalLink } from 'lucide-react';
+import { Send, CheckCircle, Loader2, Mail, ExternalLink } from 'lucide-react';
 import axios from 'axios';
 import { useLanguage } from '@/context/LanguageContext';
 
