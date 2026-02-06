@@ -41,49 +41,50 @@ function AdminLogin({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="glass-card rounded-2xl p-8 w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Lock className="text-emerald-500" size={32} />
+    <div className="min-h-screen flex items-center justify-center px-4 hero-gradient">
+      <div className="absolute inset-0 grid-background opacity-30" />
+      <div className="relative glass-card rounded-2xl p-10 w-full max-w-md border border-white/10">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+            <Lock className="text-emerald-400" size={36} />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Admin Panel</h1>
+          <h1 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Admin Panel</h1>
           <p className="text-gray-400">Ingresa la contraseña para acceder</p>
         </div>
         
         <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-400 mb-2">Contraseña</label>
+          <div className="mb-8">
+            <label className="block text-sm font-medium text-gray-400 mb-3">Contraseña</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setError(''); }}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white pr-12 focus:border-emerald-500 focus:outline-none"
+                className="w-full input-glass pr-12"
                 placeholder="••••••••••••"
                 autoFocus
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+            {error && <p className="text-red-400 text-sm mt-3">{error}</p>}
           </div>
           
           <button
             type="submit"
-            className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 px-4 rounded-lg transition-colors"
+            className="w-full btn-primary py-4 text-lg"
           >
             Acceder
           </button>
         </form>
         
-        <div className="mt-6 text-center">
-          <Link to="/" className="text-gray-400 hover:text-emerald-400 text-sm">
+        <div className="mt-8 text-center">
+          <Link to="/" className="text-gray-400 hover:text-emerald-400 text-sm transition-colors">
             ← Volver al inicio
           </Link>
         </div>
