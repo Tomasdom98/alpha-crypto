@@ -69,9 +69,9 @@ function ArticleDetailPage() {
         if (rows[j].includes('---')) continue;
         var cells = rows[j].split('|').filter(function(c) { return c.trim(); });
         var bgClass = j % 2 === 0 ? 'bg-gray-800/20' : '';
-        html += '<tr class="' + bgClass + ' border-b border-gray-800/50">';
+        html += '<tr class="' + bgClass + ' border-b border-gray-800/50 hover:bg-gray-700/30 transition-colors">';
         for (var k = 0; k < cells.length; k++) {
-          html += '<td class="py-2.5 px-4 text-gray-300 text-sm">' + cells[k].trim() + '</td>';
+          html += '<td class="py-2.5 px-3 md:px-4 text-gray-300">' + cells[k].trim() + '</td>';
         }
         html += '</tr>';
       }
