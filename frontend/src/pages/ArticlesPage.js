@@ -72,40 +72,41 @@ export default function ArticlesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-emerald-500 text-xl font-mono">{t('common.loading')}</div>
+      <div className="min-h-screen flex items-center justify-center hero-gradient">
+        <div className="text-emerald-500 text-xl font-mono animate-pulse">{t('common.loading')}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen py-12 relative">
+    <div className="min-h-screen py-12 relative hero-gradient">
+      <div className="absolute inset-0 grid-background opacity-30" />
       <NewsletterPopup delay={5000} />
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
       <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
       <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+        <div className="mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8 backdrop-blur-xl">
             <BookOpen className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm text-emerald-400 font-medium">{t('research.badge')}</span>
+            <span className="text-sm text-emerald-400 font-semibold">{t('research.badge')}</span>
           </div>
           <h1
-            className="text-4xl md:text-5xl font-black text-white mb-4"
+            className="text-4xl md:text-6xl font-black text-white mb-5"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             data-testid="articles-page-heading"
           >
             {t('research.title')}
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             {t('research.subtitle')}
           </p>
         </div>
 
         {/* Search and Filters */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-10 space-y-5">
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
             <input
@@ -114,7 +115,7 @@ export default function ArticlesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               data-testid="articles-search-input"
-              className="w-full pl-12 pr-10 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all"
+              className="w-full pl-12 pr-10 py-4 input-glass"
             />
             {searchQuery && (
               <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
@@ -129,10 +130,10 @@ export default function ArticlesPage() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 data-testid={`category-filter-${category}`}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-emerald-500 text-white'
-                    : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                    ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-white shadow-lg shadow-emerald-500/25'
+                    : 'glass-card text-gray-400 hover:text-white hover:border-white/20'
                 }`}
               >
                 {category === 'all' ? t('common.all') : category}
