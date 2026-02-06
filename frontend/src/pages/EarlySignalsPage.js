@@ -217,13 +217,13 @@ function EarlySignalsPage() {
                         <p className="text-gray-400 text-sm mb-2">{signal.description}</p>
                         {signal.action && (
                           <div className="p-2 bg-gray-800/30 rounded-lg mb-2">
-                            <span className="text-xs text-gray-500">Action: </span>
+                            <span className="text-xs text-gray-500">{tx.action}: </span>
                             <span className="text-emerald-400 text-sm font-medium">{signal.action}</span>
                           </div>
                         )}
                         <div className="flex items-center gap-4">
                           <span className="text-xs text-gray-500 flex items-center gap-1"><Clock size={12} /> {getTimeAgo(signal.timestamp)}</span>
-                          {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1">Learn more <ExternalLink size={12} /></a>}
+                          {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1">{tx.learnMore} <ExternalLink size={12} /></a>}
                         </div>
                       </div>
                     </div>
