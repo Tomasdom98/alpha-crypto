@@ -1368,24 +1368,25 @@ def generate_mock_chart_data(coin_id: str, days: int):
 
 @api_router.get("/articles", response_model=List[Article])
 async def get_articles_route(category: Optional[str] = None, search: Optional[str] = None):
-    """Get articles - tries Sanity CMS first, falls back to mock data if not enough content"""
+    """Get articles from MongoDB, falls back to mock data if empty"""
     try:
-        # Try Sanity CMS first
-        sanity_articles = await sanity_get_articles(category)
+        # Build query
+        query = {}
+        if category and category != "all":
+            query["category"] = {"$regex": f"^{category}$", "$options": "i"}
         
-        # Use Sanity if it has at least 3 articles, otherwise use mock data
-        if sanity_articles and len(sanity_articles) >= 3:
-            logger.info(f"Using {len(sanity_articles)} articles from Sanity CMS")
-            articles = sanity_articles
+        # Try MongoDB first
+        db_articles = await db.articles.find(query, {"_id": 0}).sort("published_at", -1).to_list(100)
+        
+        if db_articles and len(db_articles) >= 1:
+            articles = db_articles
         else:
-            logger.info(f"Sanity has only {len(sanity_articles) if sanity_articles else 0} articles, using mock data")
+            # Fallback to mock data
             articles = get_mock_articles()
-            
-            # Apply category filter to mock data
             if category and category != "all":
                 articles = [a for a in articles if a.get('category', '').lower() == category.lower()]
         
-        # Apply search filter if provided
+        # Apply search filter
         if search:
             search_lower = search.lower()
             articles = [a for a in articles if search_lower in a.get('title', '').lower() or search_lower in a.get('excerpt', '').lower()]
@@ -1397,10 +1398,10 @@ async def get_articles_route(category: Optional[str] = None, search: Optional[st
 
 @api_router.get("/articles/{article_id}", response_model=Article)
 async def get_article(article_id: str):
-    """Get single article by ID - tries Sanity CMS first, falls back to mock data"""
+    """Get single article by ID from MongoDB"""
     try:
-        # Try Sanity CMS first
-        article = await sanity_get_article_by_id(article_id)
+        # Try MongoDB first
+        article = await db.articles.find_one({"id": article_id}, {"_id": 0})
         if article:
             return article
         
