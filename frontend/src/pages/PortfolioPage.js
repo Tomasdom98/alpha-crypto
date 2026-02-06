@@ -55,9 +55,87 @@ export default function PortfolioPage() {
   const [activeTab, setActiveTab] = useState('portfolio');
   const [yieldProtocols, setYieldProtocols] = useState([]);
   const [stakingTokens, setStakingTokens] = useState([]);
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [holdings, setHoldings] = useState([]);
+  const [recentTrades, setRecentTrades] = useState([]);
+  const [strategyNotes, setStrategyNotes] = useState({ current: '', next: '' });
   const [loadingYields, setLoadingYields] = useState(true);
   const [loadingStaking, setLoadingStaking] = useState(true);
+  const [loadingPortfolio, setLoadingPortfolio] = useState(true);
   const { language } = useLanguage();
+
+  // Default portfolio data as fallback
+  const DEFAULT_PORTFOLIO = {
+    totalValue: 50000,
+    monthlyReturn: 12,
+    monthlyReturnValue: 5500,
+    lastUpdated: new Date().toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  };
+
+  const DEFAULT_HOLDINGS = [
+    { name: 'Bitcoin', symbol: 'BTC', allocation: 35, value: 17500, change24h: -3.86, color: '#F7931A' },
+    { name: 'Ethereum', symbol: 'ETH', allocation: 25, value: 12500, change24h: -5.27, color: '#627EEA' },
+    { name: 'Solana', symbol: 'SOL', allocation: 20, value: 10000, change24h: -7.27, color: '#14F195' },
+    { name: 'USDC', symbol: 'USDC', allocation: 15, value: 7500, change24h: 0.01, color: '#2775CA' },
+    { name: 'Altcoins', symbol: 'ALTS', allocation: 5, value: 2500, change24h: -2.15, color: '#8B5CF6' }
+  ];
+
+  const DEFAULT_TRADES = [
+    { type: 'buy', asset: 'BTC', amount: '$2,500', date: 'Feb 1', reason: 'DCA' },
+    { type: 'sell', asset: 'DOGE', amount: '$500', date: 'Jan 28', reason: 'Take profit' },
+    { type: 'buy', asset: 'ETH', amount: '$1,000', date: 'Jan 25', reason: 'Dip buy' },
+    { type: 'buy', asset: 'SOL', amount: '$750', date: 'Jan 20', reason: 'Rebalance' }
+  ];
+
+  // Fetch portfolio data from backend
+  useEffect(() => {
+    async function fetchPortfolio() {
+      try {
+        const response = await axios.get(API + '/portfolio');
+        const data = response.data;
+        
+        // Set portfolio settings
+        if (data.settings) {
+          const totalValue = data.settings.total_value || DEFAULT_PORTFOLIO.totalValue;
+          const monthlyReturn = data.settings.monthly_return || DEFAULT_PORTFOLIO.monthlyReturn;
+          setPortfolioData({
+            totalValue: totalValue,
+            monthlyReturn: monthlyReturn,
+            monthlyReturnValue: Math.round(totalValue * (monthlyReturn / 100)),
+            lastUpdated: new Date().toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          });
+          setStrategyNotes({
+            current: data.settings.strategy_current || '',
+            next: data.settings.strategy_next || ''
+          });
+        } else {
+          setPortfolioData(DEFAULT_PORTFOLIO);
+        }
+        
+        // Set holdings
+        if (data.holdings && data.holdings.length > 0) {
+          setHoldings(data.holdings);
+        } else {
+          setHoldings(DEFAULT_HOLDINGS);
+        }
+        
+        // Set trades
+        if (data.trades && data.trades.length > 0) {
+          setRecentTrades(data.trades);
+        } else {
+          setRecentTrades(DEFAULT_TRADES);
+        }
+      } catch (error) {
+        console.error('Error fetching portfolio:', error);
+        setPortfolioData(DEFAULT_PORTFOLIO);
+        setHoldings(DEFAULT_HOLDINGS);
+        setRecentTrades(DEFAULT_TRADES);
+      } finally {
+        setLoadingPortfolio(false);
+      }
+    }
+    fetchPortfolio();
+  }, [language]);
 
   // Fetch yields from backend
   useEffect(() => {
