@@ -455,30 +455,31 @@ export default function MarketIndicesPage() {
       <div
         key={metric.id}
         data-testid={`metric-${metric.id}`}
-        className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-xl border border-gray-700/50 p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-500/30"
+        className="glass-card rounded-2xl p-6 group relative overflow-hidden"
       >
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="relative z-10">
           {/* Header */}
-          <div className="flex items-start justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-gray-800/50 border border-gray-700/50">
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 group-hover:border-emerald-500/40 transition-colors">
                 <Icon className="w-4 h-4 text-emerald-400" strokeWidth={2.5} />
               </div>
               <h3 className="text-sm font-bold text-white">{metric.name}</h3>
             </div>
-            <span className={`px-2 py-1 rounded text-xs font-bold ${getSignalColor(metric.signal)}`}>
+            <span className={`px-3 py-1.5 rounded-lg text-xs font-bold ${getSignalColor(metric.signal)}`}>
               {metric.signal}
             </span>
           </div>
 
           {/* Value and Sparkline Row */}
-          <div className="flex items-end justify-between mb-3">
+          <div className="flex items-end justify-between mb-4">
             <div>
               <div className="text-2xl font-bold text-white" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                 {metric.value}
               </div>
               {metric.label && (
-                <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold border mt-1 ${getStatusColor(metric.status)}`}>
+                <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold border mt-2 ${getStatusColor(metric.status)}`}>
                   {metric.label}
                 </span>
               )}
@@ -490,7 +491,7 @@ export default function MarketIndicesPage() {
           </div>
 
           {/* Explanation */}
-          <p className="text-xs text-gray-400 leading-relaxed border-t border-gray-700/50 pt-3">
+          <p className="text-xs text-gray-500 leading-relaxed border-t border-white/5 pt-4">
             {metric.explanation}
           </p>
         </div>
