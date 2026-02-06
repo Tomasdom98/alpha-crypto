@@ -81,7 +81,9 @@ export default function ArticlesPage() {
   return (
     <div className="min-h-screen py-12 relative">
       <NewsletterPopup delay={5000} />
-      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" />
+      <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
+      <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
+      <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
