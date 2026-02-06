@@ -127,31 +127,32 @@ function EarlySignalsPage() {
   }
 
   return (
-    <div className="min-h-screen py-12 relative" data-testid="early-signals-page">
+    <div className="min-h-screen py-12 relative hero-gradient" data-testid="early-signals-page">
+      <div className="absolute inset-0 grid-background opacity-30" />
       <OwlSeal position="bottom-right" size="lg" opacity={0.6} className="fixed" onClick={() => setShowAlphai(true)} />
       <AlphaiChat isOpen={showAlphai} onClose={() => setShowAlphai(false)} onUpgrade={() => { setShowAlphai(false); setShowPremium(true); }} />
       <PremiumModal isOpen={showPremium} onClose={() => setShowPremium(false)} />
       
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-colors">
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-4 transition-all duration-300">
             <ChevronRight size={16} className="rotate-180" /> {tx.backHome}
           </Link>
           
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="signals-heading">
+              <div className="flex items-center gap-3 mb-3">
+                <h1 className="text-4xl md:text-5xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }} data-testid="signals-heading">
                   Early Signals
                 </h1>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-400 text-sm font-bold">
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/20 to-purple-500/20 border border-violet-500/30 text-violet-400 text-sm font-bold">
                   <Crown size={14} />
                   Premium
                 </span>
               </div>
-              <p className="text-gray-400">{tx.subtitle}</p>
+              <p className="text-gray-500 text-lg">{tx.subtitle}</p>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+            <div className="flex items-center gap-2 px-5 py-2.5 glass-card rounded-full border-emerald-500/30">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               <span className="text-emerald-400 text-sm font-bold">{tx.liveUpdates}</span>
             </div>
@@ -159,33 +160,33 @@ function EarlySignalsPage() {
         </div>
 
         {urgentSignals.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-red-400 mb-5 flex items-center gap-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               <Flame className="animate-pulse" /> {tx.urgentSignals}
             </h2>
             <div className="space-y-4">
               {urgentSignals.map(function(signal) {
                 return (
-                  <div key={signal.id} data-testid={'signal-' + signal.id} className={'glass-card rounded-xl p-5 border-2 border-red-500/50 bg-red-500/5 ' + (signal.premium ? 'premium-glow' : '')}>
+                  <div key={signal.id} data-testid={'signal-' + signal.id} className={'glass-card rounded-2xl p-6 border-2 border-red-500/40 bg-red-500/5 ' + (signal.premium ? 'premium-glow' : '')}>
                     <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-start gap-3 flex-1">
-                        <div className="p-2 rounded-lg bg-red-500/20">{getTypeIcon(signal.type)}</div>
+                      <div className="flex items-start gap-4 flex-1">
+                        <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/30">{getTypeIcon(signal.type)}</div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <h3 className="font-bold text-white">{signal.title}</h3>
-                            {signal.premium && <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400">PREMIUM</span>}
+                          <div className="flex items-center gap-2 mb-2 flex-wrap">
+                            <h3 className="font-bold text-white text-lg">{signal.title}</h3>
+                            {signal.premium && <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PREMIUM</span>}
                             {getPriorityBadge(signal.priority)}
                           </div>
-                          <p className="text-gray-300 text-sm mb-2">{signal.description}</p>
+                          <p className="text-gray-300 text-sm mb-3 leading-relaxed">{signal.description}</p>
                           {signal.action && (
-                            <div className="p-2 bg-gray-800/50 rounded-lg mb-2">
+                            <div className="p-3 bg-black/20 rounded-xl mb-3 border border-white/5">
                               <span className="text-xs text-gray-500">{tx.action}: </span>
                               <span className="text-emerald-400 text-sm font-medium">{signal.action}</span>
                             </div>
                           )}
                           <div className="flex items-center gap-4">
                             <span className="text-xs text-gray-500 flex items-center gap-1"><Clock size={12} /> {getTimeAgo(signal.timestamp)}</span>
-                            {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1">{tx.learnMore} <ExternalLink size={12} /></a>}
+                            {signal.link && <a href={signal.link} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors">{tx.learnMore} <ExternalLink size={12} /></a>}
                           </div>
                         </div>
                       </div>
