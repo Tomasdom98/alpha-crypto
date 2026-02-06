@@ -20,10 +20,11 @@ Build a full-stack crypto intelligence platform called "Alpha Crypto" with:
 
 ### Content & Data
 - ✅ Alpha Research articles with markdown rendering
-- ✅ Verified airdrop listings (MOCKED)
+- ✅ Verified airdrop listings (MongoDB + mock fallback)
 - ✅ Live market data (CoinGecko, DeFiLlama, Alternative.me)
-- ✅ Macro Calendar with economic events (MOCKED)
+- ✅ Macro Calendar with economic events (MOCKED in frontend)
 - ✅ Portfolio tracking with Yields and Staking sections
+- ✅ Admin Panel CRUD for Articles, Airdrops, Signals
 
 ### UI/UX
 - ✅ Dark professional theme
@@ -39,8 +40,24 @@ Build a full-stack crypto intelligence platform called "Alpha Crypto" with:
 - ✅ Macro Calendar page
 - ✅ Search and filtering on articles/airdrops
 - ✅ Newsletter subscription popup
+- ✅ Admin Dashboard with stats and CRUD
 
 ## What's Been Implemented
+
+### December 6, 2025
+- **Sanity.io Removal & MongoDB Migration**:
+  - Deleted `/app/sanity-studio/` directory completely
+  - Deleted `/app/backend/sanity_client.py`
+  - Removed all Sanity imports from `server.py`
+  - Updated Articles, Airdrops, Signals endpoints to use MongoDB
+  - Fallback to mock data when MongoDB collections are empty
+
+- **Admin Panel Enhancement**:
+  - Added Stats dashboard showing counts for all entities
+  - Full CRUD for Articles (create, edit, delete)
+  - Full CRUD for Airdrops (create, edit, delete)
+  - Full CRUD for Signals (create, edit, delete)
+  - View Subscribers, Consulting requests, Feedback (already existed)
 
 ### December 5, 2025
 - **Language Translation System**: Complete site-wide ES/EN toggle
