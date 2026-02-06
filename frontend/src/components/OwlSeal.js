@@ -32,7 +32,7 @@ export default function OwlSeal({
         title={onClick ? "Abrir ALPHA-I" : undefined}
       >
         <div 
-          className={`relative p-3 rounded-3xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border border-emerald-500/30 shadow-2xl animate-owl-float transition-all duration-300 ${onClick ? 'hover:scale-110 hover:border-emerald-400/60 hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]' : ''}`}
+          className={`relative p-3 rounded-3xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-md border border-emerald-500/30 shadow-2xl transition-all duration-300 ${onClick ? 'hover:scale-110 hover:border-emerald-400/60 hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]' : 'animate-owl-float'}`}
           style={{
             boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(16,185,129,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
           }}
@@ -50,8 +50,8 @@ export default function OwlSeal({
           
           <img 
             src={OWL_URL}
-            alt="Alpha Crypto - Click para abrir ALPHA-I"
-            className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)] animate-owl-breathe"
+            alt="Alpha Crypto"
+            className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.4)]"
             style={{ filter: 'brightness(1.3) contrast(1.1)' }}
           />
           
@@ -61,7 +61,7 @@ export default function OwlSeal({
           
           {/* Click hint */}
           {onClick && (
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-emerald-500/90 text-white text-xs font-bold rounded-full opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500/90 text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg">
               ALPHA-I
             </div>
           )}
